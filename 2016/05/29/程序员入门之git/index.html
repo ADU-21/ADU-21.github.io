@@ -1,0 +1,80 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/styles.css"><title>程序员入门之git | 杜屹东的博客</title></head><body><div class="container"><div class="columns page-header"><h1>杜屹东的博客</h1></div><div class="columns"><div class="navigation"><nav class="menus-main"><a href="/" class="favicon"><img alt="杜屹东的博客" src="/favicon.png"></a><a href="/about">关于我</a><a href="/list">日志列表</a><a href="/booklist">读书</a><a href="/movie">电影</a><a href="/links">链接</a><a href="/resume">简历</a></nav><nav class="right menus-right"><a target="_blank" href="https://github.com/ADU-21/blog">Fork on Github</a></nav></div></div><div class="columns"><div class="block-body column three-fourths"><div class="article-widget"><a href="http://www.duyidong.com">小广告旗帜~~</a></div><article><header><small class="right"><a target="_blank" href="https://github.com/ADU-21/blog_posts%2F%E7%A8%8B%E5%BA%8F%E5%91%98%E5%85%A5%E9%97%A8%E4%B9%8Bgit.md">查看源代码</a></small><h1>程序员入门之git</h1></header><div class="article-meta clearfix"><time class="left">2016 5 月 29 日</time><ul class="tags left"></ul><ul class="tags right"><li><a href="/tags/工具/">工具</a></li></ul></div><div class="markdown-body"><h1 id="代码版本管理工具"><a href="#代码版本管理工具" class="headerlink" title="代码版本管理工具"></a>代码版本管理工具</h1><p>在生产环境下的开发过程中，一个工程的代码通常是有多个程序员协同完成，这就涉及到代码在不通终端的同步问题，基于此需求，我们产生了代码版本工具，目前比较主流的两种为git和SVN<br><a id="more"></a></p>
+<h2 id="git-与-SVN"><a href="#git-与-SVN" class="headerlink" title="git 与 SVN"></a>git 与 SVN</h2><p>关于git和SVN的区别，网上有很多，根据笔者使用的经验，感觉git还是要比SVN先进一些，首先git是一个分布式版本管理系统，SVN更像是一个储存代码的仓库，管理员可以给不同的代码提交者提供不同的权限，仅此而已。git于SVN相比明显的优势在于不依赖网络，对分支管理有更好的支持，命令行简介好用（SVN也有命令行工具，但很多公司还是采用图形化界面）</p>
+<h2 id="git介绍"><a href="#git介绍" class="headerlink" title="git介绍"></a>git介绍</h2><p>git是Linux的创始人Linus于2005年花了大概两周时间用C语言编写的分布式版本控制系统。</p>
+<h2 id="git使用"><a href="#git使用" class="headerlink" title="git使用"></a>git使用</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>在控制台输入git 如果弹出提示信息，则跳过此步骤</p>
+<h4 id="mac"><a href="#mac" class="headerlink" title="mac"></a>mac</h4><p>可以使用homebrew安装</p>
+<pre><code>brew install git
+</code></pre><p>homebrew作为程序员mac的标配，如果你还没有安装，请键入：</p>
+<pre><code>/usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;
+</code></pre><p>也可以安装xcode，自带git</p>
+<h4 id="windows"><a href="#windows" class="headerlink" title="windows"></a>windows</h4><p>到官网下载安装:<br><a href="http://msysgit.github.com/" target="_blank" rel="external">http://msysgit.github.com/</a></p>
+<h4 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h4><pre><code>yum install git-core
+</code></pre><p>或者：</p>
+<pre><code>apt-get install git
+</code></pre><h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>在命令行输入：</p>
+<pre><code>git config --global user.name &quot;Your Name&quot;
+git config --global user.email &quot;email@example.com&quot;
+</code></pre><p>改配置用于识别代码提交者身份</p>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><h4 id="代码提交"><a href="#代码提交" class="headerlink" title="代码提交"></a>代码提交</h4><pre><code>git init   #创建代码版本库
+git add .  #将当前目录下所有文件加入版本库
+git commit -m &quot;message&quot;  #提交代码
+</code></pre><pre><code>git status #查看工作区状态
+git diff #查看代码更改
+git log  #查看提交日志
+</code></pre><h4 id="版本回退"><a href="#版本回退" class="headerlink" title="版本回退"></a>版本回退</h4><pre><code>git reflog #查看所有日志，包含head信息
+git reset --hard HEAD^ 会退到上一版本
+git reset --hard &lt;commit_id&gt; 会退到指定版本
+</code></pre><p>撤销工作区修改：    </p>
+<pre><code>git checkout -- file
+</code></pre><h4 id="远程仓库"><a href="#远程仓库" class="headerlink" title="远程仓库"></a>远程仓库</h4><p>这里以github为例<br>从远程仓库克隆代码:</p>
+<pre><code>git clone https://github.com/username/projectname.git
+</code></pre><p>如果想讲本地已有的代码推送到远程，则需要跟远程费分支建立连接<br>与远程分支建立联系，需要remote origin</p>
+<pre><code>git remote add origin https://github.com/username/projectname.git #添加远程分支
+git push origin master #推送本地origin分支到master分支
+</code></pre><p>如果提示有冲突，则需要先pull 下来，修改之后再push</p>
+<h4 id="分支管理"><a href="#分支管理" class="headerlink" title="分支管理"></a>分支管理</h4><p>git中，一个分支为一个工作环境，分支与分支之间可以执行创建和合并操作。<br>分支的一般使用：</p>
+<pre><code>git branch # 查看分支
+git branch &lt;name&gt;  # 创建分支
+git checkout &lt;name&gt; # 切换分支
+git checkout -b &lt;name&gt; # 创建并切换分支
+git merge &lt;name&gt; #合并某分支到当前分支
+git branch -d &lt;name&gt; # 删除分支 
+git branch -D &lt;name&gt; # 强行删除分支
+</code></pre><p>当更改同时发生在两个分支上，这时候我们有需要对两个分支进行合并，那解决冲突是很容易发生的状况这时候我们需要使用git status 查看状态，执行合并之后在当前分支解决合并冲突问题，在合并就可以了<br>可以使用一下命令查看分支合并情况：</p>
+<pre><code>git log --graph
+</code></pre><h4 id="忽略别名"><a href="#忽略别名" class="headerlink" title="忽略别名"></a>忽略别名</h4><p>在git中可以通过编辑.gitignore 文件达到控制忽略文件类型的目的，当文件自动不被add 到仓库里。<br>忽略的语法规则：<br>(#)表示注释<br>(*)  表示任意多个字符;<br>(?) 代表一个字符;<br> ([abc]) 代表可选字符范围<br>如果名称最前面是路径分隔符 (/) ，表示忽略的该文件在此目录下。<br>如果名称的最后面是 (/) ，表示忽略整个目录，但同名文件不忽略。<br>通过在名称前面加 (!) ，代表不忽略。<br>例子如下：</p>
+<pre><code># 这行是注释
+*.a   # 忽略所有 .a 伟扩展名的文件
+!lib.a   # 但是 lib.a 不忽略，即时之前设置了    忽略所有的 .a
+/TODO   # 只忽略此目录下 TODO 文件，子目录的 TODO 不忽略 
+build/    # 忽略所有的 build/ 目录下文件
+doc/*.txt    # 忽略如 doc/notes.txt, 但是不忽略如 doc/server/arch.txt
+</code></pre><p>关于不同编程语言，通常会有统一的忽略规则，大家可以在这里直接找到配置模板：<br><a href="https://github.com/github/gitignore" target="_blank" rel="external">https://github.com/github/gitignore</a></p>
+<h4 id="快捷命令配置"><a href="#快捷命令配置" class="headerlink" title="快捷命令配置"></a>快捷命令配置</h4><p>在git里可以使用</p>
+<pre><code>git config --global alias.&lt;shortname&gt; &lt;command_name&gt;
+</code></pre><p>的方式指定快捷命令，<br>以下为一些常用的快捷命令设置</p>
+<pre><code>git config --global alias.st status
+git config --global alias.co checkout
+git config --global alias.ci commit
+git config --global alias.br branch
+git config --global alias.unstage &#39;reset HEAD&#39;
+git config --global alias.last &#39;log -1&#39;
+git config --global alias.lg &quot;log --color --graph --pretty=format:&#39;%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset&#39; --abbrev-commit&quot;
+</code></pre><p>ok ,that’s all</p>
+</div></article></div><div class="block-sidebar column one-fourth"><div class="widget text-content"><p>杜屹东 生于 1993.12.16, 英文 ID Luke Du</p>
+<ul>
+<li>现就职于<a href="https://www.thoughtworks.com/">ThoughtWorks</a></li>
+<li>毕业于 <a href="http://www.xhu.edu.cn/">西华大学</a> 计算机科学与技术</li>
+<li>喜欢<a href="http://baike.baidu.com/view/39292.htm">史铁生</a>, <a href="https://movie.douban.com/celebrity/1012521/">David Fincher</a> 和 <a href="http://baike.baidu.com/view/2556.htm">陈奕迅</a></li>
+<li>在剧组跑过龙套，做过场务，制片，副导演，剪辑后期，曾参与成龙大哥电影<a href="https://movie.douban.com/subject/24529353/">《绝地逃亡》</a>制作</li>
+<li>曾骑行成都-拉萨，成都-北京，海南环岛</li>
+</ul>
+<p>目前专注于：</p>
+<ul>
+<li>AWS - 认证考试</li>
+<li>Cloud - 云计算</li>
+<li>DevOps - 文化组织变革</li>
+<li>CI/CD - 持续集成与持续交付</li>
+<li>Agile - 敏捷文化</li>
+</ul>
+</div><div class="widget tags"><ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS/">AWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Agile/">Agile</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DataBase/">DataBase</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DevOps/">DevOps</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP/">HTTP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Study/">Study</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TDD/">TDD</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ThoughtWorks/">ThoughtWorks</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/代码/">代码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大事记/">大事记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/学习/">学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小结/">小结</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小计/">小计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/爬虫/">爬虫</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/翻译/">翻译</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/部署与发布/">部署与发布</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面试/">面试</a></li></ul></div><div class="widget archives"><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">五月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">5</span></li></ul></div><div class="widget text-content"><p>该博客使用基于 &nbsp;<a href="http://hexo.io">Hexo</a>&nbsp; 的 &nbsp;<a href="https://github.com/jysperm/hexo-theme-simpleblock">simpleblock</a>&nbsp; 主题。博客内容使用 &nbsp;<a href="https://aws.amazon.com/s3/">Amazon S3</a>&nbsp; 发布。最后生成于 2017-02-20.</p></div></div></div></div></body></html>

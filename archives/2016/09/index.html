@@ -1,0 +1,113 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/styles.css"><title>归档：2016 年 9 月 | 杜屹东的博客</title></head><body><div class="container"><div class="columns page-header"><h1>杜屹东的博客</h1></div><div class="columns"><div class="navigation"><nav class="menus-main"><a href="/" class="favicon"><img alt="杜屹东的博客" src="/favicon.png"></a><a href="/about">关于我</a><a href="/list">日志列表</a><a href="/booklist">读书</a><a href="/movie">电影</a><a href="/links">链接</a><a href="/resume">简历</a></nav><nav class="right menus-right"><a target="_blank" href="https://github.com/ADU-21/blog">Fork on Github</a></nav></div></div><div class="columns"><div class="block-body column three-fourths"><div class="article-widget"><a href="http://www.duyidong.com">小广告旗帜~~</a></div><div class="article-widget"><strong>归档 2016 年 9 月</strong></div><article><header><h2><a href="/2016/09/28/AWS-EC2/">AWS_EC2</a></h2></header><div class="article-meta clearfix"><time class="left">2016 9 月 28 日</time><ul class="tags left"></ul><ul class="tags right"><li><a href="/tags/AWS/">AWS</a></li></ul></div><div class="markdown-body"><h1 id="AWS-EC2是什么？"><a href="#AWS-EC2是什么？" class="headerlink" title="AWS EC2是什么？"></a>AWS EC2是什么？</h1><p>Amazon Elastic Compulte Cloud(EC2)提供了可伸缩的计算资源，使你可以快速开发/部署你的应用，有了它你可以快速起一个应用，配置安全，网络，以及存储。他可以更灵活，更快地适应你对需求。</p>
+<a id="more"></a>
+<h2 id="EC2定义了以下规则"><a href="#EC2定义了以下规则" class="headerlink" title="EC2定义了以下规则"></a>EC2定义了以下规则</h2><ul>
+<li><strong>Instance:</strong> 虚拟计算环境</li>
+<li><strong>AMI(Amazon Machine Images):</strong> EC2环境的一个预配置</li>
+<li><strong>Instance type:</strong> instance的存储，CPU，内存，存储，网络，地位 </li>
+<li><strong>Key pair:</strong> 用于安全登录你的instance（Amazon保存piublic key,你需要小心保存自己那份private key）</li>
+<li><strong>Instance store volumes:</strong> 临时存储数据，当你stop或者terminate你的机器的时候就会被删除</li>
+<li><strong>EBS(Amazon Elastic Block Store)</strong> 长期存储volume的数据</li>
+<li><strong>Regions AZ</strong> 给你的资源多个物理地址</li>
+<li><strong>Security Group</strong> 防火墙，用于定义通信策略，端口，可通信网段</li>
+<li><strong>Tags</strong> 元数据（metadata）可以与资源绑定</li>
+<li><p><strong>(VPCs)virtual private clouds</strong> 虚拟网络，你可以配置用于和你自己的网络通信</p>
+<p>AWS提倡的是低费用，只为你用到的服务买单，可伸缩，可测量，帮助你快速将资源和需求对应起来，灵活地run你的软件，让你可以将你的想法更快地实施到市场。</p>
+</li>
+</ul>
+<h2 id="学习AWS-EC2总共分几步："><a href="#学习AWS-EC2总共分几步：" class="headerlink" title="学习AWS EC2总共分几步："></a>学习AWS EC2总共分几步：</h2><h3 id="basics"><a href="#basics" class="headerlink" title="basics"></a>basics</h3><ul>
+<li>Instance and AMIs</li>
+<li>Regions and Availablity Zones</li>
+<li>Instance Types</li>
+<li>Tags</li>
+</ul>
+<h3 id="Networking-and-Security"><a href="#Networking-and-Security" class="headerlink" title="Networking and Security"></a>Networking and Security</h3><ul>
+<li>Amazon EC2 Key Pairs</li>
+<li>Security Groups</li>
+<li>Elastic IP Addresses</li>
+<li>Amazon EC2 and Amazon VPC</li>
+</ul>
+<h3 id="Storage"><a href="#Storage" class="headerlink" title="Storage"></a>Storage</h3><ul>
+<li>Amazon EBS</li>
+<li>Instance Store</li>
+</ul>
+<h2 id="和EC2有关的服务"><a href="#和EC2有关的服务" class="headerlink" title="和EC2有关的服务"></a>和EC2有关的服务</h2><ul>
+<li><strong>ELB（Elastic Load Balancing）</strong> 在不同的instance之间自动分发进来的请求</li>
+<li><strong>CloudWatch</strong> 实现监视器功能用于监控你的instance</li>
+<li><strong>CouldTrail</strong> 监控所有通向EC2的call，包括AWS console commandline tools以及其他服务</li>
+</ul>
+<h2 id="如何操作EC2资源"><a href="#如何操作EC2资源" class="headerlink" title="如何操作EC2资源"></a>如何操作EC2资源</h2><p><code>CLI</code> <code>PowerShell 工具</code><br>AWS提供接口为HTTP或者HTTPs的请求提供响应。可以在 <code>Amazon EC2 API Reference</code>里面设置响应（Action）<br>如果你想使用语言接入，AWS也提供SDK工具</p>
+<h2 id="付费方式"><a href="#付费方式" class="headerlink" title="付费方式"></a>付费方式</h2><p>可以按小时付费（大部分时候我们采用这种方式），也可以先预付一笔钱，然后保留一到三年，这样会比较便宜一些。还有竞价方式，这个不需要太了解。</p>
+<h2 id="Security-Best-Practice"><a href="#Security-Best-Practice" class="headerlink" title="Security Best Practice"></a>Security Best Practice</h2><ul>
+<li>使用IAM(AWS Identity and Access Management)控制AWS资源的访问权限</li>
+<li>设置Security Group用于仅允许信任的设备接入开放的端口</li>
+<li>经常review你的Security Group设置，确保你赋予了“最小可用权限”，为不同的网络需求创建不同的SG</li>
+<li>禁止密码登录</li>
+</ul>
+</div></article><article><header><h2><a href="/2016/09/01/2016八月学习小计/">2016八月学习小计</a></h2></header><div class="article-meta clearfix"><time class="left">2016 9 月 1 日</time><ul class="tags left"></ul><ul class="tags right"><li><a href="/tags/小结/">小结</a></li><li><a href="/tags/Study/">Study</a></li></ul></div><div class="markdown-body"><h1 id="八月学习小计"><a href="#八月学习小计" class="headerlink" title="八月学习小计"></a>八月学习小计</h1><p>基本上讲，这两个月一直都在写文档，做PPT，提升所谓Consultant能力。<br>除此之外比较系统地学习了Shell和一些Linux有关的知识，自认为自身短板还是在技术上。</p>
+<a id="more"></a>
+<p>个人觉得以下分析问题的方式还是比较面向过程和面向任务，比较适合团队Retro，并不是很适合做自我总结。不过还是想试一下。</p>
+<h2 id="内容回顾"><a href="#内容回顾" class="headerlink" title="内容回顾"></a>内容回顾</h2><h3 id="Technique"><a href="#Technique" class="headerlink" title="Technique"></a>Technique</h3><ul>
+<li>Shell(Done)</li>
+<li>Linux(In porgress)</li>
+</ul>
+<h3 id="Commuity"><a href="#Commuity" class="headerlink" title="Commuity"></a>Commuity</h3><ul>
+<li>Shell Workshop(Done)</li>
+<li>搜集整理团队资料(In porgress)</li>
+</ul>
+<h3 id="LeaderShip"><a href="#LeaderShip" class="headerlink" title="LeaderShip"></a>LeaderShip</h3><ul>
+<li>CAT release standard(In porgress)</li>
+<li>Take wish wall job</li>
+</ul>
+<h3 id="Workflow"><a href="#Workflow" class="headerlink" title="Workflow"></a>Workflow</h3><ul>
+<li>Confulunce</li>
+<li>DevOps Onboarding Guilde(Done)</li>
+<li>看完了《持续交付》和《敏捷故事》</li>
+</ul>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>总的来说过去两个月值得记住的事太少了，唯一觉得有所收获的就是学了下shell，在每个维度上的学习都不够深入，主要还是精力太分散所致，DevOps确实有很多坑，比如说你不能像做开发一样专注于一件事，但好处是你可以从更宏观的角度来看一个项目，应该说做事情的节奏是可以自己调整的，能从整体架构的角度看问题还是比较令人兴奋的。但是，目前来说中心偏离了技术，就偏离我的意愿了。<br>其实还有比较困惑的点是自己思维方式的能力，思维方式肯定不是以多为好，我们总是会为一个新观点感到醍醐灌顶，但是总会有新的新观点让我们的思考被颠覆，但我们依然不能放弃追逐真理。。恩。<br>那些很牛逼的人，并不是脑子转的有多快，而是你问他的问题他以前就思考过了，甚至回答过别人了，甚至参考过别人的回答，甚至将自己的答案发表过，在网上和别人激烈的讨论过，所以当你刚刚开始思考这个问题的时候他已经有了比较自信也比较完整的答案。他不是比你聪明，只是走在了你前面。<br>那么如何成为一个比较聪明的人呢？</p>
+<ul>
+<li>在别人遇到问题之前先发现问题</li>
+<li>反复咀嚼遇到过的问题</li>
+<li>记住你的解决方案，并帮助身边的人解决同样的问题 </li>
+</ul>
+<p>这样的成长轨迹很容易应用于技术领域，事实上一个程序员的成长很多就是按照这样的轨迹来的，但是如果把这个本领用于咨询，就变得困难了许多，因为描述问题本身就是一个问题，就跟早期的机器学习算法的建模一样，模型建的号，机器算法就优，技术领域的问题被封闭的语境限制着，所以能够有明确的答案，所以咨询的难点就变成了语境的建立和同一，比如“敏捷”，“精益”，一说这个语境，就好比技术上讲一个框架，这种方式适用于什么样的场景，有哪些优劣，一下就有了，我们在语境下的讨论就会变得有着落，明确，保证了沟通的效率。<br>回到学习能力建设的问题上来吧，虽然我们说没有一个确定的标准来构建你的知识体系，但是冥冥之中每个人都是有自己的standard的，比如说你至少认为人有理性和感性两个向量，比如说你认同三维比二维能更清楚地描述问题。<br>所以标准的建立有助于问题的分析和思考。</p>
+<h3 id="Well"><a href="#Well" class="headerlink" title="Well"></a>Well</h3><ul>
+<li>Bash workshop做的还不错</li>
+<li>对项目架构有了进一步认识</li>
+<li>对敏捷的工作方式更加熟悉了</li>
+<li>看问题的角度从一个开发提升到架构的层面</li>
+</ul>
+<h3 id="Lesswell"><a href="#Lesswell" class="headerlink" title="Lesswell"></a>Lesswell</h3><ul>
+<li>太久不写代码，感觉都要生疏了</li>
+<li>一直在写Document，做PPT，感觉没有在做有价值的工作。</li>
+<li>思维方式和思考能力并没有提高，只是换了个看问题的的角度</li>
+</ul>
+<h3 id="Suggestion"><a href="#Suggestion" class="headerlink" title="Suggestion"></a>Suggestion</h3><ul>
+<li>如果可能的话，希望多集中精力在技术上一点的成长</li>
+<li>希望自己的文档和思维方式更加结构化，可以在几种结构之间切换，但是得变得容易被人理解，容易传播，最好是发人深省</li>
+<li>多看书，看书，看书</li>
+</ul>
+<h2 id="Action"><a href="#Action" class="headerlink" title="Action"></a>Action</h2><h3 id="Role-Map"><a href="#Role-Map" class="headerlink" title="Role-Map"></a>Role-Map</h3><h3 id="Todo-list"><a href="#Todo-list" class="headerlink" title="Todo-list"></a>Todo-list</h3><p>下个月的学习计划主要是考取AWS认证，看几本书，以及尽快完成release standard</p>
+<ul>
+<li>AWS认证： 多看几篇文档，希望能够产出几篇博客</li>
+<li>关于看书，主要是在TWI之前，希望能把手里的两本看完，产出Session吧</li>
+<li>关于Release Standard，尽量在本周内完成</li>
+<li>git,Linux</li>
+<li>凤凰式部署</li>
+</ul>
+</div></article><div class="archive-pagination"><div class="paginator"><span class="page-number current">1</span></div></div></div><div class="block-sidebar column one-fourth"><div class="widget text-content"><p>杜屹东 生于 1993.12.16, 英文 ID Luke Du</p>
+<ul>
+<li>现就职于<a href="https://www.thoughtworks.com/">ThoughtWorks</a></li>
+<li>毕业于 <a href="http://www.xhu.edu.cn/">西华大学</a> 计算机科学与技术</li>
+<li>喜欢<a href="http://baike.baidu.com/view/39292.htm">史铁生</a>, <a href="https://movie.douban.com/celebrity/1012521/">David Fincher</a> 和 <a href="http://baike.baidu.com/view/2556.htm">陈奕迅</a></li>
+<li>在剧组跑过龙套，做过场务，制片，副导演，剪辑后期，曾参与成龙大哥电影<a href="https://movie.douban.com/subject/24529353/">《绝地逃亡》</a>制作</li>
+<li>曾骑行成都-拉萨，成都-北京，海南环岛</li>
+</ul>
+<p>目前专注于：</p>
+<ul>
+<li>AWS - 认证考试</li>
+<li>Cloud - 云计算</li>
+<li>DevOps - 文化组织变革</li>
+<li>CI/CD - 持续集成与持续交付</li>
+<li>Agile - 敏捷文化</li>
+</ul>
+</div><div class="widget tags"><ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS/">AWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Agile/">Agile</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DataBase/">DataBase</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DevOps/">DevOps</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP/">HTTP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Study/">Study</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TDD/">TDD</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ThoughtWorks/">ThoughtWorks</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/代码/">代码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大事记/">大事记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/学习/">学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小结/">小结</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小计/">小计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/爬虫/">爬虫</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/翻译/">翻译</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/部署与发布/">部署与发布</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面试/">面试</a></li></ul></div><div class="widget archives"><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">五月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">5</span></li></ul></div><div class="widget text-content"><p>该博客使用基于 &nbsp;<a href="http://hexo.io">Hexo</a>&nbsp; 的 &nbsp;<a href="https://github.com/jysperm/hexo-theme-simpleblock">simpleblock</a>&nbsp; 主题。博客内容使用 &nbsp;<a href="https://aws.amazon.com/s3/">Amazon S3</a>&nbsp; 发布。最后生成于 2017-02-20.</p></div></div></div></div></body></html>

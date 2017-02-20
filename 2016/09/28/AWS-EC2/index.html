@@ -1,0 +1,62 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/styles.css"><title>AWS_EC2 | 杜屹东的博客</title></head><body><div class="container"><div class="columns page-header"><h1>杜屹东的博客</h1></div><div class="columns"><div class="navigation"><nav class="menus-main"><a href="/" class="favicon"><img alt="杜屹东的博客" src="/favicon.png"></a><a href="/about">关于我</a><a href="/list">日志列表</a><a href="/booklist">读书</a><a href="/movie">电影</a><a href="/links">链接</a><a href="/resume">简历</a></nav><nav class="right menus-right"><a target="_blank" href="https://github.com/ADU-21/blog">Fork on Github</a></nav></div></div><div class="columns"><div class="block-body column three-fourths"><div class="article-widget"><a href="http://www.duyidong.com">小广告旗帜~~</a></div><article><header><small class="right"><a target="_blank" href="https://github.com/ADU-21/blog_posts%2FAWS-EC2.md">查看源代码</a></small><h1>AWS_EC2</h1></header><div class="article-meta clearfix"><time class="left">2016 9 月 28 日</time><ul class="tags left"></ul><ul class="tags right"><li><a href="/tags/AWS/">AWS</a></li></ul></div><div class="markdown-body"><h1 id="AWS-EC2是什么？"><a href="#AWS-EC2是什么？" class="headerlink" title="AWS EC2是什么？"></a>AWS EC2是什么？</h1><p>Amazon Elastic Compulte Cloud(EC2)提供了可伸缩的计算资源，使你可以快速开发/部署你的应用，有了它你可以快速起一个应用，配置安全，网络，以及存储。他可以更灵活，更快地适应你对需求。</p>
+<a id="more"></a>
+<h2 id="EC2定义了以下规则"><a href="#EC2定义了以下规则" class="headerlink" title="EC2定义了以下规则"></a>EC2定义了以下规则</h2><ul>
+<li><strong>Instance:</strong> 虚拟计算环境</li>
+<li><strong>AMI(Amazon Machine Images):</strong> EC2环境的一个预配置</li>
+<li><strong>Instance type:</strong> instance的存储，CPU，内存，存储，网络，地位 </li>
+<li><strong>Key pair:</strong> 用于安全登录你的instance（Amazon保存piublic key,你需要小心保存自己那份private key）</li>
+<li><strong>Instance store volumes:</strong> 临时存储数据，当你stop或者terminate你的机器的时候就会被删除</li>
+<li><strong>EBS(Amazon Elastic Block Store)</strong> 长期存储volume的数据</li>
+<li><strong>Regions AZ</strong> 给你的资源多个物理地址</li>
+<li><strong>Security Group</strong> 防火墙，用于定义通信策略，端口，可通信网段</li>
+<li><strong>Tags</strong> 元数据（metadata）可以与资源绑定</li>
+<li><p><strong>(VPCs)virtual private clouds</strong> 虚拟网络，你可以配置用于和你自己的网络通信</p>
+<p>AWS提倡的是低费用，只为你用到的服务买单，可伸缩，可测量，帮助你快速将资源和需求对应起来，灵活地run你的软件，让你可以将你的想法更快地实施到市场。</p>
+</li>
+</ul>
+<h2 id="学习AWS-EC2总共分几步："><a href="#学习AWS-EC2总共分几步：" class="headerlink" title="学习AWS EC2总共分几步："></a>学习AWS EC2总共分几步：</h2><h3 id="basics"><a href="#basics" class="headerlink" title="basics"></a>basics</h3><ul>
+<li>Instance and AMIs</li>
+<li>Regions and Availablity Zones</li>
+<li>Instance Types</li>
+<li>Tags</li>
+</ul>
+<h3 id="Networking-and-Security"><a href="#Networking-and-Security" class="headerlink" title="Networking and Security"></a>Networking and Security</h3><ul>
+<li>Amazon EC2 Key Pairs</li>
+<li>Security Groups</li>
+<li>Elastic IP Addresses</li>
+<li>Amazon EC2 and Amazon VPC</li>
+</ul>
+<h3 id="Storage"><a href="#Storage" class="headerlink" title="Storage"></a>Storage</h3><ul>
+<li>Amazon EBS</li>
+<li>Instance Store</li>
+</ul>
+<h2 id="和EC2有关的服务"><a href="#和EC2有关的服务" class="headerlink" title="和EC2有关的服务"></a>和EC2有关的服务</h2><ul>
+<li><strong>ELB（Elastic Load Balancing）</strong> 在不同的instance之间自动分发进来的请求</li>
+<li><strong>CloudWatch</strong> 实现监视器功能用于监控你的instance</li>
+<li><strong>CouldTrail</strong> 监控所有通向EC2的call，包括AWS console commandline tools以及其他服务</li>
+</ul>
+<h2 id="如何操作EC2资源"><a href="#如何操作EC2资源" class="headerlink" title="如何操作EC2资源"></a>如何操作EC2资源</h2><p><code>CLI</code> <code>PowerShell 工具</code><br>AWS提供接口为HTTP或者HTTPs的请求提供响应。可以在 <code>Amazon EC2 API Reference</code>里面设置响应（Action）<br>如果你想使用语言接入，AWS也提供SDK工具</p>
+<h2 id="付费方式"><a href="#付费方式" class="headerlink" title="付费方式"></a>付费方式</h2><p>可以按小时付费（大部分时候我们采用这种方式），也可以先预付一笔钱，然后保留一到三年，这样会比较便宜一些。还有竞价方式，这个不需要太了解。</p>
+<h2 id="Security-Best-Practice"><a href="#Security-Best-Practice" class="headerlink" title="Security Best Practice"></a>Security Best Practice</h2><ul>
+<li>使用IAM(AWS Identity and Access Management)控制AWS资源的访问权限</li>
+<li>设置Security Group用于仅允许信任的设备接入开放的端口</li>
+<li>经常review你的Security Group设置，确保你赋予了“最小可用权限”，为不同的网络需求创建不同的SG</li>
+<li>禁止密码登录</li>
+</ul>
+</div></article></div><div class="block-sidebar column one-fourth"><div class="widget text-content"><p>杜屹东 生于 1993.12.16, 英文 ID Luke Du</p>
+<ul>
+<li>现就职于<a href="https://www.thoughtworks.com/">ThoughtWorks</a></li>
+<li>毕业于 <a href="http://www.xhu.edu.cn/">西华大学</a> 计算机科学与技术</li>
+<li>喜欢<a href="http://baike.baidu.com/view/39292.htm">史铁生</a>, <a href="https://movie.douban.com/celebrity/1012521/">David Fincher</a> 和 <a href="http://baike.baidu.com/view/2556.htm">陈奕迅</a></li>
+<li>在剧组跑过龙套，做过场务，制片，副导演，剪辑后期，曾参与成龙大哥电影<a href="https://movie.douban.com/subject/24529353/">《绝地逃亡》</a>制作</li>
+<li>曾骑行成都-拉萨，成都-北京，海南环岛</li>
+</ul>
+<p>目前专注于：</p>
+<ul>
+<li>AWS - 认证考试</li>
+<li>Cloud - 云计算</li>
+<li>DevOps - 文化组织变革</li>
+<li>CI/CD - 持续集成与持续交付</li>
+<li>Agile - 敏捷文化</li>
+</ul>
+</div><div class="widget tags"><ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS/">AWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Agile/">Agile</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DataBase/">DataBase</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DevOps/">DevOps</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP/">HTTP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Study/">Study</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TDD/">TDD</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ThoughtWorks/">ThoughtWorks</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/代码/">代码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大事记/">大事记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/学习/">学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小结/">小结</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小计/">小计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/爬虫/">爬虫</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/翻译/">翻译</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/部署与发布/">部署与发布</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面试/">面试</a></li></ul></div><div class="widget archives"><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">五月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">5</span></li></ul></div><div class="widget text-content"><p>该博客使用基于 &nbsp;<a href="http://hexo.io">Hexo</a>&nbsp; 的 &nbsp;<a href="https://github.com/jysperm/hexo-theme-simpleblock">simpleblock</a>&nbsp; 主题。博客内容使用 &nbsp;<a href="https://aws.amazon.com/s3/">Amazon S3</a>&nbsp; 发布。最后生成于 2017-02-20.</p></div></div></div></div></body></html>

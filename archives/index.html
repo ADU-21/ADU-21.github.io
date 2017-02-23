@@ -45,7 +45,7 @@
 </code></pre>
 <p>余下的不用管，点击<strong>test</strong>，你可以在Log output中看到你的测试内容，即event事件，即可。</p>
 <p>接下来你需要取得一份样本数据用于测试，最简单的方法就是创建一个S3 bucket，<strong>这里一定要注意，创建的bucket需要和CloudTrail在同一个Region，否则事件是无法被捕获的。</strong><br>进入<strong>S3 -&gt; Create bucket</strong> 快速创建一个Bucket:</p>
-<p><img src="/images/Create_S3_Bucket.png" alt=""></p>
+<p><img src="/images/Create_S3_Bucket.png =100x100" alt=""></p>
 <p>稍等数分钟，这里会有十几分钟的延迟，在Cloudwatch中查看Lambda打印的log：<br>进入<strong>Cloudwatch -&gt; Logs -&gt; 对应Lambda名称的Log Group -&gt; 找到时间点对应的Log Stream</strong>，filter你的bucket名字你会发现一条这样的Log:</p>
 <pre><code class="json">{
   &quot;Records&quot;: [

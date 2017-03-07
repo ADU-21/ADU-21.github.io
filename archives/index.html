@@ -23,7 +23,7 @@
 <li><p>在<strong>Properties</strong>下开启<strong>Static website hosting</strong>，设置入口文件为<code>index.html</code>，404页面为<code>404/index.html</code></p>
 </li>
 </ul>
-<h2 id="第二步：创建一个用于上传的用户"><a href="#第二步：创建一个用于上传的用户" class="headerlink" title="第二步：创建一个用于上传的用户"></a>第二步：创建一个用于上传的用户</h2><h4 id="使用Policy-Generator创建一个Policy"><a href="#使用Policy-Generator创建一个Policy" class="headerlink" title="使用Policy Generator创建一个Policy"></a>使用Policy Generator创建一个Policy</h4><p>这里需要一个只有对www.duyidong.com这个bucket有上传权限的用户，首先要创建Policy，这里要用到Policy Generator。</p>
+<h2 id="第二步：创建一个用于上传静态文件的用户"><a href="#第二步：创建一个用于上传静态文件的用户" class="headerlink" title="第二步：创建一个用于上传静态文件的用户"></a>第二步：创建一个用于上传静态文件的用户</h2><h4 id="使用Policy-Generator创建一个Policy"><a href="#使用Policy-Generator创建一个Policy" class="headerlink" title="使用Policy Generator创建一个Policy"></a>使用Policy Generator创建一个Policy</h4><p>这里需要一个只有对www.duyidong.com这个bucket有上传权限的用户，首先要创建Policy，这里要用到Policy Generator。</p>
 <ul>
 <li>进入<strong>IAM -&gt; Policies -&gt; Create Policy -&gt; Policy Generator</strong></li>
 <li><p>选择S3的PutObject Action, ARN为目标Bucket的ARN，届时会生成如下Policy:</p>
@@ -37,7 +37,7 @@
              &quot;s3:PutObject&quot;
          ],
          &quot;Resource&quot;: [
-             &quot;arn:aws:s3:::www.duyidong.com/*&quot;
+             &quot;arn:aws:s3:::www.duyidong.com&quot;
          ]
      }
  ]

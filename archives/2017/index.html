@@ -37,12 +37,15 @@
              &quot;s3:PutObject&quot;
          ],
          &quot;Resource&quot;: [
-             &quot;arn:aws:s3:::www.duyidong.com&quot;
+             &quot;arn:aws:s3:::www.duyidong.com*&quot;
          ]
      }
  ]
 }
-</code></pre></li>
+</code></pre><blockquote>
+<p>注：ARN需使用<code>arn:aws:s3:::www.duyidong.com*</code></p>
+</blockquote>
+</li>
 </ul>
 <h4 id="创建用户组"><a href="#创建用户组" class="headerlink" title="创建用户组"></a>创建用户组</h4><p><strong>Groups -&gt; Create New Group -&gt; </strong>将上一步创建的Policy attach到该UserGroup上，用户组创建完成。</p>
 <h4 id="创建用户"><a href="#创建用户" class="headerlink" title="创建用户"></a>创建用户</h4><p><strong>Users -&gt; Add User</strong>，勾选<code>Programmatic access</code>，输入用户名，将用户加入到上一步创建的用户组中，将用户的Access key下载到本地。</p>

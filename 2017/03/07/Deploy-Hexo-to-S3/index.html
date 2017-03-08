@@ -27,6 +27,9 @@
 <ul>
 <li>进入<strong>IAM -&gt; Policies -&gt; Create Policy -&gt; Policy Generator</strong></li>
 <li><p>选择S3的PutObject Action, ARN为目标Bucket的ARN，届时会生成如下Policy:</p>
+<blockquote>
+<p>注：经笔者反复试错，再参照<a href="http://docs.aws.amazon.com/AmazonS3/latest/dev/example-policies-s3.html" target="_blank" rel="external">官方文档</a>，最终确定User Policy需要以下权限：</p>
+</blockquote>
 <pre><code>{
 &quot;Version&quot;:&quot;2012-10-17&quot;,
 &quot;Statement&quot;:[

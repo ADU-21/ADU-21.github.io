@@ -25,7 +25,7 @@
 <h4 id="Staic-website-hosting"><a href="#Staic-website-hosting" class="headerlink" title="Staic website hosting"></a>Staic website hosting</h4><p>开启此功能可以将一个bucket变成一个静态网站，只需要制定入口index.html和错误页面即可。当然还有一个前提是设置对象权限为所有人外部可访问。</p>
 <h4 id="Tags"><a href="#Tags" class="headerlink" title="Tags"></a>Tags</h4><p>给Bucket资源打上一个或多个标签，方便管理</p>
 <h4 id="Cross-region-replication"><a href="#Cross-region-replication" class="headerlink" title="Cross-region replication"></a>Cross-region replication</h4><p>制定一个另一个Region的Bucket作为备份，需要Version功能开启</p>
-<h4 id="Transfer-Acceleration"><a href="#Transfer-Acceleration" class="headerlink" title="Transfer Acceleration"></a>Transfer Acceleration</h4><p>当传送过大文件（GB级）时往往会发生错误，这个时候需要开启这个功能加速上传</p>
+<h4 id="Transfer-Acceleration"><a href="#Transfer-Acceleration" class="headerlink" title="Transfer Acceleration"></a>Transfer Acceleration</h4><p>加速上传功能，类似于CloudFront，通过缓存在Globle Infrastructure的节点加速上传</p>
 <h4 id="Events"><a href="#Events" class="headerlink" title="Events"></a>Events</h4><p>开启这个功能，当S3的bucket或object发生动作时，可以触发SNS topic或SQS队列，或者Lambda Function</p>
 <h3 id="授权"><a href="#授权" class="headerlink" title="授权"></a>授权</h3><h4 id="Access-Control-List"><a href="#Access-Control-List" class="headerlink" title="Access Control List"></a>Access Control List</h4><p>大概就是IAM的某一个用户，可以对对象/权限控制执行如何操作（读/写），值得注意的是，默认情况下一个bucket创建出来后它的全显是只有它的创建者可以读/写这个bucket，粒度较大，适用于整个bucket的权控制</p>
 <h4 id="Bucket-Policy"><a href="#Bucket-Policy" class="headerlink" title="Bucket Policy"></a>Bucket Policy</h4><p>更细粒度的权限控制方案，以资源标识符为单位，与IAM相对应，可用于指定某个用户可以对bucket内部的哪些资源做何种操作</p>
@@ -38,6 +38,7 @@
 <h2 id="限制"><a href="#限制" class="headerlink" title="限制"></a>限制</h2><ul>
 <li>一个对象最大不能超过5TB</li>
 <li>一个账号最多可创建100个bucket</li>
+<li>S3普通上传模式最大只支持5GB以下的文件大小，开启<a href="http://docs.aws.amazon.com/AmazonS3/latest/dev/UploadingObjects.html" target="_blank" rel="external">multipart uploading</a>enable多进程上传和断点续传，从而提高上传效率，在带宽充足且有大文件需要上传的时候可以开启这个功能</li>
 </ul>
 <blockquote>
 <ul>
@@ -46,6 +47,7 @@
 <li>AWS S3 Detail<a href="https://aws.amazon.com/s3/details/" target="_blank" rel="external">https://aws.amazon.com/s3/details/</a></li>
 <li>AWS S3 Use Case<a href="http://docs.aws.amazon.com/AmazonS3/latest/gsg/S3-gsg-CommonUseScenarios.html" target="_blank" rel="external">http://docs.aws.amazon.com/AmazonS3/latest/gsg/S3-gsg-CommonUseScenarios.html</a></li>
 <li><a href="https://www.amazonaws.cn/en/s3/" target="_blank" rel="external">https://www.amazonaws.cn/en/s3/</a></li>
+<li>Uploading Object<a href="http://docs.aws.amazon.com/AmazonS3/latest/dev/UploadingObjects.html" target="_blank" rel="external">http://docs.aws.amazon.com/AmazonS3/latest/dev/UploadingObjects.html</a></li>
 </ul>
 </blockquote>
 </div></article><article><header><h2><a href="/2017/03/07/Deploy-Hexo-to-S3/">Deploy Hexo to S3</a></h2></header><div class="article-meta clearfix"><time class="left">2017 3 月 7 日</time><ul class="tags left"></ul><ul class="tags right"><li><a href="/tags/AWS/">AWS</a></li><li><a href="/tags/S3/">S3</a></li></ul></div><div class="markdown-body"><h1 id="将Hexo博客发布到S3"><a href="#将Hexo博客发布到S3" class="headerlink" title="将Hexo博客发布到S3"></a>将Hexo博客发布到S3</h1><p>最近在学习AWS服务，加之两次遇到github.io无法访问的情况，决定将博客迁移到AWS S3上。</p>

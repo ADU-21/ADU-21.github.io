@@ -6,6 +6,8 @@
 <li><strong>Reserved Instances</strong> 预留实例，可选1-3年，一次付费，完成付费之后不管是否使用都会收费，价格相对按小时计费要便宜些，企业作为服务器长期使用通常会选择使用的付费方式</li>
 <li><strong>Scheduled Reserved Instances</strong> 计划预留实例，为期一年，在计划时间内可用。值得注意的是，只有几个高性能的Instance Type支持该购买方式，且每年使用不得少于1200小时，需提前三个月购买</li>
 <li><strong>Spot Instances</strong> 竞价实例，价格随时间浮动，租户在申请时出价，当租户出价高于该时间点竞价实例价格时，租户获得该实例使用权，当价格再次浮动导致实例价格高于租户出价，亚马逊会提前十分钟提醒租户，而后terminate实例，转移到别的地方。注意，被亚马逊销毁的实例最后一小时不收费，而用户在使用期间自行销毁的实例，不足一小时仍以一小时计费。这种收费方式适用于不需长期提供稳定服务的应用场景，比如大数据流处理。</li>
+<li><strong>Dedicated hosts</strong>买下一个跑在固定物理设备上的Instance的使用权，保证租户的licenses不会因为不同物理设备过期。</li>
+<li><strong>Dedicated Instances</strong>按小时计费的Dedicated hosts</li>
 </ul>
 <h3 id="Instances-Type"><a href="#Instances-Type" class="headerlink" title="Instances Type"></a>Instances Type</h3><p><a href="https://aws.amazon.com/ec2/instance-types/" target="_blank" rel="external">Instance Type</a>有10种类型，用于区分大致的应用场景，每个类型下有从nano, micro, small, medium, large, xlarge到16xlarge数目不等的型号，主要区分CPU数量，vCPU(亚马逊创造的用于衡量单个CPU运算能力的一个参数)，内存，不同，大小、类型不同，直接影响价格。</p>
 <p><img src="/images/AWS_Instances_Type.png" alt=""></p>
@@ -66,6 +68,7 @@
 <p>一个AMI的生命周期看起来像是这个样子的：</p>
 <p><img src="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/images/ami_lifecycle.png" alt=""></p>
 <p>AMI是划分Region的，租户可以通过Console或CLI在Region之间拷贝AMI。<br>AMI可以用于在<a href="https://aws.amazon.com/marketplace/search/results?x=0&amp;y=0&amp;searchTerms=&amp;page=1&amp;ref_=nav_search_box" target="_blank" rel="external">AWS Marketplace</a>出售。</p>
+<p>AMI依赖于Snapshot缺不被Instance依赖，这意味着租户不能删除一个被注册的AMI的Snapshot，却可以删除一个运行中实例的AMI，Snapshot，AMI，Instance的关系如下图:<br><img src="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/images/ami_delete_ebs.png" alt=""></p>
 <h2 id="ELB-amp-Health-Checks"><a href="#ELB-amp-Health-Checks" class="headerlink" title="ELB &amp; Health Checks"></a>ELB &amp; Health Checks</h2><p>ELB，Elastic LoadBalancer是构建一个高可用可用不得不谈的服务，经常和Autoscaling Group一起实现负载伸缩和高可用。<br>ELB是AWS提供的负载均衡器，用于将外部访问请求分发给状态健康的EC2 Instance。<br>ELB在创建的时候会有对外会有一个DNS解析域名，对所属Instance会做健康检查，所谓健康检查就是去定期访问一个文件，判断返回状态码为200即表明这个服务正常，Instance可以动态地被加载到ELB下，也可以动态移除，ELB会自动判断这个Instance已经失去连接并停止发送请求到这个Instance。<br>值得一提的是，ELB一个重要的功能是增加服务容灾性，通常会挂载多个不同AZ的Instance，做到一个数据中心挂掉仍然能够正常提供服务。</p>
 <h2 id="Cloud-Watch-EC2"><a href="#Cloud-Watch-EC2" class="headerlink" title="Cloud Watch EC2"></a>Cloud Watch EC2</h2><p>CloudWatch是AWS提供的EC2监控报警的服务，简单好用。<br>作为一款与AWS各种资源高度集成且简单好用的监控工具，CloudWatch有以下功能：</p>
 <ul>
@@ -86,7 +89,19 @@
 <li>租户不能移动一个已经存在的Instance到一个PG中，可以对这个Instance创建AMI，再使用这个AMI在PG中启动一个Instance</li>
 </ul>
 <h2 id="EFS"><a href="#EFS" class="headerlink" title="EFS"></a>EFS</h2><p>EFS是AWS提供可以再Instance之间贡献的一个NFS server，其最大的优点是不需要预先设置大小，其空间大小会随文件写入增多逐步扩容至PB级别，而租户只需按使用收费。<br>EFS可以支持上千个NFS4连接，适用于大数据存储，Web服务器静态文件共享，等诸多应用场景。<br>AWS目前有4个Region支持EFS，EFS的文件存放在多个AZ中，可以跨AZ共享文件。</p>
-<h2 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h2></div><div data-title="AWS EC2" data-url="http://www.duyidong.com/2017/03/15/AWS-EC2/" class="ds-thread"></div></article></div><div class="block-sidebar column one-fourth"><div class="widget text-content"><p>杜屹东 生于 1993.12.16, 英文 ID Luke Du</p>
+<h2 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h2><ul>
+<li>每个账户默认被限制可以申请20个保留实例，增加上限需要给亚马逊提Request</li>
+<li>使用EC2发送邮件数量是有限制的</li>
+<li>每个账户最多可申请5个Elastic IP</li>
+<li>不同账户标记的一个AZ名字（比如us-east-1a）可能指向不同的物理数据中心</li>
+<li>要使用增强网络型实例（Enhanced Network）租户不需要另外付费，只需要选择适当的AMI和适当的Instance类型在一个VPC中即可</li>
+<li>默认情况下，当租户停止监控EC2实例或销毁了实例，两周内仍可访问CloudWatch的数据</li>
+<li>如果删掉一个Auto Scaling Group，其中的Instance会先被销毁</li>
+<li>租户可使用VM Import/Export从EC2导入/导出虚拟机镜像</li>
+<li>虽然Snapshot被存在S3中，但租户不能通过S3的API访问到Snapshot，而只能通过EC2的API访问</li>
+<li>分享Snapshot给特定的账户，Snapshot的状态仍为“private”</li>
+</ul>
+</div><div data-title="AWS EC2" data-url="http://www.duyidong.com/2017/03/15/AWS-EC2/" class="ds-thread"></div></article></div><div class="block-sidebar column one-fourth"><div class="widget text-content"><p>杜屹东 生于 1993.12.16, 英文 ID Luke Du</p>
 <ul>
 <li>现就职于<a href="https://www.thoughtworks.com/">ThoughtWorks</a></li>
 <li>毕业于 <a href="http://www.xhu.edu.cn/">西华大学</a> 计算机科学与技术</li>

@@ -7,7 +7,7 @@
 <li><strong>Failover Routing Policy</strong>：该路由策略在其中一个被路由资源宕机的情况下会停止流量引入，从而避免用户访问到错误页面，这里涉及到Route53的另一个功能———健康检查。</li>
 <li><strong>Geolocation Routing Policy</strong>：地理位置策略允许用户设置将不同地理位置的用户流量导入到不同服务，例如希望悉尼的用户和北京的用户在一个网站上看到不同的页面，可以采用这种路由方式。</li>
 </ul>
-<h2 id="关于Cloudfront"><a href="#关于Cloudfront" class="headerlink" title="关于Cloudfront"></a>关于Cloudfront</h2><p>Cloudfront是AWS的CND服务，利用AWS分布在全球的节点服务器（Edge Location）缓存用户的访问，用户在第二次访问（或同区域的另一个用户在非首次访问）页面时会直接从节点服务器取到已经缓存的数据，速度会大大加快。<br>同理，Cloudfront也可以用于问文件上传。</p>
+<h2 id="关于Cloudfront"><a href="#关于Cloudfront" class="headerlink" title="关于Cloudfront"></a>关于Cloudfront</h2><p>Cloudfront是AWS的CND服务，利用AWS分布在全球的节点服务器（Edge Location）缓存用户的访问，用户在第二次访问（或同区域的另一个用户在非首次访问）页面时会直接从节点服务器取到已经缓存的数据，速度会大大加快。<br>同理，Cloudfront也可以用于文件上传。</p>
 <h2 id="申请Route53和Cloudfront权限"><a href="#申请Route53和Cloudfront权限" class="headerlink" title="申请Route53和Cloudfront权限"></a>申请Route53和Cloudfront权限</h2><p>默认情况下，所有账户都是没有开启Cloudfront和Route53服务的，这个时候需要使用账号注册邮箱发送邮件到<a href="aws-verification@amazon.com">aws-verification@amazon.com</a>申请开通。</p>
 <h2 id="申请域名"><a href="#申请域名" class="headerlink" title="申请域名"></a>申请域名</h2><p>得到服务使用权限之后，还需要申请一个域名，这个时候可以在AWS的<a href="https://console.aws.amazon.com/cloudfront/route53" target="_blank" rel="external">Route53</a>进行购买，也可以在阿里云的<a href="https://wanwang.aliyun.com/domain/" target="_blank" rel="external">万网</a>注册一个域名，域名会按使用年数收费，不同域名收费不同。<br>在亚马逊购买域名，只需要进入<a href="https://console.aws.amazon.com/route53/home" target="_blank" rel="external">Console</a>，在<strong>Register Domain</strong>栏输入你想要的域名，点选Check，接下来如果域名可用，可以Add to Card然后付费即可。大约一小时后，这个域名就可以被使用了。</p>
 <p><img src="/images/Route53_Register_Domain.png" alt=""></p>

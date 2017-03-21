@@ -29,6 +29,14 @@
 <li>另外，关于Cloudfront的日志，AWS不会针对日志功能进行收费，但用户需要对占用的S3 bucket存储和访问付费，日志内容大概和Nginx的access.log差不多，个人觉得AWS的<a href="https://console.aws.amazon.com/cloudfront/home#cache_stat_reports" target="_blank" rel="external">Reports &amp; Analytics</a>已经做得很好了，日志有些多余，建议可以在学习完后关闭。</li>
 </ul>
 </blockquote>
+<h3 id="关于缓存"><a href="#关于缓存" class="headerlink" title="关于缓存"></a>关于缓存</h3><p>关于S3里的Object在Cloudfront的各节点缓存的时间，默认为24小时，也就是说当我发布一篇新博客，由于主页index.html名字没有变化，只是更新了新版本，我要等到24小时后旧版本过期才能看到新的页面，这对我的小博客来说时间太长了，需要更改这个Cache时间，更改Cache时间有两种方式，一是更改TTL（Time To Live）时间，二是增加<code>Cache-Control: max-age=[seconds]</code>的heaeder，关于第二种方式，具体参见<a href="http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Expiration.html#expiration-individual-objects" target="_blank" rel="external">官方文档</a>，这里我说一下如何更改TTL：<br>进入Distribution的管理员界面，选择<strong>Behaviors</strong>标签，勾选待编辑的Behavior，点选<strong>Edit</strong></p>
+<p><img src="/images/Cloudfront_Distributions_Behaviors.png" alt=""></p>
+<p>在Edit Behavior页面Object Caching项目勾选<strong>Customize</strong>自定义TTL，将Default TTL改为3600（1小时）点选<strong>Yes，Edit</strong>即可。<br>同样，更新配置要等待半小时左右方能生效。</p>
+<blockquote>
+<ul>
+<li>参见 <a href="http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Expiration.html" target="_blank" rel="external">Specifying How Long Objects Stay in a CloudFront Edge Cache (Expiration)</a></li>
+</ul>
+</blockquote>
 <h2 id="配置Route53"><a href="#配置Route53" class="headerlink" title="配置Route53"></a>配置Route53</h2><p>进入Route53的<a href="https://console.aws.amazon.com/route53/home" target="_blank" rel="external">Console</a>，进入<strong>Hosted Zones</strong>标签，点选使用的Domain Name。</p>
 <p><img src="/images/Route53_Host_Zones.png" alt=""></p>
 <p>点选<strong>Create Record Set</strong>，输入二级域名下的三级域名（可以置空），选择Type为A类地址，选择一个A-record），在AWS的内部资源中选择Cloudfront下对应你博客的域名，Route Policy为默认的Simple即可，点选<strong>Save Record Set</strong></p>
@@ -42,6 +50,7 @@
 <li>参考资料</li>
 <li><a href="http://www.huangbowen.net/blog/2013/10/01/migrate-octopress-to-aws-step-2/" target="_blank" rel="external">http://www.huangbowen.net/blog/2013/10/01/migrate-octopress-to-aws-step-2/</a></li>
 <li><a href="http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-policy.html" target="_blank" rel="external">http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-policy.html</a></li>
+<li><a href="http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Expiration.html" target="_blank" rel="external">http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Expiration.html</a></li>
 </ul>
 </blockquote>
 </div></article><div class="archive-pagination"><div class="paginator"><span class="page-number current">1</span></div></div></div><div class="block-sidebar column one-fourth"><div class="widget text-content"><p>杜屹东 生于 1993.12.16, 英文 ID Luke Du</p>

@@ -1,4 +1,50 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/styles.css"><title>杜屹东的博客</title></head><body><div class="container"><div class="columns page-header"><h1>杜屹东的博客</h1></div><div class="columns"><div class="navigation"><nav class="menus-main"><a href="/" class="favicon"><img alt="杜屹东的博客" src="/favicon.png"></a><a href="/about">关于我</a><a href="/list">日志列表</a><a href="/booklist">读书</a><a href="/movie">电影</a><a href="/links">链接</a><a href="/resume">简历</a></nav><nav class="right menus-right"><a target="_blank" href="https://github.com/ADU-21/blog">Fork on Github</a></nav></div></div><div class="columns"><div class="block-body column three-fourths"><div class="article-widget"><a href="http://www.duyidong.com">小广告旗帜~~</a></div><article><header><h2><a href="/2017/03/15/AWS-EC2/">AWS EC2</a></h2></header><div class="article-meta clearfix"><time class="left">2017 3 月 15 日</time><ul class="tags left"></ul><ul class="tags right"><li><a href="/tags/AWS/">AWS</a></li><li><a href="/tags/EC2/">EC2</a></li></ul></div><div class="markdown-body"><h1 id="AWS虚拟机EC2"><a href="#AWS虚拟机EC2" class="headerlink" title="AWS虚拟机EC2"></a>AWS虚拟机EC2</h1><p>Amazon Elastic Cloud Compute，简单来说就是亚马逊的虚拟机。<br>亚马逊的EC2标榜有几大优势：完全控制，灵活使用，方便集成，安全，便宜，简单好用。<br>关于EC2有几个重要的概念：Instance Type，即在选择Instance的时候的内存，CUP等硬件指标；然后是EBS，即挂载硬盘，租户可以选择不同IO，不同介质的虚拟硬盘；其次是AMI，即用于启动虚拟机的操作系统镜像；另外还有Security Group，可以理解为虚拟机的防火墙；其他的服务都属于附加服务，比如负载均衡，弹性伸缩，监控报警，权限控制，类似nfs的弹性存储介质等等。<br>虚拟机服务是云服务最重要的服务，几乎各大云厂商最终要的一项都是对租户提供虚拟机，看大厂的虚拟机策略，其他各厂基本可通晓一二。<br>由于企业级应用很少用windows的使用场景，笔者将主要关注在Linux的使用上，本文对windows使用场景改不涉及。</p>
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/styles.css"><title>杜屹东的博客</title></head><body><div class="container"><div class="columns page-header"><h1>杜屹东的博客</h1></div><div class="columns"><div class="navigation"><nav class="menus-main"><a href="/" class="favicon"><img alt="杜屹东的博客" src="/favicon.png"></a><a href="/about">关于我</a><a href="/list">日志列表</a><a href="/booklist">读书</a><a href="/movie">电影</a><a href="/links">链接</a><a href="/resume">简历</a></nav><nav class="right menus-right"><a target="_blank" href="https://github.com/ADU-21/blog">Fork on Github</a></nav></div></div><div class="columns"><div class="block-body column three-fourths"><div class="article-widget"><a href="https://www.duyidong.com">小广告旗帜~~</a></div><article><header><h2><a href="/2017/03/20/Enable-HTTPS-ann-CDN-with-Cloudfront/">Enable HTTPS ann CDN with Cloudfront</a></h2></header><div class="article-meta clearfix"><time class="left">2017 3 月 20 日</time><ul class="tags left"></ul><ul class="tags right"><li><a href="/tags/AWS/">AWS</a></li><li><a href="/tags/Blog/">Blog</a></li><li><a href="/tags/HTTPS/">HTTPS</a></li><li><a href="/tags/CDN/">CDN</a></li><li><a href="/tags/Cloudfront/">Cloudfront</a></li><li><a href="/tags/Route53/">Route53</a></li></ul></div><div class="markdown-body"><h1 id="使用AWS开启HTTPS和CDN"><a href="#使用AWS开启HTTPS和CDN" class="headerlink" title="使用AWS开启HTTPS和CDN"></a>使用AWS开启HTTPS和CDN</h1><p>在上一篇博客中，笔者已经介绍了<a href="https://www.duyidong.com/2017/03/07/Deploy-Hexo-to-S3/">将hexo博客发布到S3</a>，这一部分笔者将介绍如何使用AWS的Route53应用上自己的域名，以及如何使用Cloudfront开启HTTPS/HTTP2和CDN加速。</p>
+<h2 id="关于Route53"><a href="#关于Route53" class="headerlink" title="关于Route53"></a>关于Route53</h2><p>Route53是AWS提供的DNS服务，提供常见域名服务，用户可以使用Route53注册使用域名，指向自己的服务，可以除了一般域名服务都支持的A类地址（直接指向IP），及CNAME（指向另一个域名）以外，Route53还支持一个功能叫做A-record，即可以将DNS指向AWS内部的资源，该服务功能与CNAME基本相同，但是免费。此外，Route53支持以下几种路由策略：</p>
+<ul>
+<li><strong>Simple Routing Policy</strong>：通常在只有一个资源的时候使用这种策略，该种策略会自由（平均）分配负载给所属资源</li>
+<li><strong>Weighted Routing Policy</strong>：加权路由，这种路由策略支持用户指定的路由百分比，比如百分之20的流量导入测试环境，百分之80的流量导入产品环境，用于进行AB测试。</li>
+<li><strong>Latency Routing Policy</strong>：该种策略会根据客户端访问的延迟情况选择合适的服务，比如一个客户访问A延迟为20毫秒，访问B服务延迟为250毫秒，那Latency Routing就会把该用户的访问导入A服务。</li>
+<li><strong>Failover Routing Policy</strong>：该路由策略在其中一个被路由资源宕机的情况下会停止流量引入，从而避免用户访问到错误页面，这里涉及到Route53的另一个功能———健康检查。</li>
+<li><strong>Geolocation Routing Policy</strong>：地理位置策略允许用户设置将不同地理位置的用户流量导入到不同服务，例如希望悉尼的用户和北京的用户在一个网站上看到不同的页面，可以采用这种路由方式。</li>
+</ul>
+<h2 id="关于Cloudfront"><a href="#关于Cloudfront" class="headerlink" title="关于Cloudfront"></a>关于Cloudfront</h2><p>Cloudfront是AWS的CND服务，利用AWS分布在全球的节点服务器（Edge Location）缓存用户的访问，用户在第二次访问（或同区域的另一个用户在非首次访问）页面时会直接从节点服务器取到已经缓存的数据，速度会大大加快。<br>同理，Cloudfront也可以用于问文件上传。</p>
+<h2 id="申请Route53和Cloudfront权限"><a href="#申请Route53和Cloudfront权限" class="headerlink" title="申请Route53和Cloudfront权限"></a>申请Route53和Cloudfront权限</h2><p>默认情况下，所有账户都是没有开启Cloudfront和Route53服务的，这个时候需要使用账号注册邮箱发送邮件到<a href="aws-verification@amazon.com">aws-verification@amazon.com</a>申请开通。</p>
+<h2 id="申请域名"><a href="#申请域名" class="headerlink" title="申请域名"></a>申请域名</h2><p>得到服务使用权限之后，还需要申请一个域名，这个时候可以在AWS的<a href="https://console.aws.amazon.com/cloudfront/route53" target="_blank" rel="external">Route53</a>进行购买，也可以在阿里云的<a href="https://wanwang.aliyun.com/domain/" target="_blank" rel="external">万网</a>注册一个域名，域名会按使用年数收费，不同域名收费不同。<br>在亚马逊购买域名，只需要进入<a href="https://console.aws.amazon.com/route53/home" target="_blank" rel="external">Console</a>，在<strong>Register Domain</strong>栏输入你想要的域名，点选Check，接下来如果域名可用，可以Add to Card然后付费即可。大约一小时后，这个域名就可以被使用了。</p>
+<p><img src="/images/Route53_Register_Domain.png" alt=""></p>
+<h2 id="配置Cloudfront"><a href="#配置Cloudfront" class="headerlink" title="配置Cloudfront"></a>配置Cloudfront</h2><p>点击<strong>Create Distribution</strong>按钮，Delivery method选择Web。 Web主要针对一些html，css,js等静态文件，而RTMP则主要是一些音视频文件。点选“Get Start”。</p>
+<p><img src="/images/Clouldfront_Configure_Select_Delivery_Method.png" alt=""></p>
+<p>下一步，要选择Origin,即要进行内容分发的源。虽然亚马逊会自动列出你的S3 bucket，但是千万不要选。而是自己手动输入example.com这个Bucket的Endpoint(Endpoint在S3 Console的Properties标签下的Static Website hosting里看得到)。为什么不直接选S3 bucket那?这是因为当我们访问一个目录时，我们期望能返回默认的object。虽然CouldFront有个Default Root Object设置，只是对根目录起作用，对子目录不起作用。如果使用Bucket的Endpoint，再加上之前已经给该Bucket配置了Default Object，就可以解决这个问题。</p>
+<p><img src="/images/Clouldfront_Configure_Origin_Domain_Name.png" alt=""></p>
+<p>选择将HTTP重定向到HTTPS，在CNAMEs项中输入自己的域名，多个域名以逗号分隔。<br>在Distribution Setting下选择你自己的证书(如果没有可以点选Request or Import a Certificate with ACM免费申请)。</p>
+<p><img src="/images/Clouldfront_Configure_Distribution_Setting.png" alt=""></p>
+<p>[可选]勾选Logging，并选择Bucket for Logs，可以打印访问信息。由于是静态网站，Cookie的Log就没有必要了。</p>
+<p><img src="/images/Clouldfront_Configure_Logging.png" alt=""></p>
+<p>点选<strong>Create Distribution</strong>，创建成功，需要等待大约半小时等待Status从<code>In progress</code>变为<code>Deployed</code>，在这期间可以配置Route53。</p>
+<p><img src="/images/Clouldfront_Configure_Success.png" alt=""></p>
+<p>配置成功后可以在管理员面板修改所有创建Distribution时设置的参数，并可以增加Error Page等设置。</p>
+<p><img src="/images/Clouldfront_Configure_Admin.png" alt=""></p>
+<blockquote>
+<ul>
+<li>注意：Cloudfront的配置每次更改都需要从新部署，每次重新部署都需要大约半小时时间，为了避免不必要的时间浪费，最好是一次配置成功，不然真的很痛苦。。</li>
+<li>另外，关于Cloudfront的日志，AWS不会针对日志功能进行收费，但用户需要对占用的S3 bucket存储和访问付费，日志内容大概和Nginx的access.log差不多，个人觉得AWS的<a href="https://console.aws.amazon.com/cloudfront/home#cache_stat_reports" target="_blank" rel="external">Reports &amp; Analytics</a>已经做得很好了，日志有些多余，建议可以在学习完后关闭。</li>
+</ul>
+</blockquote>
+<h2 id="配置Route53"><a href="#配置Route53" class="headerlink" title="配置Route53"></a>配置Route53</h2><p>进入Route53的<a href="https://console.aws.amazon.com/route53/home" target="_blank" rel="external">Console</a>，进入<strong>Hosted Zones</strong>标签，点选使用的Domain Name。</p>
+<p><img src="/images/Route53_Host_Zones.png" alt=""></p>
+<p>点选<strong>Create Record Set</strong>，输入二级域名下的三级域名（可以置空），选择Type为A类地址，选择一个A-record），在AWS的内部资源中选择Cloudfront下对应你博客的域名，Route Policy为默认的Simple即可，点选<strong>Save Record Set</strong></p>
+<p><img src="/images/Route53_Create_Record_Set.png" alt=""></p>
+<p>只需要数分钟，A-record即可生效。</p>
+<h2 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h2><p>现在可以通过HTTPS访问我在每个Edge Location缓存的博客了：</p>
+<p><a href="https://www.duyidong.com">https://www.duyidong.com</a></p>
+<p>经测试，同一个页面在加上Cloudfront之前（在S3 bucket中）访问时间是11秒，使用gitHub.io(带CND)是6秒，使用Cloudfront之后加载时间大概是2.4秒，可见Cloudfront的加速效果是非常理想的。</p>
+<blockquote>
+<ul>
+<li>参考资料</li>
+<li><a href="http://www.huangbowen.net/blog/2013/10/01/migrate-octopress-to-aws-step-2/" target="_blank" rel="external">http://www.huangbowen.net/blog/2013/10/01/migrate-octopress-to-aws-step-2/</a></li>
+<li><a href="http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-policy.html" target="_blank" rel="external">http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-policy.html</a></li>
+</ul>
+</blockquote>
+</div></article><article><header><h2><a href="/2017/03/15/AWS-EC2/">AWS EC2</a></h2></header><div class="article-meta clearfix"><time class="left">2017 3 月 15 日</time><ul class="tags left"></ul><ul class="tags right"><li><a href="/tags/AWS/">AWS</a></li><li><a href="/tags/EC2/">EC2</a></li></ul></div><div class="markdown-body"><h1 id="AWS虚拟机EC2"><a href="#AWS虚拟机EC2" class="headerlink" title="AWS虚拟机EC2"></a>AWS虚拟机EC2</h1><p>Amazon Elastic Cloud Compute，简单来说就是亚马逊的虚拟机。<br>亚马逊的EC2标榜有几大优势：完全控制，灵活使用，方便集成，安全，便宜，简单好用。<br>关于EC2有几个重要的概念：Instance Type，即在选择Instance的时候的内存，CUP等硬件指标；然后是EBS，即挂载硬盘，租户可以选择不同IO，不同介质的虚拟硬盘；其次是AMI，即用于启动虚拟机的操作系统镜像；另外还有Security Group，可以理解为虚拟机的防火墙；其他的服务都属于附加服务，比如负载均衡，弹性伸缩，监控报警，权限控制，类似nfs的弹性存储介质等等。<br>虚拟机服务是云服务最重要的服务，几乎各大云厂商最终要的一项都是对租户提供虚拟机，看大厂的虚拟机策略，其他各厂基本可通晓一二。<br>由于企业级应用很少用windows的使用场景，笔者将主要关注在Linux的使用上，本文对windows使用场景改不涉及。</p>
 <h2 id="Instances"><a href="#Instances" class="headerlink" title="Instances"></a>Instances</h2><p>EC2为亚马逊的服务，Instance就是该服务提供的一个实例 —— 虚拟机</p>
 <h3 id="Instance-Purchasing-Options"><a href="#Instance-Purchasing-Options" class="headerlink" title="Instance Purchasing Options"></a>Instance Purchasing Options</h3><p>在说Instance Type之前，有个更重要的东西：Instance的收费方式（Instance Purchasing Options）。Instance有四种收费方式，针对不同应用场景要学会选择适合的Purchasing Option:</p>
 <ul>
@@ -153,7 +199,7 @@
 <li>Uploading Object<a href="http://docs.aws.amazon.com/AmazonS3/latest/dev/UploadingObjects.html" target="_blank" rel="external">http://docs.aws.amazon.com/AmazonS3/latest/dev/UploadingObjects.html</a></li>
 </ul>
 </blockquote>
-</div></article><article><header><h2><a href="/2017/03/07/Deploy-Hexo-to-S3/">Deploy Hexo to S3</a></h2></header><div class="article-meta clearfix"><time class="left">2017 3 月 7 日</time><ul class="tags left"></ul><ul class="tags right"><li><a href="/tags/AWS/">AWS</a></li><li><a href="/tags/S3/">S3</a></li></ul></div><div class="markdown-body"><h1 id="将Hexo博客发布到S3"><a href="#将Hexo博客发布到S3" class="headerlink" title="将Hexo博客发布到S3"></a>将Hexo博客发布到S3</h1><p>最近在学习AWS服务，加之两次遇到github.io无法访问的情况，决定将博客迁移到AWS S3上。</p>
+</div></article><article><header><h2><a href="/2017/03/07/Deploy-Hexo-to-S3/">Deploy Hexo to S3</a></h2></header><div class="article-meta clearfix"><time class="left">2017 3 月 7 日</time><ul class="tags left"></ul><ul class="tags right"><li><a href="/tags/AWS/">AWS</a></li><li><a href="/tags/S3/">S3</a></li><li><a href="/tags/Blog/">Blog</a></li></ul></div><div class="markdown-body"><h1 id="将Hexo博客发布到S3"><a href="#将Hexo博客发布到S3" class="headerlink" title="将Hexo博客发布到S3"></a>将Hexo博客发布到S3</h1><p>最近在学习AWS服务，加之两次遇到github.io无法访问的情况，决定将博客迁移到AWS S3上。</p>
 <h2 id="S3介绍"><a href="#S3介绍" class="headerlink" title="S3介绍"></a>S3介绍</h2><p>S3是AWS一个对象存储服务，拥有11个9的耐久度和3个9的可用性（并不算高），属于AWS底层存储服务。同时提供Host静态网站的功能</p>
 <h2 id="第一步：创建一个Bucket"><a href="#第一步：创建一个Bucket" class="headerlink" title="第一步：创建一个Bucket"></a>第一步：创建一个Bucket</h2><ul>
 <li>进入S3界面，点击<strong>CreateBucket</strong>，取名为www.duyidong.com</li>
@@ -235,7 +281,8 @@ export AWS_SECRET_ACCESS_KEY=&lt;secret key&gt;
   repo:
 - type: heroku
   repo:
-</code></pre><blockquote>
+</code></pre><h2 id="后续"><a href="#后续" class="headerlink" title="后续"></a>后续</h2><p>要使用自己的域名，开启HTTPS，使用AWS的CND，参照：<a href="">使用AWS开启HTTPS和CDN</a></p>
+<blockquote>
 <ul>
 <li>参考资料: </li>
 <li><a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">https://hexo.io/docs/deployment.html</a></li>
@@ -245,57 +292,7 @@ export AWS_SECRET_ACCESS_KEY=&lt;secret key&gt;
 <li><a href="https://aws.amazon.com/s3/reduced-redundancy/" target="_blank" rel="external">https://aws.amazon.com/s3/reduced-redundancy/</a></li>
 </ul>
 </blockquote>
-</div></article><article><header><h2><a href="/2017/03/06/浅谈AWS-IAM/">浅谈AWS IAM</a></h2></header><div class="article-meta clearfix"><time class="left">2017 3 月 6 日</time><ul class="tags left"></ul><ul class="tags right"><li><a href="/tags/AWS/">AWS</a></li><li><a href="/tags/Security/">Security</a></li><li><a href="/tags/IAM/">IAM</a></li></ul></div><div class="markdown-body"><h1 id="浅谈-AWS-IAM"><a href="#浅谈-AWS-IAM" class="headerlink" title="浅谈 AWS IAM"></a>浅谈 AWS IAM</h1><p>IAM，全称Identity &amp; Access Management，作用是AWS资源的权限管理。</p>
-<h2 id="IAM解决了什么问题"><a href="#IAM解决了什么问题" class="headerlink" title="IAM解决了什么问题"></a>IAM解决了什么问题</h2><p>解决了什么问题，等同于带来了什么价值，在AWS的<a href="https://aws.amazon.com/iam/details/" target="_blank" rel="external">官方文档</a>中，IAM主要是出于以下需求被设计出来的：</p>
-<ul>
-<li><strong>增强安全：</strong>AWS给每个用户单独的验证，保证每个用户能够被分配恰当的权限，从而保证AWS资源的安全。默认情况下，IAM的User在被创建的时候是没有任何权限的，所以IAM是默认安全的。</li>
-<li><strong>粒度控制：</strong>IAM让租户可以进行细粒度的权限控制，比如terminate instance的权限，比如对S3 bucket中对象的只读权限。</li>
-<li><strong>临时证书：</strong>IAM允许创造生命周期短于用户的权限（Role），Role被绑定在AWS资源（如EC2 instance）上，确保资源之间的相互调用有适当的权限。</li>
-<li><strong>灵活的安全证书管理：</strong>IAM提供了多种验证方式，包括key pair， 用户名密码，X.509 certificates， MFA，用于Console，CLI，sdk等API调用。</li>
-<li><strong>外部身份系统：</strong>IAM使AWS支持第三方登录或与企业现有权限管理系统集成，比如微软的Active Directory，或第三方验证，比如Google，Facebook。</li>
-<li><strong>与AWS服务无缝贴合：</strong>IAM与AWS的几乎所有服务集成，首先你需要IAM的权限再能访问和使用AWS的服务，其次AWS中的服务需要IAM的权限才能完成对AWS其他资源的调用。</li>
-</ul>
-<h2 id="几个概念"><a href="#几个概念" class="headerlink" title="几个概念"></a>几个概念</h2><p>AWS的官方文档和很多博客都在说的Get Start，最重要的就是AWS中的几个名词：</p>
-<ul>
-<li><strong>User：</strong>一个User对应一个AWS用户，这个用户指的是一个真实的用户，用户在创建初期是没有任何权限的，需要被加到用户组或绑定Policy才能有相应权限，User有两种验证方式，一种是key pair，常用于集成到程序中和AWS CLI 使用，另一种是Username+Password的方式，这种方式只能用于Console登录。</li>
-<li><strong>UserGroup：</strong>类比Linux系统的UserGroup，一个UserGroup可以包含多个User，这些User具有UserGroup指定的所有权限，UserGroup的权限由Policy制定，Group不能嵌套Group，一个用户如在多个UserGroup中，权限取Group权限的和。</li>
-<li><strong>Policy：</strong>由“资源类型”和“操作类型”两个重要参数构成的Json文件，用于定义一定粒度的权限，支持模糊匹配（*），分为官方定义和自己定义，用于定义用户可对何种资源执行何种操作，Policy可以与User，UserGroup，Role绑定。</li>
-<li><strong>Role：</strong>IAM定义用于代替User赋予资源权限的权限单位，比如给一个EC2 instance S3 administrator的权限，便可以在改Instance上执行aws s3的所有命令，且在本地不会出现Creadentical文件（比User安全）。与User相同，Role 的权限也由Polic组成，由用户定义。另外，Role还可以用于赋予外部账号权限。</li>
-</ul>
-<h2 id="官方推荐最佳实践"><a href="#官方推荐最佳实践" class="headerlink" title="官方推荐最佳实践"></a>官方推荐最佳实践</h2><p>参照官方文档：<a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html" target="_blank" rel="external">http://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html</a></p>
-<ul>
-<li>禁用AWS Root账户：因为Root用户权限实在太大，要尽可能避免Root账户认证被泄露的风险，建议不要给Root账户创建Access Key，另外开启MFA验证。</li>
-<li>为每个用户创建单独的User</li>
-<li>尽可能使用Policies 添加权限</li>
-<li>使用UserGroup对用户权限进行分组管理</li>
-<li>最小权限原则</li>
-<li>开启强密码限制</li>
-<li>开启MFA设备验证</li>
-<li>为EC2 instance上的应用程序创建Role</li>
-<li>使用Role而不是User的Credentials</li>
-<li>经常更新Credentials</li>
-<li>移除不再使用的Creadentials</li>
-<li>使用策略提高额外的安全性：比如限制该资源只能从哪个网段访问，只能在某个时间段访问，强制开启MFA验证后才可访问，等等</li>
-<li>监控账户活动情况：CloudFront, CloudTrail, CloudWatch, Config, S3 log都可以保证账户活动被监控</li>
-</ul>
-<h2 id="限制"><a href="#限制" class="headerlink" title="限制"></a>限制</h2><p><a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-limits.html" target="_blank" rel="external">http://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-limits.html</a><br>大部分限制大部分情况下都碰不到，列几个常见的：</p>
-<ul>
-<li>每个User最多可被加入到10个UserGroup</li>
-<li>每个User最多可以有2个Access key(包括root account)</li>
-<li>一个用户只能验证一个MFA设备</li>
-<li>User Policy的长度限制为2KB</li>
-<li>Role Policy的长度限制为10KB</li>
-<li>UserGroup Policy的长度限制为5KB</li>
-</ul>
-<h2 id="几个知识点"><a href="#几个知识点" class="headerlink" title="几个知识点"></a>几个知识点</h2><p>以下知识点是笔者在查阅 <a href="https://aws.amazon.com/iam/faqs/" target="_blank" rel="external">FAQs</a> 时记录的：</p>
-<ul>
-<li>一个EC2 instance不能有多个Role，但一个Role可以被多个EC2 instance共用</li>
-<li>Role可以被attach 到一个正在运行的实例</li>
-<li>可以将Role与Auto Scaing Group关联，这样每个在该安全组内被启动的实例都会被附上该Role所指的权限</li>
-<li>AWS有一个用于测试你的Polic的工具：<a href="https://policysim.aws.amazon.com/" target="_blank" rel="external">Policy Simulator</a></li>
-<li>IAM的每一个记录都会被CloudTrail记录log，保存在S3中</li>
-</ul>
-</div></article><div class="archive-pagination"><div class="paginator"><span class="page-number current">1</span><a class="page-number" href="/archives/2017/page/2/">2</a><a class="extend next" rel="next" href="/archives/2017/page/2/">&raquo;</a></div></div></div><div class="block-sidebar column one-fourth"><div class="widget text-content"><p>杜屹东 生于 1993.12.16, 英文 ID Luke Du</p>
+</div></article><div class="archive-pagination"><div class="paginator"><span class="page-number current">1</span><a class="page-number" href="/archives/2017/page/2/">2</a><a class="page-number" href="/archives/2017/page/3/">3</a><a class="extend next" rel="next" href="/archives/2017/page/2/">&raquo;</a></div></div></div><div class="block-sidebar column one-fourth"><div class="widget text-content"><p>杜屹东 生于 1993.12.16, 英文 ID Luke Du</p>
 <ul>
 <li>现就职于<a href="https://www.thoughtworks.com/">ThoughtWorks</a></li>
 <li>毕业于 <a href="http://www.xhu.edu.cn/">西华大学</a> 计算机科学与技术</li>
@@ -310,7 +307,7 @@ export AWS_SECRET_ACCESS_KEY=&lt;secret key&gt;
 <li>CI/CD - 持续集成与持续交付</li>
 <li>Agile - 敏捷文化</li>
 </ul>
-</div><div class="widget tags"><ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS/">AWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Agile/">Agile</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DataBase/">DataBase</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DevOps/">DevOps</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/EC2/">EC2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP/">HTTP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IAM/">IAM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/S3/">S3</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Security/">Security</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Serverless/">Serverless</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Shell/">Shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Study/">Study</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TDD/">TDD</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ThoughtWorks/">ThoughtWorks</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vim/">vim</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/代码/">代码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大事记/">大事记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/学习/">学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小结/">小结</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小计/">小计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/爬虫/">爬虫</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/翻译/">翻译</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/部署与发布/">部署与发布</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面试/">面试</a></li></ul></div><div class="widget archives"><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">五月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">5</span></li></ul></div><div class="widget text-content"><p>该博客使用基于 &nbsp;<a href="http://hexo.io">Hexo</a>&nbsp; 的 &nbsp;<a href="https://github.com/jysperm/hexo-theme-simpleblock">simpleblock</a>&nbsp; 主题。博客内容使用 &nbsp;<a href="https://aws.amazon.com/s3/">Amazon S3</a>&nbsp; 发布。最后生成于 2017-03-19.</p></div></div></div></div><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+</div><div class="widget tags"><ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS/">AWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Agile/">Agile</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blog/">Blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CDN/">CDN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cloudfront/">Cloudfront</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DataBase/">DataBase</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DevOps/">DevOps</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/EC2/">EC2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP/">HTTP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTPS/">HTTPS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IAM/">IAM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Route53/">Route53</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/S3/">S3</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Security/">Security</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Serverless/">Serverless</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Shell/">Shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Study/">Study</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TDD/">TDD</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ThoughtWorks/">ThoughtWorks</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vim/">vim</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/代码/">代码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大事记/">大事记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/学习/">学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小结/">小结</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小计/">小计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/爬虫/">爬虫</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/翻译/">翻译</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/部署与发布/">部署与发布</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面试/">面试</a></li></ul></div><div class="widget archives"><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">五月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">5</span></li></ul></div><div class="widget text-content"><p>该博客使用基于 &nbsp;<a href="http://hexo.io">Hexo</a>&nbsp; 的 &nbsp;<a href="https://github.com/jysperm/hexo-theme-simpleblock">simpleblock</a>&nbsp; 主题。博客内容使用 &nbsp;<a href="https://aws.amazon.com/s3/">Amazon S3</a>&nbsp; 发布。最后生成于 2017-03-21.</p></div></div></div></div><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 })(window,document,'script','//www.google-analytics.com/analytics.js','ga');

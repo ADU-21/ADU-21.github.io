@@ -29,12 +29,12 @@
 <li>另外，关于Cloudfront的日志，AWS不会针对日志功能进行收费，但用户需要对占用的S3 bucket存储和访问付费，日志内容大概和Nginx的access.log差不多，个人觉得AWS的<a href="https://console.aws.amazon.com/cloudfront/home#cache_stat_reports" target="_blank" rel="external">Reports &amp; Analytics</a>已经做得很好了，日志有些多余，建议可以在学习完后关闭。</li>
 </ul>
 </blockquote>
-<h3 id="关于缓存"><a href="#关于缓存" class="headerlink" title="关于缓存"></a>关于缓存</h3><p>关于S3里的Object在Cloudfront的各节点缓存的时间，默认为24小时，也就是说当我发布一篇新博客，由于主页index.html名字没有变化，只是更新了新版本，我要等到24小时后旧版本过期才能看到新的页面，这对我的小博客来说时间太长了，需要更改这个Cache时间，更改Cache时间有两种方式，一是更改TTL（Time To Live）时间，二是增加<code>Cache-Control: max-age=[seconds]</code>的heaeder，关于第二种方式，具体参见<a href="http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Expiration.html#expiration-individual-objects" target="_blank" rel="external">官方文档</a>，这里我说一下如何更改TTL：<br>进入Distribution的管理员界面，选择<strong>Behaviors</strong>标签，勾选待编辑的Behavior，点选<strong>Edit</strong></p>
+<h3 id="关于缓存"><a href="#关于缓存" class="headerlink" title="关于缓存"></a>关于缓存</h3><p>关于S3里的Object在Cloudfront的各节点缓存的时间，默认为24小时，也就是说当我发布一篇新博客，由于主页index.html名字没有变化，只是更新了新版本，我要等到24小时后旧版本过期才能看到新的页面，这对我的小博客来说时间太长了，需要更改这个Cache时间，更改Cache时间有两种方式，一是更改TTL（Time To Live）时间，二是增加<code>Cache-Control: max-age=[seconds]</code>的heaeder，关于第二种方式，具体参见<a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Expiration.html#expiration-individual-objects" target="_blank" rel="external">官方文档</a>，这里我说一下如何更改TTL：<br>进入Distribution的管理员界面，选择<strong>Behaviors</strong>标签，勾选待编辑的Behavior，点选<strong>Edit</strong></p>
 <p><img src="/images/Cloudfront_Distributions_Behaviors.png" alt=""></p>
 <p>在Edit Behavior页面Object Caching项目勾选<strong>Customize</strong>自定义TTL，将Default TTL改为3600（1小时）点选<strong>Yes，Edit</strong>即可。<br>同样，更新配置要等待半小时左右方能生效。</p>
 <blockquote>
 <ul>
-<li>参见 <a href="http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Expiration.html" target="_blank" rel="external">Specifying How Long Objects Stay in a CloudFront Edge Cache (Expiration)</a></li>
+<li>参见 <a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Expiration.html" target="_blank" rel="external">Specifying How Long Objects Stay in a CloudFront Edge Cache (Expiration)</a></li>
 </ul>
 </blockquote>
 <h2 id="配置Route53"><a href="#配置Route53" class="headerlink" title="配置Route53"></a>配置Route53</h2><p>进入Route53的<a href="https://console.aws.amazon.com/route53/home" target="_blank" rel="external">Console</a>，进入<strong>Hosted Zones</strong>标签，点选使用的Domain Name。</p>
@@ -48,9 +48,9 @@
 <blockquote>
 <ul>
 <li>参考资料</li>
-<li><a href="http://www.huangbowen.net/blog/2013/10/01/migrate-octopress-to-aws-step-2/" target="_blank" rel="external">http://www.huangbowen.net/blog/2013/10/01/migrate-octopress-to-aws-step-2/</a></li>
-<li><a href="http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-policy.html" target="_blank" rel="external">http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-policy.html</a></li>
-<li><a href="http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Expiration.html" target="_blank" rel="external">http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Expiration.html</a></li>
+<li><a href="https://www.huangbowen.net/blog/2013/10/01/migrate-octopress-to-aws-step-2/" target="_blank" rel="external">https://www.huangbowen.net/blog/2013/10/01/migrate-octopress-to-aws-step-2/</a></li>
+<li><a href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-policy.html" target="_blank" rel="external">https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-policy.html</a></li>
+<li><a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Expiration.html" target="_blank" rel="external">https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Expiration.html</a></li>
 </ul>
 </blockquote>
 </div></article><article><header><h2><a href="/2017/03/15/AWS-EC2/">AWS EC2</a></h2></header><div class="article-meta clearfix"><time class="left">2017 3 月 15 日</time><ul class="tags left"></ul><ul class="tags right"><li><a href="/tags/AWS/">AWS</a></li><li><a href="/tags/EC2/">EC2</a></li></ul></div><div class="markdown-body"><h1 id="AWS虚拟机EC2"><a href="#AWS虚拟机EC2" class="headerlink" title="AWS虚拟机EC2"></a>AWS虚拟机EC2</h1><p>Amazon Elastic Cloud Compute，简单来说就是亚马逊的虚拟机。<br>亚马逊的EC2标榜有几大优势：完全控制，灵活使用，方便集成，安全，便宜，简单好用。<br>关于EC2有几个重要的概念：Instance Type，即在选择Instance的时候的内存，CUP等硬件指标；然后是EBS，即挂载硬盘，租户可以选择不同IO，不同介质的虚拟硬盘；其次是AMI，即用于启动虚拟机的操作系统镜像；另外还有Security Group，可以理解为虚拟机的防火墙；其他的服务都属于附加服务，比如负载均衡，弹性伸缩，监控报警，权限控制，类似nfs的弹性存储介质等等。<br>虚拟机服务是云服务最重要的服务，几乎各大云厂商最终要的一项都是对租户提供虚拟机，看大厂的虚拟机策略，其他各厂基本可通晓一二。<br>由于企业级应用很少用windows的使用场景，笔者将主要关注在Linux的使用上，本文对windows使用场景改不涉及。</p>
@@ -81,9 +81,9 @@
 </li>
 </ul>
 <h3 id="Instance-LifeCycle"><a href="#Instance-LifeCycle" class="headerlink" title="Instance LifeCycle"></a>Instance LifeCycle</h3><p>Instance的生命周期，有pending, running, stop ,terminate几个主要的状态和动作，详见下图：</p>
-<p><img src="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/images/instance_lifecycle.png" alt=""></p>
-<h3 id="MetaData-amp-UserData"><a href="#MetaData-amp-UserData" class="headerlink" title="MetaData &amp; UserData"></a>MetaData &amp; UserData</h3><p>UserData是创建完成Instance最后一步用来准备Instance环境的Bash脚本，而MetaData是Instance与生俱来的元数据，通过<code>curl http://169.254.169.254/latest/meta-data/</code>这种奇特的方式获得，包含Instance类型，IP，public-key等信息。值得一提的是IAM的Role之所以在Instance的文件系统中不会出现Credential key的文件，是因为它把Credential key放到了MetaData中，可以通过获取MetaData的方式获得。</p>
-<h2 id="EBS"><a href="#EBS" class="headerlink" title="EBS"></a>EBS</h2><p>简单来讲，EBS(Elastic Block Storage)就是AWS为租户提供的虚拟硬盘，Instance可以看做主板，EBS可以被关联到任何一个Instance上，启动Instance时也必须要一个启动硬盘作为系统盘才能启动。这里就要区分一个重要的概念，EBS 和 Instance Store，两种类型的Instance，应该说EBS Instance比Instance Store 更健全一些，支持更多的Instance Type，生命周期完整；而Instance Store，是由存放在S3的文件系统启动的，启动速度慢，生命周期不完整，只能被Reboot或者Terminate，不能Stop，一旦启动失败就会丢失所有数据，且支持类型有限，被称为短暂存储（ephemeral Storage）<br>下面重点区分一下<a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html" target="_blank" rel="external">EBS Volum Type</a>，与Instance相同，重点也在使用场景和节省开销：</p>
+<p><img src="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/images/instance_lifecycle.png" alt=""></p>
+<h3 id="MetaData-amp-UserData"><a href="#MetaData-amp-UserData" class="headerlink" title="MetaData &amp; UserData"></a>MetaData &amp; UserData</h3><p>UserData是创建完成Instance最后一步用来准备Instance环境的Bash脚本，而MetaData是Instance与生俱来的元数据，通过<code>curl https://169.254.169.254/latest/meta-data/</code>这种奇特的方式获得，包含Instance类型，IP，public-key等信息。值得一提的是IAM的Role之所以在Instance的文件系统中不会出现Credential key的文件，是因为它把Credential key放到了MetaData中，可以通过获取MetaData的方式获得。</p>
+<h2 id="EBS"><a href="#EBS" class="headerlink" title="EBS"></a>EBS</h2><p>简单来讲，EBS(Elastic Block Storage)就是AWS为租户提供的虚拟硬盘，Instance可以看做主板，EBS可以被关联到任何一个Instance上，启动Instance时也必须要一个启动硬盘作为系统盘才能启动。这里就要区分一个重要的概念，EBS 和 Instance Store，两种类型的Instance，应该说EBS Instance比Instance Store 更健全一些，支持更多的Instance Type，生命周期完整；而Instance Store，是由存放在S3的文件系统启动的，启动速度慢，生命周期不完整，只能被Reboot或者Terminate，不能Stop，一旦启动失败就会丢失所有数据，且支持类型有限，被称为短暂存储（ephemeral Storage）<br>下面重点区分一下<a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html" target="_blank" rel="external">EBS Volum Type</a>，与Instance相同，重点也在使用场景和节省开销：</p>
 <ul>
 <li>SSD, General Purporse - <strong>gp2</strong>: 兼顾性能与价格，吞吐量160MB/s，最大IOPS为10,000; 挂载卷大小在1GB-16TB；使用场景：推荐使用在大部分场景，虚拟机启动磁盘，提供低延迟的服务，可在开发测试环境应用</li>
 <li>SSD, Provisioned IOPS - <strong>io1</strong>: 高性能磁盘，吞吐量320MB/s，IOPS在10,000-20,000; 挂载卷大小在4GB-16TB；使用场景：执行紧急任务的应用模块，大数据库，比如MongDB, Orale, SQL Server等</li>
@@ -95,7 +95,7 @@
 <p>注：以上参数均需在Instance类型的支持才能发挥到最大值，机械硬盘的优势在于高吞吐，固态硬盘的好处在于高IO；另外一个需要注意的是，你可以在一个Instance上绑定多个EBS，但是不能将一个EBS绑定在多个Instance上（这种情况要使用EFS）</p>
 </blockquote>
 <h2 id="Security-Group"><a href="#Security-Group" class="headerlink" title="Security Group"></a>Security Group</h2><p>Security Group可以理解为Instance的防火墙，在Instance的网络中大概处在以下位置：</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/1765038-d1edcf22e1e4784c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1765038-d1edcf22e1e4784c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
 <p>SG的安全策略大范围分为Inbound和Outbound，顾名思义为控制进出，SG刚被创建时默认所有Inbound都是被禁止的，所有Outbound都是被允许的。<br>SG由数条规则（rules）构成，Rules有几个重要参数：目标地址（网段），协议类型，端口号。<br>关于SG有以下几个值得注意的点：</p>
 <ul>
 <li>SG策略在修改后立即生效</li>
@@ -121,9 +121,9 @@
 <li>启动实例时需要挂载的磁盘映射表</li>
 </ul>
 <p>一个AMI的生命周期看起来像是这个样子的：</p>
-<p><img src="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/images/ami_lifecycle.png" alt=""></p>
+<p><img src="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/images/ami_lifecycle.png" alt=""></p>
 <p>AMI是划分Region的，租户可以通过Console或CLI在Region之间拷贝AMI。<br>AMI可以用于在<a href="https://aws.amazon.com/marketplace/search/results?x=0&amp;y=0&amp;searchTerms=&amp;page=1&amp;ref_=nav_search_box" target="_blank" rel="external">AWS Marketplace</a>出售。</p>
-<p>AMI依赖于Snapshot缺不被Instance依赖，这意味着租户不能删除一个被注册的AMI的Snapshot，却可以删除一个运行中实例的AMI，Snapshot，AMI，Instance的关系如下图:<br><img src="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/images/ami_delete_ebs.png" alt=""></p>
+<p>AMI依赖于Snapshot缺不被Instance依赖，这意味着租户不能删除一个被注册的AMI的Snapshot，却可以删除一个运行中实例的AMI，Snapshot，AMI，Instance的关系如下图:<br><img src="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/images/ami_delete_ebs.png" alt=""></p>
 <h2 id="ELB-amp-Health-Checks"><a href="#ELB-amp-Health-Checks" class="headerlink" title="ELB &amp; Health Checks"></a>ELB &amp; Health Checks</h2><p>ELB，Elastic LoadBalancer是构建一个高可用可用不得不谈的服务，经常和Autoscaling Group一起实现负载伸缩和高可用。<br>ELB是AWS提供的负载均衡器，用于将外部访问请求分发给状态健康的EC2 Instance。<br>ELB在创建的时候会有对外会有一个DNS解析域名，对所属Instance会做健康检查，所谓健康检查就是去定期访问一个文件，判断返回状态码为200即表明这个服务正常，Instance可以动态地被加载到ELB下，也可以动态移除，ELB会自动判断这个Instance已经失去连接并停止发送请求到这个Instance。<br>值得一提的是，ELB一个重要的功能是增加服务容灾性，通常会挂载多个不同AZ的Instance，做到一个数据中心挂掉仍然能够正常提供服务。</p>
 <h2 id="Cloud-Watch-EC2"><a href="#Cloud-Watch-EC2" class="headerlink" title="Cloud Watch EC2"></a>Cloud Watch EC2</h2><p>CloudWatch是AWS提供的EC2监控报警的服务，简单好用。<br>作为一款与AWS各种资源高度集成且简单好用的监控工具，CloudWatch有以下功能：</p>
 <ul>
@@ -196,23 +196,23 @@
 <h2 id="限制"><a href="#限制" class="headerlink" title="限制"></a>限制</h2><ul>
 <li>一个对象最大不能超过5TB</li>
 <li>一个账号最多可创建100个bucket</li>
-<li>S3普通上传模式最大只支持5GB以下的文件大小，开启<a href="http://docs.aws.amazon.com/AmazonS3/latest/dev/UploadingObjects.html" target="_blank" rel="external">multipart uploading</a>enable多进程上传和断点续传，从而提高上传效率，在带宽充足且有大文件需要上传的时候可以开启这个功能</li>
+<li>S3普通上传模式最大只支持5GB以下的文件大小，开启<a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/UploadingObjects.html" target="_blank" rel="external">multipart uploading</a>enable多进程上传和断点续传，从而提高上传效率，在带宽充足且有大文件需要上传的时候可以开启这个功能</li>
 </ul>
 <blockquote>
 <ul>
 <li>参考资料</li>
 <li>AWS S3 FAQ<a href="https://aws.amazon.com/s3/faqs/" target="_blank" rel="external">https://aws.amazon.com/s3/faqs/</a></li>
 <li>AWS S3 Detail<a href="https://aws.amazon.com/s3/details/" target="_blank" rel="external">https://aws.amazon.com/s3/details/</a></li>
-<li>AWS S3 Use Case<a href="http://docs.aws.amazon.com/AmazonS3/latest/gsg/S3-gsg-CommonUseScenarios.html" target="_blank" rel="external">http://docs.aws.amazon.com/AmazonS3/latest/gsg/S3-gsg-CommonUseScenarios.html</a></li>
+<li>AWS S3 Use Case<a href="https://docs.aws.amazon.com/AmazonS3/latest/gsg/S3-gsg-CommonUseScenarios.html" target="_blank" rel="external">https://docs.aws.amazon.com/AmazonS3/latest/gsg/S3-gsg-CommonUseScenarios.html</a></li>
 <li><a href="https://www.amazonaws.cn/en/s3/" target="_blank" rel="external">https://www.amazonaws.cn/en/s3/</a></li>
-<li>Uploading Object<a href="http://docs.aws.amazon.com/AmazonS3/latest/dev/UploadingObjects.html" target="_blank" rel="external">http://docs.aws.amazon.com/AmazonS3/latest/dev/UploadingObjects.html</a></li>
+<li>Uploading Object<a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/UploadingObjects.html" target="_blank" rel="external">https://docs.aws.amazon.com/AmazonS3/latest/dev/UploadingObjects.html</a></li>
 </ul>
 </blockquote>
 </div></article><article><header><h2><a href="/2017/03/07/Deploy-Hexo-to-S3/">Deploy Hexo to S3</a></h2></header><div class="article-meta clearfix"><time class="left">2017 3 月 7 日</time><ul class="tags left"></ul><ul class="tags right"><li><a href="/tags/AWS/">AWS</a></li><li><a href="/tags/S3/">S3</a></li><li><a href="/tags/Blog/">Blog</a></li></ul></div><div class="markdown-body"><h1 id="将Hexo博客发布到S3"><a href="#将Hexo博客发布到S3" class="headerlink" title="将Hexo博客发布到S3"></a>将Hexo博客发布到S3</h1><p>最近在学习AWS服务，加之两次遇到github.io无法访问的情况，决定将博客迁移到AWS S3上。</p>
 <h2 id="S3介绍"><a href="#S3介绍" class="headerlink" title="S3介绍"></a>S3介绍</h2><p>S3是AWS一个对象存储服务，拥有11个9的耐久度和3个9的可用性（并不算高），属于AWS底层存储服务。同时提供Host静态网站的功能</p>
 <h2 id="第一步：创建一个Bucket"><a href="#第一步：创建一个Bucket" class="headerlink" title="第一步：创建一个Bucket"></a>第一步：创建一个Bucket</h2><ul>
 <li>进入S3界面，点击<strong>CreateBucket</strong>，取名为www.duyidong.com</li>
-<li>选择一个Region，你可以在<a href="http://s3-accelerate-speedtest.s3-accelerate.amazonaws.com/en/accelerate-speed-comparsion.html" target="_blank" rel="external">这里</a>找到延迟最低的Region用于存放你的博客</li>
+<li>选择一个Region，你可以在<a href="https://s3-accelerate-speedtest.s3-accelerate.amazonaws.com/en/accelerate-speed-comparsion.html" target="_blank" rel="external">这里</a>找到延迟最低的Region用于存放你的博客</li>
 <li><p>设置Policy，确保外部可访问：</p>
 <pre><code>{
  &quot;Version&quot;: &quot;2012-10-17&quot;,
@@ -238,7 +238,7 @@
 <li>进入<strong>IAM -&gt; Policies -&gt; Create Policy -&gt; Policy Generator</strong></li>
 <li><p>选择S3的PutObject Action, ARN为目标Bucket的ARN，届时会生成如下Policy:</p>
 <blockquote>
-<p>注：经笔者反复试错，再参照<a href="http://docs.aws.amazon.com/AmazonS3/latest/dev/example-policies-s3.html" target="_blank" rel="external">官方文档</a>，最终确定User Policy需要以下权限：</p>
+<p>注：经笔者反复试错，再参照<a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/example-policies-s3.html" target="_blank" rel="external">官方文档</a>，最终确定User Policy需要以下权限：</p>
 </blockquote>
 <pre><code>{
 &quot;Version&quot;:&quot;2012-10-17&quot;,
@@ -293,10 +293,10 @@ export AWS_SECRET_ACCESS_KEY=&lt;secret key&gt;
 </code></pre><h2 id="后续"><a href="#后续" class="headerlink" title="后续"></a>后续</h2><p>要使用自己的域名，开启HTTPS，使用AWS的CND，参照：<a href="">使用AWS开启HTTPS和CDN</a></p>
 <blockquote>
 <ul>
-<li>参考资料: </li>
+<li>参考资料:</li>
 <li><a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">https://hexo.io/docs/deployment.html</a></li>
-<li><a href="http://inject.coffee/hexo-travis-s3-part-2-deploying-to-aws/" target="_blank" rel="external">http://inject.coffee/hexo-travis-s3-part-2-deploying-to-aws/</a></li>
-<li><a href="http://docs.aws.amazon.com/AmazonS3/latest/dev/website-hosting-custom-domain-walkthrough.html" target="_blank" rel="external">http://docs.aws.amazon.com/AmazonS3/latest/dev/website-hosting-custom-domain-walkthrough.html</a></li>
+<li><a href="https://inject.coffee/hexo-travis-s3-part-2-deploying-to-aws/" target="_blank" rel="external">https://inject.coffee/hexo-travis-s3-part-2-deploying-to-aws/</a></li>
+<li><a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/website-hosting-custom-domain-walkthrough.html" target="_blank" rel="external">https://docs.aws.amazon.com/AmazonS3/latest/dev/website-hosting-custom-domain-walkthrough.html</a></li>
 <li><a href="https://aws.amazon.com/s3/storage-classes/" target="_blank" rel="external">https://aws.amazon.com/s3/storage-classes/</a></li>
 <li><a href="https://aws.amazon.com/s3/reduced-redundancy/" target="_blank" rel="external">https://aws.amazon.com/s3/reduced-redundancy/</a></li>
 </ul>

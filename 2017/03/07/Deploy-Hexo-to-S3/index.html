@@ -2,7 +2,7 @@
 <h2 id="S3介绍"><a href="#S3介绍" class="headerlink" title="S3介绍"></a>S3介绍</h2><p>S3是AWS一个对象存储服务，拥有11个9的耐久度和3个9的可用性（并不算高），属于AWS底层存储服务。同时提供Host静态网站的功能</p>
 <h2 id="第一步：创建一个Bucket"><a href="#第一步：创建一个Bucket" class="headerlink" title="第一步：创建一个Bucket"></a>第一步：创建一个Bucket</h2><ul>
 <li>进入S3界面，点击<strong>CreateBucket</strong>，取名为www.duyidong.com</li>
-<li>选择一个Region，你可以在<a href="http://s3-accelerate-speedtest.s3-accelerate.amazonaws.com/en/accelerate-speed-comparsion.html" target="_blank" rel="external">这里</a>找到延迟最低的Region用于存放你的博客</li>
+<li>选择一个Region，你可以在<a href="https://s3-accelerate-speedtest.s3-accelerate.amazonaws.com/en/accelerate-speed-comparsion.html" target="_blank" rel="external">这里</a>找到延迟最低的Region用于存放你的博客</li>
 <li><p>设置Policy，确保外部可访问：</p>
 <pre><code>{
  &quot;Version&quot;: &quot;2012-10-17&quot;,
@@ -28,7 +28,7 @@
 <li>进入<strong>IAM -&gt; Policies -&gt; Create Policy -&gt; Policy Generator</strong></li>
 <li><p>选择S3的PutObject Action, ARN为目标Bucket的ARN，届时会生成如下Policy:</p>
 <blockquote>
-<p>注：经笔者反复试错，再参照<a href="http://docs.aws.amazon.com/AmazonS3/latest/dev/example-policies-s3.html" target="_blank" rel="external">官方文档</a>，最终确定User Policy需要以下权限：</p>
+<p>注：经笔者反复试错，再参照<a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/example-policies-s3.html" target="_blank" rel="external">官方文档</a>，最终确定User Policy需要以下权限：</p>
 </blockquote>
 <pre><code>{
 &quot;Version&quot;:&quot;2012-10-17&quot;,
@@ -83,10 +83,10 @@ export AWS_SECRET_ACCESS_KEY=&lt;secret key&gt;
 </code></pre><h2 id="后续"><a href="#后续" class="headerlink" title="后续"></a>后续</h2><p>要使用自己的域名，开启HTTPS，使用AWS的CND，参照：<a href="">使用AWS开启HTTPS和CDN</a></p>
 <blockquote>
 <ul>
-<li>参考资料: </li>
+<li>参考资料:</li>
 <li><a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">https://hexo.io/docs/deployment.html</a></li>
-<li><a href="http://inject.coffee/hexo-travis-s3-part-2-deploying-to-aws/" target="_blank" rel="external">http://inject.coffee/hexo-travis-s3-part-2-deploying-to-aws/</a></li>
-<li><a href="http://docs.aws.amazon.com/AmazonS3/latest/dev/website-hosting-custom-domain-walkthrough.html" target="_blank" rel="external">http://docs.aws.amazon.com/AmazonS3/latest/dev/website-hosting-custom-domain-walkthrough.html</a></li>
+<li><a href="https://inject.coffee/hexo-travis-s3-part-2-deploying-to-aws/" target="_blank" rel="external">https://inject.coffee/hexo-travis-s3-part-2-deploying-to-aws/</a></li>
+<li><a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/website-hosting-custom-domain-walkthrough.html" target="_blank" rel="external">https://docs.aws.amazon.com/AmazonS3/latest/dev/website-hosting-custom-domain-walkthrough.html</a></li>
 <li><a href="https://aws.amazon.com/s3/storage-classes/" target="_blank" rel="external">https://aws.amazon.com/s3/storage-classes/</a></li>
 <li><a href="https://aws.amazon.com/s3/reduced-redundancy/" target="_blank" rel="external">https://aws.amazon.com/s3/reduced-redundancy/</a></li>
 </ul>

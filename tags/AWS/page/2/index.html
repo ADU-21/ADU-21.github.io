@@ -15,7 +15,7 @@
 <li><strong>Policy：</strong>由“资源类型”和“操作类型”两个重要参数构成的Json文件，用于定义一定粒度的权限，支持模糊匹配（*），分为官方定义和自己定义，用于定义用户可对何种资源执行何种操作，Policy可以与User，UserGroup，Role绑定。</li>
 <li><strong>Role：</strong>IAM定义用于代替User赋予资源权限的权限单位，比如给一个EC2 instance S3 administrator的权限，便可以在改Instance上执行aws s3的所有命令，且在本地不会出现Creadentical文件（比User安全）。与User相同，Role 的权限也由Polic组成，由用户定义。另外，Role还可以用于赋予外部账号权限。</li>
 </ul>
-<h2 id="官方推荐最佳实践"><a href="#官方推荐最佳实践" class="headerlink" title="官方推荐最佳实践"></a>官方推荐最佳实践</h2><p>参照官方文档：<a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html" target="_blank" rel="external">http://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html</a></p>
+<h2 id="官方推荐最佳实践"><a href="#官方推荐最佳实践" class="headerlink" title="官方推荐最佳实践"></a>官方推荐最佳实践</h2><p>参照官方文档：<a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html" target="_blank" rel="external">https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html</a></p>
 <ul>
 <li>禁用AWS Root账户：因为Root用户权限实在太大，要尽可能避免Root账户认证被泄露的风险，建议不要给Root账户创建Access Key，另外开启MFA验证。</li>
 <li>为每个用户创建单独的User</li>
@@ -31,7 +31,7 @@
 <li>使用策略提高额外的安全性：比如限制该资源只能从哪个网段访问，只能在某个时间段访问，强制开启MFA验证后才可访问，等等</li>
 <li>监控账户活动情况：CloudFront, CloudTrail, CloudWatch, Config, S3 log都可以保证账户活动被监控</li>
 </ul>
-<h2 id="限制"><a href="#限制" class="headerlink" title="限制"></a>限制</h2><p><a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-limits.html" target="_blank" rel="external">http://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-limits.html</a><br>大部分限制大部分情况下都碰不到，列几个常见的：</p>
+<h2 id="限制"><a href="#限制" class="headerlink" title="限制"></a>限制</h2><p><a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-limits.html" target="_blank" rel="external">https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-limits.html</a><br>大部分限制大部分情况下都碰不到，列几个常见的：</p>
 <ul>
 <li>每个User最多可被加入到10个UserGroup</li>
 <li>每个User最多可以有2个Access key(包括root account)</li>
@@ -53,7 +53,7 @@
 <p>以下服务会出现在助理级架构师考试中：</p>
 <p><img src="/images/AWS_Services_Exam.png" alt=""></p>
 <p>下面就按照这个顺序过一下AWS的众多服务。</p>
-<h2 id="AWS-Global-Infrastructure"><a href="#AWS-Global-Infrastructure" class="headerlink" title="AWS Global Infrastructure"></a>AWS Global Infrastructure</h2><p>AWS拥有全球化的基础设施让你的服务可以在瞬间扩展到全球，你可以在<a href="https://aws.amazon.com/about-aws/global-infrastructure/" target="_blank" rel="external">这里</a>查看亚马逊当前拥有的全球基础设施信息。<br>截止到今天（2017.02.28）AWS Cloud在全球共有<strong>42</strong>个<code>Availablity Zone</code>和<strong>16</strong>个<code>geographic Regions</code>，中国区有2个Region分别在北京和宁夏（宁夏区暂未开放），每个Region各有两个AZ，受政策限制，AWS中国区与其他各地区服务分离，由<a href="http://www.sinnet.com.cn/home/product/indexyun/16" target="_blank" rel="external">光环新网</a>代理，需要单独<a href="https://www.amazonaws.cn/en/sign-up/" target="_blank" rel="external">申请账号</a>。</p>
+<h2 id="AWS-Global-Infrastructure"><a href="#AWS-Global-Infrastructure" class="headerlink" title="AWS Global Infrastructure"></a>AWS Global Infrastructure</h2><p>AWS拥有全球化的基础设施让你的服务可以在瞬间扩展到全球，你可以在<a href="https://aws.amazon.com/about-aws/global-infrastructure/" target="_blank" rel="external">这里</a>查看亚马逊当前拥有的全球基础设施信息。<br>截止到今天（2017.02.28）AWS Cloud在全球共有<strong>42</strong>个<code>Availablity Zone</code>和<strong>16</strong>个<code>geographic Regions</code>，中国区有2个Region分别在北京和宁夏（宁夏区暂未开放），每个Region各有两个AZ，受政策限制，AWS中国区与其他各地区服务分离，由<a href="https://www.sinnet.com.cn/home/product/indexyun/16" target="_blank" rel="external">光环新网</a>代理，需要单独<a href="https://www.amazonaws.cn/en/sign-up/" target="_blank" rel="external">申请账号</a>。</p>
 <p><img src="https://d0.awsstatic.com/global-infrastructure/Global_Infrastructure_12-15-2016.png" alt=""></p>
 <h3 id="Region-amp-Availablity-Zone"><a href="#Region-amp-Availablity-Zone" class="headerlink" title="Region &amp; Availablity Zone"></a>Region &amp; Availablity Zone</h3><p>Region是AWS按物理地理划分的节点，每个Region包含两个或以上AZ，AZ可以理解为同在一个Region的多个数据中心。之所以一个Region要有至少两个Region是因为AWS官方推荐的网络结构至少包含一个public Subnet，一个 private Subnet，而Subnet和AZ是一一对应关系，一个健康的网络至少应有两个子网，为保证子网之间的网络隔离而在每个Region至少有两个AZ，且AWS很多服务都推荐跨AZ备份，对于重要数据甚至需要跨Region备份，这也是为什么每个Region需要多个AZ。<br>另外AZ之间网络通信延迟远大于Region之前通信，原因也很好理解，Region的物理距离很远，而同Region的AZ是在同一个城市。</p>
 <h3 id="Edge-Location"><a href="#Edge-Location" class="headerlink" title="Edge Location"></a>Edge Location</h3><p>Edge Location是比亚马逊数据中心覆盖面还广的服务，我们访问AWS console就使用过Edge Location，同时Edge Location还作为AWS Cloudfront（CDN）服务的节点，你可以在<a href="https://www.google.com/maps/d/viewer?msa=0&amp;mid=z8tAG_iMI0RE.kBLn8p8h4GGw" target="_blank" rel="external">这里</a>看到AWS服务在全球分布的情况，在<a href="https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/#AWS Edge Network Locations" target="_blank" rel="external">这里</a>查看AWS的Edge Location分部情况。</p>
@@ -127,7 +127,7 @@
 <h3 id="Directory-Service"><a href="#Directory-Service" class="headerlink" title="Directory Service"></a>Directory Service</h3><p><a href="https://aws.amazon.com/directoryservice/" target="_blank" rel="external">Directory Service</a>让租户可以将AWS权限管理和自建数据中的AD group集合在一起，可以直接使用Microsoft AD Group创建AWS中的资源。</p>
 <h3 id="WAF"><a href="#WAF" class="headerlink" title="WAF"></a>WAF</h3><p>WAF(<a href="https://aws.amazon.com/certificate-manager.com/waf/" target="_blank" rel="external">Web Application Firewall</a>)给予租户应用级别的安全防护，比如SQL注入，跨站攻击，等。</p>
 <h3 id="Artifact"><a href="#Artifact" class="headerlink" title="Artifact"></a>Artifact</h3><p>这是让你能访问到AWS compliance document 的服务，可以从中获取各种合规文件。</p>
-<h2 id="Management-Tools"><a href="#Management-Tools" class="headerlink" title="Management Tools"></a>Management Tools</h2><h3 id="Could-Watch"><a href="#Could-Watch" class="headerlink" title="Could Watch"></a>Could Watch</h3><p>Cloud Watch 是AWS重要的Ops工具，作用为监控AWS资源状态的工具，可以设置连个级别，分别是五分钟一个心跳（默认）和一分钟一个心跳。该服务监控类目(Metrics)繁多，甚至包括花费的监控预警，可以设置Alarm触发SNS给到租户通知实现报警的功能。 </p>
+<h2 id="Management-Tools"><a href="#Management-Tools" class="headerlink" title="Management Tools"></a>Management Tools</h2><h3 id="Could-Watch"><a href="#Could-Watch" class="headerlink" title="Could Watch"></a>Could Watch</h3><p>Cloud Watch 是AWS重要的Ops工具，作用为监控AWS资源状态的工具，可以设置连个级别，分别是五分钟一个心跳（默认）和一分钟一个心跳。该服务监控类目(Metrics)繁多，甚至包括花费的监控预警，可以设置Alarm触发SNS给到租户通知实现报警的功能。</p>
 <h3 id="Cloud-Formation"><a href="#Cloud-Formation" class="headerlink" title="Cloud Formation"></a>Cloud Formation</h3><p>Cloud Formation是AWS一个重要的DevOps工具，实践了基础设施及代码，租户可以使用一套模板（Template），即一个Json或者Yaml的文件定义整个AWS服务的使用，包括资源，网络，权限。是一个可以投入大量精力使用学习的一个服务。</p>
 <blockquote>
 <p>注：Cloud Formation是一个重要的服务，但不会在SAA考试中出现很多，只需要一定程度的了解即可，但想成为一个真正的架构师，这个服务必须要熟悉。</p>
@@ -158,7 +158,7 @@
 <blockquote>
 <ul>
 <li>参考资料</li>
-<li><a href="http://www.linuxnix.com/amazon-aws-regions-vs-availability-zones-vs-edge-locations-vs-data-centers/" target="_blank" rel="external">http://www.linuxnix.com/amazon-aws-regions-vs-availability-zones-vs-edge-locations-vs-data-centers/</a></li>
+<li><a href="https://www.linuxnix.com/amazon-aws-regions-vs-availability-zones-vs-edge-locations-vs-data-centers/" target="_blank" rel="external">https://www.linuxnix.com/amazon-aws-regions-vs-availability-zones-vs-edge-locations-vs-data-centers/</a></li>
 </ul>
 </blockquote>
 </div></article><article><header><h2><a href="/2017/02/23/Lambda初体验/">Lambda初体验</a></h2></header><div class="article-meta clearfix"><time class="left">2017 2 月 23 日</time><ul class="tags left"></ul><ul class="tags right"><li><a href="/tags/AWS/">AWS</a></li><li><a href="/tags/Serverless/">Serverless</a></li></ul></div><div class="markdown-body"><h1 id="使用Lambda和CloudTrail给新创建的bucket打上tag"><a href="#使用Lambda和CloudTrail给新创建的bucket打上tag" class="headerlink" title="使用Lambda和CloudTrail给新创建的bucket打上tag"></a>使用Lambda和CloudTrail给新创建的bucket打上tag</h1><h2 id="背景介绍"><a href="#背景介绍" class="headerlink" title="背景介绍"></a>背景介绍</h2><h3 id="什么是Lambda"><a href="#什么是Lambda" class="headerlink" title="什么是Lambda"></a>什么是Lambda</h3><p>AWS Lambda提供了一个不需要服务器就能运行代码的平台，有以下特点：</p>
@@ -177,7 +177,7 @@
 <h3 id="什么是CloudTrail"><a href="#什么是CloudTrail" class="headerlink" title="什么是CloudTrail"></a>什么是CloudTrail</h3><p>用于记录和追踪AWS内部的各种API调用，你可以在CloudTrail的日志中找到所有该账户在AWS中操作资源的事件，包括Console操作，SDK，AWS CLI，以及跟高级服务的调用。</p>
 <p>你可以在事件中找到资源调用者的用户信息，源IP，以及调用时间。</p>
 <h3 id="使用Lambda和CloudTrail实现创建一个S3-bucket自动打上创建者的tag"><a href="#使用Lambda和CloudTrail实现创建一个S3-bucket自动打上创建者的tag" class="headerlink" title="使用Lambda和CloudTrail实现创建一个S3 bucket自动打上创建者的tag"></a>使用Lambda和CloudTrail实现创建一个S3 bucket自动打上创建者的tag</h3><p>CouldTrail 会把所有监控到的API调用的时间写到S3 bucket里的日志文件中，同时产生一个event时间，我们要做的就是用这个event事件触发一个Lambda function，调用AWS的SDK获取API调用日志，当发现日志里出现了CreateBucket事件的时候，给这个bucket打上形如“Owner:dyd”的tag。</p>
-<p><img src="http://docs.aws.amazon.com/lambda/latest/dg/images/wt-cloudtrail-100.png" alt=""></p>
+<p><img src="https://docs.aws.amazon.com/lambda/latest/dg/images/wt-cloudtrail-100.png" alt=""></p>
 <p>非常类似于这个功能不过最后吧SNS换成了打tag。</p>
 <ul>
 <li>AWS CloudTrail把日志保存在S3中</li>

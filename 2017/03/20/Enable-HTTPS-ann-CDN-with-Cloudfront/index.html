@@ -37,6 +37,8 @@
 <li>参见 <a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Expiration.html" target="_blank" rel="external">Specifying How Long Objects Stay in a CloudFront Edge Cache (Expiration)</a></li>
 </ul>
 </blockquote>
+<h3 id="首页缓存"><a href="#首页缓存" class="headerlink" title="首页缓存"></a>首页缓存</h3><p>更改TTL后，首页的更新也需要一个小时，对大部分同学来说这个时间还是比较长，这个时候可以通过更改S3的Bucket里面的Object的Metadata的方式增加<code>Cache-Control</code>的Header来进一步减少首页的Cache时间。</p>
+<p><img src="/images/Cloudfront_S3_Metadata.png" alt=""></p>
 <h2 id="配置Route53"><a href="#配置Route53" class="headerlink" title="配置Route53"></a>配置Route53</h2><p>进入Route53的<a href="https://console.aws.amazon.com/route53/home" target="_blank" rel="external">Console</a>，进入<strong>Hosted Zones</strong>标签，点选使用的Domain Name。</p>
 <p><img src="/images/Route53_Host_Zones.png" alt=""></p>
 <p>点选<strong>Create Record Set</strong>，输入二级域名下的三级域名（可以置空），选择Type为A类地址，选择一个A-record），在AWS的内部资源中选择Cloudfront下对应你博客的域名，Route Policy为默认的Simple即可，点选<strong>Save Record Set</strong></p>

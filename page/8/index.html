@@ -1,174 +1,104 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/styles.css"><title>杜屹东的博客</title></head><body><div class="container"><div class="columns page-header"><h1>杜屹东的博客</h1></div><div class="columns"><div class="navigation"><nav class="menus-main"><a href="/" class="favicon"><img alt="杜屹东的博客" src="/favicon.png"></a><a href="/about">关于我</a><a href="/list">日志列表</a><a href="/booklist">读书</a><a href="/links">链接</a><a href="/resume">简历</a></nav><nav class="right menus-right"><a target="_blank" href="https://github.com/ADU-21/blog">Fork on Github</a></nav></div></div><div class="columns"><div class="block-body column three-fourths"><div class="article-widget"><a href="https://www.duyidong.com/awsSolutionsArchitect_AE.pdf">AWS认证方案解决架构师证书</a></div><article><header><h2><a href="/2016/04/13/单元测试/">单元测试</a></h2></header><div class="article-meta clearfix"><time class="left">2016 4 月 13 日</time><ul class="tags left"></ul><ul class="tags right"><li><a href="/tags/Python/">Python</a></li><li><a href="/tags/TDD/">TDD</a></li></ul></div><div class="markdown-body"><h1 id="单元测试"><a href="#单元测试" class="headerlink" title="单元测试"></a>单元测试</h1><p>如果你听说过“测试驱动开发”（TDD：Test-Driven Development），单元测试就不陌生。</p>
-<p>单元测试是用来对一个模块、一个函数或者一个类来进行正确性检验的测试工作。</p>
-<p>比如对函数abs()，我们可以编写出以下几个测试用例：</p>
-<p>输入正数，比如1、1.2、0.99，期待返回值与输入相同；</p>
-<p>输入负数，比如-1、-1.2、-0.99，期待返回值与输入相反；</p>
-<p>输入0，期待返回0；</p>
-<p>输入非数值类型，比如None、[]、{}，期待抛出TypeError。</p>
-<p>把上面的测试用例放到一个测试模块里，就是一个完整的单元测试。</p>
-<p>如果单元测试通过，说明我们测试的这个函数能够正常工作。如果单元测试不通过，要么函数有bug，要么测试条件输入不正确，总之，需要修复使单元测试能够通过。</p>
-<p>单元测试通过后有什么意义呢？如果我们对abs()函数代码做了修改，只需要再跑一遍单元测试，如果通过，说明我们的修改不会对abs()函数原有的行为造成影响，如果测试不通过，说明我们的修改与原有行为不一致，要么修改代码，要么修改测试。</p>
-<p>这种以测试为驱动的开发模式最大的好处就是确保一个程序模块的行为符合我们设计的测试用例。在将来修改的时候，可以极大程度地保证该模块行为仍然是正确的。<br><a id="more"></a><br>我们来编写一个Dict类，这个类的行为和dict一致，但是可以通过属性来访问，用起来就像下面这样：</p>
-<pre><code>    &gt;&gt;&gt; d = Dict(a=1, b=2)
-    &gt;&gt;&gt; d[&#39;a&#39;]
-    1
-    &gt;&gt;&gt; d.a
-    1
-</code></pre><p>mydict.py代码如下：</p>
-<pre><code class="python">class Dict(dict):
-
-    def __init__(self, **kw):
-        super().__init__(**kw)
-
-    def __getattr__(self, key):
-        try:
-            return self[key]
-        except KeyError:
-            raise AttributeError(r&quot;&#39;Dict&#39; object has no attribute &#39;%s&#39;&quot; % key)
-
-    def __setattr__(self, key, value):
-        self[key] = value
-</code></pre>
-<p>为了编写单元测试，我们需要引入Python自带的unittest模块，编写mydict_test.py如下：</p>
-<pre><code class="python">import unittest
-
-from mydict import Dict
-
-class TestDict(unittest.TestCase):
-
-    def test_init(self):
-        d = Dict(a=1, b=&#39;test&#39;)
-        self.assertEqual(d.a, 1)
-        self.assertEqual(d.b, &#39;test&#39;)
-        self.assertTrue(isinstance(d, dict))
-
-    def test_key(self):
-        d = Dict()
-        d[&#39;key&#39;] = &#39;value&#39;
-        self.assertEqual(d.key, &#39;value&#39;)
-
-    def test_attr(self):
-        d = Dict()
-        d.key = &#39;value&#39;
-        self.assertTrue(&#39;key&#39; in d)
-        self.assertEqual(d[&#39;key&#39;], &#39;value&#39;)
-
-    def test_keyerror(self):
-        d = Dict()
-        with self.assertRaises(KeyError):
-            value = d[&#39;empty&#39;]
-
-    def test_attrerror(self):
-        d = Dict()
-        with self.assertRaises(AttributeError):
-            value = d.empty
-</code></pre>
-<p>编写单元测试时，我们需要编写一个测试类，从unittest.TestCase继承。</p>
-<p>以test开头的方法就是测试方法，不以test开头的方法不被认为是测试方法，测试的时候不会被执行。</p>
-<p>对每一类测试都需要编写一个test_xxx()方法。由于unittest.TestCase提供了很多内置的条件判断，我们只需要调用这些方法就可以断言输出是否是我们所期望的。最常用的断言就是assertEqual()：</p>
-<pre><code class="python">    self.assertEqual(abs(-1), 1) # 断言函数返回的结果与1相等
-</code></pre>
-<p>另一种重要的断言就是期待抛出指定类型的Error，比如通过d[‘empty’]访问不存在的key时，断言会抛出KeyError：</p>
-<pre><code class="python">with self.assertRaises(KeyError):
-    value = d[&#39;empty&#39;]
-</code></pre>
-<p>而通过d.empty访问不存在的key时，我们期待抛出AttributeError：</p>
-<pre><code class="python">with self.assertRaises(AttributeError):
-    value = d.empty
-</code></pre>
-<p>运行单元测试</p>
-<p>一旦编写好单元测试，我们就可以运行单元测试。最简单的运行方式是在mydict_test.py的最后加上两行代码：</p>
-<pre><code class="python">if __name__ == &#39;__main__&#39;:
-    unittest.main()
-</code></pre>
-<p>这样就可以把mydict_test.py当做正常的python脚本运行：</p>
-<pre><code>    $ python3 mydict_test.py
-</code></pre><p>另一种方法是在命令行通过参数-m unittest直接运行单元测试：</p>
-<pre><code>$ python3 -m unittest mydict_test
-.....
-----------------------------------------------------------------------
-Ran 5 tests in 0.000s
-
-OK
-</code></pre><p>这是推荐的做法，因为这样可以一次批量运行很多单元测试，并且，有很多工具可以自动来运行这些单元测试。</p>
-<p>setUp与tearDown</p>
-<p>可以在单元测试中编写两个特殊的setUp()和tearDown()方法。这两个方法会分别在每调用一个测试方法的前后分别被执行。</p>
-<p>setUp()和tearDown()方法有什么用呢？设想你的测试需要启动一个数据库，这时，就可以在setUp()方法中连接数据库，在tearDown()方法中关闭数据库，这样，不必在每个测试方法中重复相同的代码：</p>
-<pre><code class="python">class TestDict(unittest.TestCase):
-
-    def setUp(self):
-        print(&#39;setUp...&#39;)
-
-    def tearDown(self):
-        print(&#39;tearDown...&#39;)
-</code></pre>
-<p>可以再次运行测试看看每个测试方法调用前后是否会打印出setUp…和tearDown…。</p>
-<p>小结</p>
-<p>单元测试可以有效地测试某个程序模块的行为，是未来重构代码的信心保证。</p>
-<p>单元测试的测试用例要覆盖常用的输入组合、边界条件和异常。</p>
-<p>单元测试代码要非常简单，如果测试代码太复杂，那么测试代码本身就可能有bug。</p>
-<p>单元测试通过了并不意味着程序就没有bug了，但是不通过程序肯定有bug。</p>
-</div></article><article><header><h2><a href="/2016/04/03/Redis、Memcache、MongoDB性能总结/">Redis、Memcache、MongoDB性能总结</a></h2></header><div class="article-meta clearfix"><time class="left">2016 4 月 3 日</time><ul class="tags left"></ul><ul class="tags right"><li><a href="/tags/DataBase/">DataBase</a></li></ul></div><div class="markdown-body"><h1 id="Redis、Memcache、MongoDB有哪些区别？"><a href="#Redis、Memcache、MongoDB有哪些区别？" class="headerlink" title="Redis、Memcache、MongoDB有哪些区别？"></a>Redis、Memcache、MongoDB有哪些区别？</h1><h2 id="Memcached"><a href="#Memcached" class="headerlink" title="Memcached"></a>Memcached</h2><h3 id="Memcached的优点："><a href="#Memcached的优点：" class="headerlink" title="Memcached的优点："></a>Memcached的优点：</h3><p>Memcached可以利用多核优势，单实例吞吐量极高，可以达到几十万QPS（取决于key、value的字节大小以及服务器硬件性能，日常环境中QPS高峰大约在4-6w左右）。适用于最大程度扛量。<br><a id="more"></a><br>支持直接配置为session handle。<br>坑少。</p>
-<h3 id="Memcached的局限性："><a href="#Memcached的局限性：" class="headerlink" title="Memcached的局限性："></a>Memcached的局限性：</h3><p>只支持简单的key/value数据结构，不像Redis可以支持丰富的数据类型。<br>无法进行持久化，数据不能备份，只能用于缓存使用，且重启后数据全部丢失。<br>无法进行数据同步，不能将MC中的数据迁移到其他MC实例中。<br>Memcached内存分配采用Slab Allocation机制管理内存，value大小分布差异较大时会造成内存利用率降低，并引发低利用率时依然出现踢出等问题。需要用户注重value设计。</p>
-<h2 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h2><h3 id="Redis的优点："><a href="#Redis的优点：" class="headerlink" title="Redis的优点："></a>Redis的优点：</h3><p>支持多种数据结构，如 string（字符串）、 list(双向链表)、dict(hash表)、set(集合）、zset(排序set)、hyperloglog（基数估算）<br>支持持久化操作，可以进行aof及rdb数据持久化到磁盘，从而进行数据备份或数据恢复等操作，较好的防止数据丢失的手段。<br>支持通过Replication进行数据复制，通过master-slave机制，可以实时进行数据的同步复制，支持多级复制和增量复制，master-slave机制是Redis进行HA的重要手段。<br>单线程请求，所有命令串行执行，并发情况下不需要考虑数据一致性问题。<br>支持pub/sub消息订阅机制，可以用来进行消息订阅与通知。<br>支持简单的事务需求，但业界使用场景很少，并不成熟。</p>
-<h3 id="Redis的局限性："><a href="#Redis的局限性：" class="headerlink" title="Redis的局限性："></a>Redis的局限性：</h3><p>Redis只能使用单线程，性能受限于CPU性能，故单实例CPU最高才可能达到5-6wQPS每秒（取决于数据结构，数据大小以及服务器硬件性能，日常环境中QPS高峰大约在1-2w左右）。<br>支持简单的事务需求，但业界使用场景很少，并不成熟，既是优点也是缺点。<br>Redis在string类型上会消耗较多内存，可以使用dict（hash表）压缩存储以降低内存耗用。</p>
-<p>：）以下是我个人的补充<br>Mc和Redis都是Key-Value类型，不适合在不同数据集之间建立关系，也不适合进行查询搜索。比如redis的keys pattern这种匹配操作，对redis的性能是灾难。</p>
-<h2 id="Mogodb"><a href="#Mogodb" class="headerlink" title="Mogodb"></a>Mogodb</h2><p>mogodb是一种文档性的数据库。先解释一下文档的数据库，即可以存放xml、json、bson类型系那个的数据。这些数据具备自述性（self-describing），呈现分层的树状数据结构。redis可以用hash存放简单关系型数据。<br>mogodb存放json格式数据。<br>适合场景：事件记录、内容管理或者博客平台，比如评论系统。</p>
-<p><a href="https://segmentfault.com/q/1010000002588088/a-1020000002589415" target="_blank" rel="external">原文链接</a></p>
-</div></article><article><header><h2><a href="/2016/04/02/关于爬虫你不得不知道的几个库/">关于爬虫你不得不知道的几个库</a></h2></header><div class="article-meta clearfix"><time class="left">2016 4 月 2 日</time><ul class="tags left"></ul><ul class="tags right"><li><a href="/tags/Python/">Python</a></li><li><a href="/tags/爬虫/">爬虫</a></li></ul></div><div class="markdown-body"><h1 id="关于python爬虫"><a href="#关于python爬虫" class="headerlink" title="关于python爬虫"></a>关于python爬虫</h1><p>首先解释一下爬虫的原理，就是使用代码模拟浏览器动作通过HTTP协议远程和服务器进行交互，理论上只要是人能操作网站做的事情爬虫都可以做，比如登录，注册，获取信息，但是爬虫有两大壁垒，一个是IP禁止，一个是验证码，前一个基于网站的用户管理，后一个则基于高深莫测的图像识别（机器学习）。<br>除此之外，爬虫的优势是高效。<br>当然对于一些防御力比较低的网站是可以用爬虫进行攻击的，通过大量访问。不过这种攻击方式比较原始，而且没有技术含量。<br>爬虫主要还是被人们用以获取网络上的信息，该信息来自服务器，走的是HTTP协议。</p>
-<p>关于HTTP协议我就不多说了，大家可以参考我的另一篇日志<a href="http://adu.404nf.cn/2016/03/30/HTTP%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3/" target="_blank" rel="external">HTTP协议详解</a>，下面我来说说实现爬虫的流程。<br><a id="more"></a><br>首先，爬虫要向服务器发送请求，如果请求返回200则可以提取出HTML代码，或json格式对象，或者是XML，就是我们浏览器接收到的代码（如果header配置和浏览器发出的请求header一致，返回的信息是相同的），前两种比较常见。得到服务器返回信息后我们需要进行处理，如果是json的话在python内直接用dict就可以处理了，如果是HTML则需要用到BeautifulSoup等解析工具，这里推荐使用lxml解析器，因为综合性能和易用性来看这是最优解，不要去纠结正则表达式xpath和那个什么pyQuera了，使用BeautifulSoup，支持python2和python3。<br>最后，对于了解过python的朋友，推荐使用gevent协程进行一个并发处理。<br>下面我一个个解释：</p>
-<h2 id="requests"><a href="#requests" class="headerlink" title="requests"></a>requests</h2><p>接触python的web应用不可不知的一个库，煞是强大，官方文档供参考：</p>
-<p><a href="http://docs.python-requests.org/zh_CN/latest/" target="_blank" rel="external">Requests: HTTP for Humans</a></p>
-<p>另外还有个高级用法：</p>
-<p><a href="http://docs.python-requests.org/zh_CN/latest/api.html" target="_blank" rel="external">开发者接口</a></p>
-<h2 id="BeautifulSoup"><a href="#BeautifulSoup" class="headerlink" title="BeautifulSoup"></a>BeautifulSoup</h2><p>同样，没有什么比文档更好的解释：</p>
-<p><a href="http://beautifulsoup.readthedocs.org/zh_CN/latest/" target="_blank" rel="external">Beautiful Soup 4.2.0 文档</a></p>
-<h2 id="gevent"><a href="#gevent" class="headerlink" title="gevent"></a>gevent</h2><p>这个我没有看官方文档，我觉得这篇文章讲的就可以：</p>
-<p><a href="http://xlambda.com/gevent-tutorial/" target="_blank" rel="external">gevent程序员指南</a></p>
-<h2 id="既然说到文档"><a href="#既然说到文档" class="headerlink" title="既然说到文档"></a>既然说到文档</h2><p>不可不知的一个python文档而我却最近才知道的。。<br>python官方文档：</p>
-<p><a href="http://python.usyiyi.cn/" target="_blank" rel="external">python官方文档</a></p>
-<p>pip文档，分享给大家：</p>
-<p><a href="https://pip.pypa.io/en/stable/installing/" target="_blank" rel="external">pip</a>(可惜没有中文的)</p>
-<h2 id="最后是不是该还有个例子"><a href="#最后是不是该还有个例子" class="headerlink" title="最后是不是该还有个例子"></a>最后是不是该还有个例子</h2><p>等有空再写吧</p>
-</div></article><article><header><h2><a href="/2016/04/02/Python函数调用小技巧/">Python函数调用小技巧</a></h2></header><div class="article-meta clearfix"><time class="left">2016 4 月 2 日</time><ul class="tags left"></ul><ul class="tags right"><li><a href="/tags/Python/">Python</a></li></ul></div><div class="markdown-body"><h1 id="Python-filter-map-reduce-lambda"><a href="#Python-filter-map-reduce-lambda" class="headerlink" title="Python-filter,map,reduce.lambda"></a>Python-filter,map,reduce.lambda</h1><p>python的兴起其中一个不容忽视的因素就是他的简洁和易读，要想写好python代码以下几个方法你不得不知道：<br><a id="more"></a></p>
-<h2 id="filter"><a href="#filter" class="headerlink" title="filter"></a>filter</h2><p>filter(function, sequence):<br>对sequence中的item依次执行function(item)，将执行结果为True的item组成一个List/String/Tuple(取决于sequence类型）返回，示例如下：</p>
-<pre><code class="python">&gt;&gt;&gt; def f(x): return x % 2 != 0 and x % 3 != 0
-&gt;&gt;&gt; filter(f, range(2, 25))
-[5, 7, 11, 13, 17, 19, 23]
-&gt;&gt;&gt; def f(x): return x != &#39;a&#39;
-&gt;&gt;&gt; filter(f, &quot;abcdef&quot;)
-&#39;bcdef&#39;
-</code></pre>
-<h2 id="map"><a href="#map" class="headerlink" title="map"></a>map</h2><p>map(function, sequence):<br>对sequence中的item依次执行function（item），将执行结果组成一个List返回<br>另外map也支持多个sequence，当然这也要求function支持相应数量的参数输入，示例如下：</p>
-<pre><code class="python">&gt;&gt;&gt; def cube(x): return x*x*x
-&gt;&gt;&gt; map(cube, range(1, 11))
-[1, 8, 27, 64, 125, 216, 343, 512, 729, 1000]
-&gt;&gt;&gt; def cube(x) : return x + x
-
-&gt;&gt;&gt; def add(x, y): return x+y
-&gt;&gt;&gt; map(add, range(8), range(8))
-[0, 2, 4, 6, 8, 10, 12, 14]
-</code></pre>
-<h2 id="reduce"><a href="#reduce" class="headerlink" title="reduce"></a>reduce</h2><p>reduce（function，sequence，starting_value):<br>对sequence中的item顺序迭代调用function，如果有starting_value，还可以作为初始值调用，例如可以用来对List求和，示例如下：</p>
-<pre><code class="python">&gt;&gt;&gt; def add(x,y): return x + y
- &gt;&gt;&gt; reduce(add, range(1, 11))
-（注：1+2+3+4+5+6+7+8+9+10）
-&gt;&gt;&gt; reduce(add, range(1, 11), 20)
-（注：1+2+3+4+5+6+7+8+9+10+20）
-</code></pre>
-<h2 id="lambda："><a href="#lambda：" class="headerlink" title="lambda："></a>lambda：</h2><p>这是python支持一种有趣的语法，它允许你快速定义单行的最小函数，类似C语言中的宏，可以用在任何需要函数的地方，示例如下：</p>
-<pre><code class="python">&gt;&gt;&gt; g = lambda x: x * 2
-&gt;&gt;&gt; g(3)
-6
-&gt;&gt;&gt; (lambda x: x * 2)(3)
-6
-</code></pre>
-<p>我们也可以把filter map reduce 和lambda结合起来用，函数就可以简单的写成一行。例如</p>
-<pre><code class="python">&gt;&gt;&gt;kmpathes = filter(lambda kmpath: kmpath, map(lambda kmpath: string.strip(kmpath), string.split(l, &#39;:&#39;)))
-</code></pre>
-<p>看起来麻烦，其实就像用语言来描述问题一样，非常优雅。<br>对 l 中的所有元素以’:’做分割，得出一个列表。对这个列表的每一个元素做字符串strip，形成一个列表。对这个列表的每一个元素做直接返回操作(这个地方可以加上过滤条件限制)，最终获得一个字符串被’:’分割的列表，列表中的每一个字符串都做了strip，并可以对特殊字符串过滤。</p>
-<p><a href="http://www.jianshu.com/p/81b12f4eae3a" target="_blank" rel="external">原文链接</a></p>
-</div></article><div class="archive-pagination"><div class="paginator"><a class="extend prev" rel="prev" href="/page/7/">&laquo;</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/9/">&raquo;</a></div></div></div><div class="block-sidebar column one-fourth"><div class="widget text-content"><p>杜屹东 生于 1993.12.16, 英文 ID Luke Du</p>
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/styles.css"><title>杜屹东的博客</title></head><body><div class="container"><div class="columns page-header"><h1>杜屹东的博客</h1></div><div class="columns"><div class="navigation"><nav class="menus-main"><a href="/" class="favicon"><img alt="杜屹东的博客" src="/favicon.png"></a><a href="/about">关于我</a><a href="/list">日志列表</a><a href="/booklist">读书</a><a href="/links">链接</a><a href="/resume">简历</a></nav><nav class="right menus-right"><a target="_blank" href="https://github.com/ADU-21/blog">Fork on Github</a></nav></div></div><div class="columns"><div class="block-body column three-fourths"><div class="article-widget"><a href="https://www.duyidong.com/awsSolutionsArchitect_AE.pdf">AWS认证方案解决架构师证书</a></div><article><header><h2><a href="/2016/05/29/程序员入门之git/">程序员入门之git</a></h2></header><div class="article-meta clearfix"><time class="left">2016 5 月 29 日</time><ul class="tags left"></ul><ul class="tags right"><li><a href="/tags/工具/">工具</a></li></ul></div><div class="markdown-body"><h1 id="代码版本管理工具"><a href="#代码版本管理工具" class="headerlink" title="代码版本管理工具"></a>代码版本管理工具</h1><p>在生产环境下的开发过程中，一个工程的代码通常是有多个程序员协同完成，这就涉及到代码在不通终端的同步问题，基于此需求，我们产生了代码版本工具，目前比较主流的两种为git和SVN<br><a id="more"></a></p>
+<h2 id="git-与-SVN"><a href="#git-与-SVN" class="headerlink" title="git 与 SVN"></a>git 与 SVN</h2><p>关于git和SVN的区别，网上有很多，根据笔者使用的经验，感觉git还是要比SVN先进一些，首先git是一个分布式版本管理系统，SVN更像是一个储存代码的仓库，管理员可以给不同的代码提交者提供不同的权限，仅此而已。git于SVN相比明显的优势在于不依赖网络，对分支管理有更好的支持，命令行简介好用（SVN也有命令行工具，但很多公司还是采用图形化界面）</p>
+<h2 id="git介绍"><a href="#git介绍" class="headerlink" title="git介绍"></a>git介绍</h2><p>git是Linux的创始人Linus于2005年花了大概两周时间用C语言编写的分布式版本控制系统。</p>
+<h2 id="git使用"><a href="#git使用" class="headerlink" title="git使用"></a>git使用</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>在控制台输入git 如果弹出提示信息，则跳过此步骤</p>
+<h4 id="mac"><a href="#mac" class="headerlink" title="mac"></a>mac</h4><p>可以使用homebrew安装</p>
+<pre><code>brew install git
+</code></pre><p>homebrew作为程序员mac的标配，如果你还没有安装，请键入：</p>
+<pre><code>/usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;
+</code></pre><p>也可以安装xcode，自带git</p>
+<h4 id="windows"><a href="#windows" class="headerlink" title="windows"></a>windows</h4><p>到官网下载安装:<br><a href="http://msysgit.github.com/" target="_blank" rel="external">http://msysgit.github.com/</a></p>
+<h4 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h4><pre><code>yum install git-core
+</code></pre><p>或者：</p>
+<pre><code>apt-get install git
+</code></pre><h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>在命令行输入：</p>
+<pre><code>git config --global user.name &quot;Your Name&quot;
+git config --global user.email &quot;email@example.com&quot;
+</code></pre><p>改配置用于识别代码提交者身份</p>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><h4 id="代码提交"><a href="#代码提交" class="headerlink" title="代码提交"></a>代码提交</h4><pre><code>git init   #创建代码版本库
+git add .  #将当前目录下所有文件加入版本库
+git commit -m &quot;message&quot;  #提交代码
+</code></pre><pre><code>git status #查看工作区状态
+git diff #查看代码更改
+git log  #查看提交日志
+</code></pre><h4 id="版本回退"><a href="#版本回退" class="headerlink" title="版本回退"></a>版本回退</h4><pre><code>git reflog #查看所有日志，包含head信息
+git reset --hard HEAD^ 会退到上一版本
+git reset --hard &lt;commit_id&gt; 会退到指定版本
+</code></pre><p>撤销工作区修改：    </p>
+<pre><code>git checkout -- file
+</code></pre><h4 id="远程仓库"><a href="#远程仓库" class="headerlink" title="远程仓库"></a>远程仓库</h4><p>这里以github为例<br>从远程仓库克隆代码:</p>
+<pre><code>git clone https://github.com/username/projectname.git
+</code></pre><p>如果想讲本地已有的代码推送到远程，则需要跟远程费分支建立连接<br>与远程分支建立联系，需要remote origin</p>
+<pre><code>git remote add origin https://github.com/username/projectname.git #添加远程分支
+git push origin master #推送本地origin分支到master分支
+</code></pre><p>如果提示有冲突，则需要先pull 下来，修改之后再push</p>
+<h4 id="分支管理"><a href="#分支管理" class="headerlink" title="分支管理"></a>分支管理</h4><p>git中，一个分支为一个工作环境，分支与分支之间可以执行创建和合并操作。<br>分支的一般使用：</p>
+<pre><code>git branch # 查看分支
+git branch &lt;name&gt;  # 创建分支
+git checkout &lt;name&gt; # 切换分支
+git checkout -b &lt;name&gt; # 创建并切换分支
+git merge &lt;name&gt; #合并某分支到当前分支
+git branch -d &lt;name&gt; # 删除分支 
+git branch -D &lt;name&gt; # 强行删除分支
+</code></pre><p>当更改同时发生在两个分支上，这时候我们有需要对两个分支进行合并，那解决冲突是很容易发生的状况这时候我们需要使用git status 查看状态，执行合并之后在当前分支解决合并冲突问题，在合并就可以了<br>可以使用一下命令查看分支合并情况：</p>
+<pre><code>git log --graph
+</code></pre><h4 id="忽略别名"><a href="#忽略别名" class="headerlink" title="忽略别名"></a>忽略别名</h4><p>在git中可以通过编辑.gitignore 文件达到控制忽略文件类型的目的，当文件自动不被add 到仓库里。<br>忽略的语法规则：<br>(#)表示注释<br>(*)  表示任意多个字符;<br>(?) 代表一个字符;<br> ([abc]) 代表可选字符范围<br>如果名称最前面是路径分隔符 (/) ，表示忽略的该文件在此目录下。<br>如果名称的最后面是 (/) ，表示忽略整个目录，但同名文件不忽略。<br>通过在名称前面加 (!) ，代表不忽略。<br>例子如下：</p>
+<pre><code># 这行是注释
+*.a   # 忽略所有 .a 伟扩展名的文件
+!lib.a   # 但是 lib.a 不忽略，即时之前设置了    忽略所有的 .a
+/TODO   # 只忽略此目录下 TODO 文件，子目录的 TODO 不忽略 
+build/    # 忽略所有的 build/ 目录下文件
+doc/*.txt    # 忽略如 doc/notes.txt, 但是不忽略如 doc/server/arch.txt
+</code></pre><p>关于不同编程语言，通常会有统一的忽略规则，大家可以在这里直接找到配置模板：<br><a href="https://github.com/github/gitignore" target="_blank" rel="external">https://github.com/github/gitignore</a></p>
+<h4 id="快捷命令配置"><a href="#快捷命令配置" class="headerlink" title="快捷命令配置"></a>快捷命令配置</h4><p>在git里可以使用</p>
+<pre><code>git config --global alias.&lt;shortname&gt; &lt;command_name&gt;
+</code></pre><p>的方式指定快捷命令，<br>以下为一些常用的快捷命令设置</p>
+<pre><code>git config --global alias.st status
+git config --global alias.co checkout
+git config --global alias.ci commit
+git config --global alias.br branch
+git config --global alias.unstage &#39;reset HEAD&#39;
+git config --global alias.last &#39;log -1&#39;
+git config --global alias.lg &quot;log --color --graph --pretty=format:&#39;%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset&#39; --abbrev-commit&quot;
+</code></pre><p>ok ,that’s all</p>
+</div></article><article><header><h2><a href="/2016/05/24/ThoughtWorks第一周学习总结/">ThoughtWorks第一周学习总结</a></h2></header><div class="article-meta clearfix"><time class="left">2016 5 月 24 日</time><ul class="tags left"></ul><ul class="tags right"><li><a href="/tags/小结/">小结</a></li><li><a href="/tags/学习/">学习</a></li><li><a href="/tags/ThoughtWorks/">ThoughtWorks</a></li></ul></div><div class="markdown-body"><h1 id="关于一周来学习情况总结"><a href="#关于一周来学习情况总结" class="headerlink" title="关于一周来学习情况总结"></a>关于一周来学习情况总结</h1><p>不知不觉进入TW已经一周了，深感自己离成为一个合格的TWer还有很长的距离。在学习的过程中离不开总结和分享，在TW最棒的就是可以随时和身边的技术牛人们分享自己的学习心得，时时总结，有助于梳理自己的知识体系，巩固自己的学习方法。正所谓“时时勤拂拭，莫使惹尘埃”。<br><a id="more"></a></p>
+<p>下面就几个关键词进行一个小结：</p>
+<h2 id="我所除的环境"><a href="#我所除的环境" class="headerlink" title="我所除的环境"></a>我所除的环境</h2><h3 id="ThouhgtWorks显而易见的工作习惯"><a href="#ThouhgtWorks显而易见的工作习惯" class="headerlink" title="ThouhgtWorks显而易见的工作习惯"></a>ThouhgtWorks显而易见的工作习惯</h3><p>  1.Email 轰炸<br>  2.Stand metting<br>      就像Align Development里面提到的一样，Stand up, Aline Comstomer 在TW被很好地执行，每日站会是必不可少的<br>  3.频繁的沟通<br>      之前的工作经验告诉我，你只需要写得一手好代码就可以在公司站稳脚跟，但是这点认知在TW被彻底推翻，与代码同样重要的是你的沟通能力，在实际开发过程中，沟通消耗的资源甚至会大于写代码的消耗。<br>  4.Pair-Programming<br>      这也是Align Deployment的重要一环，在TW几乎每一件事都是pair的，这中工作方式可以有效地解决掉“个人英雄”的问题，一段代码出了问题，至少有两个人可以来改这段代码。同时加强了程序员之间的交流，也有利于代码规范的实施。<br>  5.代码洁癖<br>      由于每一段代码都会有人review,这使很多TWer养成了代码洁癖，代码不但要实现功能，还要写得好看，这一点我个人认为也是极好的。<br>  6.频繁的workshop和session<br>  7.无处不在的敏捷<br>    在TW，敏捷已经超越一种开发方式而成为一种文化存在，步步为营，小步前进，似乎是每一个工程师低调而又自信的工作方式。这很好，值得学习：）</p>
+<h2 id="我面临的问题"><a href="#我面临的问题" class="headerlink" title="我面临的问题"></a>我面临的问题</h2><p>工作方式上的问题是很容易适应的，TW有宽松的工作环境和乐于助人的同事。让我吃惊的是我接触到的每一个同事都是健谈而友好的，其中不乏很多大神，所以我一点都不担心自己成长。目前只需要找到自己的短板，针对性的进行一些加强性训练：</p>
+<pre><code>1.英文能力
+    从进公司到现在，已经从几乎听不懂同事们在说什么到可以看英文文档了，但是英文交流还存在严重的问题，主要表现在无法用英语表达自己所想的内容，另外英文阅读和听力速度还有些跟不上
+2.DevOps专业能力
+    目前我接触到的DevOps能力主要落实到几个工具的使用上：Jenkins,AWS,ansible,另外还需要掌握vagrant,git,shell,yaml，Linux命令（Vi编辑器命令）对工具来讲，整体不难，拿下英文文档，实际需要的只是操作，后面几个更倾向于需要具备的基本素质才是我目前最需要达到的目标。
+3.习惯的建立
+    习惯主要分为工作习惯，学习习惯，和生活习惯，这几点在过去的一周几乎是混乱的，这几个习惯应该有一定的准则，概括来说，工作习惯应该是高效可靠，随时可以再session和当前的work中切换自己的状态，那么设计到的内容主要是calendar的管理和mind.txt的优化，我还没有上手公司正式项目，所以目前工作效率优化仅仅停留在自己的事情备忘和计划这个层面。生活习惯，目前来讲主要是健身和游泳，羽毛球视club活动参加，生活应该规律，保证健康的身体和工作时间有一个清醒的大脑。学习习惯是所有习惯中最重要的，主要是根据学习时间，blog时间和阅读时间是每天不可少的内容，希望这些习惯可以再TW贯彻下去.
+</code></pre><h2 id="我的应对"><a href="#我的应对" class="headerlink" title="我的应对"></a>我的应对</h2><pre><code>1.关于英语问题，目前的解决方式是阅读MartinFlower的博客，以及每天用英语进行工作总结，尽可能熟悉英文语境以求更好表达自己想表达的东西。
+2.DevOps专业能力
+    workshop基本只适用于还没有建立起自己学习习惯的人和对一个东西建立初步认识，session也不能对技术提高起到决定性的帮助，频繁的沟通带来的缺点是时间的碎片化，我需要随时跟进自己的一个进程进展到什么程度，有效挂起和有效恢复，才能保证工作和学习同步有效地进行。
+    具体来说专业能力的提高除了被动在工作中使用需要用到的技术，跟以前一样，还是要在工作之余对在工作中遇到的问题进行挖掘，弄清楚背后的原理，才能应对同样的问题以及问题的变种。
+3.习惯的建立
+    工作上和生活上不用花太大心思，生活上只要保证每天早晚各半个小时的锻炼整个人的精气神就会大不一样。周末游泳，这个不用我说自然会有的。    
+</code></pre><h2 id="我的决定"><a href="#我的决定" class="headerlink" title="我的决定"></a>我的决定</h2><p>基于以上现状以及分析，我的个人时间计划表初步安排如下：</p>
+<pre><code>7：00 起床
+~7：30洗漱，锻炼
+~8：00阅读英语，内容为随机选取技术博客活着计划任务一篇
+9：00~12：00工作
+12：00~13：00阅读一小时
+13：00~13：30可以适当午休
+14：00~19:00工作，汇报一天的工作
+20：00成功降落
+晚上：整理白天产生的mind.txt，选取一个技术点blog
+    英文能力训练二十分钟，阅读一小时，锻炼半小时
+23:00睡觉    
+</code></pre></div></article><article><header><h2><a href="/2016/05/19/CI-CD/">CI/CD</a></h2></header><div class="article-meta clearfix"><time class="left">2016 5 月 19 日</time><ul class="tags left"></ul><ul class="tags right"><li><a href="/tags/DevOps/">DevOps</a></li><li><a href="/tags/Agile/">Agile</a></li></ul></div><div class="markdown-body"><h1 id="Agile-Development"><a href="#Agile-Development" class="headerlink" title="Agile Development"></a>Agile Development</h1><p>Before we talk about CI and CD， I think we should figure out why we need them, so we have to talk about Agile Development first.<br>Agile Development is a set of principles for software development. It was develop to response to changing customer’s requirement. As we all know, managers generally desirable to quantify the progress of the development, but quantify of the coding is not easy, the quantify we can only control is the process of the requirment. So we can process a requirement implemented as an iteration cycle of software development.<br>For this purpose, they created with CI and CD as the core of agile development.<br><a id="more"></a></p>
+<h2 id="Continuous-Integration-CI"><a href="#Continuous-Integration-CI" class="headerlink" title="Continuous Integration(CI)"></a>Continuous Integration(CI)</h2><p>Continuous Integration means you need to integration at least daily, It’s a development practice that requires developers to integrate code into a shared repository several times a day.”Shared”” means everyone can see what others working on, Frequently compile, test, commit means every times we commit, the code could be running, ideally, every integration should be automated, the unit-test allowing teams to detect problems early. By integration regularly, you can detect errors quickly, and locate them more easily.<br>there are many advantages for Continuous Integration, one of which is the continuous delivery.</p>
+<h2 id="Continuous-Delivery-CD"><a href="#Continuous-Delivery-CD" class="headerlink" title="Continuous Delivery(CD)"></a>Continuous Delivery(CD)</h2><p>Continuous Delivery is customer requirement oriented, It’s like Continuous Integration but more than it, Continuous Delivery is the natural extension of Continuous Integration, Continuous Delivery makes releases boring, so we can deliver frequently and get fast feedback on what users care about.</p>
+<h2 id="Continuous-Deployment"><a href="#Continuous-Deployment" class="headerlink" title="Continuous Deployment"></a>Continuous Deployment</h2><p>Continuous Deployment is more than Continuous Delivery, seams like this:<br> <img src="https://d1089v03p3mzyq.cloudfront.net/assets/website/continuous-integration-essentials/continuous-delivery-vs-continuous-deployment-b371cf5be55b1c52635058af7b70188cd2b608bfb92ca5487a3e41694e9ccf6b.jpg" alt="88cd2b608bfb92ca5487a3e41694e9ccf6b.jpg"><br>It is the practice of keeping your codebase deployable at any point. Beyond making sure your application passes automated tests it has to have all the configuration necessary to push it into production. Many teams then do push changes that pass the automated tests into a test or production environment immediately to ensure a fast development loop.<br>A simplified continuous deployment flow can look like this:<br><img src="https://risingstack-blog.s3-eu-west-1.amazonaws.com/2014/Sep/Continuous-deployment---New-Page.png" alt="New-Page.png"></p>
+<h2 id="Development-Operations-DevOps"><a href="#Development-Operations-DevOps" class="headerlink" title="Development Operations(DevOps)"></a>Development Operations(DevOps)</h2><p>Development Operations is bigger than Continuous Deployment, It aims at establishing a culture and environment where building testing, and releasing software, can happen rapidly, and more reliably.<br>In my words, DevOps is a practical form of agile.</p>
+<h2 id="Tools-for-CI-and-CD"><a href="#Tools-for-CI-and-CD" class="headerlink" title="Tools for CI and CD"></a>Tools for CI and CD</h2><p><a href="https://jenkins.io/" target="_blank" rel="external">Jenkins</a></p>
+<p><a href="https://www.go.cd/download/" target="_blank" rel="external">GoCD</a></p>
+<p><a href="https://www.jetbrains.com/teamcity/" target="_blank" rel="external">TeamCity</a></p>
+<p><a href="https://travis-ci.org/" target="_blank" rel="external">Travis CI</a></p>
+</div></article><div class="archive-pagination"><div class="paginator"><a class="extend prev" rel="prev" href="/page/7/">&laquo;</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/9/">&raquo;</a></div></div></div><div class="block-sidebar column one-fourth"><div class="widget text-content"><p>杜屹东 生于 1993.12.16, 英文 ID Luke Du</p>
 <ul>
 <li>现就职于<a href="https://www.thoughtworks.com/">ThoughtWorks</a></li>
 <li>毕业于 <a href="http://www.xhu.edu.cn/">西华大学</a> 计算机科学与技术</li>

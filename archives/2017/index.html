@@ -1,4 +1,124 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/styles.css"><title>杜屹东的博客</title></head><body><div class="container"><div class="columns page-header"><h1>杜屹东的博客</h1></div><div class="columns"><div class="navigation"><nav class="menus-main"><a href="/" class="favicon"><img alt="杜屹东的博客" src="/favicon.png"></a><a href="/about">关于我</a><a href="/list">日志列表</a><a href="/booklist">读书</a><a href="/links">链接</a><a href="/resume">简历</a></nav><nav class="right menus-right"><a target="_blank" href="https://github.com/ADU-21/blog">Fork on Github</a></nav></div></div><div class="columns"><div class="block-body column three-fourths"><div class="article-widget"><a href="https://www.duyidong.com/awsSolutionsArchitect_AE.pdf">AWS认证方案解决架构师证书</a></div><article><header><h2><a href="/2017/04/12/leave-TW/">离骚</a></h2></header><div class="article-meta clearfix"><time class="left">2017 4 月 12 日</time><ul class="tags left"></ul><ul class="tags right"><li><a href="/tags/ThoughtWorks/">ThoughtWorks</a></li><li><a href="/tags/职场/">职场</a></li></ul></div><div class="markdown-body"><p>最近在公司的离职群里出现了一个调查问卷，我觉得很有意思，引发了我对ThoughtWorks的一些思考，顺手贴在这里。</p>
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/styles.css"><title>杜屹东的博客</title></head><body><div class="container"><div class="columns page-header"><h1>杜屹东的博客</h1></div><div class="columns"><div class="navigation"><nav class="menus-main"><a href="/" class="favicon"><img alt="杜屹东的博客" src="/favicon.png"></a><a href="/about">关于我</a><a href="/list">日志列表</a><a href="/booklist">读书</a><a href="/links">链接</a><a href="/resume">简历</a></nav><nav class="right menus-right"><a target="_blank" href="https://github.com/ADU-21/blog">Fork on Github</a></nav></div></div><div class="columns"><div class="block-body column three-fourths"><div class="article-widget"><a href="https://www.duyidong.com/awsSolutionsArchitect_AE.pdf">AWS认证方案解决架构师证书</a></div><article><header><h2><a href="/2017/04/13/Infrastructure-as-Code-Testing/">基础设施代码测试</a></h2></header><div class="article-meta clearfix"><time class="left">2017 4 月 13 日</time><ul class="tags left"></ul><ul class="tags right"><li><a href="/tags/Infrastructure-as-Code/">Infrastructure as Code</a></li><li><a href="/tags/ThoughtWorks技术雷达/">ThoughtWorks技术雷达</a></li><li><a href="/tags/基础设施即代码/">基础设施即代码</a></li><li><a href="/tags/持续交付/">持续交付</a></li></ul></div><div class="markdown-body"><p>在DevOps的文化中有一个已经被广泛认可的概念叫做<a href="https://martinfowler.com/bliki/InfrastructureAsCode.html" target="_blank" rel="external">基础设施及代码</a>，意在将基础设施以配置文件的方式纳入版本管理以达到更灵活且便于管理的目的，从而更加适应基础设施频繁变更需求。</p>
+<p>虽说此举俨然已将<a href="https://www.duyidong.com/2016/05/19/CI-CD/">CI/CD</a>（持续集成和持续交付）概念应用在了基础设施代码上，然而在应用产品的<a href="https://www.duyidong.com/tags/%E9%83%A8%E7%BD%B2%E4%B8%8E%E5%8F%91%E5%B8%83/">持续部署与发布</a>实施过程中，基础设施变更仍然是一件令人<em>胆战心惊</em>的事，原因很简单——没有<strong>反馈及时</strong>且<strong>覆盖充分</strong>的测试。</p>
+<p>随着基础设施即代码的不断推广，这一痛点变得越来越明显，最近一期<a href="https://assets.thoughtworks.com/assets/technology-radar-vol-16-cn.pdf" target="_blank" rel="external">ThoughtWorks技术雷达</a>中列出了两个工具<strong>Molecule</strong>和<strong>Testinfra</strong>一个是用于测试Ansible Role(如果还不知道Ansible是什么请移步我的另一篇博客：<a href="https://www.duyidong.com/2016/06/15/Ansible%E5%AD%A6%E4%B9%A0%E5%B0%8F%E8%AE%B0/">Ansible学习小计</a>)，一个用于测试基础设施，下面我就来试用一下这两个工具。</p>
+<h2 id="Testinfra介绍"><a href="#Testinfra介绍" class="headerlink" title="Testinfra介绍"></a>Testinfra介绍</h2><p><a href="https://github.com/philpep/testinfra" target="_blank" rel="external">Testinfra</a>是由Python社区贡献的基础设施实际状态自动化测试工具，其目标是成为<a href="http://serverspec.org/" target="_blank" rel="external">Serverspec</a>在Python中的等价物，并且作为<strong>Pytest</strong>测试引擎的插件来使用。</p>
+<p>官方文档：<a href="http://testinfra.readthedocs.io/en/latest/index.html" target="_blank" rel="external">http://testinfra.readthedocs.io/en/latest/index.html</a></p>
+<h3 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h3><p>环境准备：</p>
+<pre><code>$ pip install testinfra      # 安装Testinfra
+$ pip install paramiko       # Python的SSH支持以执行远程测试
+$ pip install pytest-xdist   # 添加多线程支持
+</code></pre><p>来感受下Testinfra的写法:</p>
+<pre><code class="python">def test_passwd_file(File):         # 定义文件检查
+    passwd = File(&quot;/etc/passwd&quot;)    # 定义文件
+    assert passwd.contains(&quot;root&quot;)  # 文件是否包含关键字”root“
+    assert passwd.user == &quot;root&quot;    # 文件owner是否为root
+    assert passwd.group == &quot;root&quot;   # 文件所属组是否为root
+    assert passwd.mode == 0644      # 检查文件权限
+
+
+def test_nginx_is_installed(Package):
+    nginx = Package(&quot;nginx&quot;)
+    assert nginx.is_installed       # nginx是否安装
+    assert nginx.version.startswith(&quot;1.10&quot;) # 检查nginx版本
+
+
+def test_nginx_running_and_enabled(Service):
+    nginx = Service(&quot;nginx&quot;)
+    assert nginx.is_running         # 检查nginx是否已启动
+    assert nginx.is_enabled         # nginx是否配置开机自启
+</code></pre>
+<p>基本和Python的单元测试一模一样，下面来看运行结果：</p>
+<pre><code>$ testinfra -v test_myinfra.py
+</code></pre><p><img src="/images/Testinfra_local_success.png" alt=""></p>
+<p>报错也是PyTest的尿性：</p>
+<p><img src="/images/Testinfra_local_fail.png" alt=""></p>
+<h3 id="远程测试虚拟机"><a href="#远程测试虚拟机" class="headerlink" title="远程测试虚拟机"></a>远程测试虚拟机</h3><p>通过配置ssh并在启动时加入如下参数：</p>
+<pre><code># -n 为指定并发数 --connection为指定链接方式
+$ testinfra -n 1 -v --host=&quot;hostname&quot; --connection=ssh test_myinfra.py
+</code></pre><p>感觉执行方式和Ansible有些相似，以下为执行结果：</p>
+<p><img src="/images/Testinfra_remote_success.png" alt=""></p>
+<p>耗时6s，中规中矩吧。</p>
+<h3 id="其他功能"><a href="#其他功能" class="headerlink" title="其他功能"></a>其他功能</h3><p>除了SSH协议链接Testinfra还支持paramiko，docker，salt，kubectl等连接方式，对于Docker的测试，无外乎也是在起起来的容器上使用<code>docker exec</code>的方法对基础设施即环境配置进行验证。</p>
+<p>另外Testinfra支持自定义module的形式保证测试方法的灵活性，同时Testinfra可以再PyTest之外用于调用SSH连接从而进行测试，形如：</p>
+<pre><code>&gt;&gt;&gt; import testinfra
+&gt;&gt;&gt; conn = testinfra.get_backend(&quot;paramiko://root@server:2222&quot;, sudo=True)
+&gt;&gt;&gt; conn.File(&quot;/etc/shadow&quot;).mode == 0640
+True
+</code></pre><h3 id="Testinfra评价"><a href="#Testinfra评价" class="headerlink" title="Testinfra评价"></a>Testinfra评价</h3><h4 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h4><ul>
+<li>基本涵盖了应用所需环境测试的内容，且可灵活扩展。</li>
+<li>可读性好，学习成本低.</li>
+<li>环境依赖简单，能够与项目完美结合。</li>
+</ul>
+<h4 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h4><ul>
+<li>测试未能覆盖到IaaS层的测试，仅能够在操作系统之上进行测试。对于云环境的基础设施还包括网络，负载均衡，数据库等等资源，这些都不能照顾到。</li>
+<li>测试覆盖率虽然有所提升，但反馈不够及时。在开发和Debug过程中最痛苦的应该是每次使用新代码创建基础设施都要等很久才能得到反馈，这个问题并没有得到解决。</li>
+<li>报错信息不够友好，个人认为基础设施的测试应该不能等同于代码层面的测试，所以PyTest的报错方式并不能让用户一眼就看到是哪方面出了错误；往远了说，要根据这个报错信息Trigger一个行为也很难做到。</li>
+</ul>
+<h2 id="Molecule介绍"><a href="#Molecule介绍" class="headerlink" title="Molecule介绍"></a>Molecule介绍</h2><p><a href="https://github.com/metacloud/molecule" target="_blank" rel="external">MOLECULE</a>旨在帮助开发和测试Ansible的Role。通过在虚拟机或容器上为正在运行的Ansible Role的测试构<br>建脚手架，我们无需再手工创建这些测试环境。Molecule利用Vagrant，Docker和OpenStack来管理虚拟机或容器，并支持Serverspec、Testinfra或Goss来运行测试。在sequence facility model中的默认步骤包括：虚拟机管理，Ansible语法静态检查，幂等性测试和收敛性测试。</p>
+<p>话不多说，我们来看看这个工具究竟能解决什么样的问题吧。</p>
+<h3 id="版本支持"><a href="#版本支持" class="headerlink" title="版本支持"></a>版本支持</h3><p>目前Molecule支持的Ansible版本为<code>2.1.4.0</code>和<code>2.2.1.0</code>，好吧，这一点，虽然项目上还在用<code>1.7.2</code>（一直担心<em>Breake change</em>所以没有升上去），但我觉得大部分公司应该使用的是<code>2.2</code>以上的版本，这一点我没有异议。</p>
+<h3 id="Quick-Start-1"><a href="#Quick-Start-1" class="headerlink" title="Quick Start"></a>Quick Start</h3><p>环境准备</p>
+<pre><code>$ yum install ansible -y      # 为了避免踩坑不使用pip的ansible
+$ pip install docker          # 安装python的docker支持
+$ pip install molecule        # 主角登场
+</code></pre><p>运行</p>
+<pre><code>$ molecule init --role foo --driver docker
+$ cd foo
+$ molecule test
+</code></pre><p>运行结果：</p>
+<p><img src="/images/Molecule_Test_Success.png" alt=""></p>
+<p>第一次运行速度比较慢，因为运行Ansible需要到Docker镜像仓库拉取一个Ubuntu的镜像，可以从Log里看出，整个测试过程包含如下步骤：</p>
+<ul>
+<li>从基础镜像（Ubuntu）创建一个测试需要的镜像（docker image）</li>
+<li>从镜像启动一个测试运行需要的容器（docker container）</li>
+<li>开始测试，运行playbook</li>
+<li>使用Testinfra判断准备环境是否正确</li>
+<li>测试完毕，停止并删除容器</li>
+</ul>
+<p>整个过程容器的创建和销毁并没有占用很多时间，和跑一个Ansible时间相差不多。</p>
+<h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><p>Molecule的配置文件采用的yml，可以在项目下也可以放到<code>~/.config/molecule/config.yml</code>作为默认配置，示例如下：</p>
+<pre><code>---
+dependency:
+  name: galaxy         # Molecule使用Ansible Galaxy拉取Role
+driver:
+  name: docker         # 使用Docker引擎跑测试
+docker:
+  containers:          # 容器配置
+    - name: foo
+      image: ubuntu
+      image_version: latest
+      ansible_groups:  # 目标机器组
+        - group1
+verifier:
+  name: testinfra      # 验证最终执行结果
+</code></pre><p>其中Driver除了Docker还支持OpenStack及Vagrant，Verifier除了Testinfra还可选Serverspec及Goss。</p>
+<h3 id="测试方法"><a href="#测试方法" class="headerlink" title="测试方法"></a>测试方法</h3><p>关于测试内容的定义，看一下<code>test/test_default.py</code>文件：</p>
+<pre><code>import testinfra.utils.ansible_runner
+
+testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
+    &#39;.molecule/ansible_inventory&#39;).get_hosts(&#39;all&#39;)
+
+
+def test_hosts_file(File):
+    f = File(&#39;/etc/hosts&#39;)
+
+    assert f.exists
+    assert f.user == &#39;root&#39;
+    assert f.group == &#39;root&#39;
+</code></pre><p>简单看来就是利用Testinfra看了下/etc/hosts是否存在，所属用户和所属组是否为root</p>
+<h3 id="Molecule评价"><a href="#Molecule评价" class="headerlink" title="Molecule评价"></a>Molecule评价</h3><p>与其说Molecule是一个新的Ansible测试工具不如说是一种组合docker，Testinfra和Ansible的测试方法，换总说法它并不是一个集成在Ansible之中的更细粒度的测试方法，而是高于Ansible的更适合于放在Pipeline中作为测试Ansible运行最终结果的一个工具集，其效果大致和运行<code>docker run XXX ansible</code>之后再运行<code>Testinfra -v</code>两行shell命令是一样的</p>
+<h4 id="优点-1"><a href="#优点-1" class="headerlink" title="优点"></a>优点</h4><ul>
+<li>开始关注自动化配置脚本的测试，不失为一种尝试</li>
+<li>使用Docker作为引擎，速度还可以</li>
+<li>能够提升更改Ansible脚本后的构建信心</li>
+</ul>
+<h4 id="缺点-1"><a href="#缺点-1" class="headerlink" title="缺点"></a>缺点</h4><ul>
+<li>仍然要运行完Playbook才能看到结果，并没有解决<strong>反馈不及时</strong>的痛点</li>
+<li>不支持细粒度的测试，且对一个playbook使用不同参数构建不同环境的应用场景也没有很好的支持</li>
+<li>不管是使用Docker还是Vagrant，都增加了<em>空间</em>的消耗，且增加了<em>知识成本</em></li>
+</ul>
+<h2 id="综上所述"><a href="#综上所述" class="headerlink" title="综上所述"></a>综上所述</h2><p>随着DevOps的普及，已经有人开始关注基础设施代码测试这一块的工作，但这些测试工具还在初级阶段，反馈不能及时，增加覆盖面的成本也还较高，且不能很好地与云环境结合。<br>由于在软件开发中基础设施对业务价值的贡献并不明显，提升Ops技能与其说能过帮助公司挣钱不如说是帮公司省钱；而且在大部分项目中基础设施变更并没有那么频繁，紧急的问题通常还是由Ops（或者是被称为DevOps的一个角色）手动来解决，这种现象在国内公司尤其明显。大家对DevOps的认识还没有达到不一致，DevOps中的测试也还没有被定义清楚，基础设施代码的测试，还有很长的路要走。</p>
+</div></article><article><header><h2><a href="/2017/04/12/leave-TW/">离骚</a></h2></header><div class="article-meta clearfix"><time class="left">2017 4 月 12 日</time><ul class="tags left"></ul><ul class="tags right"><li><a href="/tags/ThoughtWorks/">ThoughtWorks</a></li><li><a href="/tags/职场/">职场</a></li></ul></div><div class="markdown-body"><p>最近在公司的离职群里出现了一个调查问卷，我觉得很有意思，引发了我对ThoughtWorks的一些思考，顺手贴在这里。</p>
 <p>另，骚窝为ThoughtWorks音译，所以从骚窝离职的人被称为离骚。</p>
 <pre><code>【骚人一】在骚窝4年多，2015年4月离开
 
@@ -380,7 +500,7 @@ feedback，开放式协作
 <li>在TW时往往只能受雇于人做一些产品开发，这常常成为TWer离职的原因——没有自己的产品</li>
 </ul>
 <p>在以上发言中，七号，十一号，十八号，给我的印象最为深刻。<br>曾经有人告诉我：入职第一天就为离职做好准备的员工是好员工。因为这样的员工往往会保持高度的警惕且持续学习，随时辞职随时都能找到更好待遇的工作的目标，保证了员工提供给公司是高于自己待遇的价值。<br>所以企业最看重的，是价值；职场上最重要的，应该是人。</p>
-</div></article><article><header><h2><a href="/2017/04/05/How-to-pass-the-aws-certification/">AWS助理架构师认证考经</a></h2></header><div class="article-meta clearfix"><time class="left">2017 4 月 5 日</time><ul class="tags left"></ul><ul class="tags right"><li><a href="/tags/AWS/">AWS</a></li><li><a href="/tags/Certification/">Certification</a></li><li><a href="/tags/AWS认证考试/">AWS认证考试</a></li><li><a href="/tags/云计算认证/">云计算认证</a></li></ul></div><div class="markdown-body"><p>上周去参加了AWS助理级架构师的考试并顺利通过，是2017年的第一个小目标也是对云服务知识的一个检验，在此分享一下考试的经过和经验。</p>
+</div></article><article><header><h2><a href="/2017/04/05/How-to-pass-the-aws-certification/">AWS助理架构师认证考经</a></h2></header><div class="article-meta clearfix"><time class="left">2017 4 月 5 日</time><ul class="tags left"></ul><ul class="tags right"><li><a href="/tags/AWS/">AWS</a></li><li><a href="/tags/云计算认证/">云计算认证</a></li><li><a href="/tags/Certification/">Certification</a></li><li><a href="/tags/AWS认证考试/">AWS认证考试</a></li></ul></div><div class="markdown-body"><p>上周去参加了AWS助理级架构师的考试并顺利通过，是2017年的第一个小目标也是对云服务知识的一个检验，在此分享一下考试的经过和经验。</p>
 <h1 id="什么是AWS认证"><a href="#什么是AWS认证" class="headerlink" title="什么是AWS认证"></a>什么是AWS认证</h1><p>亚马逊作为云计算领域的领头羊，在云计算领域已经有了十多年的积累，亚马逊的云计算不论是从服务还是性能在全球都是首屈一指的。近年来国内有很多创业公司依托于阿里云，微软云，Ucloud等IaaS, PaaS服务构建了许多SaaS服务，其中不乏客如云之类的成功案例，许多大型企业也将自己的基础设施往云上迁移。近两个月腾讯云和中国电信两次以0.01元中标政府云服务项目更是起到了推波助澜的作用。如此种种，可见云服务在IT届的地位已经越来越高，对于从业者的云计算知识要求也必然会越来越高。那么考取云服务界领头羊亚马逊的认证也会变得越来越有价值。<br>AWS目前仅有助理级和专家级两个级别，2017年还会加入大数据，安全，网络三个认证。<br>就目前有的认证而言，开发者(Developer)认证应该是最好考的，助理方案解决架构师(Solutions Architect)次之，助理级最难的是运维（SysOps）。要取得专家级认证必须先取得助理级认证，关系如图：</p>
 <p><img src="/images/AWS_Certification_Level.png" alt=""></p>
 <p>关于八个认证的难以程度即考取顺序建议如下：</p>
@@ -424,210 +544,7 @@ feedback，开放式协作
 <li>AWS官方教学小视频： <a href="https://aws.amazon.com/training/intro_series/" target="_blank" rel="external">https://aws.amazon.com/training/intro_series/</a></li>
 </ul>
 </blockquote>
-</div></article><article><header><h2><a href="/2017/03/23/AWS-well-architected-framework/">AWS well architected framework</a></h2></header><div class="article-meta clearfix"><time class="left">2017 3 月 23 日</time><ul class="tags left"></ul><ul class="tags right"><li><a href="/tags/AWS/">AWS</a></li><li><a href="/tags/Cloud-Native/">Cloud Native</a></li><li><a href="/tags/架构/">架构</a></li><li><a href="/tags/上云/">上云</a></li></ul></div><div class="markdown-body"><h1 id="AWS认为，什么样的架构是一个良好的架构"><a href="#AWS认为，什么样的架构是一个良好的架构" class="headerlink" title="AWS认为，什么样的架构是一个良好的架构"></a>AWS认为，什么样的架构是一个良好的架构</h1><p>AWS Well Architected framework，其实是亚马逊的一封<a href="https://d0.awsstatic.com/whitepapers/architecture/AWS_Well-Architected_Framework.pdf" target="_blank" rel="external">白皮书</a>，围绕云架构设计的安全性，可靠性，负载，花销，运维（2016年11月加入）五个支柱阐述了一个良好的架构应该遵循什么样的原则，以及一些最佳实践。<br>亚马逊在云服务届处于世界领先水平，且在十多年的云架构实践中已经积累了相当的经验，该白皮书是对这些经验的一个总结和提炼。不管是对于考试，对于成为一个云架构师，还是对于单纯的学习和了解云服务，都是一份不可多得的好材料。<br>下面附上资源地址：<a href="https://d0.awsstatic.com/whitepapers/architecture/AWS_Well-Architected_Framework.pdf" target="_blank" rel="external">https://d0.awsstatic.com/whitepapers/architecture/AWS_Well-Architected_Framework.pdf</a></p>
-<h2 id="啰嗦几句"><a href="#啰嗦几句" class="headerlink" title="啰嗦几句"></a>啰嗦几句</h2><p>自从互联网诞生以来，各互联网公司通过将自己服务器的端口暴露在公共网络的方式提供服务，普通用户通过供应商接入公共网络，与公司服务器建立连接进行数据传输，从而实现“上网”的功能。对普通用户而言，终端以外的世界都是黑盒，而对于提供服务的互联网公司而言，则要运维大量的服务器，交换机等设备，为了保证服务的可靠性，容灾能力，为了开发，测试，常常需要维护超过实际提供服务的服务器数量很多倍的基础设施。又例如，在淘宝双十一期间可能由于用户访问量基层淘宝需要临时增加一倍的服务器数量来保证服务的正常运行，而在活动结束后，又需要恢复正常的服务器数量，那么这多出来的一倍服务器难免就会造成资源浪费。而且在很多时候，传统运维的背景下，申请一台服务器时间很长，手续繁琐，为了方便，研发部门通常会申请超出所需的基础设施资源，“以备不时之需”，这样的情况也会给企业造成大量的浪费。云服务，就是为了解决这种种问题而诞生的。</p>
-<p><img src="/images/Cloud_better.png" alt=""></p>
-<p>最简单的云服务模型，就是在云服务厂商集中托管了一个超级大型的服务器群，云服务厂商通过对外租赁服务器的形式代替了互联网厂商自己维护服务器的方式。这样做的好处在于一是避免了闲置基础设施资源的浪费，二是随着云服务的不断普及，以及Agile，DevOps运动的兴起，人们对IT设施的灵活度要求越来越高，这两年Infrastructure as Code（基础设施即代码）的理念已经被越来越多的厂商应用到生产实践中去，基础设施及代码的理念，和云服务是一脉相承的，租户可以更快地申请到设备，可以更灵活的对自己的设备定制化，规定大小，容量，甚至预配置一些环境，和自己的服务紧耦合，使公司的生产活动可以跟多的关注在业务上，而不用去操心服务器的性能，预估自己能承受的访问量，从而给业务发展带来更大的发展空间。这一点表现在今年AWS大力在推行的的Serverless架构上。<br>在笔者看来，云服务并不是一个技术上的创新，而更像是一种商业模式，为了让企业更灵活的适应瞬息万变的市场和用户需求，为了使社会资源更加合理化配置，同时，云服务也是信息全球化的重要一环，为人工智能，大数据奠定了基础。</p>
-<h1 id="如何定义一个良好的架构"><a href="#如何定义一个良好的架构" class="headerlink" title="如何定义一个良好的架构"></a>如何定义一个良好的架构</h1><p>AWS从五大支柱来判定一个架构设计得是否优秀：</p>
-<ul>
-<li><strong>Security</strong>安全：保护信息，系统安全，在风险可控的前提下对外提供服务，以及迁移的策略</li>
-<li><strong>Reliability</strong>可靠：系统的容错能力和自我修复能力，系统在负载增加时动态获取计算资源以满足业务需求，以及在系统模块发生故障时自动替换掉故障模块</li>
-<li><strong>Performance Efficiency</strong>负载能力：根据系统需要，伸缩负载的能力</li>
-<li><strong>Cost Optimization</strong>资费优化：在满足需求的情况下花尽可能少的钱</li>
-<li><strong>Operational Excellence</strong>运维出色：业务连续性，系统状况监控预警能力</li>
-</ul>
-<h3 id="一般设计原则（General-Design-Principles）"><a href="#一般设计原则（General-Design-Principles）" class="headerlink" title="一般设计原则（General Design Principles）"></a>一般设计原则（General Design Principles）</h3><ul>
-<li>停止估算需要多少基础设施，架构可以根据业务情况灵活伸缩</li>
-<li>构建一个和生产环境完全一致的测试环境，你可以在测试环境完全模拟生产环境的情形，并在完成测试之后清理掉所有资源</li>
-<li>自动化使架构变更的风险更低，基础设施及代码的好处，让架构可复制，架构变更变得可追踪，且减少了很多情况认为操作带来的风险</li>
-<li>允许架构更灵活地变更，一是风险更低，因为变更可追溯，二是架构可以被及时回滚，三是彻底的变更成本很小</li>
-<li>数据驱动型架构，灵活的架构方式允许你使用面向数居的架构方式</li>
-<li>通过“game day”来提升架构，由于架构可以被轻易的复制且用户只需要按使用付费，租户可以在任意时候测试自己的架构是否存在安全漏洞，是否存在可以被改进的地方</li>
-</ul>
-<p>下面白皮书围绕以上提到的几大优秀架构的设计支柱，提出了一系列设计原则，最佳实践以及实践这些最佳实践可以用到的服务：</p>
-<h2 id="安全（Security-Pillar）"><a href="#安全（Security-Pillar）" class="headerlink" title="安全（Security Pillar）"></a>安全（Security Pillar）</h2><h3 id="设计原则"><a href="#设计原则" class="headerlink" title="设计原则"></a>设计原则</h3><ul>
-<li>在每一个层面引入安全：除了应用安全还应该在网络，负载均衡器，防火墙，操作系统关注安全</li>
-<li>可追溯：保证系统的每一次操作/更改都被记录日志，并对日志进行审查</li>
-<li>确保“最小权限原则”：确保每一个资源都被赋予了恰好需要的最小权限，实时审查这些权限，及时清理掉没用的权限</li>
-<li>关注在你的系统安全：根据AWS的责任划分模型，关注在用户应该负责的系统安全和数据安全层面<br><img src="https://d0.awsstatic.com/security-center/NewSharedResponsibilityModel.png" alt=""></li>
-<li>自动化安全最佳实践：使用基于应用层的策略保证安全问题能够被快速修复，例如，创建打好补丁的镜像，然后让所有之后创建的instance使用这个镜像；再例如，对常见安全问题自动响应和自动修复故障</li>
-</ul>
-<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>AWS将最佳实践划分为五个范畴：</p>
-<ul>
-<li>数据保护</li>
-<li>认证和权限管理</li>
-<li>架构保护</li>
-<li>追踪控制</li>
-<li>事件响应</li>
-</ul>
-<p>在设计你的架构之前，你需要知道谁可以对你的系统做什么，此外，你还希望确定判断每个发生在系统的事件是否安全，保护你的操作系统和服务，你需要维护和保密你的数据，你还需要做到系统对安全事件能够自动响应。</p>
-<h3 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h3><h4 id="数据保护"><a href="#数据保护" class="headerlink" title="数据保护"></a>数据保护</h4><p>确认只有必要的用户有访问部分数据的权限，确保数据在存储时被加密，传输过程中被加密，使用IAM，以下实践可以保证你的数据安全：</p>
-<ul>
-<li>AWS的用户享有对所有数据完全的控制权</li>
-<li>AWS确保用户可以轻松对自己的数据进行加密，并提供方法管理加密所使用的key，并可以通过AWS或者用户自己定义的方式自动定期更换key（Key Management Service）</li>
-<li>AWS允许开启详细的日志信息，包括文件的权限变更（CloudTrail）</li>
-<li>AWS提供极高的可用性保证你的数据不会丢失（S3）</li>
-<li>开启版本管理，可以作为数据生命周期的一部分，可以保护对数据的误操作</li>
-<li>AWS默认不会对数据做跨Region的转移或备份，即数据不会离开它所在Region的“国家/城市”</li>
-</ul>
-<p>另外两个重要的问题：</p>
-<ul>
-<li>如何保证数据存储时加密？</li>
-<li>如何确保数据传输过程的加密？（SSL）</li>
-</ul>
-<h4 id="认证和权限管理"><a href="#认证和权限管理" class="headerlink" title="认证和权限管理"></a>认证和权限管理</h4><p>通过亚马逊的AMI，租户可以完全控制根账户下每个用户，以及应用对所有资源的访问权限，确保每个User和Role只拥有必须的权限是必要的，同时确保每个资源只在被授权的情况下才能够被访问和使用。常见的权限管理包含以下内容：</p>
-<ul>
-<li>ACL（用于管理用户对于S3中存放对象的操作访问权限）</li>
-<li>基于Role的权限控制</li>
-<li>密码管理（定期更换密码）</li>
-</ul>
-<p>同样，几个问题：</p>
-<ul>
-<li>如何保证根账户的安全？（是否开启了第三方验证，是否删掉了Access Key）</li>
-<li>如何保证User和Role的权限是安全的？（是否使用Group管理用户）</li>
-<li>如何限制应用程序，脚本，或第三方工具对AWS资源的控制访问权限？</li>
-<li>如何管理Key和证书？</li>
-</ul>
-<h4 id="架构保护"><a href="#架构保护" class="headerlink" title="架构保护"></a>架构保护</h4><p>通常来说架构保护指的是对本地数据中心的保护，在AWS的白皮书中主要提到的是对于VPC的保护，主要包括VPC中的Security Group，Network Control list，路由策略</p>
-<p>几个问题：</p>
-<ul>
-<li>如何管理你的网络策略，和设备安全？（是否有内外网划分，在外网的Instance的登录验证是怎样的，有没有开启多重验证）</li>
-<li>服务层面的安全管理？（多少用户有对你资源的访问权限，是否有对这些用户进行分组管理，是否对这些用户的验证进行了强行的限制，如强密码和定期更换密码，等等）</li>
-<li>如何保证你的系统安全，如何运维监控你的服务？</li>
-</ul>
-<h4 id="追踪控制"><a href="#追踪控制" class="headerlink" title="追踪控制"></a>追踪控制</h4><p>以下服务可以用于设施变更的追溯及审查：</p>
-<ul>
-<li>CloudTrail，用于记录AWS API的每一次操作，并生成日志保存在S3中</li>
-<li>Amazon CloudWatch，用于实时监控和预警</li>
-<li>AWS Config</li>
-<li>Amazon S3</li>
-<li>Amazon Glacier</li>
-</ul>
-<p>常见问题：</p>
-<ul>
-<li>如何获取和分析你的日志？</li>
-</ul>
-<h3 id="涉及到的服务（Key-AWS-Services）"><a href="#涉及到的服务（Key-AWS-Services）" class="headerlink" title="涉及到的服务（Key AWS Services）"></a>涉及到的服务（Key AWS Services）</h3><ul>
-<li>数据保护：加密数据存储和传输：ELB, S3 &amp; RDS</li>
-<li>权限管理：IAM, MFA</li>
-<li>架构保护：VPC, NCL, SG</li>
-<li>追踪控制：CloudTrail, Config, CloudWatch</li>
-</ul>
-<h2 id="可靠性（Reliability-Pillar）"><a href="#可靠性（Reliability-Pillar）" class="headerlink" title="可靠性（Reliability Pillar）"></a>可靠性（Reliability Pillar）</h2><h3 id="设计原则-1"><a href="#设计原则-1" class="headerlink" title="设计原则"></a>设计原则</h3><ul>
-<li>测试覆盖率</li>
-<li>自动修复错误</li>
-<li>水平扩展</li>
-<li>停止猜测生产力</li>
-<li>自动追踪架构变更</li>
-</ul>
-<h3 id="最佳实践-1"><a href="#最佳实践-1" class="headerlink" title="最佳实践"></a>最佳实践</h3><h4 id="建立基础"><a href="#建立基础" class="headerlink" title="建立基础"></a>建立基础</h4><p>在开始架构设计之前，选择Region，确立方案。</p>
-<ul>
-<li>如何管理AWS对服务数量的限制</li>
-<li>如何设计网络拓扑</li>
-<li>是否有预留空间用于处理技术难题</li>
-</ul>
-<h4 id="变更管理"><a href="#变更管理" class="headerlink" title="变更管理"></a>变更管理</h4><p>这里说的变更主要指的是架构的水平扩展</p>
-<ul>
-<li>如何根据业务需求进行系统变更</li>
-<li>如何监控变更</li>
-<li>如何执行变更（自动化）</li>
-</ul>
-<h4 id="容错管理"><a href="#容错管理" class="headerlink" title="容错管理"></a>容错管理</h4><ul>
-<li>数据备份</li>
-<li>灾难恢复</li>
-<li>如何应对应用组件失效</li>
-<li>如何对系统弹性进行测试</li>
-</ul>
-<h3 id="涉及到的服务"><a href="#涉及到的服务" class="headerlink" title="涉及到的服务"></a>涉及到的服务</h3><ul>
-<li>建立基础：IAM, VPC</li>
-<li>变更管理：CloudTrail</li>
-<li>容错管理：CloudFormation</li>
-</ul>
-<h2 id="性能负载（Performance-Efficiency-Pillar）"><a href="#性能负载（Performance-Efficiency-Pillar）" class="headerlink" title="性能负载（Performance Efficiency Pillar）"></a>性能负载（Performance Efficiency Pillar）</h2><p>这一个支柱的核心思想是如何使用变更的计算资源来满足日益变化的业务需求</p>
-<h3 id="设计原则-2"><a href="#设计原则-2" class="headerlink" title="设计原则"></a>设计原则</h3><ul>
-<li>为用户隐藏更多的细节让用户可以轻松调度资源，更关注在产品的业务价值</li>
-<li>数分钟内让服务发布到全球</li>
-<li>使用无服务（Serverless）架构</li>
-<li>更容易实验</li>
-<li>使用最符合用户想要实现的技术方法。例如，在选择数据库或存储方法时考虑数据访问模式。</li>
-</ul>
-<h3 id="最佳实践-2"><a href="#最佳实践-2" class="headerlink" title="最佳实践"></a>最佳实践</h3><h4 id="选择"><a href="#选择" class="headerlink" title="选择"></a>选择</h4><ul>
-<li>架构：数据驱动/事件驱动/ETL(数据仓储)/Pipeline，架构的选择决定了以下几种资源的选择</li>
-<li>计算：Instance（type, monitor, quantity ）/Container/Function，同时要考虑到水平扩展能力</li>
-<li>存储：涉及到存储服务选择（S3/S3 IA/S3 RRS/Glacier），存储介质选择（SSD/HDD）<ul>
-<li>存储方式：块存储、文件存储、对象存储</li>
-<li>访问方式：随机还是连续</li>
-<li>吞吐量要求</li>
-<li>访问频率：在线、离线、存档</li>
-<li>更新频率：缓慢变更、动态实时更新</li>
-<li>可用性限制</li>
-<li>数据耐久度限制</li>
-</ul>
-</li>
-<li>数据库：RDS/DynamoDB/Redshift</li>
-<li>网络：考虑地址，网络延迟（是否需要PlacementGroup），在各服务组合方式中寻找合适的配置Cloudfront, VPC, DirectConnect, Route53</li>
-</ul>
-<h4 id="回顾审视"><a href="#回顾审视" class="headerlink" title="回顾审视"></a>回顾审视</h4><p>设计好一个架构，应该再次审视你的架构是如何配合业务需求的，以及随着业务的改变，当引入新的资源类型和功能时，如何确保继续拥有最合适的资源配置？</p>
-<h4 id="监控"><a href="#监控" class="headerlink" title="监控"></a>监控</h4><p>如何监控服务器负载和性能</p>
-<h4 id="时间空间的平衡"><a href="#时间空间的平衡" class="headerlink" title="时间空间的平衡"></a>时间空间的平衡</h4><p>如何用增加空间，冗余备份的方式提高系统响应速度，增加性能负载。最明显的例子就是利用Cloudfront将静态文件缓存到各个节点从而增加各个地区的访问速度</p>
-<h3 id="涉及到的服务-1"><a href="#涉及到的服务-1" class="headerlink" title="涉及到的服务"></a>涉及到的服务</h3><ul>
-<li>选择<ul>
-<li>计算：Auto Scaling是关键，确保你拥有合适数量的Instance来满足业务需求</li>
-<li>存储：EBS提供灵活多样的存储介质及参数，比如SSD, PIOPS，S3提供了静态文件交付方式，Amazon S3 Transfer Acceleration使用户可以远距离，快速，方便，安全的传输大文件</li>
-<li>数据库： RDS（IOPS，Read Replicas）DynamoDB可以灵活扩展且提供毫秒级延迟的服务</li>
-<li>网络：Route53可以提供根据地区延迟分发的路由策略，VPC endpoint(NAT, VPN, Direct Connect)开启灵活的网络互连</li>
-</ul>
-</li>
-<li>回顾审视：<a href="https://aws.amazon.com/blogs/aws/" target="_blank" rel="external">AWS Blog</a>和<a href="https://aws.amazon.com/new/" target="_blank" rel="external">AWS What’s New section</a>可以看到AWS又推出了何种新服务</li>
-<li>监控：AWS CloudWatch提供了不同维度(Metrics)的监控，触发事件(alarms)，以及提示(Notifications)，可以配合Lambda对监控事件作出反应</li>
-<li>空间换时间：AWS ElastiCache，Cloudfront，Snowball，以及RDS的Read Replicas都是为了空间换时间的典型</li>
-</ul>
-<h2 id="费用优化（Cost-Optimization-Pillar）"><a href="#费用优化（Cost-Optimization-Pillar）" class="headerlink" title="费用优化（Cost Optimization Pillar）"></a>费用优化（Cost Optimization Pillar）</h2><h3 id="设计原则-3"><a href="#设计原则-3" class="headerlink" title="设计原则"></a>设计原则</h3><ul>
-<li>采用消费模式：根据使用情况实时变更资源配置，而不是精确估计资源使用情况</li>
-<li>收益与经济规模：因为AWS拥有比单个企业大得多的经济规模，可以在各个企业的需求之间平衡资源需求，所以价格将会更加便宜</li>
-<li>停止在自建数据中心中的投入</li>
-<li>分析支出：云使得资源利用率和成本更加透明，有助于企业主衡量投资回报率，并为用户提供优化资源降低成本的机会</li>
-<li>托管服务降低成本</li>
-</ul>
-<h3 id="最佳实践-3"><a href="#最佳实践-3" class="headerlink" title="最佳实践"></a>最佳实践</h3><ul>
-<li>更佳有效地利用资源</li>
-<li>更贴近业务需求</li>
-<li>支出意识：<ul>
-<li>清楚地认识到哪些服务是会被收费的，收费方式怎样，哪些服务是免费的</li>
-<li>监控支出</li>
-<li>及时关闭不被使用的资源</li>
-<li>给资源配置权限管理以控制花费</li>
-</ul>
-</li>
-<li>随时优化</li>
-</ul>
-<h3 id="涉及到的服务-2"><a href="#涉及到的服务-2" class="headerlink" title="涉及到的服务"></a>涉及到的服务</h3><ul>
-<li>有效利用资源：对于EC2，申请预留实例以减少开销，使用 AWS Trusted Advisor 找到可以减少花费的方式</li>
-<li>贴近业务需求：Auto Scaling</li>
-<li>支出意识：CloudWatch用于监控花费情况，SNS用于提示超出预算的花费</li>
-<li>随时优化：<a href="https://aws.amazon.com/blogs/aws/" target="_blank" rel="external">AWS Blog</a>和<a href="https://aws.amazon.com/new/" target="_blank" rel="external">AWS What’s New section</a>以及 AWS Trusted Advisor</li>
-</ul>
-<h2 id="运维出色（Operational-Excellence-Pillar）"><a href="#运维出色（Operational-Excellence-Pillar）" class="headerlink" title="运维出色（Operational Excellence Pillar）"></a>运维出色（Operational Excellence Pillar）</h2><p>运维出色应该是AWS配合DevOps运动推出的一系列实践：</p>
-<h3 id="设计原则-4"><a href="#设计原则-4" class="headerlink" title="设计原则"></a>设计原则</h3><ul>
-<li>使用代码执行运维操作：运维的一个发展趋势是越来越自动化，比如我们可以用自动配置管理工具配置更改环境，响应实践等</li>
-<li>强调配合业务需求的运维：将运营流程与业务目标相一致，减少不必要的运维指标</li>
-<li>定期，小步，增量式的运维：工作负载应设计为允许组件定期更新，运维的更新也应该小步前进，且容易被回滚，在维护和更换组件时不应造成宕机时间</li>
-<li>启用测试以对运维的误操作及时响应：对于组件更替和运维的操作应该有测试，及时发现变更错误以便于修复或回滚</li>
-<li>在错误中学习：定期回顾对运维事件的处理方法以改进，持续推动卓越运维</li>
-<li>保持操作流程：团队之间相互学习，及时更新文档，保证团队运维操作有统一流程，统一的运维方式</li>
-</ul>
-<h3 id="最佳实践-4"><a href="#最佳实践-4" class="headerlink" title="最佳实践"></a>最佳实践</h3><ul>
-<li>准备：何种最佳实践？选用何种配置管理？</li>
-<li>开始作业：如何小步前进，如何监控每一次运维操作？</li>
-<li>响应：如何对计划之外的运维操作做出响应？</li>
-</ul>
-<h3 id="涉及到的服务-3"><a href="#涉及到的服务-3" class="headerlink" title="涉及到的服务"></a>涉及到的服务</h3><ul>
-<li>准备：AWS Config，AWS Service Catalog，使用Auto Scaling和SQS来保证运维的连续性</li>
-<li>作业：这一部分主要是CI/CD: AWS CodeCommit, AWS CodeDeploy, and AWS CodePipeline</li>
-<li>响应：CloudWatch alarm</li>
-</ul>
-<h1 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h1><p>可以看到AWS对于优秀网站的设计，除了一般要求的可靠，省钱，还根据云服务的基础设施可灵活变更的特点强调了水平扩展和架构灵活变更，以更好地满足业务需要，保证<code>业务连续性</code>(business continuity)<br>白皮书最后还给出了FAQ（Frequently asked questions）部分回答了一些关于最佳实践的常见问题，非常值得一看。</p>
-</div></article><div class="archive-pagination"><div class="paginator"><span class="page-number current">1</span><a class="page-number" href="/archives/2017/page/2/">2</a><a class="page-number" href="/archives/2017/page/3/">3</a><a class="page-number" href="/archives/2017/page/4/">4</a><a class="extend next" rel="next" href="/archives/2017/page/2/">&raquo;</a></div></div></div><div class="block-sidebar column one-fourth"><div class="widget text-content"><p>杜屹东 生于 1993.12.16, 英文 ID Luke Du</p>
+</div></article><div class="archive-pagination"><div class="paginator"><span class="page-number current">1</span><a class="page-number" href="/archives/2017/page/2/">2</a><a class="page-number" href="/archives/2017/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/archives/2017/page/5/">5</a><a class="extend next" rel="next" href="/archives/2017/page/2/">&raquo;</a></div></div></div><div class="block-sidebar column one-fourth"><div class="widget text-content"><p>杜屹东 生于 1993.12.16, 英文 ID Luke Du</p>
 <ul>
 <li>现就职于<a href="https://www.thoughtworks.com/">ThoughtWorks</a></li>
 <li>毕业于 <a href="http://www.xhu.edu.cn/">西华大学</a> 计算机科学与技术</li>
@@ -644,7 +561,7 @@ feedback，开放式协作
 <li>DevOps - 文化组织变革</li>
 <li>CI/CD - 持续集成与持续交付</li>
 </ul>
-</div><div class="widget tags"><ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS/">AWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS认证考试/">AWS认证考试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Agile/">Agile</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ansible/">Ansible</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blog/">Blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CDN/">CDN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Certification/">Certification</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cloud-Native/">Cloud Native</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cloudfront/">Cloudfront</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DataBase/">DataBase</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DevOps/">DevOps</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/EC2/">EC2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP/">HTTP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTPS/">HTTPS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IAM/">IAM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Route53/">Route53</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/S3/">S3</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Security/">Security</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Serverless/">Serverless</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Shell/">Shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Study/">Study</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TDD/">TDD</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ThoughtWorks/">ThoughtWorks</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vim/">vim</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/上云/">上云</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/云计算/">云计算</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/云计算认证/">云计算认证</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/云计算资源/">云计算资源</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/亚马逊认证与权限/">亚马逊认证与权限</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/代码/">代码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/凤凰式服务/">凤凰式服务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/博客上云/">博客上云</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/基础设施即代码/">基础设施即代码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/基础设设施即代码/">基础设设施即代码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大事记/">大事记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/学习/">学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/对象存储服务/">对象存储服务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小结/">小结</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小计/">小计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/无服务器架构/">无服务器架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/架构/">架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/爬虫/">爬虫</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/版本管理/">版本管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/翻译/">翻译</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/职场/">职场</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/自动化运维/">自动化运维</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/部署与发布/">部署与发布</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/雪花服务器/">雪花服务器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面试/">面试</a></li></ul></div><div class="widget archives"><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">五月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">5</span></li></ul></div><div class="widget text-content"><p>该博客使用基于 &nbsp;<a href="http://hexo.io">Hexo</a>&nbsp; 的 &nbsp;<a href="https://github.com/jysperm/hexo-theme-simpleblock">simpleblock</a>&nbsp; 主题。博客内容使用 &nbsp;<a href="https://aws.amazon.com/s3/">Amazon S3</a>&nbsp; 发布。最后生成于 2017-04-12.</p></div></div></div></div><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+</div><div class="widget tags"><ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS/">AWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS认证考试/">AWS认证考试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Agile/">Agile</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ansible/">Ansible</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blog/">Blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CDN/">CDN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Certification/">Certification</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cloud-Native/">Cloud Native</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cloudfront/">Cloudfront</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DataBase/">DataBase</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DevOps/">DevOps</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/EC2/">EC2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP/">HTTP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTPS/">HTTPS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IAM/">IAM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Infrastructure-as-Code/">Infrastructure as Code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Route53/">Route53</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/S3/">S3</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Security/">Security</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Serverless/">Serverless</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Shell/">Shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Study/">Study</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TDD/">TDD</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ThoughtWorks/">ThoughtWorks</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ThoughtWorks技术雷达/">ThoughtWorks技术雷达</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vim/">vim</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/上云/">上云</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/云计算/">云计算</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/云计算认证/">云计算认证</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/云计算资源/">云计算资源</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/亚马逊认证与权限/">亚马逊认证与权限</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/代码/">代码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/凤凰式服务/">凤凰式服务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/博客上云/">博客上云</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/基础设施即代码/">基础设施即代码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大事记/">大事记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/学习/">学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/对象存储服务/">对象存储服务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小结/">小结</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小计/">小计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/持续交付/">持续交付</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/持续部署/">持续部署</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/无服务器架构/">无服务器架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/架构/">架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/爬虫/">爬虫</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/版本管理/">版本管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/翻译/">翻译</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/职场/">职场</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/自动化运维/">自动化运维</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/部署与发布/">部署与发布</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/雪花服务器/">雪花服务器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面试/">面试</a></li></ul></div><div class="widget archives"><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">五月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">5</span></li></ul></div><div class="widget text-content"><p>该博客使用基于 &nbsp;<a href="http://hexo.io">Hexo</a>&nbsp; 的 &nbsp;<a href="https://github.com/jysperm/hexo-theme-simpleblock">simpleblock</a>&nbsp; 主题。博客内容使用 &nbsp;<a href="https://aws.amazon.com/s3/">Amazon S3</a>&nbsp; 发布。最后生成于 2017-04-15.</p></div></div></div></div><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 })(window,document,'script','//www.google-analytics.com/analytics.js','ga');

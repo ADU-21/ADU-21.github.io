@@ -1,4 +1,42 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/styles.css"><title>杜屹东的博客</title></head><body><div class="container"><div class="columns page-header"><h1>杜屹东的博客</h1></div><div class="columns"><div class="navigation"><nav class="menus-main"><a href="/" class="favicon"><img alt="杜屹东的博客" src="/favicon.png"></a><a href="/about">关于我</a><a href="/list">日志列表</a><a href="/booklist">读书</a><a href="/links">链接</a><a href="/resume">简历</a></nav><nav class="right menus-right"><a target="_blank" href="https://github.com/ADU-21/blog">Fork on Github</a></nav></div></div><div class="columns"><div class="block-body column three-fourths"><div class="article-widget"><a href="https://www.duyidong.com/awsSolutionsArchitect_AE.pdf">AWS认证方案解决架构师证书</a></div><article><header><h2><a href="/2016/03/30/HTTP协议详解/">HTTP协议详解</a></h2></header><div class="article-meta clearfix"><time class="left">2016 3 月 30 日</time><ul class="tags left"></ul><ul class="tags right"><li><a href="/tags/HTTP/">HTTP</a></li></ul></div><div class="markdown-body"><h1 id="HTTP协议详解"><a href="#HTTP协议详解" class="headerlink" title="HTTP协议详解"></a>HTTP协议详解</h1><p>这是一篇想写了很久却迟迟没有动笔的题目</p>
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/styles.css"><title>杜屹东的博客</title></head><body><div class="container"><div class="columns page-header"><h1>杜屹东的博客</h1></div><div class="columns"><div class="navigation"><nav class="menus-main"><a href="/" class="favicon"><img alt="杜屹东的博客" src="/favicon.png"></a><a href="/about">关于我</a><a href="/list">日志列表</a><a href="/booklist">读书</a><a href="/links">链接</a><a href="/resume">简历</a></nav><nav class="right menus-right"><a target="_blank" href="https://github.com/ADU-21/blog">Fork on Github</a></nav></div></div><div class="columns"><div class="block-body column three-fourths"><div class="article-widget"><a href="https://www.duyidong.com/awsSolutionsArchitect_AE.pdf">AWS认证方案解决架构师证书</a></div><article><header><h2><a href="/2016/04/02/Python函数调用小技巧/">Python函数调用小技巧</a></h2></header><div class="article-meta clearfix"><time class="left">2016 4 月 2 日</time><ul class="tags left"></ul><ul class="tags right"><li><a href="/tags/Python/">Python</a></li></ul></div><div class="markdown-body"><h1 id="Python-filter-map-reduce-lambda"><a href="#Python-filter-map-reduce-lambda" class="headerlink" title="Python-filter,map,reduce.lambda"></a>Python-filter,map,reduce.lambda</h1><p>python的兴起其中一个不容忽视的因素就是他的简洁和易读，要想写好python代码以下几个方法你不得不知道：<br><a id="more"></a></p>
+<h2 id="filter"><a href="#filter" class="headerlink" title="filter"></a>filter</h2><p>filter(function, sequence):<br>对sequence中的item依次执行function(item)，将执行结果为True的item组成一个List/String/Tuple(取决于sequence类型）返回，示例如下：</p>
+<pre><code class="python">&gt;&gt;&gt; def f(x): return x % 2 != 0 and x % 3 != 0
+&gt;&gt;&gt; filter(f, range(2, 25))
+[5, 7, 11, 13, 17, 19, 23]
+&gt;&gt;&gt; def f(x): return x != &#39;a&#39;
+&gt;&gt;&gt; filter(f, &quot;abcdef&quot;)
+&#39;bcdef&#39;
+</code></pre>
+<h2 id="map"><a href="#map" class="headerlink" title="map"></a>map</h2><p>map(function, sequence):<br>对sequence中的item依次执行function（item），将执行结果组成一个List返回<br>另外map也支持多个sequence，当然这也要求function支持相应数量的参数输入，示例如下：</p>
+<pre><code class="python">&gt;&gt;&gt; def cube(x): return x*x*x
+&gt;&gt;&gt; map(cube, range(1, 11))
+[1, 8, 27, 64, 125, 216, 343, 512, 729, 1000]
+&gt;&gt;&gt; def cube(x) : return x + x
+
+&gt;&gt;&gt; def add(x, y): return x+y
+&gt;&gt;&gt; map(add, range(8), range(8))
+[0, 2, 4, 6, 8, 10, 12, 14]
+</code></pre>
+<h2 id="reduce"><a href="#reduce" class="headerlink" title="reduce"></a>reduce</h2><p>reduce（function，sequence，starting_value):<br>对sequence中的item顺序迭代调用function，如果有starting_value，还可以作为初始值调用，例如可以用来对List求和，示例如下：</p>
+<pre><code class="python">&gt;&gt;&gt; def add(x,y): return x + y
+ &gt;&gt;&gt; reduce(add, range(1, 11))
+（注：1+2+3+4+5+6+7+8+9+10）
+&gt;&gt;&gt; reduce(add, range(1, 11), 20)
+（注：1+2+3+4+5+6+7+8+9+10+20）
+</code></pre>
+<h2 id="lambda："><a href="#lambda：" class="headerlink" title="lambda："></a>lambda：</h2><p>这是python支持一种有趣的语法，它允许你快速定义单行的最小函数，类似C语言中的宏，可以用在任何需要函数的地方，示例如下：</p>
+<pre><code class="python">&gt;&gt;&gt; g = lambda x: x * 2
+&gt;&gt;&gt; g(3)
+6
+&gt;&gt;&gt; (lambda x: x * 2)(3)
+6
+</code></pre>
+<p>我们也可以把filter map reduce 和lambda结合起来用，函数就可以简单的写成一行。例如</p>
+<pre><code class="python">&gt;&gt;&gt;kmpathes = filter(lambda kmpath: kmpath, map(lambda kmpath: string.strip(kmpath), string.split(l, &#39;:&#39;)))
+</code></pre>
+<p>看起来麻烦，其实就像用语言来描述问题一样，非常优雅。<br>对 l 中的所有元素以’:’做分割，得出一个列表。对这个列表的每一个元素做字符串strip，形成一个列表。对这个列表的每一个元素做直接返回操作(这个地方可以加上过滤条件限制)，最终获得一个字符串被’:’分割的列表，列表中的每一个字符串都做了strip，并可以对特殊字符串过滤。</p>
+<p><a href="http://www.jianshu.com/p/81b12f4eae3a" target="_blank" rel="external">原文链接</a></p>
+</div></article><article><header><h2><a href="/2016/03/30/HTTP协议详解/">HTTP协议详解</a></h2></header><div class="article-meta clearfix"><time class="left">2016 3 月 30 日</time><ul class="tags left"></ul><ul class="tags right"><li><a href="/tags/HTTP/">HTTP</a></li></ul></div><div class="markdown-body"><h1 id="HTTP协议详解"><a href="#HTTP协议详解" class="headerlink" title="HTTP协议详解"></a>HTTP协议详解</h1><p>这是一篇想写了很久却迟迟没有动笔的题目</p>
 <p>从开始接触爬虫，或者说接触web开始，你就是在和http协议打交道了，我想web这个职业只要http协议不过时应该就不会有太大的变化。<br><a id="more"></a><br>好，下面是正文:</p>
 <hr>
 <p>先说说HTTP协议是怎样工作的：<br>步骤1：浏览器首先向服务器发送HTTP请求，请求包括：</p>
@@ -96,121 +134,6 @@ Content-range:bytes55******/40279980
 <h2 id="官方文档"><a href="#官方文档" class="headerlink" title="官方文档"></a>官方文档</h2><p><a href="https://docs.python.org/3/library/functions.html" target="_blank" rel="external">https://docs.python.org/3/library/</a></p>
 <p>另外，最好的老师，还是官方文档，这里附上python3官方文档的地址</p>
 <h2 id="再来个python包下载地址"><a href="#再来个python包下载地址" class="headerlink" title="再来个python包下载地址"></a>再来个python包下载地址</h2><p><a href="http://www.lfd.uci.edu/~gohlke/pythonlibs/" target="_blank" rel="external">http://www.lfd.uci.edu/~gohlke/pythonlibs/</a></p>
-</div></article><article><header><h2><a href="/2016/03/29/Python代码优化小技巧/">Python代码优化小技巧</a></h2></header><div class="article-meta clearfix"><time class="left">2016 3 月 29 日</time><ul class="tags left"></ul><ul class="tags right"><li><a href="/tags/Python/">Python</a></li><li><a href="/tags/代码/">代码</a></li></ul></div><div class="markdown-body"><h1 id="python代码优化小技巧"><a href="#python代码优化小技巧" class="headerlink" title="python代码优化小技巧"></a>python代码优化小技巧</h1><p>一个良好的算法能够对性能起到关键作用，因此性能改进的首要点是对算法的改进。在算法的时间复杂度排序上依次是：</p>
-<blockquote>
-<p> O(1) -&gt; O(lg n) -&gt; O(n lg n) -&gt; O(n^2) -&gt; O(n^3) -&gt; O(n^k) -&gt; O(k^n) -&gt; O(n!)</p>
-</blockquote>
-<p>因此如果能够在时间复杂度上对算法进行一定的改进，对性能的提高不言而喻。但对具体算法的改进不属于本文讨论的范围，读者可以自行参考这方面资料。下面的内容将集中讨论数据结构的选择。<br><a id="more"></a></p>
-<h2 id="字典-dictionary-与列表-list"><a href="#字典-dictionary-与列表-list" class="headerlink" title="字典 (dictionary) 与列表 (list)"></a>字典 (dictionary) 与列表 (list)</h2><p>Python 字典中使用了 hash table，因此查找操作的复杂度为 O(1)，而 list 实际是个数组，在 list 中，查找需要遍历整个 list，其复杂度为 O(n)，因此对成员的查找访问等操作字典要比 list 更快。</p>
-<p>清单 1. 代码 dict.py</p>
-<pre><code class="python">from time import time 
- t = time() 
- list = [&#39;a&#39;,&#39;b&#39;,&#39;is&#39;,&#39;python&#39;,&#39;jason&#39;,&#39;hello&#39;,&#39;hill&#39;,&#39;with&#39;,&#39;phone&#39;,&#39;test&#39;, 
-&#39;dfdf&#39;,&#39;apple&#39;,&#39;pddf&#39;,&#39;ind&#39;,&#39;basic&#39;,&#39;none&#39;,&#39;baecr&#39;,&#39;var&#39;,&#39;bana&#39;,&#39;dd&#39;,&#39;wrd&#39;] 
- #list = dict.fromkeys(list,True) 
- print list
- filter = [] 
- for i in range (1000000): 
-     for find in [&#39;is&#39;,&#39;hat&#39;,&#39;new&#39;,&#39;list&#39;,&#39;old&#39;,&#39;.&#39;]: 
-         if find not in list: 
-             filter.append(find) 
- print(&quot;total run time:&quot;)
- print(time()-t)
-</code></pre>
-<p>上述代码运行大概需要 16.09seconds。如果去掉行 #list = dict.fromkeys(list,True) 的注释，将 list 转换为字典之后再运行，时间大约为 8.375 seconds，效率大概提高了一半。因此在需要多数据成员进行频繁的查找或者访问的时候，使用 dict 而不是 list 是一个较好的选择。</p>
-<h2 id="集合-set-与列表-list"><a href="#集合-set-与列表-list" class="headerlink" title="集合 (set) 与列表 (list)"></a>集合 (set) 与列表 (list)</h2><p>set 的 union， intersection，difference 操作要比 list 的迭代要快。因此如果涉及到求 list 交集，并集或者差的问题可以转换为 set 来操作。</p>
-<p>清单 2. 求 list 的交集：</p>
-<pre><code class="python">from time import time 
-t = time() 
-lista=[1,2,3,4,5,6,7,8,9,13,34,53,42,44] 
-listb=[2,4,6,9,23] 
-intersection=[] 
-for i in range (1000000): 
-    for a in lista: 
-        for b in listb: 
-            if a == b: 
-                intersection.append(a) 
-print(&quot;total run time:&quot;)
-print (time()-t)
-</code></pre>
-<p>上述程序的运行时间大概为：</p>
-<pre><code> total run time: 
- 38.4070000648
-</code></pre><p>清单 3. 使用 set 求交集</p>
-<pre><code class="python">from time import time 
-t = time() 
-lista=[1,2,3,4,5,6,7,8,9,13,34,53,42,44] 
-listb=[2,4,6,9,23] 
-intersection=[] 
-for i in range (1000000): 
-    list(set(lista)&amp;set(listb)) 
-print(&quot;total run time:&quot;)
-print(time()-t)
-</code></pre>
-<p>改为 set 后程序的运行时间缩减为 8.75，提高了 4 倍多，运行时间大大缩短。读者可以自行使用表 1 其他的操作进行测试。<br>表 1. set 常见用法<br>语法    操作    说明</p>
-<pre><code>set(list1) | set(list2)    union    包含 list1 和 list2 所有数据的新集合
-set(list1) &amp; set(list2)    intersection    包含 list1 和 list2 中共同元素的新集合
-set(list1) - set(list2)    difference    在 list1 中出现但不在 list2 中出现的元素的集合
-</code></pre><p>清单 4. 利用 Lazy if-evaluation 的特性</p>
-<pre><code class="python">from time import time 
-t = time() 
-abbreviations = [&#39;cf.&#39;, &#39;e.g.&#39;, &#39;ex.&#39;, &#39;etc.&#39;, &#39;fig.&#39;, &#39;i.e.&#39;, &#39;Mr.&#39;, &#39;vs.&#39;] 
-for i in range (1000000): 
-    for w in (&#39;Mr.&#39;, &#39;Hat&#39;, &#39;is&#39;, &#39;chasing&#39;, &#39;the&#39;, &#39;black&#39;, &#39;cat&#39;, &#39;.&#39;): 
-        if w in abbreviations: 
-        #if w[-1] == &#39;.&#39; and w in abbreviations: 
-            pass
-print(&quot;total run time:&quot;)
-print(time()-t)
-</code></pre>
-<p>在未进行优化之前程序的运行时间大概为 8.84，如果使用注释行代替第一个 if，运行的时间大概为 6.17。</p>
-<h2 id="字符串的优化"><a href="#字符串的优化" class="headerlink" title="字符串的优化"></a>字符串的优化</h2><p>python 中的字符串对象是不可改变的，因此对任何字符串的操作如拼接，修改等都将产生一个新的字符串对象，而不是基于原字符串，因此这种持续的 copy 会在一定程度上影响 python 的性能。对字符串的优化也是改善性能的一个重要的方面，特别是在处理文本较多的情况下。字符串的优化主要集中在以下几个方面：</p>
-<p>在字符串连接的使用尽量使用 join() 而不是 +：在代码清单 7 中使用 + 进行字符串连接大概需要 0.125 s，而使用 join 缩短为 0.016s。因此在字符的操作上 join 比 + 要快，因此要尽量使用 join 而不是 +。</p>
-<p>清单 5. 使用 join 而不是 + 连接字符串</p>
-<pre><code class="python">from time import time 
-
-t = time() 
-s = &quot;&quot;
-list = [&#39;a&#39;,&#39;b&#39;,&#39;b&#39;,&#39;d&#39;,&#39;e&#39;,&#39;f&#39;,&#39;g&#39;,&#39;h&#39;,&#39;i&#39;,&#39;j&#39;,&#39;k&#39;,&#39;l&#39;,&#39;m&#39;,&#39;n&#39;] 
-for i in range (10000): 
-    for substr in list: 
-        s+= substr     
-print(&quot;total run time:&quot;)
-print(time()-t)
-</code></pre>
-<p>同时要避免：</p>
-<pre><code class="python">s = &quot;&quot;
-for x in list: 
-   s += func(x)
-</code></pre>
-<p>而是要使用： </p>
-<pre><code class="python">slist = [func(elt) for elt in somelist] 
-s = &quot;&quot;.join(slist)
-</code></pre>
-<p>当对字符串可以使用正则表达式或者内置函数来处理的时候，选择内置函数。如 str.isalpha()，str.isdigit()，str.startswith((‘x’, ‘yz’))，str.endswith((‘x’, ‘yz’))<br>对字符进行格式化比直接串联读取要快，因此要使用</p>
-<pre><code class="python">out = &quot;&lt;html&gt;%s%s%s%s&lt;/html&gt;&quot; % (head, prologue, query, tail)
-</code></pre>
-<p>而避免</p>
-<pre><code class="python">out = &quot;&lt;html&gt;&quot; + head + prologue + query + tail + &quot;&lt;/html&gt;&quot;
-</code></pre>
-<h2 id="其他优化技巧"><a href="#其他优化技巧" class="headerlink" title="其他优化技巧"></a>其他优化技巧</h2><p>如果需要交换两个变量的值使用 a,b=b,a 而不是借助中间变量 t=a;a=b;b=t；</p>
-<pre><code class="python">&gt;&gt;&gt; from timeit import Timer 
-&gt;&gt;&gt; Timer(&quot;t=a;a=b;b=t&quot;,&quot;a=1;b=2&quot;).timeit() 
-0.25154118749729365
-&gt;&gt;&gt; Timer(&quot;a,b=b,a&quot;,&quot;a=1;b=2&quot;).timeit() 
-0.17156677734181258
-&gt;&gt;&gt;
-</code></pre>
-<blockquote>
-<ul>
-<li>使用局部变量，避免”global” 关键字。python 访问局部变量会比全局变量要快得多，因 此可以利用这一特性提升性能。</li>
-<li>if done is not None 比语句 if done != None 更快，读者可以自行验证；</li>
-<li>在耗时较多的循环中，可以把函数的调用改为内联的方式；</li>
-<li>使用级联比较 “x &lt; y &lt; z” 而不是 “x &lt; y and y &lt; z”；</li>
-<li>while 1 要比 while True 更快（当然后者的可读性更好）；</li>
-<li>build in 函数通常较快，add(a,b) 要优于 a+b。</li>
-</ul>
-</blockquote>
 </div></article><div class="archive-pagination"><div class="paginator"><a class="extend prev" rel="prev" href="/archives/page/11/">&laquo;</a><a class="page-number" href="/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/10/">10</a><a class="page-number" href="/archives/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/archives/page/13/">13</a><a class="extend next" rel="next" href="/archives/page/13/">&raquo;</a></div></div></div><div class="block-sidebar column one-fourth"><div class="widget text-content"><p>杜屹东 生于 1993.12.16, 英文 ID Luke Du</p>
 <ul>
 <li>现就职于<a href="https://www.thoughtworks.com/">ThoughtWorks</a></li>
@@ -228,7 +151,7 @@ s = &quot;&quot;.join(slist)
 <li>DevOps - 文化组织变革</li>
 <li>CI/CD - 持续集成与持续交付</li>
 </ul>
-</div><div class="widget tags"><ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS/">AWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS认证考试/">AWS认证考试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Agile/">Agile</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ansible/">Ansible</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blog/">Blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CDN/">CDN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Certification/">Certification</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cloud-Native/">Cloud Native</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cloudfront/">Cloudfront</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DataBase/">DataBase</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DevOps/">DevOps</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/EC2/">EC2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP/">HTTP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTPS/">HTTPS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IAM/">IAM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Route53/">Route53</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/S3/">S3</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Security/">Security</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Serverless/">Serverless</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Shell/">Shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Study/">Study</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TDD/">TDD</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ThoughtWorks/">ThoughtWorks</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vim/">vim</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/上云/">上云</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/云计算/">云计算</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/云计算认证/">云计算认证</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/云计算资源/">云计算资源</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/亚马逊认证与权限/">亚马逊认证与权限</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/代码/">代码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/凤凰式服务/">凤凰式服务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/博客上云/">博客上云</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/基础设施即代码/">基础设施即代码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/基础设设施即代码/">基础设设施即代码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大事记/">大事记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/学习/">学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/对象存储服务/">对象存储服务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小结/">小结</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小计/">小计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/无服务器架构/">无服务器架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/架构/">架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/爬虫/">爬虫</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/版本管理/">版本管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/翻译/">翻译</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/职场/">职场</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/自动化运维/">自动化运维</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/部署与发布/">部署与发布</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/雪花服务器/">雪花服务器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面试/">面试</a></li></ul></div><div class="widget archives"><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">五月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">5</span></li></ul></div><div class="widget text-content"><p>该博客使用基于 &nbsp;<a href="http://hexo.io">Hexo</a>&nbsp; 的 &nbsp;<a href="https://github.com/jysperm/hexo-theme-simpleblock">simpleblock</a>&nbsp; 主题。博客内容使用 &nbsp;<a href="https://aws.amazon.com/s3/">Amazon S3</a>&nbsp; 发布。最后生成于 2017-04-12.</p></div></div></div></div><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+</div><div class="widget tags"><ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS/">AWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS认证考试/">AWS认证考试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Agile/">Agile</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ansible/">Ansible</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blog/">Blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CDN/">CDN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Certification/">Certification</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cloud-Native/">Cloud Native</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cloudfront/">Cloudfront</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DataBase/">DataBase</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DevOps/">DevOps</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/EC2/">EC2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP/">HTTP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTPS/">HTTPS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IAM/">IAM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Infrastructure-as-Code/">Infrastructure as Code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Route53/">Route53</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/S3/">S3</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Security/">Security</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Serverless/">Serverless</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Shell/">Shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Study/">Study</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TDD/">TDD</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ThoughtWorks/">ThoughtWorks</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ThoughtWorks技术雷达/">ThoughtWorks技术雷达</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vim/">vim</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/上云/">上云</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/云计算/">云计算</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/云计算认证/">云计算认证</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/云计算资源/">云计算资源</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/亚马逊认证与权限/">亚马逊认证与权限</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/代码/">代码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/凤凰式服务/">凤凰式服务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/博客上云/">博客上云</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/基础设施即代码/">基础设施即代码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大事记/">大事记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/学习/">学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/对象存储服务/">对象存储服务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小结/">小结</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小计/">小计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/持续交付/">持续交付</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/持续部署/">持续部署</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/无服务器架构/">无服务器架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/架构/">架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/爬虫/">爬虫</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/版本管理/">版本管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/翻译/">翻译</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/职场/">职场</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/自动化运维/">自动化运维</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/部署与发布/">部署与发布</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/雪花服务器/">雪花服务器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面试/">面试</a></li></ul></div><div class="widget archives"><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">五月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">5</span></li></ul></div><div class="widget text-content"><p>该博客使用基于 &nbsp;<a href="http://hexo.io">Hexo</a>&nbsp; 的 &nbsp;<a href="https://github.com/jysperm/hexo-theme-simpleblock">simpleblock</a>&nbsp; 主题。博客内容使用 &nbsp;<a href="https://aws.amazon.com/s3/">Amazon S3</a>&nbsp; 发布。最后生成于 2017-04-15.</p></div></div></div></div><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 })(window,document,'script','//www.google-analytics.com/analytics.js','ga');

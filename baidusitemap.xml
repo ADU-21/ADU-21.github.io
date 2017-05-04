@@ -1,0 +1,929 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2016/04/03/Redis%E3%80%81Memcache%E3%80%81MongoDB%E6%80%A7%E8%83%BD%E6%80%BB%E7%BB%93/</loc>
+    <lastmod>2017-05-04T12:47:20.000Z</lastmod>
+    <data>
+        <display>
+        <title>Redis、Memcache、MongoDB性能总结</title>
+        <pubTime>2016-04-03T13:03:55.000Z</pubTime>
+        
+        <tag>DataBase</tag>
+         
+         
+           
+             
+              <breadCrumb title="学习总结" url="https://www.duyidong.com/categories/%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2016/03/24/%E7%A8%8B%E5%BA%8F%E5%91%98%E5%B7%A5%E5%85%B7%EF%BC%88windows%EF%BC%89/</loc>
+    <lastmod>2017-05-04T12:44:57.000Z</lastmod>
+    <data>
+        <display>
+        <title>程序员工具（windows）</title>
+        <pubTime>2016-03-24T13:31:48.000Z</pubTime>
+        
+        <tag>工具</tag>
+         
+         
+           
+             
+              <breadCrumb title="工具" url="https://www.duyidong.com/categories/%E5%B7%A5%E5%85%B7/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2016/03/24/%E7%A8%8B%E5%BA%8F%E5%91%98%E5%B7%A5%E5%85%B7%EF%BC%88mac%EF%BC%89/</loc>
+    <lastmod>2017-05-04T12:44:51.000Z</lastmod>
+    <data>
+        <display>
+        <title>程序员工具（mac）</title>
+        <pubTime>2016-03-24T14:26:14.000Z</pubTime>
+        
+        <tag>工具</tag>
+         
+         
+           
+             
+              <breadCrumb title="工具" url="https://www.duyidong.com/categories/%E5%B7%A5%E5%85%B7/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2016/03/29/Python%E4%BB%A3%E7%A0%81%E4%BC%98%E5%8C%96%E5%B0%8F%E6%8A%80%E5%B7%A7/</loc>
+    <lastmod>2017-05-04T12:44:38.000Z</lastmod>
+    <data>
+        <display>
+        <title>Python代码优化小技巧</title>
+        <pubTime>2016-03-29T12:26:33.000Z</pubTime>
+        
+        <tag>Python</tag>
+         
+        <tag>代码</tag>
+         
+         
+           
+             
+              <breadCrumb title="学习总结" url="https://www.duyidong.com/categories/%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2016/04/02/%E5%85%B3%E4%BA%8E%E7%88%AC%E8%99%AB%E4%BD%A0%E4%B8%8D%E5%BE%97%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84%E5%87%A0%E4%B8%AA%E5%BA%93/</loc>
+    <lastmod>2017-05-04T12:44:08.000Z</lastmod>
+    <data>
+        <display>
+        <title>关于爬虫你不得不知道的几个库</title>
+        <pubTime>2016-04-02T02:21:33.000Z</pubTime>
+        
+        <tag>Python</tag>
+         
+        <tag>爬虫</tag>
+         
+         
+           
+             
+              <breadCrumb title="学习总结" url="https://www.duyidong.com/categories/%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2016/04/13/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/</loc>
+    <lastmod>2017-05-04T12:43:36.000Z</lastmod>
+    <data>
+        <display>
+        <title>单元测试</title>
+        <pubTime>2016-04-13T12:25:47.000Z</pubTime>
+        
+        <tag>Python</tag>
+         
+        <tag>TDD</tag>
+         
+         
+           
+             
+              <breadCrumb title="学习总结" url="https://www.duyidong.com/categories/%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2016/04/17/%E4%B8%80%E6%AC%A1%E5%AE%8C%E6%95%B4%E7%9A%84HTTP%E4%BA%8B%E5%8A%A1%E6%98%AF%E6%80%8E%E6%A0%B7%E4%B8%80%E4%B8%AA%E8%BF%87%E7%A8%8B%EF%BC%9F/</loc>
+    <lastmod>2017-05-04T12:43:24.000Z</lastmod>
+    <data>
+        <display>
+        <title>一次完整的HTTP事务是怎样一个过程</title>
+        <pubTime>2016-04-17T03:35:37.000Z</pubTime>
+        
+        <tag>HTTP</tag>
+         
+         
+           
+             
+              <breadCrumb title="学习总结" url="https://www.duyidong.com/categories/%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2016/04/20/RDBMS%E5%92%8CNOSQL%E7%9A%84%E6%8A%80%E6%9C%AF%E5%B7%AE%E5%88%AB/</loc>
+    <lastmod>2017-05-04T12:43:14.000Z</lastmod>
+    <data>
+        <display>
+        <title>RDBMS和NOSQL的技术差别</title>
+        <pubTime>2016-04-20T02:01:24.000Z</pubTime>
+        
+        <tag>数据库</tag>
+         
+         
+           
+             
+              <breadCrumb title="学习总结" url="https://www.duyidong.com/categories/%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2016/05/19/CI-CD/</loc>
+    <lastmod>2017-05-04T12:43:04.000Z</lastmod>
+    <data>
+        <display>
+        <title>CI/CD</title>
+        <pubTime>2016-05-19T12:04:35.000Z</pubTime>
+        
+        <tag>DevOps</tag>
+         
+        <tag>Agile</tag>
+         
+         
+           
+             
+              <breadCrumb title="持续交付" url="https://www.duyidong.com/categories/%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2016/08/05/Bash%E5%AD%A6%E4%B9%A0%E5%B0%8F%E8%AE%A1/</loc>
+    <lastmod>2017-05-04T12:42:26.000Z</lastmod>
+    <data>
+        <display>
+        <title>Bash学习小计</title>
+        <pubTime>2016-08-05T00:09:15.000Z</pubTime>
+        
+        <tag>学习</tag>
+         
+        <tag>小计</tag>
+         
+        <tag>Linux</tag>
+         
+        <tag>Shell</tag>
+         
+         
+           
+             
+              <breadCrumb title="工具" url="https://www.duyidong.com/categories/%E5%B7%A5%E5%85%B7/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2016/10/24/%E9%83%A8%E7%BD%B2%E5%92%8C%E5%8F%91%E5%B8%83%E7%AD%96%E7%95%A5%E7%9A%84%E6%BC%94%E8%BF%9B/</loc>
+    <lastmod>2017-05-04T12:33:53.000Z</lastmod>
+    <data>
+        <display>
+        <title>部署和发布策略的演进</title>
+        <pubTime>2016-10-24T06:30:20.000Z</pubTime>
+        
+        <tag>DevOps</tag>
+         
+        <tag>持续交付</tag>
+         
+        <tag>部署与发布</tag>
+         
+        <tag>持续部署</tag>
+         
+         
+           
+             
+              <breadCrumb title="持续交付" url="https://www.duyidong.com/categories/%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2016/11/04/%E7%BF%BB%E8%AF%91-%E9%9B%AA%E8%8A%B1%E6%9C%8D%E5%8A%A1%E5%99%A8/</loc>
+    <lastmod>2017-05-04T12:32:45.000Z</lastmod>
+    <data>
+        <display>
+        <title>雪花服务器</title>
+        <pubTime>2016-11-04T07:29:52.000Z</pubTime>
+        
+        <tag>翻译</tag>
+         
+        <tag>雪花服务器</tag>
+         
+         
+           
+             
+              <breadCrumb title="DevOps" url="https://www.duyidong.com/categories/DevOps/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2016/11/02/%E7%BF%BB%E8%AF%91-%E5%87%A4%E5%87%B0%E5%BC%8F%E6%9C%8D%E5%8A%A1/</loc>
+    <lastmod>2017-05-04T12:32:36.000Z</lastmod>
+    <data>
+        <display>
+        <title>凤凰式服务</title>
+        <pubTime>2016-11-02T09:06:13.000Z</pubTime>
+        
+        <tag>翻译</tag>
+         
+        <tag>凤凰式服务</tag>
+         
+         
+           
+             
+              <breadCrumb title="DevOps" url="https://www.duyidong.com/categories/DevOps/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2016/05/29/%E7%A8%8B%E5%BA%8F%E5%91%98%E5%85%A5%E9%97%A8%E4%B9%8Bgit/</loc>
+    <lastmod>2017-05-04T12:31:37.000Z</lastmod>
+    <data>
+        <display>
+        <title>程序员入门之git</title>
+        <pubTime>2016-05-29T02:49:08.000Z</pubTime>
+        
+        <tag>工具</tag>
+         
+        <tag>版本管理</tag>
+         
+         
+           
+             
+              <breadCrumb title="工具" url="https://www.duyidong.com/categories/%E5%B7%A5%E5%85%B7/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2016/04/19/%E6%95%8F%E6%8D%B7%E5%BC%80%E5%8F%91/</loc>
+    <lastmod>2017-05-04T12:31:27.000Z</lastmod>
+    <data>
+        <display>
+        <title>敏捷开发</title>
+        <pubTime>2016-04-19T06:41:46.000Z</pubTime>
+        
+        <tag>Agile</tag>
+         
+         
+           
+             
+              <breadCrumb title="敏捷文化" url="https://www.duyidong.com/categories/%E6%95%8F%E6%8D%B7%E6%96%87%E5%8C%96/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2016/03/29/%E6%8E%A8%E8%8D%90%E5%87%A0%E4%B8%AA%E5%AD%A6%E4%B9%A0python%E8%BF%98%E4%B8%8D%E9%94%99%E7%9A%84%E7%BD%91%E7%AB%99/</loc>
+    <lastmod>2017-05-04T12:31:17.000Z</lastmod>
+    <data>
+        <display>
+        <title>推荐几个学习Python还不错的网站</title>
+        <pubTime>2016-03-29T13:16:04.000Z</pubTime>
+        
+        <tag>学习</tag>
+         
+        <tag>Python</tag>
+         
+         
+           
+             
+              <breadCrumb title="学习总结" url="https://www.duyidong.com/categories/%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2016/11/11/%E4%B8%80%E5%8F%A5%E8%AF%9D%E4%BB%8B%E7%BB%8DDevOps%E6%98%AF%E5%81%9A%E4%BB%80%E4%B9%88%E7%9A%84/</loc>
+    <lastmod>2017-05-04T12:30:06.000Z</lastmod>
+    <data>
+        <display>
+        <title>一句话介绍DevOps是做什么的</title>
+        <pubTime>2016-11-11T01:42:58.000Z</pubTime>
+        
+        <tag>DevOps</tag>
+         
+         
+           
+             
+              <breadCrumb title="DevOps" url="https://www.duyidong.com/categories/DevOps/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2016/04/20/ThoughtWorks%E9%9D%A2%E8%AF%95/</loc>
+    <lastmod>2017-05-04T12:29:51.000Z</lastmod>
+    <data>
+        <display>
+        <title>ThoughtWorks面试</title>
+        <pubTime>2016-04-20T13:38:11.000Z</pubTime>
+        
+        <tag>ThoughtWorks</tag>
+         
+        <tag>面试</tag>
+         
+         
+           
+             
+              <breadCrumb title="ThoughtWorks" url="https://www.duyidong.com/categories/ThoughtWorks/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2016/05/24/ThoughtWorks%E7%AC%AC%E4%B8%80%E5%91%A8%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/</loc>
+    <lastmod>2017-05-04T12:29:40.000Z</lastmod>
+    <data>
+        <display>
+        <title>ThoughtWorks第一周学习总结</title>
+        <pubTime>2016-05-24T13:44:57.000Z</pubTime>
+        
+        <tag>学习</tag>
+         
+        <tag>小结</tag>
+         
+        <tag>ThoughtWorks</tag>
+         
+         
+           
+             
+              <breadCrumb title="学习总结" url="https://www.duyidong.com/categories/%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2016/04/02/Python%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8%E5%B0%8F%E6%8A%80%E5%B7%A7/</loc>
+    <lastmod>2017-05-04T12:28:59.000Z</lastmod>
+    <data>
+        <display>
+        <title>Python函数调用小技巧</title>
+        <pubTime>2016-04-02T01:54:08.000Z</pubTime>
+        
+        <tag>Python</tag>
+         
+         
+           
+             
+              <breadCrumb title="学习总结" url="https://www.duyidong.com/categories/%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2016/03/30/HTTP%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3/</loc>
+    <lastmod>2017-05-04T12:28:29.000Z</lastmod>
+    <data>
+        <display>
+        <title>HTTP协议详解</title>
+        <pubTime>2016-03-30T13:02:31.000Z</pubTime>
+        
+        <tag>HTTP</tag>
+         
+         
+           
+             
+              <breadCrumb title="学习总结" url="https://www.duyidong.com/categories/%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2016/08/02/AWS%E4%B9%8BCloudFormation/</loc>
+    <lastmod>2017-05-04T12:26:57.000Z</lastmod>
+    <data>
+        <display>
+        <title>AWS之CloudFormation</title>
+        <pubTime>2016-08-02T13:36:04.000Z</pubTime>
+        
+        <tag>AWS</tag>
+         
+        <tag>DevOps</tag>
+         
+        <tag>基础设施即代码</tag>
+         
+         
+           
+             
+              <breadCrumb title="Amazon Web Services" url="https://www.duyidong.com/categories/Amazon-Web-Services/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2016/09/28/AWS-EC2/</loc>
+    <lastmod>2017-05-04T12:26:43.000Z</lastmod>
+    <data>
+        <display>
+        <title>AWS EC2是什么</title>
+        <pubTime>2016-09-28T06:53:34.000Z</pubTime>
+        
+        <tag>AWS</tag>
+         
+         
+           
+             
+              <breadCrumb title="Amazon Web Services" url="https://www.duyidong.com/categories/Amazon-Web-Services/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2017/04/05/How-to-pass-the-aws-certification/</loc>
+    <lastmod>2017-05-04T12:25:58.000Z</lastmod>
+    <data>
+        <display>
+        <title>AWS助理架构师认证考经</title>
+        <pubTime>2017-04-05T06:48:45.000Z</pubTime>
+        
+        <tag>学习</tag>
+         
+        <tag>AWS</tag>
+         
+        <tag>云计算认证</tag>
+         
+        <tag>Certification</tag>
+         
+        <tag>AWS认证考试</tag>
+         
+         
+           
+             
+              <breadCrumb title="Amazon Web Services" url="https://www.duyidong.com/categories/Amazon-Web-Services/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2017/03/23/AWS-well-architected-framework/</loc>
+    <lastmod>2017-05-04T12:25:45.000Z</lastmod>
+    <data>
+        <display>
+        <title>AWS认为，什么样的架构是一个良好的架构</title>
+        <pubTime>2017-03-23T14:01:23.000Z</pubTime>
+        
+        <tag>AWS</tag>
+         
+        <tag>Cloud Native</tag>
+         
+        <tag>架构</tag>
+         
+         
+           
+             
+              <breadCrumb title="Cloud" url="https://www.duyidong.com/categories/Cloud/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2017/03/20/Enable-HTTPS-and-CDN-with-Cloudfront/</loc>
+    <lastmod>2017-05-04T12:25:32.000Z</lastmod>
+    <data>
+        <display>
+        <title>使用AWS解锁HTTPS和CDN</title>
+        <pubTime>2017-03-20T12:23:37.000Z</pubTime>
+        
+        <tag>AWS</tag>
+         
+        <tag>Blog</tag>
+         
+        <tag>HTTPS</tag>
+         
+        <tag>CDN</tag>
+         
+        <tag>Cloudfront</tag>
+         
+        <tag>Route53</tag>
+         
+        <tag>博客上云</tag>
+         
+         
+           
+             
+              <breadCrumb title="我的博客" url="https://www.duyidong.com/categories/%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2017/03/07/Deploy-Hexo-to-S3/</loc>
+    <lastmod>2017-05-04T12:25:18.000Z</lastmod>
+    <data>
+        <display>
+        <title>将Hexo博客发布到S3</title>
+        <pubTime>2017-03-07T09:42:34.000Z</pubTime>
+        
+        <tag>AWS</tag>
+         
+        <tag>S3</tag>
+         
+        <tag>Blog</tag>
+         
+        <tag>Hexo</tag>
+         
+         
+           
+             
+              <breadCrumb title="我的博客" url="https://www.duyidong.com/categories/%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2017/03/06/%E6%B5%85%E8%B0%88AWS-IAM/</loc>
+    <lastmod>2017-05-04T12:25:04.000Z</lastmod>
+    <data>
+        <display>
+        <title>浅谈AWS IAM</title>
+        <pubTime>2017-03-06T12:41:50.000Z</pubTime>
+        
+        <tag>AWS</tag>
+         
+        <tag>亚马逊认证与权限</tag>
+         
+        <tag>Security</tag>
+         
+        <tag>IAM</tag>
+         
+         
+           
+             
+              <breadCrumb title="Amazon Web Services" url="https://www.duyidong.com/categories/Amazon-Web-Services/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2017/02/28/AWS-Services-Overview/</loc>
+    <lastmod>2017-05-04T12:24:56.000Z</lastmod>
+    <data>
+        <display>
+        <title>Amazon Web Server 服务概览</title>
+        <pubTime>2017-02-28T06:55:01.000Z</pubTime>
+        
+        <tag>AWS</tag>
+         
+        <tag>云计算</tag>
+         
+         
+           
+             
+              <breadCrumb title="Amazon Web Services" url="https://www.duyidong.com/categories/Amazon-Web-Services/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2017/02/24/vim%E5%AD%A6%E4%B9%A0%E5%B0%8F%E8%AE%A1/</loc>
+    <lastmod>2017-05-04T12:24:24.000Z</lastmod>
+    <data>
+        <display>
+        <title>vim学习小计</title>
+        <pubTime>2017-02-24T07:41:09.000Z</pubTime>
+        
+        <tag>vim</tag>
+         
+        <tag>工具</tag>
+         
+         
+           
+             
+              <breadCrumb title="工具" url="https://www.duyidong.com/categories/%E5%B7%A5%E5%85%B7/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2017/02/23/Lambda%E5%88%9D%E4%BD%93%E9%AA%8C/</loc>
+    <lastmod>2017-05-04T12:24:01.000Z</lastmod>
+    <data>
+        <display>
+        <title>Lambda初体验</title>
+        <pubTime>2017-02-23T10:23:00.000Z</pubTime>
+        
+        <tag>AWS</tag>
+         
+        <tag>Serverless</tag>
+         
+        <tag>无服务器架构</tag>
+         
+        <tag>Lambda</tag>
+         
+         
+           
+             
+              <breadCrumb title="Amazon Web Services" url="https://www.duyidong.com/categories/Amazon-Web-Services/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2017/01/16/2016%E5%A4%A7%E4%BA%8B%E8%AE%B0/</loc>
+    <lastmod>2017-05-04T12:23:51.000Z</lastmod>
+    <data>
+        <display>
+        <title>2016 野蛮生长的一年</title>
+        <pubTime>2017-01-16T08:35:41.000Z</pubTime>
+        
+        <tag>大事记</tag>
+         
+         
+           
+             
+              <breadCrumb title="学习总结" url="https://www.duyidong.com/categories/%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2016/07/07/2016%E5%85%AD%E6%9C%88%E5%AD%A6%E4%B9%A0%E5%B0%8F%E7%BB%93/</loc>
+    <lastmod>2017-05-04T12:23:46.000Z</lastmod>
+    <data>
+        <display>
+        <title>2016六月学习小结</title>
+        <pubTime>2016-07-07T13:46:15.000Z</pubTime>
+        
+        <tag>学习</tag>
+         
+        <tag>小结</tag>
+         
+         
+           
+             
+              <breadCrumb title="学习总结" url="https://www.duyidong.com/categories/%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2016/09/01/2016%E5%85%AB%E6%9C%88%E5%AD%A6%E4%B9%A0%E5%B0%8F%E8%AE%A1/</loc>
+    <lastmod>2017-05-04T12:23:41.000Z</lastmod>
+    <data>
+        <display>
+        <title>2016八月学习小计</title>
+        <pubTime>2016-09-01T11:27:38.000Z</pubTime>
+        
+        <tag>学习</tag>
+         
+        <tag>小计</tag>
+         
+         
+           
+             
+              <breadCrumb title="学习总结" url="https://www.duyidong.com/categories/%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2016/06/15/Ansible%E5%AD%A6%E4%B9%A0%E5%B0%8F%E8%AE%B0/</loc>
+    <lastmod>2017-05-04T12:23:09.000Z</lastmod>
+    <data>
+        <display>
+        <title>Ansible学习小记</title>
+        <pubTime>2016-06-15T12:30:46.000Z</pubTime>
+        
+        <tag>工具</tag>
+         
+        <tag>DevOps</tag>
+         
+        <tag>基础设施即代码</tag>
+         
+        <tag>Ansible</tag>
+         
+        <tag>自动化运维</tag>
+         
+         
+           
+             
+              <breadCrumb title="学习总结" url="https://www.duyidong.com/categories/%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2017/05/03/Cloud-Native/</loc>
+    <lastmod>2017-05-04T12:19:58.000Z</lastmod>
+    <data>
+        <display>
+        <title>云原生应用 (Cloud Native Application)</title>
+        <pubTime>2017-05-03T03:04:03.000Z</pubTime>
+        
+        <tag>Cloud Native</tag>
+         
+        <tag>Cloud</tag>
+         
+        <tag>翻译</tag>
+         
+         
+           
+             
+              <breadCrumb title="Cloud" url="https://www.duyidong.com/categories/Cloud/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2017/04/13/Infrastructure-as-Code-Testing/</loc>
+    <lastmod>2017-05-04T12:19:52.000Z</lastmod>
+    <data>
+        <display>
+        <title>基础设施代码测试</title>
+        <pubTime>2017-04-13T05:41:29.000Z</pubTime>
+        
+        <tag>基础设施即代码</tag>
+         
+        <tag>Infrastructure as Code</tag>
+         
+        <tag>ThoughtWorks技术雷达</tag>
+         
+        <tag>持续交付</tag>
+         
+         
+           
+             
+              <breadCrumb title="DevOps" url="https://www.duyidong.com/categories/DevOps/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2017/04/12/leave-TW/</loc>
+    <lastmod>2017-05-04T12:19:46.000Z</lastmod>
+    <data>
+        <display>
+        <title>离骚</title>
+        <pubTime>2017-04-11T16:01:40.000Z</pubTime>
+        
+        <tag>ThoughtWorks</tag>
+         
+        <tag>职场</tag>
+         
+         
+           
+             
+              <breadCrumb title="ThoughtWorks" url="https://www.duyidong.com/categories/ThoughtWorks/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2017/03/15/AWS-EC2/</loc>
+    <lastmod>2017-05-04T12:18:08.000Z</lastmod>
+    <data>
+        <display>
+        <title>AWS虚拟机EC2</title>
+        <pubTime>2017-03-15T12:02:03.000Z</pubTime>
+        
+        <tag>AWS</tag>
+         
+        <tag>云计算</tag>
+         
+        <tag>EC2</tag>
+         
+         
+           
+             
+              <breadCrumb title="Amazon Web Services" url="https://www.duyidong.com/categories/Amazon-Web-Services/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2017/03/13/AWS-S3/</loc>
+    <lastmod>2017-05-04T12:16:48.000Z</lastmod>
+    <data>
+        <display>
+        <title>AWS对象存储服务S3</title>
+        <pubTime>2017-03-13T01:45:12.000Z</pubTime>
+        
+        <tag>AWS</tag>
+         
+        <tag>S3</tag>
+         
+        <tag>对象存储服务</tag>
+         
+         
+           
+             
+              <breadCrumb title="Amazon Web Services" url="https://www.duyidong.com/categories/Amazon-Web-Services/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+    
+    
+    
+    
+    
+    
+    
+</urlset>

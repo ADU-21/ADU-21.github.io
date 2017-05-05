@@ -5,7 +5,7 @@
     
   <url>
     <loc>https://www.duyidong.com/2017/05/03/Cloud-Native/</loc>
-    <lastmod>2017-05-05T07:32:43.000Z</lastmod>
+    <lastmod>2017-05-05T07:55:08.000Z</lastmod>
     <data>
         <display>
         <title>云原生应用 (Cloud Native Application)</title>
@@ -61,6 +61,8 @@
         <title>基础设施代码测试</title>
         <pubTime>2017-04-13T05:41:29.000Z</pubTime>
         
+        <tag>Cloud</tag>
+         
         <tag>Infrastructure as Code</tag>
          
         <tag>ThoughtWorks技术雷达</tag>
@@ -68,8 +70,6 @@
         <tag>基础设施即代码</tag>
          
         <tag>持续交付</tag>
-         
-        <tag>Cloud</tag>
          
          
            

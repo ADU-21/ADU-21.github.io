@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.duyidong.com/"/>
-  <updated>2017-05-05T07:32:43.000Z</updated>
+  <updated>2017-05-05T07:55:08.000Z</updated>
   <id>https://www.duyidong.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="https://www.duyidong.com/2017/05/03/Cloud-Native/"/>
     <id>https://www.duyidong.com/2017/05/03/Cloud-Native/</id>
     <published>2017-05-03T03:04:03.000Z</published>
-    <updated>2017-05-05T07:32:43.000Z</updated>
+    <updated>2017-05-05T07:55:08.000Z</updated>
     
     <content type="html"><![CDATA[<p>本文翻译自Pivotal的<a href="https://pivotal.io/cloud-native" target="_blank" rel="external">Cloud Native</a>。</p>
 <h2 id="更快部署，更低风险，和业务一同扩展"><a href="#更快部署，更低风险，和业务一同扩展" class="headerlink" title="更快部署，更低风险，和业务一同扩展"></a>更快部署，更低风险，和业务一同扩展</h2><p>云原生应用程序是专为云上的应用而设计的。这些应用程序通过小型专用功能团队实现快速构建和频繁部署，提供了轻松扩展和硬件解耦的平台，让组织更敏捷，更具有可扩展性和云端可移植性。</p>
@@ -40,11 +40,11 @@
 </ul>
 <p><img src="https://d1fto35gcfffzn.cloudfront.net/images/topics/cloudnative/infographic-microservices.png" alt=""></p>
 <ul>
-<li><strong>容器</strong>比虚拟机（VM）提供了更高的效率和更快地速度。使用操作系统（OS）级别的虚拟化，单个操作系统实例被动态划分为多个相互独立的容器，每个容器具有唯一可写的文件系统和资源配额。创建和销毁容器的低开销，以及单个instance可高密度运行多个容器的特性使得容器成为部署各个微服务器的完美工具。</li>
+<li><strong>容器</strong>比虚拟机（VM）提供了更高的效率和更快的速度。使用操作系统（OS）级别的虚拟化，单个操作系统实例被动态划分为多个相互独立的容器，每个容器具有唯一可写的文件系统和资源配额。创建和销毁容器的低开销，以及单个instance可高密度运行多个容器的特性使得容器成为部署微服务各个模块的完美工具。</li>
 </ul>
 <p><img src="https://d1fto35gcfffzn.cloudfront.net/images/topics/cloudnative/infographic-containers.png" alt=""></p>
 <blockquote>
-<p>我们所学到的一件事是，如果你不能更快地把你的想法推向市场，市场必然会发生变化。到这个时候，不论你如何优化，如何管理训练你的员工，都不会有很好的成效，因为晚了。</p>
+<p>我们所学到的一件事是，如果你不能更快地把你的想法推向市场，市场必然会发生变化。到这个时候，不论你如何优化，如何管理训练你的员工，都不会有很好的成效，因为已经晚了。</p>
 <p style="text-align:right">– James McGlenon（美国利宝相互保险集团 执行副总裁兼首席信息官）</p>
 
 </blockquote>
@@ -269,6 +269,8 @@ def test_hosts_file(File):
       <category term="DevOps" scheme="https://www.duyidong.com/categories/DevOps/"/>
     
     
+      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
+    
       <category term="Infrastructure as Code" scheme="https://www.duyidong.com/tags/Infrastructure-as-Code/"/>
     
       <category term="ThoughtWorks技术雷达" scheme="https://www.duyidong.com/tags/ThoughtWorks%E6%8A%80%E6%9C%AF%E9%9B%B7%E8%BE%BE/"/>
@@ -276,8 +278,6 @@ def test_hosts_file(File):
       <category term="基础设施即代码" scheme="https://www.duyidong.com/tags/%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E5%8D%B3%E4%BB%A3%E7%A0%81/"/>
     
       <category term="持续交付" scheme="https://www.duyidong.com/tags/%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98/"/>
-    
-      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
     
   </entry>
   

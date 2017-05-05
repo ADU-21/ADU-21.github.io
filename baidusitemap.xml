@@ -5,7 +5,7 @@
     
   <url>
     <loc>https://www.duyidong.com/2017/05/03/Cloud-Native/</loc>
-    <lastmod>2017-05-04T13:26:39.000Z</lastmod>
+    <lastmod>2017-05-05T07:32:43.000Z</lastmod>
     <data>
         <display>
         <title>云原生应用 (Cloud Native Application)</title>
@@ -21,6 +21,88 @@
            
              
               <breadCrumb title="Cloud" url="https://www.duyidong.com/categories/Cloud/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2017/03/23/AWS-well-architected-framework/</loc>
+    <lastmod>2017-05-05T07:23:24.000Z</lastmod>
+    <data>
+        <display>
+        <title>AWS认为，什么样的架构是一个良好的架构</title>
+        <pubTime>2017-03-23T14:01:23.000Z</pubTime>
+        
+        <tag>AWS</tag>
+         
+        <tag>Cloud Native</tag>
+         
+        <tag>架构</tag>
+         
+        <tag>Cloud</tag>
+         
+         
+           
+             
+              <breadCrumb title="Cloud" url="https://www.duyidong.com/categories/Cloud/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2017/04/13/Infrastructure-as-Code-Testing/</loc>
+    <lastmod>2017-05-05T07:23:01.000Z</lastmod>
+    <data>
+        <display>
+        <title>基础设施代码测试</title>
+        <pubTime>2017-04-13T05:41:29.000Z</pubTime>
+        
+        <tag>Infrastructure as Code</tag>
+         
+        <tag>ThoughtWorks技术雷达</tag>
+         
+        <tag>基础设施即代码</tag>
+         
+        <tag>持续交付</tag>
+         
+        <tag>Cloud</tag>
+         
+         
+           
+             
+              <breadCrumb title="DevOps" url="https://www.duyidong.com/categories/DevOps/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2016/06/15/Ansible%E5%AD%A6%E4%B9%A0%E5%B0%8F%E8%AE%B0/</loc>
+    <lastmod>2017-05-05T07:22:40.000Z</lastmod>
+    <data>
+        <display>
+        <title>Ansible学习小记</title>
+        <pubTime>2016-06-15T12:30:46.000Z</pubTime>
+        
+        <tag>工具</tag>
+         
+        <tag>基础设施即代码</tag>
+         
+        <tag>DevOps</tag>
+         
+        <tag>Ansible</tag>
+         
+        <tag>自动化运维</tag>
+         
+         
+           
+             
+              <breadCrumb title="工具" url="https://www.duyidong.com/categories/%E5%B7%A5%E5%85%B7/"/>
           
         </display>
     </data>
@@ -554,30 +636,6 @@
 
     
   <url>
-    <loc>https://www.duyidong.com/2017/03/23/AWS-well-architected-framework/</loc>
-    <lastmod>2017-05-04T12:25:45.000Z</lastmod>
-    <data>
-        <display>
-        <title>AWS认为，什么样的架构是一个良好的架构</title>
-        <pubTime>2017-03-23T14:01:23.000Z</pubTime>
-        
-        <tag>AWS</tag>
-         
-        <tag>Cloud Native</tag>
-         
-        <tag>架构</tag>
-         
-         
-           
-             
-              <breadCrumb title="Cloud" url="https://www.duyidong.com/categories/Cloud/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://www.duyidong.com/2017/03/20/Enable-HTTPS-and-CDN-with-Cloudfront/</loc>
     <lastmod>2017-05-04T12:25:32.000Z</lastmod>
     <data>
@@ -789,60 +847,6 @@
            
              
               <breadCrumb title="学习总结" url="https://www.duyidong.com/categories/%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://www.duyidong.com/2016/06/15/Ansible%E5%AD%A6%E4%B9%A0%E5%B0%8F%E8%AE%B0/</loc>
-    <lastmod>2017-05-04T12:23:09.000Z</lastmod>
-    <data>
-        <display>
-        <title>Ansible学习小记</title>
-        <pubTime>2016-06-15T12:30:46.000Z</pubTime>
-        
-        <tag>工具</tag>
-         
-        <tag>基础设施即代码</tag>
-         
-        <tag>DevOps</tag>
-         
-        <tag>Ansible</tag>
-         
-        <tag>自动化运维</tag>
-         
-         
-           
-             
-              <breadCrumb title="学习总结" url="https://www.duyidong.com/categories/%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://www.duyidong.com/2017/04/13/Infrastructure-as-Code-Testing/</loc>
-    <lastmod>2017-05-04T12:19:52.000Z</lastmod>
-    <data>
-        <display>
-        <title>基础设施代码测试</title>
-        <pubTime>2017-04-13T05:41:29.000Z</pubTime>
-        
-        <tag>Infrastructure as Code</tag>
-         
-        <tag>ThoughtWorks技术雷达</tag>
-         
-        <tag>基础设施即代码</tag>
-         
-        <tag>持续交付</tag>
-         
-         
-           
-             
-              <breadCrumb title="DevOps" url="https://www.duyidong.com/categories/DevOps/"/>
           
         </display>
     </data>

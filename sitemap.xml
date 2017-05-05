@@ -4,7 +4,28 @@
   <url>
     <loc>https://www.duyidong.com/2017/05/03/Cloud-Native/</loc>
     
-    <lastmod>2017-05-04T13:26:39.000Z</lastmod>
+    <lastmod>2017-05-05T07:32:43.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.duyidong.com/2017/03/23/AWS-well-architected-framework/</loc>
+    
+    <lastmod>2017-05-05T07:23:24.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.duyidong.com/2017/04/13/Infrastructure-as-Code-Testing/</loc>
+    
+    <lastmod>2017-05-05T07:23:01.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.duyidong.com/2016/06/15/Ansible%E5%AD%A6%E4%B9%A0%E5%B0%8F%E8%AE%B0/</loc>
+    
+    <lastmod>2017-05-05T07:22:40.000Z</lastmod>
     
   </url>
   
@@ -177,13 +198,6 @@
   </url>
   
   <url>
-    <loc>https://www.duyidong.com/2017/03/23/AWS-well-architected-framework/</loc>
-    
-    <lastmod>2017-05-04T12:25:45.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://www.duyidong.com/2017/03/20/Enable-HTTPS-and-CDN-with-Cloudfront/</loc>
     
     <lastmod>2017-05-04T12:25:32.000Z</lastmod>
@@ -243,20 +257,6 @@
     <loc>https://www.duyidong.com/2016/09/01/2016%E5%85%AB%E6%9C%88%E5%AD%A6%E4%B9%A0%E5%B0%8F%E8%AE%A1/</loc>
     
     <lastmod>2017-05-04T12:23:41.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://www.duyidong.com/2016/06/15/Ansible%E5%AD%A6%E4%B9%A0%E5%B0%8F%E8%AE%B0/</loc>
-    
-    <lastmod>2017-05-04T12:23:09.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://www.duyidong.com/2017/04/13/Infrastructure-as-Code-Testing/</loc>
-    
-    <lastmod>2017-05-04T12:19:52.000Z</lastmod>
     
   </url>
   

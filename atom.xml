@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.duyidong.com/"/>
-  <updated>2017-05-04T13:26:39.000Z</updated>
+  <updated>2017-05-05T07:32:43.000Z</updated>
   <id>https://www.duyidong.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="https://www.duyidong.com/2017/05/03/Cloud-Native/"/>
     <id>https://www.duyidong.com/2017/05/03/Cloud-Native/</id>
     <published>2017-05-03T03:04:03.000Z</published>
-    <updated>2017-05-04T13:26:39.000Z</updated>
+    <updated>2017-05-05T07:32:43.000Z</updated>
     
     <content type="html"><![CDATA[<p>本文翻译自Pivotal的<a href="https://pivotal.io/cloud-native" target="_blank" rel="external">Cloud Native</a>。</p>
 <h2 id="更快部署，更低风险，和业务一同扩展"><a href="#更快部署，更低风险，和业务一同扩展" class="headerlink" title="更快部署，更低风险，和业务一同扩展"></a>更快部署，更低风险，和业务一同扩展</h2><p>云原生应用程序是专为云上的应用而设计的。这些应用程序通过小型专用功能团队实现快速构建和频繁部署，提供了轻松扩展和硬件解耦的平台，让组织更敏捷，更具有可扩展性和云端可移植性。</p>
@@ -49,27 +49,22 @@
 
 </blockquote>
 <h2 id="为什么云原生应用很重要"><a href="#为什么云原生应用很重要" class="headerlink" title="为什么云原生应用很重要"></a>为什么云原生应用很重要</h2><ul>
-<li><p><strong>云是具有竞争力的优势</strong></p>
-<p>  云原生意味着基础设施的目标将由节约成本变为驱动业务发展，在软件生命周期中，快速构建业务和快速交付以响应客户需求将会让企业具有主宰市场的优势。产品一旦上线就不会停止运行，且可以动态伸缩扩容。</p>
+<li><p><strong>云是具有竞争力的优势</strong><br>  云原生意味着基础设施的目标将由节约成本变为驱动业务发展，在软件生命周期中，快速构建业务和快速交付以响应客户需求将会让企业具有主宰市场的优势。产品一旦上线就不会停止运行，且可以动态伸缩扩容。</p>
 </li>
-<li><p><strong>灵活性</strong></p>
-<p>  企业一旦构建了应用就可以在任何云上运行而不需要修改。团队可以随时将应用在不同的公有云供应商的平台和私有云平台之间迁移或分发，以此来满足业务需求和节约开销。</p>
+<li><p><strong>灵活性</strong><br>  企业一旦构建了应用就可以在任何云上运行而不需要修改。团队可以随时将应用在不同的公有云供应商的平台和私有云平台之间迁移或分发，以此来满足业务需求和节约开销。</p>
 </li>
-<li><p><strong>让开发人员做他们擅长的</strong></p>
-<p>  团队拥抱云原生应用可以屏蔽不同云基础设施的差异，让开发者只用关心代码，集中精力关注在交付的业务价值。由heroku提出的<a href="https://12factor.net/zh_cn/" target="_blank" rel="external">12因素应用</a>为开发人员定义了一套云上应用的开发标准，形同一份与开发人员签订的“合同”，用于确保自己的应用程序充分利用底层的云平台的优势。</p>
+<li><p><strong>让开发人员做他们擅长的</strong><br>  团队拥抱云原生应用可以屏蔽不同云基础设施的差异，让开发者只用关心代码，集中精力关注在交付的业务价值。由heroku提出的<a href="https://12factor.net/zh_cn/" target="_blank" rel="external">12因素应用</a>为开发人员定义了一套云上应用的开发标准，形同一份与开发人员签订的“合同”，用于确保自己的应用程序充分利用底层的云平台的优势。</p>
 </li>
-<li><p><strong>运维与业务对齐</strong></p>
-<p>  基于自动化的IT运维，企业可以转变为一个精益团队，将团队的关注点与推动业务发展对齐。它可以避免人工失误操作带来的风险，以流程改进代替原本的日常运维工作。通过实施在各个层面的自动补丁和自动升级，消除了宕机时间，也消除了需要“运维专家”手动修复才能解决问题的痛点。</p>
+<li><p><strong>运维与业务对齐</strong><br>  基于自动化的IT运维，企业可以转变为一个精益团队，将团队的关注点与推动业务发展对齐。它可以避免人工失误操作带来的风险，以流程改进代替原本的日常运维工作。通过实施在各个层面的自动补丁和自动升级，消除了宕机时间，也消除了需要“运维专家”手动修复才能解决问题的痛点。</p>
 <p>  <center><strong>云原生架构：</strong>如何达到云原生</center><br>  <img src="https://d1fto35gcfffzn.cloudfront.net/images/topics/cloudnative/diagram-cloud-native-arch-01.svg" alt=""></p>
 </li>
 </ul>
-<center><strong>云原生 对比 传统企业应用</strong></center>
-
-<table>
+<hr>
+<h2 id="云原生与传统企业应用对比"><a href="#云原生与传统企业应用对比" class="headerlink" title="云原生与传统企业应用对比"></a><center><strong>云原生与传统企业应用对比</strong></center></h2><table>
 <thead>
 <tr>
-<th>云原生应用</th>
-<th>传统企业应用</th>
+<th><center>云原生应用</center></th>
+<th><center>传统企业应用</center></th>
 </tr>
 </thead>
 <tbody>
@@ -99,7 +94,7 @@
 </tr>
 <tr>
 <td><strong>自动扩容：</strong>基础设施自动扩容可以消除宕机时间和避免人为操作失误。计算机自动化不会遇到任何类似的挑战，在任何规模的部署中都使用同一套部署脚本。云原生也超越了基于传统的面向虚拟化的业务流程的自动化实践。一个完全的云原生架构包括适用于团队的自动化和业务流程，而不是要求他们习惯于写自动化脚本。换句话说，团队的目标是使得构建和启动应用变得易于管理，而自动化只是其中的一个手段。</td>
-<td><strong>手动扩容：</strong>人工基础设施包含了人工运维和人工管理的服务器，网络，存储配置。扩容工作因为其复杂性，debug变得很慢，而且过程中很容易出错，手工编写的配置文件有可能将人为错误的硬编码到基础设施中。</td>
+<td><strong>手动扩容：</strong>人工基础设施包含了人工运维和人工管理的服务器，网络，以及存储配置。扩容工作因为其复杂性，运营人员很难在扩容过程中诊断问题，而且实施过程中很容易出现错误，手工编写的配置文件有可能将人为错误的硬编码到基础设施中，成为一个很难发现且长期存在的隐患。</td>
 </tr>
 <tr>
 <td><strong>快速恢复：</strong>容器化运行时提供了一个虚拟机之上的动态，高密度的虚拟层，是理想的微服务托管方式。动态管理容器在宿主机上的编排，方便及时回滚，扩容，和重现错误。</td>
@@ -140,7 +135,7 @@
     <link href="https://www.duyidong.com/2017/04/13/Infrastructure-as-Code-Testing/"/>
     <id>https://www.duyidong.com/2017/04/13/Infrastructure-as-Code-Testing/</id>
     <published>2017-04-13T05:41:29.000Z</published>
-    <updated>2017-05-04T12:19:52.000Z</updated>
+    <updated>2017-05-05T07:23:01.000Z</updated>
     
     <content type="html"><![CDATA[<p>在DevOps的文化中有一个已经被广泛认可的概念叫做<a href="https://martinfowler.com/bliki/InfrastructureAsCode.html" target="_blank" rel="external">基础设施及代码</a>，意在将基础设施以配置文件的方式纳入版本管理以达到更灵活且便于管理的目的，从而更加适应基础设施频繁变更需求。</p>
 <p>虽说此举俨然已将<a href="https://www.duyidong.com/2016/05/19/CI-CD/">CI/CD</a>（持续集成和持续交付）概念应用在了基础设施代码上，然而在应用产品的<a href="https://www.duyidong.com/tags/%E9%83%A8%E7%BD%B2%E4%B8%8E%E5%8F%91%E5%B8%83/">持续部署与发布</a>实施过程中，基础设施变更仍然是一件令人<em>胆战心惊</em>的事，原因很简单——没有<strong>反馈及时</strong>且<strong>覆盖充分</strong>的测试。</p>
@@ -281,6 +276,8 @@ def test_hosts_file(File):
       <category term="基础设施即代码" scheme="https://www.duyidong.com/tags/%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E5%8D%B3%E4%BB%A3%E7%A0%81/"/>
     
       <category term="持续交付" scheme="https://www.duyidong.com/tags/%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98/"/>
+    
+      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
     
   </entry>
   
@@ -772,7 +769,7 @@ feedback，开放式协作
     <link href="https://www.duyidong.com/2017/03/23/AWS-well-architected-framework/"/>
     <id>https://www.duyidong.com/2017/03/23/AWS-well-architected-framework/</id>
     <published>2017-03-23T14:01:23.000Z</published>
-    <updated>2017-05-04T12:25:45.000Z</updated>
+    <updated>2017-05-05T07:23:24.000Z</updated>
     
     <content type="html"><![CDATA[<p>AWS Well Architected framework，其实是亚马逊的一封<a href="https://d0.awsstatic.com/whitepapers/architecture/AWS_Well-Architected_Framework.pdf" target="_blank" rel="external">白皮书</a>，围绕云架构设计的安全性，可靠性，负载，花销，运维（2016年11月加入）五个支柱阐述了一个良好的架构应该遵循什么样的原则，以及一些最佳实践。</p>
 <p>亚马逊在云服务届处于世界领先水平，且在十多年的云架构实践中已经积累了相当的经验，该白皮书是对这些经验的一个总结和提炼。不管是对于考试，对于成为一个云架构师，还是对于单纯的学习和了解云服务，都是一份不可多得的好材料。<br>下面附上资源地址：<a href="https://d0.awsstatic.com/whitepapers/architecture/AWS_Well-Architected_Framework.pdf" target="_blank" rel="external">https://d0.awsstatic.com/whitepapers/architecture/AWS_Well-Architected_Framework.pdf</a></p>
@@ -994,6 +991,8 @@ feedback，开放式协作
       <category term="Cloud Native" scheme="https://www.duyidong.com/tags/Cloud-Native/"/>
     
       <category term="架构" scheme="https://www.duyidong.com/tags/%E6%9E%B6%E6%9E%84/"/>
+    
+      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
     
   </entry>
   

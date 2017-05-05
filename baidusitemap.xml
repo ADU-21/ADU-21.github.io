@@ -249,9 +249,9 @@
         <title>部署和发布策略的演进</title>
         <pubTime>2016-10-24T06:30:20.000Z</pubTime>
         
-        <tag>DevOps</tag>
-         
         <tag>持续交付</tag>
+         
+        <tag>DevOps</tag>
          
         <tag>部署与发布</tag>
          
@@ -491,9 +491,9 @@
         
         <tag>AWS</tag>
          
-        <tag>DevOps</tag>
-         
         <tag>基础设施即代码</tag>
+         
+        <tag>DevOps</tag>
          
          
            
@@ -805,9 +805,9 @@
         
         <tag>工具</tag>
          
-        <tag>DevOps</tag>
-         
         <tag>基础设施即代码</tag>
+         
+        <tag>DevOps</tag>
          
         <tag>Ansible</tag>
          
@@ -831,11 +831,11 @@
         <title>基础设施代码测试</title>
         <pubTime>2017-04-13T05:41:29.000Z</pubTime>
         
-        <tag>基础设施即代码</tag>
-         
         <tag>Infrastructure as Code</tag>
          
         <tag>ThoughtWorks技术雷达</tag>
+         
+        <tag>基础设施即代码</tag>
          
         <tag>持续交付</tag>
          
@@ -918,12 +918,6 @@
     </data>
     </url>
 
-    
-    
-    
-    
-    
-    
     
     
 </urlset>

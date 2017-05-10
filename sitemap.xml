@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.duyidong.com/about/index.html</loc>
+    
+    <lastmod>2017-05-10T01:28:08.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://www.duyidong.com/2017/05/03/Cloud-Native/</loc>
     
     <lastmod>2017-05-05T07:55:08.000Z</lastmod>
@@ -283,13 +290,6 @@
   
   <url>
     <loc>https://www.duyidong.com/404/index.html</loc>
-    
-    <lastmod>2017-05-04T12:10:56.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://www.duyidong.com/about/index.html</loc>
     
     <lastmod>2017-05-04T12:10:56.000Z</lastmod>
     

@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.duyidong.com/"/>
-  <updated>2017-05-13T09:45:11.000Z</updated>
+  <updated>2017-05-13T09:51:01.000Z</updated>
   <id>https://www.duyidong.com/</id>
   
   <author>
@@ -20,9 +20,9 @@
     <link href="https://www.duyidong.com/2017/05/13/chinese-document-style/"/>
     <id>https://www.duyidong.com/2017/05/13/chinese-document-style/</id>
     <published>2017-05-13T02:16:18.000Z</published>
-    <updated>2017-05-13T09:45:11.000Z</updated>
+    <updated>2017-05-13T09:51:01.000Z</updated>
     
-    <content type="html"><![CDATA[<p>作为一名程序员，良好的文风和良好的编程习惯同样重要。<br>作为一名中国区开发者，不得不面对国内技术滞后英文国家的事实，许多中文文档都翻译自英文。平时参加一些技术类分享的活动时，PPT、文档、README都要用中英文写，常常会很困惑一些格式如何排版比较合理，一些措辞是否适合相应场合，最近读到阮一峰老师的<a href="http://www.ruanyifeng.com/blog/2016/10/document_style_guide.html" target="_blank" rel="external">中文技术文档的写作规范</a>，当即认定是一份答疑解惑的好材料，笔者认为，不止适用于技术文档，博客、胶片，都可参考。<br><a id="more"></a></p>
+    <content type="html"><![CDATA[<p>作为一名程序员，良好的文风和良好的编程习惯同样重要。<br>作为一名中国区开发者，不得不面对国内技术相比英文国家滞后的事实，许多中文文档都翻译自英文。平时参加一些技术类分享的活动时，PPT、文档、README都要用中英文写，常常会很困惑一些格式如何排版比较合理，一些措辞是否适合相应场合，最近读到阮一峰老师的<a href="http://www.ruanyifeng.com/blog/2016/10/document_style_guide.html" target="_blank" rel="external">中文技术文档的写作规范</a>，当即认定是一份答疑解惑的好材料，笔者认为，不止适用于技术文档，博客、胶片，都可参考。<br><a id="more"></a></p>
 <h2 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h2><p>标题分为四级</p>
 <pre><code> 一级标题：文章的标题
 
@@ -48,7 +48,7 @@
 <li>半角英文字符和半角阿拉伯数字，与全角标点符号之间不留空格。</li>
 </ul>
 <pre><code>示例：他的电脑是 MacBook Air。
-</code></pre><p>中英文数字夹杂的情况，原则上应该让字间距显得紧凑，同时英文单词字间距规则优先。这样的排版即不张扬又不局促。</p>
+</code></pre><p>中英文数字夹杂的情况，原则上应该让字间距显得紧凑，同时英文单词字间距规则优先。这样的排版既不张扬又不局促。</p>
 <h3 id="写作风格"><a href="#写作风格" class="headerlink" title="写作风格"></a>写作风格</h3><ul>
 <li>尽量不使用被动语态，改为使用主动语态。</li>
 </ul>
@@ -165,7 +165,7 @@
     
     <summary type="html">
     
-      &lt;p&gt;作为一名程序员，良好的文风和良好的编程习惯同样重要。&lt;br&gt;作为一名中国区开发者，不得不面对国内技术滞后英文国家的事实，许多中文文档都翻译自英文。平时参加一些技术类分享的活动时，PPT、文档、README都要用中英文写，常常会很困惑一些格式如何排版比较合理，一些措辞是否适合相应场合，最近读到阮一峰老师的&lt;a href=&quot;http://www.ruanyifeng.com/blog/2016/10/document_style_guide.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;中文技术文档的写作规范&lt;/a&gt;，当即认定是一份答疑解惑的好材料，笔者认为，不止适用于技术文档，博客、胶片，都可参考。&lt;br&gt;
+      &lt;p&gt;作为一名程序员，良好的文风和良好的编程习惯同样重要。&lt;br&gt;作为一名中国区开发者，不得不面对国内技术相比英文国家滞后的事实，许多中文文档都翻译自英文。平时参加一些技术类分享的活动时，PPT、文档、README都要用中英文写，常常会很困惑一些格式如何排版比较合理，一些措辞是否适合相应场合，最近读到阮一峰老师的&lt;a href=&quot;http://www.ruanyifeng.com/blog/2016/10/document_style_guide.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;中文技术文档的写作规范&lt;/a&gt;，当即认定是一份答疑解惑的好材料，笔者认为，不止适用于技术文档，博客、胶片，都可参考。&lt;br&gt;
     
     </summary>
     
@@ -283,9 +283,9 @@
       <category term="Cloud" scheme="https://www.duyidong.com/categories/Cloud/"/>
     
     
-      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
-    
       <category term="Cloud Native" scheme="https://www.duyidong.com/tags/Cloud-Native/"/>
+    
+      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
     
       <category term="翻译" scheme="https://www.duyidong.com/tags/%E7%BF%BB%E8%AF%91/"/>
     
@@ -430,15 +430,15 @@ def test_hosts_file(File):
       <category term="DevOps" scheme="https://www.duyidong.com/categories/DevOps/"/>
     
     
-      <category term="基础设施即代码" scheme="https://www.duyidong.com/tags/%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E5%8D%B3%E4%BB%A3%E7%A0%81/"/>
+      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
     
       <category term="Infrastructure as Code" scheme="https://www.duyidong.com/tags/Infrastructure-as-Code/"/>
     
       <category term="ThoughtWorks技术雷达" scheme="https://www.duyidong.com/tags/ThoughtWorks%E6%8A%80%E6%9C%AF%E9%9B%B7%E8%BE%BE/"/>
     
-      <category term="持续交付" scheme="https://www.duyidong.com/tags/%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98/"/>
+      <category term="基础设施即代码" scheme="https://www.duyidong.com/tags/%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E5%8D%B3%E4%BB%A3%E7%A0%81/"/>
     
-      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
+      <category term="持续交付" scheme="https://www.duyidong.com/tags/%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98/"/>
     
   </entry>
   
@@ -1149,11 +1149,11 @@ feedback，开放式协作
     
       <category term="AWS" scheme="https://www.duyidong.com/tags/AWS/"/>
     
-      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
-    
       <category term="Cloud Native" scheme="https://www.duyidong.com/tags/Cloud-Native/"/>
     
       <category term="架构" scheme="https://www.duyidong.com/tags/%E6%9E%B6%E6%9E%84/"/>
+    
+      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
     
   </entry>
   
@@ -1578,9 +1578,9 @@ export AWS_SECRET_ACCESS_KEY=&lt;secret key&gt;
     
       <category term="AWS" scheme="https://www.duyidong.com/tags/AWS/"/>
     
-      <category term="Blog" scheme="https://www.duyidong.com/tags/Blog/"/>
-    
       <category term="S3" scheme="https://www.duyidong.com/tags/S3/"/>
+    
+      <category term="Blog" scheme="https://www.duyidong.com/tags/Blog/"/>
     
       <category term="Hexo" scheme="https://www.duyidong.com/tags/Hexo/"/>
     

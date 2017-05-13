@@ -1162,7 +1162,7 @@ feedback，开放式协作
     <link href="https://www.duyidong.com/2017/03/20/Enable-HTTPS-and-CDN-with-Cloudfront/"/>
     <id>https://www.duyidong.com/2017/03/20/Enable-HTTPS-and-CDN-with-Cloudfront/</id>
     <published>2017-03-20T12:23:37.000Z</published>
-    <updated>2017-05-04T12:25:32.000Z</updated>
+    <updated>2017-05-13T12:22:15.000Z</updated>
     
     <content type="html"><![CDATA[<p>在上一篇博客中，笔者已经介绍了<a href="https://www.duyidong.com/2017/03/07/Deploy-Hexo-to-S3/">将hexo博客发布到S3</a>，这一部分我将介绍如何使用AWS的Route53应用上自己的域名，以及如何使用Cloudfront开启HTTPS/HTTP2和CDN加速。</p>
 <h2 id="关于Route53"><a href="#关于Route53" class="headerlink" title="关于Route53"></a>关于Route53</h2><p>Route53是AWS提供的DNS服务，提供常见域名服务，用户可以使用Route53注册使用域名，指向自己的服务，可以除了一般域名服务都支持的A类地址（直接指向IP），及CNAME（指向另一个域名）以外，Route53还支持一个功能叫做A-record，即可以将DNS指向AWS内部的资源，该服务功能与CNAME基本相同，但是免费。此外，Route53支持以下几种路由策略：</p>
@@ -1195,7 +1195,7 @@ feedback，开放式协作
 <li>另外，关于Cloudfront的日志，AWS不会针对日志功能进行收费，但用户需要对占用的S3 bucket存储和访问付费，日志内容大概和Nginx的access.log差不多，个人觉得AWS的<a href="https://console.aws.amazon.com/cloudfront/home#cache_stat_reports" target="_blank" rel="external">Reports &amp; Analytics</a>已经做得很好了，日志有些多余，建议可以在学习完后关闭。</li>
 </ul>
 </blockquote>
-<h3 id="关于缓存时间"><a href="#关于缓存时间" class="headerlink" title="关于缓存时间"></a>关于缓存时间</h3><p>关于S3里的Object在Cloudfront的各节点缓存的时间，默认为24小时，也就是说当我发布一篇新博客，由于主页index.html名字没有变化，只是更新了新版本，我要等到24小时后旧版本过期才能看到新的页面，这对我的小博客来说时间太长了，需要更改这个Cache时间，更改Cache时间有两种方式，一是更改TTL（Time To Live）时间，二是增加<code>Cache-Control: max-age=[seconds]</code>的heaeder，关于第二种方式，具体参见<a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Expiration.html#expiration-individual-objects" target="_blank" rel="external">官方文档</a>，这里我说一下如何更改TTL：<br>进入Distribution的管理员界面，选择<strong>Behaviors</strong>标签，勾选待编辑的Behavior，点选<strong>Edit</strong></p>
+<h3 id="关于缓存时间"><a href="#关于缓存时间" class="headerlink" title="关于缓存时间"></a>关于缓存时间</h3><p>关于S3里的Object在Cloudfront的各节点缓存的时间，默认为24小时，也就是说当我发布一篇新博客，由于主页<code>index.html</code>名字没有变化，只是更新了新版本，我要等到24小时候Edge location中缓存的数据过期才能看到新版本，这对我的小博客来说时间太长了，需要更改这个Cache时间。更改Cache时间有两种方式：一是更改TTL（Time To Live）时间，二是增加<code>Cache-Control: max-age=[seconds]</code>的header，关于第二种方式，具体参见<a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Expiration.html#expiration-individual-objects" target="_blank" rel="external">官方文档</a>，这里我说一下如何更改TTL：<br>进入Distribution的管理员界面，选择<strong>Behaviors</strong>标签，勾选待编辑的Behavior，点选<strong>Edit</strong></p>
 <p><img src="/images/Cloudfront_Distributions_Behaviors.png" alt=""></p>
 <p>在Edit Behavior页面Object Caching项目勾选<strong>Customize</strong>自定义TTL，将Default TTL改为3600（1小时）点选<strong>Yes，Edit</strong>即可。<br>同样，更新配置要等待半小时左右方能生效。</p>
 <blockquote>
@@ -1670,7 +1670,7 @@ export AWS_SECRET_ACCESS_KEY=&lt;secret key&gt;
     <link href="https://www.duyidong.com/2017/02/28/AWS-Services-Overview/"/>
     <id>https://www.duyidong.com/2017/02/28/AWS-Services-Overview/</id>
     <published>2017-02-28T06:55:01.000Z</published>
-    <updated>2017-05-04T12:24:56.000Z</updated>
+    <updated>2017-05-13T12:28:40.000Z</updated>
     
     <content type="html"><![CDATA[<p>最近在准备AWS助理级架构师认证考试，借此机会梳理一下AWS比较核心的几个服务，不会太深入细节，只做简单阐释。</p>
 <p>首先关于AWS服务一览：</p>
@@ -1713,7 +1713,7 @@ export AWS_SECRET_ACCESS_KEY=&lt;secret key&gt;
 <blockquote>
 <p>注：该服务在Ops认证会被重点考察，SAA涉及不多。</p>
 </blockquote>
-<h2 id="Databases"><a href="#Databases" class="headerlink" title="Databases"></a>Databases</h2><p><a href="https://aws.amazon.com/products/databases" target="_blank" rel="external">AWS Cloud Database</a>提供了一系列由AWS帮你管理的数据库服务。<br>涉及到考试，重点在针对不同的使用场景选择合适的数据库服务，另外非关系型数据库的高性能高伸缩和关系型数据库如何做到高可用，读写分离也常会作为考点。</p>
+<h2 id="Databases"><a href="#Databases" class="headerlink" title="Databases"></a>Databases</h2><p><a href="https://aws.amazon.com/products/databases" target="_blank" rel="external">AWS Cloud Database</a><br>涉及到考试，重点在针对不同的使用场景选择合适的数据库服务，另外非关系型数据库的高性能高伸缩和关系型数据库如何做到高可用，读写分离也常会作为考点。</p>
 <h3 id="RDS"><a href="#RDS" class="headerlink" title="RDS"></a>RDS</h3><p>RDS(<a href="https://aws.amazon.com/rds/" target="_blank" rel="external">Relation Database Serveice</a>)是一个托管在AWS上的关系型数据库，目前支持MySQL，Postgresql，SQLserver，MariaDB，Oracle和一个亚马逊自己出的Aurora（据说很屌）。</p>
 <h3 id="DynamoDB"><a href="#DynamoDB" class="headerlink" title="DynamoDB"></a>DynamoDB</h3><p><a href="https://aws.amazon.com/dynamodb/" target="_blank" rel="external">DynamoDB</a>是AWS提供的非关系型数据库，特点是高一致，低延迟，极易伸缩，相当灵活。</p>
 <blockquote>
@@ -2119,7 +2119,7 @@ ZQ 不保存退出
     <link href="https://www.duyidong.com/2016/10/24/%E9%83%A8%E7%BD%B2%E5%92%8C%E5%8F%91%E5%B8%83%E7%AD%96%E7%95%A5%E7%9A%84%E6%BC%94%E8%BF%9B/"/>
     <id>https://www.duyidong.com/2016/10/24/部署和发布策略的演进/</id>
     <published>2016-10-24T06:30:20.000Z</published>
-    <updated>2017-05-04T12:33:53.000Z</updated>
+    <updated>2017-05-13T12:37:41.000Z</updated>
     
     <content type="html"><![CDATA[<h1 id="持续交付的目的"><a href="#持续交付的目的" class="headerlink" title="持续交付的目的"></a>持续交付的目的</h1><p><strong>以下问题有没有解决？</strong><br>“快速将产品推向市场” 与 “提供稳定、安全并可靠的IT服务” 是否可以兼得？<br>用更少的资源完成更多的业绩，既要保持竞争力，又要削减成本；<br>如何解决任务交接出现的问题，例如业务与开发，开发与运维之间；<br>运维人员能否和其他人一样，正常上下班，而不用在夜里或者周末加班？</p>
 <a id="more"></a>
@@ -2148,9 +2148,9 @@ ZQ 不保存退出
 <li>控制好容器操作权限</li>
 </ul>
 <h1 id="滚动发布-Rolling-Release"><a href="#滚动发布-Rolling-Release" class="headerlink" title="滚动发布(Rolling Release)"></a>滚动发布(Rolling Release)</h1><p>又称滚动更新(rolling update)<br>指的是在不切换负载均衡器或者DNS的前提下把负载均衡器下的机器一台台关掉，部署好之后再挂到负载均衡器下面，与蓝绿部署直观的差别是不需要切换负载均衡器或DNS，同时做到零宕机部署。（还要完善）</p>
-<h1 id="蓝绿部署（BuleGreen-Deployment）"><a href="#蓝绿部署（BuleGreen-Deployment）" class="headerlink" title="蓝绿部署（BuleGreen Deployment）"></a>蓝绿部署（BuleGreen Deployment）</h1><p>在发布之前就把应用程序放在产品环境上部署好，如果“发布”能像重新配置一下路由器那样简单，让他直接指向生产环境，那就更好了 ————《持续交付》<br>蓝绿部署主要解决的是宕机发布的问题<br>它的主要原理是在保持旧版本环境（绿环境）正常运行的情况下，准备一套蓝环境，在产品环境里蓝环境通过充分冒烟测试后再将用户访问从绿环境切换到蓝环境，如果蓝环境在这个切换之后出现问题则立即切换回绿环境，如果没有问题则最后destroy掉绿环境，具体做法可以通过DNS或者ELB配合AutoScaling Group进行Infrastructure的切换，这种切换通常在一秒之内就可以搞定。application层的回话切换以及数据库链接切换的问题，可以使用中间件解决。</p>
+<h1 id="蓝绿部署（BuleGreen-Deployment）"><a href="#蓝绿部署（BuleGreen-Deployment）" class="headerlink" title="蓝绿部署（BuleGreen Deployment）"></a>蓝绿部署（BuleGreen Deployment）</h1><p>在发布之前就把应用程序放在产品环境上部署好，如果“发布”能像重新配置一下路由器那样简单，让他直接指向生产环境，那就更好了 ————《持续交付》<br>蓝绿部署主要解决的是宕机发布的问题。<br>它的主要原理是在保持旧版本环境（绿环境）正常运行的情况下，准备一套蓝环境，在产品环境里蓝环境通过充分冒烟测试后再将用户访问从绿环境切换到蓝环境，如果蓝环境在这个切换之后出现问题则立即切换回绿环境，如果没有问题则最后destroy掉绿环境，具体做法可以通过DNS或者ELB配合AutoScaling Group进行Infrastructure的切换，这种切换通常在一秒之内就可以搞定。application层的回话切换以及数据库链接切换的问题，可以使用中间件解决。</p>
 <p><img src="http://martinfowler.com/bliki/images/blueGreenDeployment/blue_green_deployments.png" alt=""></p>
-<p>对于数据库，直接从绿环境切换到蓝环境是不可能的，因为如果数据库结构发生改变的话，数据迁移需要时间。解决这种情况最理想的方法是在一小段时间把数据库变成只读状态，完成迁移后再将用户切换到蓝环境，恢复读写。如果在切换过程中仍然有数据的写入，你可以采用添加中间件的方式保存读写数据，或者在在读写过程中持续将事物发向新旧两个数据库。<br></p>
+<p>对于数据库，直接从绿环境切换到蓝环境是不可能的，因为如果数据库结构发生改变的话，数据迁移需要时间。解决这种情况最理想的方法是在一小段时间把数据库变成只读状态，完成迁移后再将用户切换到蓝环境，恢复读写。如果在切换过程中仍然有数据的写入，你可以采用添加中间件的方式保存读写数据，或者在在读写过程中持续将事物发向新旧两个数据库。</p>
 <h1 id="灰度发布（金丝雀发布）"><a href="#灰度发布（金丝雀发布）" class="headerlink" title="灰度发布（金丝雀发布）"></a>灰度发布（金丝雀发布）</h1><p>在把应用程序发布给所有人之前，先试着把它发布给一小撮用户群，这种技术叫做金丝雀发布。<br>金丝雀发布要解决的问题主要是缩短反馈周期，以及弥补巨大产品环境下无法进行有效容量测试所可能导致的问题的一种手段。是一个能大大降低新版本发布风险的方法。<br>灰度发布是蓝绿部署的一个延伸，采用逐步切换的方式使新版本发布只影响到尽可能少的用户，从而为AB测试提供条件。灰度发布<br>灰度发布与金丝雀部署在操作上是等价的<br>金丝雀发有以下几个好处：</p>
 <ul>
 <li>非常容易回滚，这个其实是蓝绿部署就已经带来的好处，只要不把用户引向有问题的新版本，就可以有足够的时间用来分析错误日志，排查问题。</li>
@@ -2180,9 +2180,9 @@ ZQ 不保存退出
       <category term="持续交付" scheme="https://www.duyidong.com/categories/%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98/"/>
     
     
-      <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
-    
       <category term="持续交付" scheme="https://www.duyidong.com/tags/%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98/"/>
+    
+      <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
     
       <category term="部署与发布" scheme="https://www.duyidong.com/tags/%E9%83%A8%E7%BD%B2%E4%B8%8E%E5%8F%91%E5%B8%83/"/>
     

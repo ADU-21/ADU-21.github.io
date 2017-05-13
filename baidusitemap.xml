@@ -4,6 +4,86 @@
 
     
   <url>
+    <loc>https://www.duyidong.com/2016/10/24/%E9%83%A8%E7%BD%B2%E5%92%8C%E5%8F%91%E5%B8%83%E7%AD%96%E7%95%A5%E7%9A%84%E6%BC%94%E8%BF%9B/</loc>
+    <lastmod>2017-05-13T12:37:41.000Z</lastmod>
+    <data>
+        <display>
+        <title>部署和发布策略的演进</title>
+        <pubTime>2016-10-24T06:30:20.000Z</pubTime>
+        
+        <tag>持续交付</tag>
+         
+        <tag>DevOps</tag>
+         
+        <tag>部署与发布</tag>
+         
+        <tag>持续部署</tag>
+         
+         
+           
+             
+              <breadCrumb title="持续交付" url="https://www.duyidong.com/categories/%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2017/02/28/AWS-Services-Overview/</loc>
+    <lastmod>2017-05-13T12:28:40.000Z</lastmod>
+    <data>
+        <display>
+        <title>Amazon Web Server 服务概览</title>
+        <pubTime>2017-02-28T06:55:01.000Z</pubTime>
+        
+        <tag>AWS</tag>
+         
+        <tag>云计算</tag>
+         
+         
+           
+             
+              <breadCrumb title="Amazon Web Services" url="https://www.duyidong.com/categories/Amazon-Web-Services/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2017/03/20/Enable-HTTPS-and-CDN-with-Cloudfront/</loc>
+    <lastmod>2017-05-13T12:22:15.000Z</lastmod>
+    <data>
+        <display>
+        <title>使用AWS解锁HTTPS和CDN</title>
+        <pubTime>2017-03-20T12:23:37.000Z</pubTime>
+        
+        <tag>AWS</tag>
+         
+        <tag>Blog</tag>
+         
+        <tag>HTTPS</tag>
+         
+        <tag>CDN</tag>
+         
+        <tag>Cloudfront</tag>
+         
+        <tag>Route53</tag>
+         
+        <tag>博客上云</tag>
+         
+         
+           
+             
+              <breadCrumb title="我的博客" url="https://www.duyidong.com/categories/%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://www.duyidong.com/2017/05/13/chinese-document-style/</loc>
     <lastmod>2017-05-13T09:51:01.000Z</lastmod>
     <data>
@@ -112,9 +192,9 @@
         
         <tag>工具</tag>
          
-        <tag>DevOps</tag>
-         
         <tag>基础设施即代码</tag>
+         
+        <tag>DevOps</tag>
          
         <tag>Ansible</tag>
          
@@ -304,9 +384,9 @@
         <title>CI/CD</title>
         <pubTime>2016-05-19T12:04:35.000Z</pubTime>
         
-        <tag>Agile</tag>
-         
         <tag>DevOps</tag>
+         
+        <tag>Agile</tag>
          
          
            
@@ -338,32 +418,6 @@
            
              
               <breadCrumb title="工具" url="https://www.duyidong.com/categories/%E5%B7%A5%E5%85%B7/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://www.duyidong.com/2016/10/24/%E9%83%A8%E7%BD%B2%E5%92%8C%E5%8F%91%E5%B8%83%E7%AD%96%E7%95%A5%E7%9A%84%E6%BC%94%E8%BF%9B/</loc>
-    <lastmod>2017-05-04T12:33:53.000Z</lastmod>
-    <data>
-        <display>
-        <title>部署和发布策略的演进</title>
-        <pubTime>2016-10-24T06:30:20.000Z</pubTime>
-        
-        <tag>DevOps</tag>
-         
-        <tag>持续交付</tag>
-         
-        <tag>部署与发布</tag>
-         
-        <tag>持续部署</tag>
-         
-         
-           
-             
-              <breadCrumb title="持续交付" url="https://www.duyidong.com/categories/%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98/"/>
           
         </display>
     </data>
@@ -594,9 +648,9 @@
         
         <tag>AWS</tag>
          
-        <tag>DevOps</tag>
-         
         <tag>基础设施即代码</tag>
+         
+        <tag>DevOps</tag>
          
          
            
@@ -657,38 +711,6 @@
 
     
   <url>
-    <loc>https://www.duyidong.com/2017/03/20/Enable-HTTPS-and-CDN-with-Cloudfront/</loc>
-    <lastmod>2017-05-04T12:25:32.000Z</lastmod>
-    <data>
-        <display>
-        <title>使用AWS解锁HTTPS和CDN</title>
-        <pubTime>2017-03-20T12:23:37.000Z</pubTime>
-        
-        <tag>AWS</tag>
-         
-        <tag>Blog</tag>
-         
-        <tag>HTTPS</tag>
-         
-        <tag>CDN</tag>
-         
-        <tag>Cloudfront</tag>
-         
-        <tag>Route53</tag>
-         
-        <tag>博客上云</tag>
-         
-         
-           
-             
-              <breadCrumb title="我的博客" url="https://www.duyidong.com/categories/%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://www.duyidong.com/2017/03/07/Deploy-Hexo-to-S3/</loc>
     <lastmod>2017-05-04T12:25:18.000Z</lastmod>
     <data>
@@ -729,28 +751,6 @@
         <tag>Security</tag>
          
         <tag>IAM</tag>
-         
-         
-           
-             
-              <breadCrumb title="Amazon Web Services" url="https://www.duyidong.com/categories/Amazon-Web-Services/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://www.duyidong.com/2017/02/28/AWS-Services-Overview/</loc>
-    <lastmod>2017-05-04T12:24:56.000Z</lastmod>
-    <data>
-        <display>
-        <title>Amazon Web Server 服务概览</title>
-        <pubTime>2017-02-28T06:55:01.000Z</pubTime>
-        
-        <tag>AWS</tag>
-         
-        <tag>云计算</tag>
          
          
            

@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.duyidong.com/"/>
-  <updated>2017-05-05T07:55:08.000Z</updated>
+  <updated>2017-05-13T03:20:15.000Z</updated>
   <id>https://www.duyidong.com/</id>
   
   <author>
@@ -14,6 +14,167 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>中文文档写作规范</title>
+    <link href="https://www.duyidong.com/2017/05/13/chinese-document-style/"/>
+    <id>https://www.duyidong.com/2017/05/13/chinese-document-style/</id>
+    <published>2017-05-13T02:16:18.000Z</published>
+    <updated>2017-05-13T03:20:15.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>作为一名程序员，良好的文风和良好的编程习惯同样重要。<br>作为一名中国区开发者，不得不面对国内技术滞后英文国家的事实，许多中文文档都翻译自英文。平时参加一些技术类分享的活动时，PPT，文档，README都要用中英文写，常常会很困惑一些格式如何排版比较合理，一些措辞是否适合相应场合，最近读到阮一峰老师的<a href="http://www.ruanyifeng.com/blog/2016/10/document_style_guide.html" target="_blank" rel="external">中文技术文档的写作规范</a>，当即认定是一份答疑解惑的好材料，笔者认为，不止适用于技术文档，博客，胶片，都可参考。<br><a id="more"></a></p>
+<h2 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h2><p>标题分为四级</p>
+<pre><code> 一级标题：文章的标题
+
+ 二级标题：文章主要部分的大标题
+
+ 三级标题：二级标题下面一级的小标题
+
+ 四级标题：三级标题下面某一方面的小标题
+</code></pre><p>这里主要区分一级标题通常作为文章的标题，而文章大纲类标题宜使用二级标题。<br>另外，尽量避免单个标题的情况，谨慎使用四级标题</p>
+<h2 id="文本"><a href="#文本" class="headerlink" title="文本"></a>文本</h2><h3 id="字间距"><a href="#字间距" class="headerlink" title="字间距"></a>字间距</h3><ul>
+<li>全角中文字符与半角英文字符之间，应有一个半角空格。</li>
+</ul>
+<pre><code>示例：本文介绍如何快速启动 Windows 系统。
+</code></pre><ul>
+<li>全角中文字符与半角阿拉伯数字之间，不需要有半角空格，必须保证风格统一。</li>
+</ul>
+<pre><code>示例：2011年5月15日，我订购了5台笔记本电脑与10台平板电脑。
+</code></pre><ul>
+<li>英文单位若不翻译，单位前的阿拉伯数字与单位间不留空格。</li>
+</ul>
+<pre><code>示例：一部容量为 16GB 的智能手机
+</code></pre><ul>
+<li>半角英文字符和半角阿拉伯数字，与全角标点符号之间不留空格。</li>
+</ul>
+<pre><code>示例：他的电脑是 MacBook Air。
+</code></pre><p>中英文数字夹杂的情况，原则上应该让字间距显得紧凑，同时英文单词字间距规则优先。这样的排版即不张扬又不局促。</p>
+<h3 id="写作风格"><a href="#写作风格" class="headerlink" title="写作风格"></a>写作风格</h3><ul>
+<li>尽量不使用被动语态，改为使用主动语态。</li>
+</ul>
+<pre><code>错误：假如此软件尚未被安装，
+
+正确：假如尚未安装这个软件，
+</code></pre><ul>
+<li>不使用非正式的语言风格。</li>
+<li>用对“的”、“地”、“得”。</li>
+<li>使用代词时（比如“其”、“该”、“此”、“这”等词），必须明确指代的内容，保证只有一个含义。</li>
+<li>名词前不要使用过多的形容词。</li>
+<li>同样一个意思，尽量使用肯定句表达，不使用否定句表达。</li>
+</ul>
+<pre><code>错误：请确认没有接通装置的电源。
+
+正确：请确认装置的电源已关闭。
+</code></pre><ul>
+<li>避免使用双重否定句。</li>
+</ul>
+<pre><code>错误：没有删除权限的用户，不能删除此文件。
+
+正确：用户必须拥有删除权限，才能删除此文件
+</code></pre><p>写作风格中除了一些中学老师教过的语法错误不要犯，另外就是注意表达的简洁，准确；少用形容词，避免使用否定句，不用被动语态，都是为了达到逻辑简单，阅读流畅的目的，这一点在音译汉的时候尤其值得注意。</p>
+<h3 id="英文处理"><a href="#英文处理" class="headerlink" title="英文处理"></a>英文处理</h3><ul>
+<li>第一次出现英文词汇时，在括号中给出中文标注。此后再次出现时，直接使用英文缩写即可。</li>
+</ul>
+<pre><code>IOC（International Olympic Committee，国际奥林匹克委员会）。这样定义后，便可以直接使用“IOC”了。
+</code></pre><ul>
+<li>专有名词中每个词第一个字母均应大写，非专有名词则不需要大写</li>
+</ul>
+<pre><code>“American Association of Physicists in Medicine”（美国医学物理学家协会）是专有名词，需要大写。
+
+“online transaction processing”（在线事务处理）不是专有名词，不应大写。
+</code></pre><p>英文处理除了排版问题就是大小写（容易被忽略），另外批注虽然麻烦，但是对初次接触此类技术的人来说是非常有实用价值的。</p>
+<h2 id="段落"><a href="#段落" class="headerlink" title="段落"></a>段落</h2><ul>
+<li>一个段落只能有一个主题，或一个中心句子。</li>
+<li>段落的中心句子放在段首，对全段内容进行概述。后面陈述的句子为核心句服务。</li>
+<li>段落的句子语气要使用陈述和肯定语气，避免使用感叹语气。</li>
+<li>段落之间使用一个空行隔开。</li>
+<li>段落开头不要留出空白字符。</li>
+<li>使用外部图片时，必须在图片下方或文末标明来源。</li>
+</ul>
+<pre><code>示例：本文部分图片来自 Wikipedia
+</code></pre><p>图片来源一事，常常被忽略，值得注意。每段文字采用总分结构，是为了便于读者迅速理解作者表达的意思，说话的时候也可以借鉴，对于意图明确的对话场景，先表态，再阐述，会让听的人更容易听懂。</p>
+<h2 id="数值"><a href="#数值" class="headerlink" title="数值"></a>数值</h2><h3 id="货币"><a href="#货币" class="headerlink" title="货币"></a>货币</h3><ul>
+<li>货币应为阿拉伯数字，并在数字前写出货币符号，或在数字后写出货币中文名称。</li>
+</ul>
+<pre><code>$1,000
+1,000 美元
+</code></pre><h3 id="变化程度的表示法"><a href="#变化程度的表示法" class="headerlink" title="变化程度的表示法"></a>变化程度的表示法</h3><p>数字的增加要使用“增加了”、“增加到”。“了”表示增量，“到”表示定量。</p>
+<pre><code>增加到过去的两倍
+（过去为一，现在为二）
+
+增加了两倍
+（过去为一，现在为三）
+</code></pre><p>数字的减少要使用“降低了”、“降低到”。“了”表示增量，“到”表示定量。</p>
+<pre><code>降低到百分之八十
+（定额是一百，现在是八十）
+
+降低了百分之八十
+（原来是一百，现在是二十）
+</code></pre><p>不能用“降低N倍”或“减少N倍”的表示法，要用“降低百分之几”或“减少百分之几”。因为减少（或降低）一倍表示数值原来为一百，现在等于零。</p>
+<h2 id="标点符号"><a href="#标点符号" class="headerlink" title="标点符号"></a>标点符号</h2><ul>
+<li>中文语句中的结尾处应该用全角句号（<code>。</code>）。</li>
+<li>句子内部的并列词，应该用全角顿号(<code>、</code>) 分隔，而不用逗号。英文句子中，并列词语之间使用半角逗号（<code>,</code>）分隔。</li>
+<li>补充说明时，使用<strong>全角</strong>圆括号<code>（）</code>，括号前后不加空格。</li>
+<li>省略号<code>……</code>表示语句未完、或者语气的不连续。它占两个汉字空间、包含六个省略点，不要使用<code>。。。</code>或<code>...</code>等非标准形式。省略号不应与“等”这个词一起使用.</li>
+<li>数值范围（例如日期、时间或数字）应该使用波浪连接号（<code>～</code>），占一个全角字符的位置。</li>
+</ul>
+<pre><code>示例：2009 年～2011 年
+</code></pre><p><strong>注意</strong>，波浪连接号前后两个值都应该加上单位。</p>
+<h2 id="文档体系结构"><a href="#文档体系结构" class="headerlink" title="文档体系结构"></a>文档体系结构</h2><p>以下内容适用于代码文档。</p>
+<h3 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h3><p>软件手册是一部完整的书，建议采用下面的结构。</p>
+<ul>
+<li><strong>简介</strong>（Introduction）： [必备] [文件] 提供对产品和文档本身的总体的、扼要的说明</li>
+<li><strong>快速上手</strong>（Getting Started）：[可选] [文件] 如何最快速地使用产品</li>
+<li><strong>入门篇</strong>（Basics）： [必备] [目录] 又称”使用篇“，提供初级的使用教程<ul>
+<li><strong>环境准备</strong>（Prerequisite）：[必备] [文件] 软件使用需要满足的前置条件</li>
+<li><strong>安装</strong>（Installation）：[可选] [文件] 软件的安装方法</li>
+<li><strong>设置</strong>（Configuration）：[必备] [文件] 软件的设置</li>
+</ul>
+</li>
+<li><strong>进阶篇</strong>（Advanced)：[可选] [目录] 又称”开发篇“，提供中高级的开发教程</li>
+<li><strong>API</strong>（Reference）：[可选] [目录|文件] 软件 API 的逐一介绍</li>
+<li><strong>FAQ</strong>：[可选] [文件] 常见问题解答</li>
+<li><strong>附录</strong>（Appendix）：[可选] [目录] 不属于教程本身、但对阅读教程有帮助的内容<ul>
+<li><strong>Glossary</strong>：[可选] [文件] 名词解释</li>
+<li><strong>Recipes</strong>：[可选] [文件] 最佳实践</li>
+<li><strong>Troubleshooting</strong>：[可选] [文件] 故障处理</li>
+<li><strong>ChangeLog</strong>：[可选] [文件] 版本说明</li>
+<li><strong>Feedback</strong>：[可选] [文件] 反馈方式</li>
+</ul>
+</li>
+</ul>
+<h3 id="文件名"><a href="#文件名" class="headerlink" title="文件名"></a>文件名</h3><p>文件名必须使用半角字符，不得使用全角字符。这也意味着，中文不能用于文件名。</p>
+<pre><code>错误： 名词解释.md
+
+正确： glossary.md
+</code></pre><p>文件名建议只使用小写字母，不使用大写字母。</p>
+<pre><code>错误：TroubleShooting.md
+
+正确：troubleshooting.md
+</code></pre><p>为了醒目，某些说明文件的文件名，可以使用大写字母，比如<code>README</code>、<code>LICENSE</code>。</p>
+<p>文件名包含多个单词时，单词之间建议使用半角的连词线（<code>-</code>）分隔。</p>
+<pre><code>不佳：advanced_usage.md
+
+正确：advanced-usage.md
+</code></pre><blockquote>
+<ul>
+<li>参考资料：<a href="https://github.com/ruanyf/document-style-guide" target="_blank" rel="external">https://github.com/ruanyf/document-style-guide</a></li>
+</ul>
+</blockquote>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;作为一名程序员，良好的文风和良好的编程习惯同样重要。&lt;br&gt;作为一名中国区开发者，不得不面对国内技术滞后英文国家的事实，许多中文文档都翻译自英文。平时参加一些技术类分享的活动时，PPT，文档，README都要用中英文写，常常会很困惑一些格式如何排版比较合理，一些措辞是否适合相应场合，最近读到阮一峰老师的&lt;a href=&quot;http://www.ruanyifeng.com/blog/2016/10/document_style_guide.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;中文技术文档的写作规范&lt;/a&gt;，当即认定是一份答疑解惑的好材料，笔者认为，不止适用于技术文档，博客，胶片，都可参考。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="我的博客" scheme="https://www.duyidong.com/categories/%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2/"/>
+    
+    
+      <category term="文档规范" scheme="https://www.duyidong.com/tags/%E6%96%87%E6%A1%A3%E8%A7%84%E8%8C%83/"/>
+    
+  </entry>
   
   <entry>
     <title>云原生应用 (Cloud Native Application)</title>
@@ -990,9 +1151,9 @@ feedback，开放式协作
     
       <category term="Cloud Native" scheme="https://www.duyidong.com/tags/Cloud-Native/"/>
     
-      <category term="架构" scheme="https://www.duyidong.com/tags/%E6%9E%B6%E6%9E%84/"/>
-    
       <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
+    
+      <category term="架构" scheme="https://www.duyidong.com/tags/%E6%9E%B6%E6%9E%84/"/>
     
   </entry>
   
@@ -1901,7 +2062,7 @@ ZQ 不保存退出
     
     <summary type="html">
     
-      &lt;p&gt;原文链接: &lt;a href=&quot;http://martinfowler.com/bliki/SnowflakeServer.html&quot;&gt;http://martinfowler.com/bliki/SnowflakeServer.html&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;原文链接: &lt;a href=&quot;http://martinfowler.com/bliki/SnowflakeServer.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://martinfowler.com/bliki/SnowflakeServer.html&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;保持生产环境服务器正常运行可能是一件非常繁琐的事，你必须保证你的操作系统和应用运行的环境被及时的修补以确保是最新版本。被托管的应用需要被经常升级。应用所处的环境也需要实时调整来配合应用有效运行即与其他系统正常通信。这些操作都依赖于命令行，GUI，或者编辑配置文件。&lt;br&gt;
     
     </summary>
@@ -1939,7 +2100,7 @@ ZQ 不保存退出
     
     <summary type="html">
     
-      &lt;p&gt;原文链接： &lt;a href=&quot;http://martinfowler.com/bliki/PhoenixServer.html&quot;&gt;http://martinfowler.com/bliki/PhoenixServer.html&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;原文链接： &lt;a href=&quot;http://martinfowler.com/bliki/PhoenixServer.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://martinfowler.com/bliki/PhoenixServer.html&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;有一天我突然幻想一个验证运营的服务，这个服务就是我如果跑去把公司的数据中心关掉，这毫无疑问将至我们公司的产品服务于危机之中，而这个服务的评定标准则是运营图团队需要花费多少时间能让我们的产品应用重新恢复正常。&lt;br&gt;
     
     </summary>
@@ -2093,81 +2254,6 @@ ZQ 不保存退出
     
     
       <category term="AWS" scheme="https://www.duyidong.com/tags/AWS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>2016八月学习小计</title>
-    <link href="https://www.duyidong.com/2016/09/01/2016%E5%85%AB%E6%9C%88%E5%AD%A6%E4%B9%A0%E5%B0%8F%E8%AE%A1/"/>
-    <id>https://www.duyidong.com/2016/09/01/2016八月学习小计/</id>
-    <published>2016-09-01T11:27:38.000Z</published>
-    <updated>2017-05-04T12:23:41.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>基本上讲，这两个月一直都在写文档，做PPT，提升所谓Consultant能力。<br>除此之外比较系统地学习了Shell和一些Linux有关的知识，自认为自身短板还是在技术上。</p>
-<a id="more"></a>
-<p>个人觉得以下分析问题的方式还是比较面向过程和面向任务，比较适合团队Retro，并不是很适合做自我总结。不过还是想试一下。</p>
-<h2 id="内容回顾"><a href="#内容回顾" class="headerlink" title="内容回顾"></a>内容回顾</h2><h3 id="Technique"><a href="#Technique" class="headerlink" title="Technique"></a>Technique</h3><ul>
-<li>Shell(Done)</li>
-<li>Linux(In porgress)</li>
-</ul>
-<h3 id="Commuity"><a href="#Commuity" class="headerlink" title="Commuity"></a>Commuity</h3><ul>
-<li>Shell Workshop(Done)</li>
-<li>搜集整理团队资料(In porgress)</li>
-</ul>
-<h3 id="LeaderShip"><a href="#LeaderShip" class="headerlink" title="LeaderShip"></a>LeaderShip</h3><ul>
-<li>CAT release standard(In porgress)</li>
-<li>Take wish wall job</li>
-</ul>
-<h3 id="Workflow"><a href="#Workflow" class="headerlink" title="Workflow"></a>Workflow</h3><ul>
-<li>Confulunce</li>
-<li>DevOps Onboarding Guilde(Done)</li>
-<li>看完了《持续交付》和《敏捷故事》</li>
-</ul>
-<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>总的来说过去两个月值得记住的事太少了，唯一觉得有所收获的就是学了下shell，在每个维度上的学习都不够深入，主要还是精力太分散所致，DevOps确实有很多坑，比如说你不能像做开发一样专注于一件事，但好处是你可以从更宏观的角度来看一个项目，应该说做事情的节奏是可以自己调整的，能从整体架构的角度看问题还是比较令人兴奋的。但是，目前来说中心偏离了技术，就偏离我的意愿了。<br>其实还有比较困惑的点是自己思维方式的能力，思维方式肯定不是以多为好，我们总是会为一个新观点感到醍醐灌顶，但是总会有新的新观点让我们的思考被颠覆，但我们依然不能放弃追逐真理。。恩。<br>那些很牛逼的人，并不是脑子转的有多快，而是你问他的问题他以前就思考过了，甚至回答过别人了，甚至参考过别人的回答，甚至将自己的答案发表过，在网上和别人激烈的讨论过，所以当你刚刚开始思考这个问题的时候他已经有了比较自信也比较完整的答案。他不是比你聪明，只是走在了你前面。<br>那么如何成为一个比较聪明的人呢？</p>
-<ul>
-<li>在别人遇到问题之前先发现问题</li>
-<li>反复咀嚼遇到过的问题</li>
-<li>记住你的解决方案，并帮助身边的人解决同样的问题 </li>
-</ul>
-<p>这样的成长轨迹很容易应用于技术领域，事实上一个程序员的成长很多就是按照这样的轨迹来的，但是如果把这个本领用于咨询，就变得困难了许多，因为描述问题本身就是一个问题，就跟早期的机器学习算法的建模一样，模型建的号，机器算法就优，技术领域的问题被封闭的语境限制着，所以能够有明确的答案，所以咨询的难点就变成了语境的建立和同一，比如“敏捷”，“精益”，一说这个语境，就好比技术上讲一个框架，这种方式适用于什么样的场景，有哪些优劣，一下就有了，我们在语境下的讨论就会变得有着落，明确，保证了沟通的效率。<br>回到学习能力建设的问题上来吧，虽然我们说没有一个确定的标准来构建你的知识体系，但是冥冥之中每个人都是有自己的standard的，比如说你至少认为人有理性和感性两个向量，比如说你认同三维比二维能更清楚地描述问题。<br>所以标准的建立有助于问题的分析和思考。</p>
-<h3 id="Well"><a href="#Well" class="headerlink" title="Well"></a>Well</h3><ul>
-<li>Bash workshop做的还不错</li>
-<li>对项目架构有了进一步认识</li>
-<li>对敏捷的工作方式更加熟悉了</li>
-<li>看问题的角度从一个开发提升到架构的层面</li>
-</ul>
-<h3 id="Lesswell"><a href="#Lesswell" class="headerlink" title="Lesswell"></a>Lesswell</h3><ul>
-<li>太久不写代码，感觉都要生疏了</li>
-<li>一直在写Document，做PPT，感觉没有在做有价值的工作。</li>
-<li>思维方式和思考能力并没有提高，只是换了个看问题的的角度</li>
-</ul>
-<h3 id="Suggestion"><a href="#Suggestion" class="headerlink" title="Suggestion"></a>Suggestion</h3><ul>
-<li>如果可能的话，希望多集中精力在技术上一点的成长</li>
-<li>希望自己的文档和思维方式更加结构化，可以在几种结构之间切换，但是得变得容易被人理解，容易传播，最好是发人深省</li>
-<li>多看书，看书，看书</li>
-</ul>
-<h2 id="Action"><a href="#Action" class="headerlink" title="Action"></a>Action</h2><h3 id="Role-Map"><a href="#Role-Map" class="headerlink" title="Role-Map"></a>Role-Map</h3><h3 id="Todo-list"><a href="#Todo-list" class="headerlink" title="Todo-list"></a>Todo-list</h3><p>下个月的学习计划主要是考取AWS认证，看几本书，以及尽快完成release standard</p>
-<ul>
-<li>AWS认证： 多看几篇文档，希望能够产出几篇博客</li>
-<li>关于看书，主要是在TWI之前，希望能把手里的两本看完，产出Session吧</li>
-<li>关于Release Standard，尽量在本周内完成</li>
-<li>git,Linux</li>
-<li>凤凰式部署</li>
-</ul>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;基本上讲，这两个月一直都在写文档，做PPT，提升所谓Consultant能力。&lt;br&gt;除此之外比较系统地学习了Shell和一些Linux有关的知识，自认为自身短板还是在技术上。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="学习总结" scheme="https://www.duyidong.com/categories/%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/"/>
-    
-    
-      <category term="学习" scheme="https://www.duyidong.com/tags/%E5%AD%A6%E4%B9%A0/"/>
-    
-      <category term="小计" scheme="https://www.duyidong.com/tags/%E5%B0%8F%E8%AE%A1/"/>
     
   </entry>
   

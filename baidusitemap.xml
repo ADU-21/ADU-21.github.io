@@ -4,6 +4,114 @@
 
     
   <url>
+    <loc>https://www.duyidong.com/2016/03/29/%E6%8E%A8%E8%8D%90%E5%87%A0%E4%B8%AA%E5%AD%A6%E4%B9%A0python%E8%BF%98%E4%B8%8D%E9%94%99%E7%9A%84%E7%BD%91%E7%AB%99/</loc>
+    <lastmod>2017-05-15T05:32:56.000Z</lastmod>
+    <data>
+        <display>
+        <title>推荐几个学习Python还不错的网站</title>
+        <pubTime>2016-03-29T13:16:04.000Z</pubTime>
+        
+        <tag>学习</tag>
+         
+        <tag>Python</tag>
+         
+         
+           
+             
+              <breadCrumb title="Python" url="https://www.duyidong.com/categories/Python/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2016/04/13/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/</loc>
+    <lastmod>2017-05-15T05:31:36.000Z</lastmod>
+    <data>
+        <display>
+        <title>单元测试</title>
+        <pubTime>2016-04-13T12:25:47.000Z</pubTime>
+        
+        <tag>Python</tag>
+         
+        <tag>TDD</tag>
+         
+         
+           
+             
+              <breadCrumb title="Python" url="https://www.duyidong.com/categories/Python/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2016/04/02/%E5%85%B3%E4%BA%8E%E7%88%AC%E8%99%AB%E4%BD%A0%E4%B8%8D%E5%BE%97%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84%E5%87%A0%E4%B8%AA%E5%BA%93/</loc>
+    <lastmod>2017-05-15T05:31:29.000Z</lastmod>
+    <data>
+        <display>
+        <title>关于爬虫你不得不知道的几个库</title>
+        <pubTime>2016-04-02T02:21:33.000Z</pubTime>
+        
+        <tag>Python</tag>
+         
+        <tag>爬虫</tag>
+         
+         
+           
+             
+              <breadCrumb title="Python" url="https://www.duyidong.com/categories/Python/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2016/04/02/Python%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8%E5%B0%8F%E6%8A%80%E5%B7%A7/</loc>
+    <lastmod>2017-05-15T05:31:19.000Z</lastmod>
+    <data>
+        <display>
+        <title>Python函数调用小技巧</title>
+        <pubTime>2016-04-02T01:54:08.000Z</pubTime>
+        
+        <tag>Python</tag>
+         
+         
+           
+             
+              <breadCrumb title="Python" url="https://www.duyidong.com/categories/Python/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2016/03/29/Python%E4%BB%A3%E7%A0%81%E4%BC%98%E5%8C%96%E5%B0%8F%E6%8A%80%E5%B7%A7/</loc>
+    <lastmod>2017-05-15T05:31:12.000Z</lastmod>
+    <data>
+        <display>
+        <title>Python代码优化小技巧</title>
+        <pubTime>2016-03-29T12:26:33.000Z</pubTime>
+        
+        <tag>Python</tag>
+         
+        <tag>代码</tag>
+         
+         
+           
+             
+              <breadCrumb title="Python" url="https://www.duyidong.com/categories/Python/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://www.duyidong.com/2016/10/24/%E9%83%A8%E7%BD%B2%E5%92%8C%E5%8F%91%E5%B8%83%E7%AD%96%E7%95%A5%E7%9A%84%E6%BC%94%E8%BF%9B/</loc>
     <lastmod>2017-05-13T12:37:41.000Z</lastmod>
     <data>
@@ -271,72 +379,6 @@
 
     
   <url>
-    <loc>https://www.duyidong.com/2016/03/29/Python%E4%BB%A3%E7%A0%81%E4%BC%98%E5%8C%96%E5%B0%8F%E6%8A%80%E5%B7%A7/</loc>
-    <lastmod>2017-05-04T12:44:38.000Z</lastmod>
-    <data>
-        <display>
-        <title>Python代码优化小技巧</title>
-        <pubTime>2016-03-29T12:26:33.000Z</pubTime>
-        
-        <tag>Python</tag>
-         
-        <tag>代码</tag>
-         
-         
-           
-             
-              <breadCrumb title="学习总结" url="https://www.duyidong.com/categories/%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://www.duyidong.com/2016/04/02/%E5%85%B3%E4%BA%8E%E7%88%AC%E8%99%AB%E4%BD%A0%E4%B8%8D%E5%BE%97%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84%E5%87%A0%E4%B8%AA%E5%BA%93/</loc>
-    <lastmod>2017-05-04T12:44:08.000Z</lastmod>
-    <data>
-        <display>
-        <title>关于爬虫你不得不知道的几个库</title>
-        <pubTime>2016-04-02T02:21:33.000Z</pubTime>
-        
-        <tag>Python</tag>
-         
-        <tag>爬虫</tag>
-         
-         
-           
-             
-              <breadCrumb title="学习总结" url="https://www.duyidong.com/categories/%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://www.duyidong.com/2016/04/13/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/</loc>
-    <lastmod>2017-05-04T12:43:36.000Z</lastmod>
-    <data>
-        <display>
-        <title>单元测试</title>
-        <pubTime>2016-04-13T12:25:47.000Z</pubTime>
-        
-        <tag>Python</tag>
-         
-        <tag>TDD</tag>
-         
-         
-           
-             
-              <breadCrumb title="学习总结" url="https://www.duyidong.com/categories/%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://www.duyidong.com/2016/04/17/%E4%B8%80%E6%AC%A1%E5%AE%8C%E6%95%B4%E7%9A%84HTTP%E4%BA%8B%E5%8A%A1%E6%98%AF%E6%80%8E%E6%A0%B7%E4%B8%80%E4%B8%AA%E8%BF%87%E7%A8%8B%EF%BC%9F/</loc>
     <lastmod>2017-05-04T12:43:24.000Z</lastmod>
     <data>
@@ -511,28 +553,6 @@
 
     
   <url>
-    <loc>https://www.duyidong.com/2016/03/29/%E6%8E%A8%E8%8D%90%E5%87%A0%E4%B8%AA%E5%AD%A6%E4%B9%A0python%E8%BF%98%E4%B8%8D%E9%94%99%E7%9A%84%E7%BD%91%E7%AB%99/</loc>
-    <lastmod>2017-05-04T12:31:17.000Z</lastmod>
-    <data>
-        <display>
-        <title>推荐几个学习Python还不错的网站</title>
-        <pubTime>2016-03-29T13:16:04.000Z</pubTime>
-        
-        <tag>学习</tag>
-         
-        <tag>Python</tag>
-         
-         
-           
-             
-              <breadCrumb title="学习总结" url="https://www.duyidong.com/categories/%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://www.duyidong.com/2016/11/11/%E4%B8%80%E5%8F%A5%E8%AF%9D%E4%BB%8B%E7%BB%8DDevOps%E6%98%AF%E5%81%9A%E4%BB%80%E4%B9%88%E7%9A%84/</loc>
     <lastmod>2017-05-04T12:30:06.000Z</lastmod>
     <data>
@@ -587,26 +607,6 @@
         <tag>小结</tag>
          
         <tag>ThoughtWorks</tag>
-         
-         
-           
-             
-              <breadCrumb title="学习总结" url="https://www.duyidong.com/categories/%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://www.duyidong.com/2016/04/02/Python%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8%E5%B0%8F%E6%8A%80%E5%B7%A7/</loc>
-    <lastmod>2017-05-04T12:28:59.000Z</lastmod>
-    <data>
-        <display>
-        <title>Python函数调用小技巧</title>
-        <pubTime>2016-04-02T01:54:08.000Z</pubTime>
-        
-        <tag>Python</tag>
          
          
            

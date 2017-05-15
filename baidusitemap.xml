@@ -3,7 +3,6 @@
 
 
     
-    
   <url>
     <loc>https://www.duyidong.com/2016/03/29/%E6%8E%A8%E8%8D%90%E5%87%A0%E4%B8%AA%E5%AD%A6%E4%B9%A0python%E8%BF%98%E4%B8%8D%E9%94%99%E7%9A%84%E7%BD%91%E7%AB%99/</loc>
     <lastmod>2017-05-15T05:32:56.000Z</lastmod>
@@ -120,9 +119,9 @@
         <title>部署和发布策略的演进</title>
         <pubTime>2016-10-24T06:30:20.000Z</pubTime>
         
-        <tag>DevOps</tag>
-         
         <tag>持续交付</tag>
+         
+        <tag>DevOps</tag>
          
         <tag>部署与发布</tag>
          
@@ -273,11 +272,11 @@
         
         <tag>Cloud</tag>
          
-        <tag>基础设施即代码</tag>
-         
         <tag>Infrastructure as Code</tag>
          
         <tag>ThoughtWorks技术雷达</tag>
+         
+        <tag>基础设施即代码</tag>
          
         <tag>持续交付</tag>
          
@@ -301,9 +300,9 @@
         
         <tag>工具</tag>
          
-        <tag>DevOps</tag>
-         
         <tag>基础设施即代码</tag>
+         
+        <tag>DevOps</tag>
          
         <tag>Ansible</tag>
          
@@ -649,9 +648,9 @@
         
         <tag>AWS</tag>
          
-        <tag>DevOps</tag>
-         
         <tag>基础设施即代码</tag>
+         
+        <tag>DevOps</tag>
          
          
            

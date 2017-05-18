@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.duyidong.com/"/>
-  <updated>2017-05-13T09:51:01.000Z</updated>
+  <updated>2017-05-18T14:58:25.000Z</updated>
   <id>https://www.duyidong.com/</id>
   
   <author>
@@ -14,6 +14,116 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>DevOps 技能树</title>
+    <link href="https://www.duyidong.com/2017/05/18/DevOps-skill-tree/"/>
+    <id>https://www.duyidong.com/2017/05/18/DevOps-skill-tree/</id>
+    <published>2017-05-18T08:30:47.000Z</published>
+    <updated>2017-05-18T14:58:25.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>DevOps 是什么，在这些年的争论中似乎总难用一句话概括清楚，但随着技术社区、公司的努力和一些理念越来越多的被人们实践，这个概念已经变得越来越清晰。<br>最近成都 Cloud &amp; DevOps 社区整理了一个 DevOps 技能树，很有意思。对研究 DevOps 而言，提供了一个不错的视角；对 DevOps 领域从业人员而言，可以做个自我定位和学习方向的参考。</p>
+<blockquote>
+<p>You build it, you run it.</p>
+<p style="text-align:right">—— Amazon CTO：Werner Vogels</p>
+
+</blockquote>
+<h1 id="社区技能树"><a href="#社区技能树" class="headerlink" title="社区技能树"></a>社区技能树</h1><p><center><strong>成都 Cloud &amp; DevOps Community 能力树</strong></center><br><img src="/images/Chengdu_DevOps_Community_Capability_tree.png" alt=""></p>
+<p>这个能力树基本根据大家平时的项目经验构成，大项分为两类，<strong>Best Practices （最佳实践）</strong>基本包含了平时做 session 或者 proposal 需要领悟的一些概念和实践，学习方法主要是翻阅国内外大牛的博客。<strong>Infrastructure &amp; Tools（基础设施和工具）</strong>是概念落地时需要的技术，学习方法主要是多用多练习，以及查阅文档。</p>
+<p>对着个基于工作内容构成的偏技术/实践落地的版本，我对照了一下企业招聘的要求，试图梳理出 DevOps 角色画像。</p>
+<h1 id="企业如何定义-DevOps-角色能力"><a href="#企业如何定义-DevOps-角色能力" class="headerlink" title="企业如何定义 DevOps 角色能力"></a>企业如何定义 DevOps 角色能力</h1><p>先来看看国内企业对 DevOps 的期望，以下是华为的招聘：</p>
+<pre><code>职位：DevOps运维专家
+
+1.计算机相关专业本科毕业，5年以上的工作经验。（大型互联网企业背景优先）；
+
+2.深入理解Linux操作系统、体系结构；
+
+3.优秀的的开发能力，熟悉常用的自动化运维工具；
+
+4.熟悉常用的持续集成工具；
+
+5.熟悉常用的监控工具（例如Nagios、Zabbix等）；
+
+6.熟悉常用数据库（例如MySQL, Oracle、MongoDB, Redis等）；
+
+7.认同并坚持“Automate Everything You Can”的原则，认同DevOps文化，在开
+源社群活跃并有积极贡献者优先。
+</code></pre><p>关键字：Linux、CI/CD工具、监控、数据库、自动化。<br>对于开发技能只是提了一句优秀的开发技能，但却没对开发技能做要求，可以预见招进去之后应该是不会让你做开发的，这个岗位基本上是一个工作内容包含 Pipeline 搭建的，懂自动化的<strong>运维</strong>角色。————这和我在国内项目的感受是一致的。</p>
+<p>再来看几家美国的外企：</p>
+<ul>
+<li><strong>Ericsson：</strong></li>
+</ul>
+<pre><code>Title：Solution Architect - Development Operations (DevOps)
+
+Experience with Groovy
+
+Experience with Jenkins and the Jenkins DSL plugin.
+
+Experience with Docker, Kubernetes, Vagrant
+
+Experience with Mesos.
+
+Experience with Plutora.
+
+Experience with OpenShift / appOrbit.
+
+Public cloud experience (such as AWS or Azure).
+
+Experience with Splunk, Sensu or ELK.
+
+Strong Linux system architecture experience (Red Hat/Centos/Debian/Ubuntu)
+
+Excellent analytical and creative problem solving skills.
+
+Independent / go - getter attitude to keep yourself well-versed with new evolving technologies in the DevOps landscape and be able to apply this knowledge to improve the software we are developing now or in future.
+</code></pre><p>关键词：CI/CD、容器编排、云、PaaS、日志/监控、方案解决。<br>这个职位更像一个方案解决架构师 + DevOps 的角色，这个招聘传达的需求十分明确，要有架构的知识，持续改进持续交付意识，以及解决问题的能力，而弱化了对传统运维（日志/监控）的技能的要求。</p>
+<ul>
+<li><strong>ThoughtWorks：</strong></li>
+</ul>
+<pre><code>Title: Infrastructure Developer (DevOps Champion)
+
+Experience with infrastructure as code / provisioning tools like Chef, Puppet or Ansible
+
+Experience with one or more of the structured major PaaS platforms such as CloudFoundry or OpenShift and understand their benefits and lacks in deploying and end-to-end continuous delivery pipeline
+
+Familiarity with Cloud Native Architecture principles and specific tooling and approaches to support high-availability architectures
+
+Understanding of the pros and cons of the key Continuous Integration tools like Go, TeamCity, Jenkins and Concourse
+
+Knowledge in the administration of application and web servers and servlet containers such as WebSphere, Apache Tomcat, Jetty, Nginx, Mongrel, Passenger, Microsoft ISS, etc.
+
+Extensive experience in scripting languages (golang, Shell, Ruby, Perl, Python, PowerShell, etc) and the SCM Tools like Git(Hub), SVN, Perforce and Mercurial
+
+Linux operating system management, operation and maintenance, and network-related knowledge
+
+Comfort with ambiguity and high level of flexibility
+
+High willingness to travel
+</code></pre><p>关键词：基础设施代码、PaaS、Cloud native、CI/CD、Platform、脚本语言（自动化）、Linux、愿意出差。<br>相比于前两个招聘，因为是咨询公司，看得出对技能的广度要求更多，同时技能偏向于基础设施代码编写，流水线搭建，过程优化，而更加弱化了运维（监控/日志都没有出现）。</p>
+<p>以上为挑选出来的比较典型的招聘启事，综合来看，对于 DevOps 这个角色达成一致的能力需求，包含了Linux、网络、CI/CD、自动化。除了一致的部分，国内和美国的招聘又有些不同，国内偏向运维，更加强调自动化；美国的企业对 DevOps 更要求架构能力（推测是因为贯彻了基础设施代码的概念），和过程优化的能力；过程优化的主要目的应该就是加速持续交付以支持业务连续性。</p>
+<h1 id="综上所述"><a href="#综上所述" class="headerlink" title="综上所述"></a>综上所述</h1><p>DevOps 的目的是消除 Dev 与 Ops 之间的部门墙，从而加速软件迭代的反馈周期，进而实现业务连续性；基于这一目的，诞生了许多最佳实践；配合这些最佳实践，又产生了许多工具用于项目管理，自动化，可视化等等。在云服务蓬勃发展的大背景下，又给 DevOps 赋予了基础设施代码化的使命。随着软件开发流程越来越成熟，迭代周期越来越快，对业务代码以外的东西（可以把它叫做软件开发的脚手架）的稳定性和易用性要求越来越高，所以诞生了一批以 Heroku、Cloud foundry、Openshift 为代表 PaaS 平台，慢慢在将 DevOps 的工作产品化，从而达到“零运维”或者“AI运维”的效果。<br>在漫长的演进史中，DevOps 用灵活的架构和更快的变化帮助企业 IT 响应着市场变化。<br>所以 DevOps 是什么？我认为 DevOps 并不是独自一人改变了软件设计开发流程，DevOps 更像是技术变革史上传统运维消失前的一朵浪花。</p>
+<blockquote>
+<ul>
+<li>招聘材料来源：猎聘，领英</li>
+<li>相关链接：<a href="https://www.duyidong.com/2016/11/11/%E4%B8%80%E5%8F%A5%E8%AF%9D%E4%BB%8B%E7%BB%8DDevOps%E6%98%AF%E5%81%9A%E4%BB%80%E4%B9%88%E7%9A%84/">一句话介绍DevOps是做什么的</a></li>
+</ul>
+</blockquote>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;DevOps 是什么，在这些年的争论中似乎总难用一句话概括清楚，但随着技术社区、公司的努力和一些理念越来越多的被人们实践，这个概念已经变得越来越清晰。&lt;br&gt;最近成都 Cloud &amp;amp; DevOps 社区整理了一个 DevOps 技能树，很有意思。对研究 DevOps
+    
+    </summary>
+    
+      <category term="DevOps" scheme="https://www.duyidong.com/categories/DevOps/"/>
+    
+    
+      <category term="职场" scheme="https://www.duyidong.com/tags/%E8%81%8C%E5%9C%BA/"/>
+    
+      <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
+    
+  </entry>
   
   <entry>
     <title>中文文档写作规范</title>
@@ -181,7 +291,7 @@
     <link href="https://www.duyidong.com/2017/05/03/Cloud-Native/"/>
     <id>https://www.duyidong.com/2017/05/03/Cloud-Native/</id>
     <published>2017-05-03T03:04:03.000Z</published>
-    <updated>2017-05-05T07:55:08.000Z</updated>
+    <updated>2017-05-18T14:58:29.000Z</updated>
     
     <content type="html"><![CDATA[<p>本文翻译自Pivotal的<a href="https://pivotal.io/cloud-native" target="_blank" rel="external">Cloud Native</a>。</p>
 <h2 id="更快部署，更低风险，和业务一同扩展"><a href="#更快部署，更低风险，和业务一同扩展" class="headerlink" title="更快部署，更低风险，和业务一同扩展"></a>更快部署，更低风险，和业务一同扩展</h2><p>云原生应用程序是专为云上的应用而设计的。这些应用程序通过小型专用功能团队实现快速构建和频繁部署，提供了轻松扩展和硬件解耦的平台，让组织更敏捷，更具有可扩展性和云端可移植性。</p>
@@ -2187,73 +2297,6 @@ ZQ 不保存退出
       <category term="部署与发布" scheme="https://www.duyidong.com/tags/%E9%83%A8%E7%BD%B2%E4%B8%8E%E5%8F%91%E5%B8%83/"/>
     
       <category term="持续部署" scheme="https://www.duyidong.com/tags/%E6%8C%81%E7%BB%AD%E9%83%A8%E7%BD%B2/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>AWS EC2是什么</title>
-    <link href="https://www.duyidong.com/2016/09/28/AWS-EC2/"/>
-    <id>https://www.duyidong.com/2016/09/28/AWS-EC2/</id>
-    <published>2016-09-28T06:53:34.000Z</published>
-    <updated>2017-05-04T12:26:43.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>Amazon Elastic Compulte Cloud(EC2)提供了可伸缩的计算资源，使你可以快速开发/部署你的应用，有了它你可以快速起一个应用，配置安全，网络，以及存储。他可以更灵活，更快地适应你对需求。</p>
-<a id="more"></a>
-<h2 id="EC2定义了以下规则"><a href="#EC2定义了以下规则" class="headerlink" title="EC2定义了以下规则"></a>EC2定义了以下规则</h2><ul>
-<li><strong>Instance:</strong> 虚拟计算环境</li>
-<li><strong>AMI(Amazon Machine Images):</strong> EC2环境的一个预配置</li>
-<li><strong>Instance type:</strong> instance的存储，CPU，内存，存储，网络，地位</li>
-<li><strong>Key pair:</strong> 用于安全登录你的instance（Amazon保存piublic key,你需要小心保存自己那份private key）</li>
-<li><strong>Instance store volumes:</strong> 临时存储数据，当你stop或者terminate你的机器的时候就会被删除</li>
-<li><strong>EBS(Amazon Elastic Block Store)</strong> 长期存储volume的数据</li>
-<li><strong>Regions AZ</strong> 给你的资源多个物理地址</li>
-<li><strong>Security Group</strong> 防火墙，用于定义通信策略，端口，可通信网段</li>
-<li><strong>Tags</strong> 元数据（metadata）可以与资源绑定</li>
-<li><p><strong>(VPCs)virtual private clouds</strong> 虚拟网络，你可以配置用于和你自己的网络通信</p>
-<p>AWS提倡的是低费用，只为你用到的服务买单，可伸缩，可测量，帮助你快速将资源和需求对应起来，灵活地run你的软件，让你可以将你的想法更快地实施到市场。</p>
-</li>
-</ul>
-<h2 id="学习AWS-EC2总共分几步："><a href="#学习AWS-EC2总共分几步：" class="headerlink" title="学习AWS EC2总共分几步："></a>学习AWS EC2总共分几步：</h2><h3 id="basics"><a href="#basics" class="headerlink" title="basics"></a>basics</h3><ul>
-<li>Instance and AMIs</li>
-<li>Regions and Availablity Zones</li>
-<li>Instance Types</li>
-<li>Tags</li>
-</ul>
-<h3 id="Networking-and-Security"><a href="#Networking-and-Security" class="headerlink" title="Networking and Security"></a>Networking and Security</h3><ul>
-<li>Amazon EC2 Key Pairs</li>
-<li>Security Groups</li>
-<li>Elastic IP Addresses</li>
-<li>Amazon EC2 and Amazon VPC</li>
-</ul>
-<h3 id="Storage"><a href="#Storage" class="headerlink" title="Storage"></a>Storage</h3><ul>
-<li>Amazon EBS</li>
-<li>Instance Store</li>
-</ul>
-<h2 id="和EC2有关的服务"><a href="#和EC2有关的服务" class="headerlink" title="和EC2有关的服务"></a>和EC2有关的服务</h2><ul>
-<li><strong>ELB（Elastic Load Balancing）</strong> 在不同的instance之间自动分发进来的请求</li>
-<li><strong>CloudWatch</strong> 实现监视器功能用于监控你的instance</li>
-<li><strong>CouldTrail</strong> 监控所有通向EC2的call，包括AWS console commandline tools以及其他服务</li>
-</ul>
-<h2 id="如何操作EC2资源"><a href="#如何操作EC2资源" class="headerlink" title="如何操作EC2资源"></a>如何操作EC2资源</h2><p><code>CLI</code> <code>PowerShell 工具</code><br>AWS提供接口为HTTP或者HTTPs的请求提供响应。可以在 <code>Amazon EC2 API Reference</code>里面设置响应（Action）<br>如果你想使用语言接入，AWS也提供SDK工具</p>
-<h2 id="付费方式"><a href="#付费方式" class="headerlink" title="付费方式"></a>付费方式</h2><p>可以按小时付费（大部分时候我们采用这种方式），也可以先预付一笔钱，然后保留一到三年，这样会比较便宜一些。还有竞价方式，这个不需要太了解。</p>
-<h2 id="Security-Best-Practice"><a href="#Security-Best-Practice" class="headerlink" title="Security Best Practice"></a>Security Best Practice</h2><ul>
-<li>使用IAM(AWS Identity and Access Management)控制AWS资源的访问权限</li>
-<li>设置Security Group用于仅允许信任的设备接入开放的端口</li>
-<li>经常review你的Security Group设置，确保你赋予了“最小可用权限”，为不同的网络需求创建不同的SG</li>
-<li>禁止密码登录</li>
-</ul>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;Amazon Elastic Compulte Cloud(EC2)提供了可伸缩的计算资源，使你可以快速开发/部署你的应用，有了它你可以快速起一个应用，配置安全，网络，以及存储。他可以更灵活，更快地适应你对需求。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Amazon Web Services" scheme="https://www.duyidong.com/categories/Amazon-Web-Services/"/>
-    
-    
-      <category term="AWS" scheme="https://www.duyidong.com/tags/AWS/"/>
     
   </entry>
   

@@ -4,6 +4,52 @@
 
     
   <url>
+    <loc>https://www.duyidong.com/2017/05/03/Cloud-Native/</loc>
+    <lastmod>2017-05-18T14:58:29.000Z</lastmod>
+    <data>
+        <display>
+        <title>云原生应用 (Cloud Native Application)</title>
+        <pubTime>2017-05-03T03:04:03.000Z</pubTime>
+        
+        <tag>Cloud Native</tag>
+         
+        <tag>Cloud</tag>
+         
+        <tag>翻译</tag>
+         
+         
+           
+             
+              <breadCrumb title="Cloud" url="https://www.duyidong.com/categories/Cloud/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2017/05/18/DevOps-skill-tree/</loc>
+    <lastmod>2017-05-18T14:58:25.000Z</lastmod>
+    <data>
+        <display>
+        <title>DevOps 技能树</title>
+        <pubTime>2017-05-18T08:30:47.000Z</pubTime>
+        
+        <tag>职场</tag>
+         
+        <tag>DevOps</tag>
+         
+         
+           
+             
+              <breadCrumb title="DevOps" url="https://www.duyidong.com/categories/DevOps/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://www.duyidong.com/2016/03/29/%E6%8E%A8%E8%8D%90%E5%87%A0%E4%B8%AA%E5%AD%A6%E4%B9%A0python%E8%BF%98%E4%B8%8D%E9%94%99%E7%9A%84%E7%BD%91%E7%AB%99/</loc>
     <lastmod>2017-05-15T05:32:56.000Z</lastmod>
     <data>
@@ -211,30 +257,6 @@
     </url>
 
     
-    
-  <url>
-    <loc>https://www.duyidong.com/2017/05/03/Cloud-Native/</loc>
-    <lastmod>2017-05-05T07:55:08.000Z</lastmod>
-    <data>
-        <display>
-        <title>云原生应用 (Cloud Native Application)</title>
-        <pubTime>2017-05-03T03:04:03.000Z</pubTime>
-        
-        <tag>Cloud Native</tag>
-         
-        <tag>Cloud</tag>
-         
-        <tag>翻译</tag>
-         
-         
-           
-             
-              <breadCrumb title="Cloud" url="https://www.duyidong.com/categories/Cloud/"/>
-          
-        </display>
-    </data>
-    </url>
-
     
   <url>
     <loc>https://www.duyidong.com/2017/03/23/AWS-well-architected-framework/</loc>

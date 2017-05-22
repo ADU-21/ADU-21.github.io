@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.duyidong.com/"/>
-  <updated>2017-05-18T14:58:25.000Z</updated>
+  <updated>2017-05-19T05:17:21.000Z</updated>
   <id>https://www.duyidong.com/</id>
   
   <author>
@@ -20,9 +20,9 @@
     <link href="https://www.duyidong.com/2017/05/18/DevOps-skill-tree/"/>
     <id>https://www.duyidong.com/2017/05/18/DevOps-skill-tree/</id>
     <published>2017-05-18T08:30:47.000Z</published>
-    <updated>2017-05-18T14:58:25.000Z</updated>
+    <updated>2017-05-19T05:17:21.000Z</updated>
     
-    <content type="html"><![CDATA[<p>DevOps 是什么，在这些年的争论中似乎总难用一句话概括清楚，但随着技术社区、公司的努力和一些理念越来越多的被人们实践，这个概念已经变得越来越清晰。<br>最近成都 Cloud &amp; DevOps 社区整理了一个 DevOps 技能树，很有意思。对研究 DevOps 而言，提供了一个不错的视角；对 DevOps 领域从业人员而言，可以做个自我定位和学习方向的参考。</p>
+    <content type="html"><![CDATA[<p>DevOps 是什么，在这些年的争论中似乎总难用一句话概括清楚，但随着技术社区、企业的推动和一些理念越来越多的被人们实践，这个概念已经变得越来越清晰。<br>最近成都 Cloud &amp; DevOps 社区整理了一个 DevOps 技能树，很有意思。对研究 DevOps 而言，提供了一个不错的视角；对 DevOps 领域从业人员而言，可以做个自我定位和学习方向的参考。</p>
 <blockquote>
 <p>You build it, you run it.</p>
 <p style="text-align:right">—— Amazon CTO：Werner Vogels</p>
@@ -49,7 +49,7 @@
 7.认同并坚持“Automate Everything You Can”的原则，认同DevOps文化，在开
 源社群活跃并有积极贡献者优先。
 </code></pre><p>关键字：Linux、CI/CD工具、监控、数据库、自动化。<br>对于开发技能只是提了一句优秀的开发技能，但却没对开发技能做要求，可以预见招进去之后应该是不会让你做开发的，这个岗位基本上是一个工作内容包含 Pipeline 搭建的，懂自动化的<strong>运维</strong>角色。————这和我在国内项目的感受是一致的。</p>
-<p>再来看几家美国的外企：</p>
+<p>再来看几家美国的企业招聘：</p>
 <ul>
 <li><strong>Ericsson：</strong></li>
 </ul>
@@ -112,7 +112,7 @@ High willingness to travel
     
     <summary type="html">
     
-      &lt;p&gt;DevOps 是什么，在这些年的争论中似乎总难用一句话概括清楚，但随着技术社区、公司的努力和一些理念越来越多的被人们实践，这个概念已经变得越来越清晰。&lt;br&gt;最近成都 Cloud &amp;amp; DevOps 社区整理了一个 DevOps 技能树，很有意思。对研究 DevOps
+      &lt;p&gt;DevOps 是什么，在这些年的争论中似乎总难用一句话概括清楚，但随着技术社区、企业的推动和一些理念越来越多的被人们实践，这个概念已经变得越来越清晰。&lt;br&gt;最近成都 Cloud &amp;amp; DevOps 社区整理了一个 DevOps 技能树，很有意思。对研究 DevOps
     
     </summary>
     
@@ -393,9 +393,9 @@ High willingness to travel
       <category term="Cloud" scheme="https://www.duyidong.com/categories/Cloud/"/>
     
     
-      <category term="Cloud Native" scheme="https://www.duyidong.com/tags/Cloud-Native/"/>
-    
       <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
+    
+      <category term="Cloud Native" scheme="https://www.duyidong.com/tags/Cloud-Native/"/>
     
       <category term="翻译" scheme="https://www.duyidong.com/tags/%E7%BF%BB%E8%AF%91/"/>
     
@@ -540,8 +540,6 @@ def test_hosts_file(File):
       <category term="DevOps" scheme="https://www.duyidong.com/categories/DevOps/"/>
     
     
-      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
-    
       <category term="Infrastructure as Code" scheme="https://www.duyidong.com/tags/Infrastructure-as-Code/"/>
     
       <category term="ThoughtWorks技术雷达" scheme="https://www.duyidong.com/tags/ThoughtWorks%E6%8A%80%E6%9C%AF%E9%9B%B7%E8%BE%BE/"/>
@@ -549,6 +547,8 @@ def test_hosts_file(File):
       <category term="基础设施即代码" scheme="https://www.duyidong.com/tags/%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E5%8D%B3%E4%BB%A3%E7%A0%81/"/>
     
       <category term="持续交付" scheme="https://www.duyidong.com/tags/%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98/"/>
+    
+      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
     
   </entry>
   
@@ -1259,11 +1259,11 @@ feedback，开放式协作
     
       <category term="AWS" scheme="https://www.duyidong.com/tags/AWS/"/>
     
+      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
+    
       <category term="Cloud Native" scheme="https://www.duyidong.com/tags/Cloud-Native/"/>
     
       <category term="架构" scheme="https://www.duyidong.com/tags/%E6%9E%B6%E6%9E%84/"/>
-    
-      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
     
   </entry>
   

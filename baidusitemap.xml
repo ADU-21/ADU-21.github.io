@@ -4,32 +4,8 @@
 
     
   <url>
-    <loc>https://www.duyidong.com/2017/05/03/Cloud-Native/</loc>
-    <lastmod>2017-05-18T14:58:29.000Z</lastmod>
-    <data>
-        <display>
-        <title>云原生应用 (Cloud Native Application)</title>
-        <pubTime>2017-05-03T03:04:03.000Z</pubTime>
-        
-        <tag>Cloud Native</tag>
-         
-        <tag>Cloud</tag>
-         
-        <tag>翻译</tag>
-         
-         
-           
-             
-              <breadCrumb title="Cloud" url="https://www.duyidong.com/categories/Cloud/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://www.duyidong.com/2017/05/18/DevOps-skill-tree/</loc>
-    <lastmod>2017-05-18T14:58:25.000Z</lastmod>
+    <lastmod>2017-05-19T05:17:21.000Z</lastmod>
     <data>
         <display>
         <title>DevOps 技能树</title>
@@ -43,6 +19,30 @@
            
              
               <breadCrumb title="DevOps" url="https://www.duyidong.com/categories/DevOps/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2017/05/03/Cloud-Native/</loc>
+    <lastmod>2017-05-18T14:58:29.000Z</lastmod>
+    <data>
+        <display>
+        <title>云原生应用 (Cloud Native Application)</title>
+        <pubTime>2017-05-03T03:04:03.000Z</pubTime>
+        
+        <tag>Cloud</tag>
+         
+        <tag>Cloud Native</tag>
+         
+        <tag>翻译</tag>
+         
+         
+           
+             
+              <breadCrumb title="Cloud" url="https://www.duyidong.com/categories/Cloud/"/>
           
         </display>
     </data>
@@ -268,11 +268,11 @@
         
         <tag>AWS</tag>
          
+        <tag>Cloud</tag>
+         
         <tag>Cloud Native</tag>
          
         <tag>架构</tag>
-         
-        <tag>Cloud</tag>
          
          
            
@@ -292,8 +292,6 @@
         <title>基础设施代码测试</title>
         <pubTime>2017-04-13T05:41:29.000Z</pubTime>
         
-        <tag>Cloud</tag>
-         
         <tag>Infrastructure as Code</tag>
          
         <tag>ThoughtWorks技术雷达</tag>
@@ -301,6 +299,8 @@
         <tag>基础设施即代码</tag>
          
         <tag>持续交付</tag>
+         
+        <tag>Cloud</tag>
          
          
            

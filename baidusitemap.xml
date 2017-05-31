@@ -11,9 +11,9 @@
         <title>DevOps 技能树</title>
         <pubTime>2017-05-18T08:30:47.000Z</pubTime>
         
-        <tag>职场</tag>
-         
         <tag>DevOps</tag>
+         
+        <tag>职场</tag>
          
          
            
@@ -33,9 +33,9 @@
         <title>云原生应用 (Cloud Native Application)</title>
         <pubTime>2017-05-03T03:04:03.000Z</pubTime>
         
-        <tag>Cloud Native</tag>
-         
         <tag>Cloud</tag>
+         
+        <tag>Cloud Native</tag>
          
         <tag>翻译</tag>
          
@@ -268,11 +268,11 @@
         
         <tag>AWS</tag>
          
+        <tag>Cloud</tag>
+         
         <tag>Cloud Native</tag>
          
         <tag>架构</tag>
-         
-        <tag>Cloud</tag>
          
          
            
@@ -292,8 +292,6 @@
         <title>基础设施代码测试</title>
         <pubTime>2017-04-13T05:41:29.000Z</pubTime>
         
-        <tag>Cloud</tag>
-         
         <tag>Infrastructure as Code</tag>
          
         <tag>ThoughtWorks技术雷达</tag>
@@ -301,6 +299,8 @@
         <tag>基础设施即代码</tag>
          
         <tag>持续交付</tag>
+         
+        <tag>Cloud</tag>
          
          
            
@@ -518,9 +518,9 @@
         <title>凤凰式服务</title>
         <pubTime>2016-11-02T09:06:13.000Z</pubTime>
         
-        <tag>翻译</tag>
-         
         <tag>凤凰式服务</tag>
+         
+        <tag>翻译</tag>
          
          
            
@@ -766,9 +766,9 @@
         <title>浅谈AWS IAM</title>
         <pubTime>2017-03-06T12:41:50.000Z</pubTime>
         
-        <tag>AWS</tag>
-         
         <tag>亚马逊认证与权限</tag>
+         
+        <tag>AWS</tag>
          
         <tag>Security</tag>
          
@@ -904,9 +904,9 @@
         <title>离骚</title>
         <pubTime>2017-04-11T16:01:40.000Z</pubTime>
         
-        <tag>ThoughtWorks</tag>
-         
         <tag>职场</tag>
+         
+        <tag>ThoughtWorks</tag>
          
          
            

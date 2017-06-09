@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.duyidong.com/"/>
-  <updated>2017-06-09T07:59:42.000Z</updated>
+  <updated>2017-06-09T08:51:50.000Z</updated>
   <id>https://www.duyidong.com/</id>
   
   <author>
@@ -20,9 +20,9 @@
     <link href="https://www.duyidong.com/2017/06/08/work-in-blackops/"/>
     <id>https://www.duyidong.com/2017/06/08/work-in-blackops/</id>
     <published>2017-06-08T08:38:47.000Z</published>
-    <updated>2017-06-09T07:59:42.000Z</updated>
+    <updated>2017-06-09T08:51:50.000Z</updated>
     
-    <content type="html"><![CDATA[<p>大熊最近在 ThoughtWorks 给大家讲<a href="http://gigix.thoughtworkers.org/2017/4/25/ditigal-platform-strategy-intro/" target="_blank" rel="external">数字平台战略</a>，非常高兴向大家地宣布，我们已经有了战略框架，鼓励项目上的同事多讲讲故事，那我就来讲一个。借此对过去5个月在项目上的磕磕绊绊做个整理。</p>
+    <content type="html"><![CDATA[<p>大熊最近在 ThoughtWorks 给大家讲<a href="http://gigix.thoughtworkers.org/2017/4/25/ditigal-platform-strategy-intro/" target="_blank" rel="external">数字平台战略(Digital Platform Strategy)</a>，非常高兴向大家地宣布，我们已经有了战略框架，鼓励项目上的同事多讲讲故事，那我就来讲一个。借此对过去5个月在项目上的磕磕绊绊做个整理。</p>
 <h1 id="背景介绍"><a href="#背景介绍" class="headerlink" title="背景介绍"></a>背景介绍</h1><p>客户是一家澳洲大型金融保险企业，在保险领域处于本地绝对领先地位，其IT部门总人数在千人以上，维护应用两百余个。在经历了几年的收购和合并之后，在业务上指定了将收购来的多个品牌进行整合的大方针，于是IT部门也开始面临着系统整合，业务线整合，网站合并的问题，同时客户正在将他们的服务逐渐从自建数据中心向 AWS 公有云服务上迁移。</p>
 <p>在数字化转型的漫漫长路中，该企业已经在内部搭建起了一套持续交付系统，以Jenkins为中心，有制品库，依赖管理，代码管理，任务管理系统，敏捷实践成熟。</p>
 <p>我所在的团队是在整个组织向 DevOps 转型中的一个比较关键的团队，肩负着 CI/CD 优化、持续交付改进、运维能力输出的重任。类似的团队应该在很多 DevOps 转型的组织里都有，负责维护 CI/CD 基础设施，搭建应用开发脚手架，维护基础设施变更，做各种自动化的工作（姑且就将这类团队称之为 Platform 团队）。比较特殊的是我在的这个团队实行轮岗制，由产品团队的成员（通常是开发）定期轮换到 platform 团队，带着在产品团队遇到但是没能解决的问题，在这个团队寻求最佳实践和解决方案，一段时间后（通常是三个月），开发从 platform 团队回到开发团队，同时将 DevOps 技能和最佳实践待到产品开发团队。整个 Platform 团队大小基本维持在3-5人，有一个 IM（Iteration Manager 迭代经理），其余全是 Dev (Developer 开发)。</p>
@@ -63,7 +63,7 @@
 </blockquote>
 <ul>
 <li><strong>尽早找到关系人，并和他建立联系。</strong><br>  这一点是我觉得最需要反省的，在项目进行到7、8个迭代的时候才意识到要和我方架构师和技术专家建立联系，在此之前走了很多弯路，也错失了很多机会。</li>
-<li><strong>让事情发生比如何发生更重要。</strong><br>  应该说在这5个月的工作中，我最喜欢的部分是最后两个迭代我们开始真正搜集来自应用团队的需求，开始在两地组织各个团队的 TL 开会搜集痛点和解决方案。这件事其实我早就意识到会是非常有价值的，但始终没有去做，总是顾虑不知道怎么去开始，去推动，担心自己表述不清，或者不能给 TL 真正解决问题会很不好意思。但是最后这件事终于发生了，才意识到真的是非常有价值，而且早该这么做了。<br>  关于这点在我还在 ThoughtWorks 试用期的时候我的 Buddy(由公司安排负责伴随新员工过度试用期的人) 给了我一个非常好的意见，就是决定要讲一个分享之前先把日程表（邀请邮件）发出来，这种看似是“Deadline driven(截止日期驱动)”的方式，背后暗含了“<strong>这件事情必须发生</strong>”的道理，这和 MVP(Minumum viable product，产品原型) 的原理也是一样的，先上线，在搜集反馈，迭代改进；就算它是一个错误的行为，这也是一次有价值的试错。<br>  类似的事情还有很多，比如敢于和客户沟通，敢于在团队承担很多责任，都可以借鉴。</li>
+<li><strong>让事情发生比如何发生更重要。</strong><br>  应该说在这5个月的工作中，我最喜欢的部分是最后两个迭代我们开始真正搜集来自应用团队的需求，开始在两地组织各个团队的 TL 开会搜集痛点和解决方案。这件事其实我早就意识到会是非常有价值的，但始终没有去做，总是顾虑不知道怎么去开始，去推动，担心自己表述不清，或者不能给 TL 真正解决问题会很不好意思。但是最后这件事终于发生了，才意识到真的是非常有价值，而且早该这么做了。<br>  关于这点在我还在 ThoughtWorks 试用期的时候我的 Buddy(由公司安排负责伴随新员工过度试用期的人) 给了我一个非常好的建议，就是决定要讲一个分享之前先把日程表（邀请邮件）发出来，这种看似是“Deadline driven(截止日期驱动)”的方式，背后暗含了“<strong>这件事情必须发生</strong>”的道理，这和 MVP(Minumum viable product，产品原型) 的原理也是一样的，先上线，再搜集反馈，迭代改进；就算它是一个错误的行为，这也是一次有价值的试错。<br>  类似的事情还有很多，比如敢于和客户沟通，敢于在团队承担很多责任，都可以借鉴。</li>
 </ul>
 <h2 id="下一步"><a href="#下一步" class="headerlink" title="下一步"></a>下一步</h2>]]></content>
     
@@ -1836,9 +1836,9 @@ export AWS_SECRET_ACCESS_KEY=&lt;secret key&gt;
       <category term="Amazon Web Services" scheme="https://www.duyidong.com/categories/Amazon-Web-Services/"/>
     
     
-      <category term="AWS" scheme="https://www.duyidong.com/tags/AWS/"/>
-    
       <category term="亚马逊认证与权限" scheme="https://www.duyidong.com/tags/%E4%BA%9A%E9%A9%AC%E9%80%8A%E8%AE%A4%E8%AF%81%E4%B8%8E%E6%9D%83%E9%99%90/"/>
+    
+      <category term="AWS" scheme="https://www.duyidong.com/tags/AWS/"/>
     
       <category term="Security" scheme="https://www.duyidong.com/tags/Security/"/>
     

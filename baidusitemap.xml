@@ -4,6 +4,32 @@
 
     
   <url>
+    <loc>https://www.duyidong.com/2017/06/08/work-in-blackops/</loc>
+    <lastmod>2017-06-09T07:59:42.000Z</lastmod>
+    <data>
+        <display>
+        <title>DevOps 团队交付了什么？</title>
+        <pubTime>2017-06-08T08:38:47.000Z</pubTime>
+        
+        <tag>小结</tag>
+         
+        <tag>职场</tag>
+         
+        <tag>DevOps</tag>
+         
+        <tag>工作</tag>
+         
+         
+           
+             
+              <breadCrumb title="ThoughtWorks" url="https://www.duyidong.com/categories/ThoughtWorks/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://www.duyidong.com/2017/05/18/DevOps-skill-tree/</loc>
     <lastmod>2017-05-19T05:17:21.000Z</lastmod>
     <data>
@@ -165,9 +191,9 @@
         <title>部署和发布策略的演进</title>
         <pubTime>2016-10-24T06:30:20.000Z</pubTime>
         
-        <tag>DevOps</tag>
-         
         <tag>持续交付</tag>
+         
+        <tag>DevOps</tag>
          
         <tag>部署与发布</tag>
          
@@ -294,11 +320,11 @@
         
         <tag>Cloud</tag>
          
-        <tag>基础设施即代码</tag>
-         
         <tag>Infrastructure as Code</tag>
          
         <tag>ThoughtWorks技术雷达</tag>
+         
+        <tag>基础设施即代码</tag>
          
         <tag>持续交付</tag>
          
@@ -322,9 +348,9 @@
         
         <tag>工具</tag>
          
-        <tag>DevOps</tag>
-         
         <tag>基础设施即代码</tag>
+         
+        <tag>DevOps</tag>
          
         <tag>Ansible</tag>
          
@@ -670,9 +696,9 @@
         
         <tag>AWS</tag>
          
-        <tag>DevOps</tag>
-         
         <tag>基础设施即代码</tag>
+         
+        <tag>DevOps</tag>
          
          
            
@@ -928,9 +954,9 @@
         
         <tag>AWS</tag>
          
-        <tag>EC2</tag>
-         
         <tag>云计算</tag>
+         
+        <tag>EC2</tag>
          
          
            

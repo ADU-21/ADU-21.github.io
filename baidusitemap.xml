@@ -5,7 +5,7 @@
     
   <url>
     <loc>https://www.duyidong.com/2017/06/08/work-in-blackops/</loc>
-    <lastmod>2017-06-09T08:51:50.000Z</lastmod>
+    <lastmod>2017-06-09T14:07:13.000Z</lastmod>
     <data>
         <display>
         <title>DevOps 团队交付了什么？</title>
@@ -191,9 +191,9 @@
         <title>部署和发布策略的演进</title>
         <pubTime>2016-10-24T06:30:20.000Z</pubTime>
         
-        <tag>DevOps</tag>
-         
         <tag>持续交付</tag>
+         
+        <tag>DevOps</tag>
          
         <tag>部署与发布</tag>
          
@@ -348,9 +348,9 @@
         
         <tag>工具</tag>
          
-        <tag>DevOps</tag>
-         
         <tag>基础设施即代码</tag>
+         
+        <tag>DevOps</tag>
          
         <tag>Ansible</tag>
          
@@ -498,11 +498,11 @@
         
         <tag>学习</tag>
          
-        <tag>小计</tag>
-         
         <tag>Linux</tag>
          
         <tag>Shell</tag>
+         
+        <tag>小计</tag>
          
          
            
@@ -696,9 +696,9 @@
         
         <tag>AWS</tag>
          
-        <tag>DevOps</tag>
-         
         <tag>基础设施即代码</tag>
+         
+        <tag>DevOps</tag>
          
          
            
@@ -792,9 +792,9 @@
         <title>浅谈AWS IAM</title>
         <pubTime>2017-03-06T12:41:50.000Z</pubTime>
         
-        <tag>亚马逊认证与权限</tag>
-         
         <tag>AWS</tag>
+         
+        <tag>亚马逊认证与权限</tag>
          
         <tag>Security</tag>
          

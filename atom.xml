@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.duyidong.com/"/>
-  <updated>2017-06-09T14:23:17.000Z</updated>
+  <updated>2017-06-09T14:32:21.000Z</updated>
   <id>https://www.duyidong.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="https://www.duyidong.com/2017/06/08/work-in-blackops/"/>
     <id>https://www.duyidong.com/2017/06/08/work-in-blackops/</id>
     <published>2017-06-08T08:38:47.000Z</published>
-    <updated>2017-06-09T14:23:17.000Z</updated>
+    <updated>2017-06-09T14:32:21.000Z</updated>
     
     <content type="html"><![CDATA[<p>大熊最近在 ThoughtWorks 给大家讲<a href="http://gigix.thoughtworkers.org/2017/4/25/ditigal-platform-strategy-intro/" target="_blank" rel="external">数字平台战略(Digital Platform Strategy)</a>，非常高兴向大家地宣布，我们已经有了战略框架，鼓励项目上的同事多讲讲故事，那我就来讲一个。借此对过去5个月在项目上的磕磕绊绊做个整理。</p>
 <h1 id="背景介绍"><a href="#背景介绍" class="headerlink" title="背景介绍"></a>背景介绍</h1><p>客户是一家澳洲大型金融保险企业，在保险领域处于本地绝对领先地位，其IT部门总人数在千人以上，维护应用两百余个。在经历了几年的收购和合并之后，在业务上指定了将收购来的多个品牌进行整合的大方针，于是IT部门也开始面临着系统整合，业务线整合，网站合并的问题，同时客户正在将他们的服务逐渐从自建数据中心向 AWS 公有云服务上迁移。</p>
@@ -44,7 +44,7 @@
 <li><strong>汇报，</strong>虽说 ThoughtWorks 是扁平化管理，但是面对一个金字塔结构的客户难免也会需要固定有资深的人和客户的高层对接，这种安排是合理且必要的；在交付团队中，开发如果发现资源不足，需要和 TL(Tech Lead 或是 Team Lead，可以理解为项目组长)或者 PM(Production Manager 产品经理)沟通，但是在 Platform 团队，没有合适的汇报对象，一方面在 ThoughtWorks 内部没有工作关系紧密的架构师或者 TL，另一方面客户的汇报线变动频繁，也就是客户的领导也在变，在团队成员缺少资源需要更高管理层的决策支持时沟通难度增加。比如在申请权限时需要客户领导审批，客户的领导却一直在会议中，要么就找不到人（海外项目远程办公，只能通过及时通讯软件呼叫客户），让在团队中别的客户成员帮忙跟进，客户也是无奈地摊摊手，一次又一次在站会中重复着“他很忙，我找不到他”，诸如此类。同样，没有合适的汇报人意味着团队缺少了更高的视角来实时回顾自己做的事情是否是正确的，方向有没有走偏，或者是不是又在造别人造过的轮子。我在团队解散后跟“前” IM 聊天，他还坚持认为我们团队被解散是因为没有一个强有力的领导在背后支持，这也从侧面反映了我们没有找到合适的汇报人，告诉他，我们在做什么，听他说，我们下一步可以做什么。</li>
 </ul>
 <h1 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h1><h2 id="问题背后的原因及可能的改进方案"><a href="#问题背后的原因及可能的改进方案" class="headerlink" title="问题背后的原因及可能的改进方案"></a>问题背后的原因及可能的改进方案</h2><p>团队解散后经过一段时间的沉淀，也和过往的成员逐一了解了他们的想法，总结分析出了以下原因，以及可能的解决方案能使做得更好。</p>
-<h3 id="原因1：团队方向不清晰"><a href="#原因1：团队方向不清晰" class="headerlink" title="原因1：团队方向不清晰"></a>原因1：团队方向不清晰</h3><p>不同于交付业务价值的产品团队，Platform 团队不对某一个具体的产品负责，也不直接产出业务价值，所以这个团队应该是属于架构师的一个机动团队，因此客户的架构师的离开，就为 Platform 团队解散买下了伏笔。（这一点我也是后来才意识到的）<br><strong>可能的改进方案：</strong>在团队利益相关者(Stakeholder)缺失的时候，应立即与我方架构师沟通，在明确团队方向的同时还能发挥 ThoughtWorks 影响力。</p>
+<h3 id="原因1：团队方向不清晰"><a href="#原因1：团队方向不清晰" class="headerlink" title="原因1：团队方向不清晰"></a>原因1：团队方向不清晰</h3><p>不同于交付业务价值的产品团队，Platform 团队不对某一个具体的产品负责，也不直接产出业务价值，所以这个团队应该是属于架构师的一个机动团队，因此客户的架构师的离开，就为 Platform 团队解散埋下了伏笔。（这一点我也是后来才意识到的）<br><strong>可能的改进方案：</strong>在团队利益相关者(Stakeholder)缺失的时候，应立即与我方架构师沟通，在明确团队方向的同时还能发挥 ThoughtWorks 影响力。</p>
 <h3 id="原因2：团队角色缺失"><a href="#原因2：团队角色缺失" class="headerlink" title="原因2：团队角色缺失"></a>原因2：团队角色缺失</h3><p>在架构师不能全权参与团队工作的情况下（甚至 Platform 团队还一度没有 IM ），一帮 Dev 就很容易对团队整体整体的感知，每个 Dev 只关心自己手里的工作，迭代开始初期容易考虑不到全局影响不能准确建卡，迭代进行时因为没有合适的汇报人因而跨团队交流困难，迭代结束时没有优质的回顾。<br>在 Micromanagement culture（微观管理文化）中有一个 Alignment(校准)和 Autonomy(自治)两个互斥的指标，我们使用这两个指标作为向量构成四个象限，如下图所示，高校准低自治的团队由领导决定做什么以及怎么做，团队只需要执行，这样会形成“领导说什么就是什么”的局面；而高校准且高自治的团队是由领导指出要解决的问题以及原因，然后由团队成员相互合作共同找到问题的解决方案；低校准低自治的团队则缺乏活力，只能循规蹈矩；而高自治低校准的团队成员可以坐任何他们想做的事情，领导则很无助因为没有人关心真正需要的解决的问题。在敏捷团队中，如果只剩下了 Dev，情形则很有可能变成图中左下象限（也有些许右下）的情况，要想达到右上象限的期望状态，需要提高自治，更多的是校准。<br><strong>可能的改进方案：</strong>在意识到这个问题的时候，团队需要一个关键人物出面充当领导者的角色，扮演这个角色的人必须关注在团队交付价值，目标和方向，并且有强大的沟通能力让团队成目标一致；和利益相关者加强沟通，保证团队方向不会跑偏。<br><img src="/images/spotify.png" alt=""></p>
 <center><strong>图片来源：</strong><a href="https://www.youtube.com/watch?v=4GK1NDTWbkY" target="_blank" rel="external">Spotify Engineering Culture</a></center>
 
@@ -459,9 +459,9 @@ High willingness to travel
       <category term="Cloud" scheme="https://www.duyidong.com/categories/Cloud/"/>
     
     
-      <category term="Cloud Native" scheme="https://www.duyidong.com/tags/Cloud-Native/"/>
-    
       <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
+    
+      <category term="Cloud Native" scheme="https://www.duyidong.com/tags/Cloud-Native/"/>
     
       <category term="翻译" scheme="https://www.duyidong.com/tags/%E7%BF%BB%E8%AF%91/"/>
     
@@ -606,8 +606,6 @@ def test_hosts_file(File):
       <category term="DevOps" scheme="https://www.duyidong.com/categories/DevOps/"/>
     
     
-      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
-    
       <category term="Infrastructure as Code" scheme="https://www.duyidong.com/tags/Infrastructure-as-Code/"/>
     
       <category term="ThoughtWorks技术雷达" scheme="https://www.duyidong.com/tags/ThoughtWorks%E6%8A%80%E6%9C%AF%E9%9B%B7%E8%BE%BE/"/>
@@ -615,6 +613,8 @@ def test_hosts_file(File):
       <category term="基础设施即代码" scheme="https://www.duyidong.com/tags/%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E5%8D%B3%E4%BB%A3%E7%A0%81/"/>
     
       <category term="持续交付" scheme="https://www.duyidong.com/tags/%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98/"/>
+    
+      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
     
   </entry>
   
@@ -1325,11 +1325,11 @@ feedback，开放式协作
     
       <category term="AWS" scheme="https://www.duyidong.com/tags/AWS/"/>
     
+      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
+    
       <category term="Cloud Native" scheme="https://www.duyidong.com/tags/Cloud-Native/"/>
     
       <category term="架构" scheme="https://www.duyidong.com/tags/%E6%9E%B6%E6%9E%84/"/>
-    
-      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
     
   </entry>
   
@@ -1831,9 +1831,9 @@ export AWS_SECRET_ACCESS_KEY=&lt;secret key&gt;
       <category term="Amazon Web Services" scheme="https://www.duyidong.com/categories/Amazon-Web-Services/"/>
     
     
-      <category term="AWS" scheme="https://www.duyidong.com/tags/AWS/"/>
-    
       <category term="亚马逊认证与权限" scheme="https://www.duyidong.com/tags/%E4%BA%9A%E9%A9%AC%E9%80%8A%E8%AE%A4%E8%AF%81%E4%B8%8E%E6%9D%83%E9%99%90/"/>
+    
+      <category term="AWS" scheme="https://www.duyidong.com/tags/AWS/"/>
     
       <category term="Security" scheme="https://www.duyidong.com/tags/Security/"/>
     

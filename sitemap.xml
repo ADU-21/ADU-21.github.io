@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.duyidong.com/2017/06/15/kubernetes-infrastructure/</loc>
+    
+    <lastmod>2017-06-15T07:10:15.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://www.duyidong.com/2017/06/14/kubernetes-and-openshift/</loc>
     
-    <lastmod>2017-06-14T15:12:35.000Z</lastmod>
+    <lastmod>2017-06-15T06:21:38.000Z</lastmod>
     
   </url>
   

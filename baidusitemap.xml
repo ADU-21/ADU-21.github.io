@@ -4,11 +4,39 @@
 
     
   <url>
-    <loc>https://www.duyidong.com/2017/06/14/kubernetes-and-openshift/</loc>
-    <lastmod>2017-06-14T15:12:35.000Z</lastmod>
+    <loc>https://www.duyidong.com/2017/06/15/kubernetes-infrastructure/</loc>
+    <lastmod>2017-06-15T07:10:15.000Z</lastmod>
     <data>
         <display>
-        <title>PaaS 平台 -- Openshift 介绍（一）</title>
+        <title>PaaS 平台（二） -- Kubernetes 介绍</title>
+        <pubTime>2017-06-15T01:38:41.000Z</pubTime>
+        
+        <tag>DevOps</tag>
+         
+        <tag>PaaS</tag>
+         
+        <tag>Openshift</tag>
+         
+        <tag>Kubernetes</tag>
+         
+        <tag>平台即服务</tag>
+         
+         
+           
+             
+              <breadCrumb title="Cloud" url="https://www.duyidong.com/categories/Cloud/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2017/06/14/kubernetes-and-openshift/</loc>
+    <lastmod>2017-06-15T06:21:38.000Z</lastmod>
+    <data>
+        <display>
+        <title>PaaS 平台（一） -- Openshift 介绍</title>
         <pubTime>2017-06-14T13:53:00.000Z</pubTime>
         
         <tag>DevOps</tag>
@@ -16,6 +44,8 @@
         <tag>PaaS</tag>
          
         <tag>Openshift</tag>
+         
+        <tag>Kubernetes</tag>
          
         <tag>平台即服务</tag>
          
@@ -87,9 +117,9 @@
         <title>云原生应用 (Cloud Native Application)</title>
         <pubTime>2017-05-03T03:04:03.000Z</pubTime>
         
-        <tag>Cloud</tag>
-         
         <tag>Cloud Native</tag>
+         
+        <tag>Cloud</tag>
          
         <tag>翻译</tag>
          
@@ -322,11 +352,11 @@
         
         <tag>AWS</tag>
          
-        <tag>Cloud</tag>
-         
         <tag>Cloud Native</tag>
          
         <tag>架构</tag>
+         
+        <tag>Cloud</tag>
          
          
            
@@ -346,6 +376,8 @@
         <title>基础设施代码测试</title>
         <pubTime>2017-04-13T05:41:29.000Z</pubTime>
         
+        <tag>Cloud</tag>
+         
         <tag>Infrastructure as Code</tag>
          
         <tag>ThoughtWorks技术雷达</tag>
@@ -353,8 +385,6 @@
         <tag>基础设施即代码</tag>
          
         <tag>持续交付</tag>
-         
-        <tag>Cloud</tag>
          
          
            
@@ -766,9 +796,9 @@
         <title>AWS助理架构师认证考经</title>
         <pubTime>2017-04-05T06:48:45.000Z</pubTime>
         
-        <tag>AWS</tag>
-         
         <tag>学习</tag>
+         
+        <tag>AWS</tag>
          
         <tag>云计算认证</tag>
          
@@ -982,9 +1012,9 @@
         
         <tag>AWS</tag>
          
-        <tag>EC2</tag>
-         
         <tag>云计算</tag>
+         
+        <tag>EC2</tag>
          
          
            

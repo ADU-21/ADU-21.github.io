@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.duyidong.com/"/>
-  <updated>2017-06-15T07:10:15.000Z</updated>
+  <updated>2017-06-16T09:47:38.000Z</updated>
   <id>https://www.duyidong.com/</id>
   
   <author>
@@ -14,6 +14,126 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>PaaS 平台（三）-- Openshift 使用</title>
+    <link href="https://www.duyidong.com/2017/06/15/openshift-quick-start/"/>
+    <id>https://www.duyidong.com/2017/06/15/openshift-quick-start/</id>
+    <published>2017-06-15T10:27:41.000Z</published>
+    <updated>2017-06-16T09:47:38.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>Openshift 是一个基于 Kubernetes 和 Docker 的 PaaS 平台。</p>
+<h1 id="Openshift-概念补充"><a href="#Openshift-概念补充" class="headerlink" title="Openshift 概念补充"></a>Openshift 概念补充</h1><p>我们在上文–<a href="https://www.duyidong.com/2017/06/15/kubernetes-infrastructure/">Kubernetes 介绍</a>中已经提到 Kubernetes 引入了一些概念，Openshift 在此基础之上又对这些概念进行了封装。了解 Openshift 除了了解它的架构以外，还要了解他抽象出来的概念。</p>
+<ul>
+<li><strong>ImageStream:</strong> 对 Docker Image 的抽象，Docker image 只是一个二进制文件实体，而 ImageStream 可以带有状态，可以对外部程序的访问做出相应。</li>
+<li><strong>BuildConfig:</strong> 对 Dockerfile 的抽象，上文已经说到 Openshift 中的 Pod 实际上是由多个 Container 构成的，这些 Conatainer 仍然是运行时的 Image，这些 Image 的构建过程就是由 BuildConfig 决定的，不同于 Dockerfile，BuildConfig 可以支持将 gitrepo, Dockerfile, Binary, Image, Input Secrite(Openshift 定义的另一种资源类型，用于存储敏感信息), 二进制软件包，这些资源类型统统打到一个 ImageStream 里面，在“构建”这个动作的上下游还支持事件触发，比如定义“gitrepo的提交会触发一次构建”，以及“在构建完成后执行一次测试”。</li>
+<li><strong>DeploymentConfig:</strong> 对 Replication Controller 的封装，定义了应用的运行时架构。</li>
+<li><strong>Route:</strong> Kubernetes 定义了 Service 用于实现服务之间的隔离和调用，Openshift 在此之上增加了一层 Route，至此 Service 可以面向内网环境，而由 Route 来真正对外提供服务。</li>
+</ul>
+<p>将以上流程串起来，在 Openshift 上一个应用的诞生就应该是如下流程：</p>
+<p><img src="/images/openshift_deploy_process.png" alt=""></p>
+<p>熟悉了 Openshift 的基本概念，下面我们可以动手搭建一个 Openshift Origin 版，并在上面部署一个应用。</p>
+<h1 id="Openshift-安装"><a href="#Openshift-安装" class="headerlink" title="Openshift 安装"></a>Openshift 安装</h1><p>这里安装的是 Openshift 社区版，官方也有提供 minishift（需要使用虚拟机）以及 Container 的方式安装，这里使用的方法是用 oc (openshift-cli)，是最简单，也是官方现在推荐的安装方式。<br>安装环境可以选择在 Mac 上或者是云虚拟机（Windows 不确定是否支持），我这里选择的是 AWS EC2，关于其他平台的安装，具体可参照<a href="https://github.com/openshift/origin/blob/master/docs/cluster_up_down.md" target="_blank" rel="external">https://github.com/openshift/origin/blob/master/docs/cluster_up_down.md</a></p>
+<h2 id="第一步：在亚马逊上申请一个-Ubuntu-的机器"><a href="#第一步：在亚马逊上申请一个-Ubuntu-的机器" class="headerlink" title="第一步：在亚马逊上申请一个 Ubuntu 的机器"></a>第一步：在亚马逊上申请一个 Ubuntu 的机器</h2><p>有几个要注意的地方：</p>
+<ul>
+<li>CentOS 的 Dcoker 安装可能会遇到一些问题，是由于 Docker 社区版不支持，详见<a href="https://docs.docker.com/engine/installation/" target="_blank" rel="external">这里</a>。</li>
+<li>如果你想实现 hook 功能，即看到代码提交触发 Openshift 内构建的效果，你需要赋予 Instance 一个公网 IP。</li>
+<li>安全组开启外部可访问 8443 端口。</li>
+</ul>
+<h2 id="第二步：安装-Docker"><a href="#第二步：安装-Docker" class="headerlink" title="第二步：安装 Docker"></a>第二步：安装 Docker</h2><p>这里要说明的是现有 Openshift 在 docker 的最高版本下支持有些问题，经测试 1.12.1版本是稳定的。<br>安装脚本：</p>
+<pre><code># Install Docker on Xenial 16.04.1 x64
+# Ref https://docs.docker.com/engine/installation/linux/ubuntulinux/
+# No interactive for now.
+export DEBIAN_FRONTEND=noninteractive
+# Update your APT package index.
+sudo apt-get -y update
+# Update package information, ensure that APT works with the https method, and that CA certificates are installed.
+sudo apt-get -y install apt-transport-https ca-certificates
+# Add the new GPG key.
+sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
+# Add docker.list
+sudo echo &quot;deb https://apt.dockerproject.org/repo ubuntu-xenial experimental&quot; &gt; /etc/apt/sources.list.d/docker.list
+# Update your APT package index.
+sudo apt-get -y update
+# Purge the old repo if it exists.
+sudo apt-get purge lxc-docker
+# Verify that APT is pulling from the right repository.
+sudo apt-cache policy docker-engine
+# Install the recommended package.
+sudo apt-get -y install linux-image-extra-$(uname -r)
+# Install Docker.
+sudo apt-get -y install docker-engine=1.12.1-0~xenial --allow-downgrades
+# Start the docker daemon.
+sudo service docker start
+# Validate docker version
+docker -v
+</code></pre><p>执行最后一条命令，出现 Dokcer 版本为 1.12.1 表示安装成功。</p>
+<h2 id="第三步：配置-Dokcer-registry"><a href="#第三步：配置-Dokcer-registry" class="headerlink" title="第三步：配置 Dokcer registry"></a>第三步：配置 Dokcer registry</h2><p>编辑<code>/etc/systemd/system/multi-user.target.wants/docker.service</code> docker 的 service 文件，将<code>ExecStart=/usr/bin/dockerd -H fd://</code>这一行，替换为 <code>ExecStart=/usr/bin/dockerd --insecure-registry 172.30.0.0/16 -H fd://</code>，然后执行<code>systemctl reload-daemon docker</code>，<code>systemctl restart docker</code></p>
+<h2 id="第四步：下载、启动-Openshift"><a href="#第四步：下载、启动-Openshift" class="headerlink" title="第四步：下载、启动 Openshift"></a>第四步：下载、启动 Openshift</h2><p>在服务器上下载<a href="https://github.com/openshift/origin/releases/download/v3.6.0-alpha.2/openshift-origin-client-tools-v3.6.0-alpha.2-3c221d5-linux-64bit.tar.gz" target="_blank" rel="external">openshift-origin-client-tools-v3.6.0-alpha.2-3c221d5-linux-64bit.tar.gz</a>oc 客户端，解压后把 oc 所在路径加入环境变量，执行：</p>
+<pre><code>oc cluster up \
+--public-hostname=ec2-13-228-41-255.ap-southeast-1.compute.amazonaws.com \
+--routing-suffix=13.228.41.255.xip.io
+</code></pre><p>把以上命令中数字替换为你的 Instance 的公网 IP，即可启动一个外部可访问，应用也可以被外部访问的 Openshift 集群。</p>
+<p><code>oc login system:admin</code>可以以管理员权限登录<br><code>oc login https://ec2-13-228-41-255.ap-southeast-1.compute.amazonaws.com:8443</code>可以以任意用户名密码登录<br>也可以直接访问 <a href="https://ec2-13-228-41-255.ap-southeast-1.compute.amazonaws.com:8443" target="_blank" rel="external">https://ec2-13-228-41-255.ap-southeast-1.compute.amazonaws.com:8443</a> 进行网页操作。</p>
+<p>至此，Openshift 的安装全部完成。</p>
+<h1 id="部署一个应用到-Openshift-上"><a href="#部署一个应用到-Openshift-上" class="headerlink" title="部署一个应用到 Openshift 上"></a>部署一个应用到 Openshift 上</h1><p>这一部分内容来自于 workshop，完整版可参照<a href="https://github.com/ADU-21/openshift-workshop" target="_blank" rel="external">https://github.com/ADU-21/openshift-workshop</a></p>
+<h2 id="在本地安装-openshift-客户端"><a href="#在本地安装-openshift-客户端" class="headerlink" title="在本地安装 openshift 客户端"></a>在本地安装 openshift 客户端</h2><p>Mac 版：<a href="https://github.com/openshift/origin/releases/download/v3.6.0-alpha.2/openshift-origin-client-tools-v3.6.0-alpha.2-3c221d5-mac.zip" target="_blank" rel="external">openshift-origin-client-tools-v3.6.0-alpha.2-3c221d5-mac.zip</a><br>Windows 版： <a href="https://github.com/openshift/origin/releases/download/v3.6.0-alpha.2/openshift-origin-client-tools-v3.6.0-alpha.2-3c221d5-windows.zip" target="_blank" rel="external">openshift-origin-client-tools-v3.6.0-alpha.2-3c221d5-windows.zip</a><br>Linux 版：<a href="https://github.com/openshift/origin/releases/download/v3.6.0-alpha.2/openshift-origin-client-tools-v3.6.0-alpha.2-3c221d5-linux-64bit.tar.gz" target="_blank" rel="external">openshift-origin-client-tools-v3.6.0-alpha.2-3c221d5-linux-64bit.tar.gz</a></p>
+<p>下载到本地之后解压，将一个名为 oc 的可执行文件路径放到 PATH 环境变量里，确保随处可执行。然后执行： <code>oc login https://ec2-13-228-41-255.ap-southeast-1.compute.amazonaws.com:8443</code>，输入任意用户名密码即可登录。</p>
+<h2 id="部署一个应用"><a href="#部署一个应用" class="headerlink" title="部署一个应用"></a>部署一个应用</h2><ol>
+<li>创建一个项目</li>
+</ol>
+<pre><code>oc new-project [project name]
+</code></pre><p>Project 的作用是对 Openshift 的集群中的资源进行隔离。</p>
+<ol>
+<li>将一个<a href="https://github.com/openshift/nodejs-ex" target="_blank" rel="external">官方例子</a> fork 到自己的账户下，并克隆到本地：</li>
+</ol>
+<pre><code>git clone https://github.com/&lt;your-github-name&gt;/nodejs-ex.git
+</code></pre><p>这里包含了项目所需代码，是一个 NodeJS 的应用，稍后我们将把这个应用部署到 Openshift 上。</p>
+<ol>
+<li>创建一个应用</li>
+</ol>
+<pre><code>oc new-app https://github.com/&lt;your-github-name&gt;/nodejs-ex.git
+</code></pre><p>执行这一步命令，Openshift 会自动去查找 repo，根据代码的一些特征（比如<code>package.json</code>）识别这个项目类型，准备响应环境，可以通过<code>watch oc get all</code>的命令看到 openshift 实时创建了哪些资源，按逻辑顺序如下：</p>
+<ul>
+<li>bc: BuildConfig Openshift - 会先创建一个用于 Build image 的环境，然后创建一个叫做 Build 的对象，这个对象的实体是一个 Pod，在这个 Pod 中完成 Image 的构建</li>
+<li>is: ImageStream - 用于管理 Image 的资源对象</li>
+<li>bc: DeploymentConfig - 会创建一个 rc (Replication Controller)资源，又 rc 再去创建承载应用的 Pod</li>
+<li>svc: Service - Pod 的负载均衡器，与 Kubernetes 中提到的 Service 相同</li>
+<li>Pod: 除了提供运行环境的 Pod，这里还有 Build Pod(构建完成之后还会存在，可以用于查看 log)，Deploy Pod(部署完成后会被销毁)</li>
+</ul>
+<p>经历以上步骤，一个应用就已经在 Openshift 集群中被创建出来了。</p>
+<ol>
+<li>创建 route</li>
+</ol>
+<pre><code>oc expose svc/nodejs-ex
+</code></pre><p>得到执行成功的提示后，执行<code>oc get route</code>，就可以用返回的地址访问你的应用了。<br>这个时候你会看到在<code>oc get all</code>命令中看到有叫做<code>route</code>的资源被创建了。</p>
+<ol>
+<li>清理资源</li>
+</ol>
+<p>可以看到我们创建的资源都是被打上了 label 的，可以用<code>oc get all --show-labels=true</code>查看，删除资源也可以使用标签<code>oc delete all -l app=nodejs-example</code>，更粗暴的方式是直接删除整个 project，所有资源都会被清理掉：<code>oc delete project &lt;project name&gt;</code></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Openshift 是一个基于 Kubernetes 和 Docker 的 PaaS 平台。&lt;/p&gt;
+&lt;h1 id=&quot;Openshift-概念补充&quot;&gt;&lt;a href=&quot;#Openshift-概念补充&quot; class=&quot;headerlink&quot; title=&quot;Openshift 
+    
+    </summary>
+    
+      <category term="Cloud" scheme="https://www.duyidong.com/categories/Cloud/"/>
+    
+    
+      <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
+    
+      <category term="PaaS" scheme="https://www.duyidong.com/tags/PaaS/"/>
+    
+      <category term="Openshift" scheme="https://www.duyidong.com/tags/Openshift/"/>
+    
+      <category term="Kubernetes" scheme="https://www.duyidong.com/tags/Kubernetes/"/>
+    
+      <category term="平台即服务" scheme="https://www.duyidong.com/tags/%E5%B9%B3%E5%8F%B0%E5%8D%B3%E6%9C%8D%E5%8A%A1/"/>
+    
+  </entry>
   
   <entry>
     <title>PaaS 平台（二） -- Kubernetes 介绍</title>
@@ -235,7 +355,7 @@ spec:
     <link href="https://www.duyidong.com/2017/06/14/kubernetes-and-openshift/"/>
     <id>https://www.duyidong.com/2017/06/14/kubernetes-and-openshift/</id>
     <published>2017-06-14T13:53:00.000Z</published>
-    <updated>2017-06-15T06:21:38.000Z</updated>
+    <updated>2017-06-15T10:32:07.000Z</updated>
     
     <content type="html"><![CDATA[<p>Openshift 是一个基于 Kubernetes 和 Docker 的 PaaS 平台。</p>
 <h1 id="历史背景"><a href="#历史背景" class="headerlink" title="历史背景"></a>历史背景</h1><h2 id="容器和容器云的历史"><a href="#容器和容器云的历史" class="headerlink" title="容器和容器云的历史"></a>容器和容器云的历史</h2><p>如下图所示，我整理了一个简单的容器历史年表，蓝色箭头表示容器的发展史，红色箭头表示 Openshift 重大事件。<br>在 2013年以前，容器还是 OpenVZ，LXC 等虚拟化技术的形态，在 2013年3月，Docker 正式发布开源版本，随即在 Github 中代码提交量盛况空前，打响了容器化技术的第一枪。<br>在 Docker 发布之后短短数月的时间，Redhat 就开始了基于 Docker 的 PaaS 平台研发(<a href="https://www.openshift.org/" target="_blank" rel="external">官网</a>标注是在13年6月 Openshift 就已经在基于 Kubernetes 研发)，并在随后发布的 REHL6.5 中集成了对 Docker的支持，标拉开了业界各大厂商竞相支持 Docker 的序幕。次年，云计算三巨头亚马逊、微软、谷歌相继推出了支持 Docker 的云计算品台。<br>2015年7月，谷歌发布了 Kubernetes 的第一个版本，Kubernetes 脱胎于谷歌内部的大规模集群管理工具 Borg，且参与 Kubernetes 项目的早期贡献者正式参与过 Borg 项目的工程师，所以业界基本认同 Kubernetes 的很多概念和架构“代表了谷歌过去十余年设计、构建和管理大规模容器集群经验”的说法。虽然 Kubernest 在容器调度方面表现出众，但他的功能还元不构成一个 PaaS 平台，于是很多厂商开始基于 Kubernetes 开发自己的 PaaS 平台，其中就有目前在国内创业公司被大量使用的 Ranchard，值得注意的是 Ranchard 是在2016年才开始发布第一个版本，而 Openshift 则早在13年就开始基于 Kubernetes 的开发，但目前看来国内市场对 Ranchard 的接受度是远高于 Openshift 的，就使用体验上看，Ranchard 也确实更简单易用。<br>今年（2017年）四月份发生了一件引爆容器社区的事，就是 Docker 开源社区版改名为 Moby，此举为 Docker 公司的商业行为，在此不表态，不赘述。<br>截止到这边文章发出为止，目前 Moby 的最新版本为 17.3.2(Docker 的版本从1.2之后变更了命名方式直接跳到了17)，Kubernetes 为1.7.0(基本与 Docker 更新保持同步) ，Openshift 则为 3.6.0。</p>
@@ -2463,32 +2583,6 @@ ZQ 不保存退出
     
     
       <category term="大事记" scheme="https://www.duyidong.com/tags/%E5%A4%A7%E4%BA%8B%E8%AE%B0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>一句话介绍DevOps是做什么的</title>
-    <link href="https://www.duyidong.com/2016/11/11/%E4%B8%80%E5%8F%A5%E8%AF%9D%E4%BB%8B%E7%BB%8DDevOps%E6%98%AF%E5%81%9A%E4%BB%80%E4%B9%88%E7%9A%84/"/>
-    <id>https://www.duyidong.com/2016/11/11/一句话介绍DevOps是做什么的/</id>
-    <published>2016-11-11T01:42:58.000Z</published>
-    <updated>2017-05-04T12:30:06.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>DevOps是一个很广泛的概念，他是一个运动，一种文化，强调团队紧密合作，以快速反馈的手段达到团队目标为交付最终价值的效果。</p>
-<p>DevOps延伸而来有很多实践，包括：基础设施即代码，监控可视化，自动化测试，持续集成持续部署，集成配置管理等等。<br>每一种实践落实到行动上就要使用一些工具，比如基础设施及代码我们会引入很多配置管理工具，比如Ansible,puppet,chef,salt。可视化这一块可能会涉及到一些PaaS平台，比如AWS，Rancher等等。持续集成持续部署这一块主要就是一些CI 工具，Jenkins，GOCD，等等。</p>
-<h2 id="第二版"><a href="#第二版" class="headerlink" title="第二版"></a>第二版</h2><p>DevOps承袭自敏捷系统管理，是一种重视软件开发人员与IT运维人员之间沟通合作的技术运动。近年来，随着云计算、虚拟化等技术的迅猛发展及敏捷实践在业内的普及，质量内建、基础设施即代码、部署流水线、服务监控与健康检查、分布式问题定位及追踪等诸多DevOps实践也在各大公司IT项目中得到探索和应用。开发、测试、运维团队之间的协作性得到提高，生产环境的发布风险明显降低，缩短了持续交付的迭代周期，从而提升了组织效率，对业务连续性也起到了积极作用。因此，DevOps运动获得了越来越多从业者的认可。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;DevOps是一个很广泛的概念，他是一个运动，一种文化，强调团队紧密合作，以快速反馈的手段达到团队目标为交付最终价值的效果。&lt;/p&gt;
-&lt;p&gt;DevOps延伸而来有很多实践，包括：基础设施即代码，监控可视化，自动化测试，持续集成持续部署，集成配置管理等等。&lt;br&gt;每一种实践落
-    
-    </summary>
-    
-      <category term="DevOps" scheme="https://www.duyidong.com/categories/DevOps/"/>
-    
-    
-      <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
     
   </entry>
   

@@ -4,6 +4,53 @@
 
     
   <url>
+    <loc>https://www.duyidong.com/2017/06/20/reveal-js-quick-start/</loc>
+    <lastmod>2017-06-20T09:17:08.000Z</lastmod>
+    <data>
+        <display>
+        <title>如何制作在线幻灯片</title>
+        <pubTime>2017-06-20T08:20:33.000Z</pubTime>
+        
+        <tag>工具</tag>
+         
+        <tag>reveal js</tag>
+         
+        <tag>在线幻灯片</tag>
+         
+         
+           
+             
+              <breadCrumb title="工具" url="https://www.duyidong.com/categories/%E5%B7%A5%E5%85%B7/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2016/04/19/%E6%95%8F%E6%8D%B7%E5%BC%80%E5%8F%91/</loc>
+    <lastmod>2017-06-20T09:04:14.000Z</lastmod>
+    <data>
+        <display>
+        <title>敏捷开发</title>
+        <pubTime>2016-04-19T06:41:46.000Z</pubTime>
+        
+        <tag>Agile</tag>
+         
+        <tag>敏捷</tag>
+         
+         
+           
+             
+              <breadCrumb title="持续交付" url="https://www.duyidong.com/categories/%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+    
+  <url>
     <loc>https://www.duyidong.com/2017/06/15/openshift-quick-start/</loc>
     <lastmod>2017-06-16T09:47:38.000Z</lastmod>
     <data>
@@ -30,7 +77,6 @@
     </data>
     </url>
 
-    
     
   <url>
     <loc>https://www.duyidong.com/2017/06/14/kubernetes-and-openshift/</loc>
@@ -660,26 +706,6 @@
            
              
               <breadCrumb title="工具" url="https://www.duyidong.com/categories/%E5%B7%A5%E5%85%B7/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://www.duyidong.com/2016/04/19/%E6%95%8F%E6%8D%B7%E5%BC%80%E5%8F%91/</loc>
-    <lastmod>2017-05-04T12:31:27.000Z</lastmod>
-    <data>
-        <display>
-        <title>敏捷开发</title>
-        <pubTime>2016-04-19T06:41:46.000Z</pubTime>
-        
-        <tag>Agile</tag>
-         
-         
-           
-             
-              <breadCrumb title="敏捷文化" url="https://www.duyidong.com/categories/%E6%95%8F%E6%8D%B7%E6%96%87%E5%8C%96/"/>
           
         </display>
     </data>

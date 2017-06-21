@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.duyidong.com/"/>
-  <updated>2017-06-16T09:47:38.000Z</updated>
+  <updated>2017-06-20T09:17:08.000Z</updated>
   <id>https://www.duyidong.com/</id>
   
   <author>
@@ -14,6 +14,85 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>如何制作在线幻灯片</title>
+    <link href="https://www.duyidong.com/2017/06/20/reveal-js-quick-start/"/>
+    <id>https://www.duyidong.com/2017/06/20/reveal-js-quick-start/</id>
+    <published>2017-06-20T08:20:33.000Z</published>
+    <updated>2017-06-20T09:17:08.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>都说不会做幻灯片的程序员不是好架构师，工作中有很多场合需要用到幻灯片。最近在准备一个对外分享，内容比较简单，顺手尝试了一下使用 <code>reveal js</code>制作一个在线幻灯片。</p>
+<p>效果展示：<a href="https://cdn.rawgit.com/ADU-21/cd-in-cloud-reveal-js/784e1a49/index.html" target="_blank" rel="external">https://cdn.rawgit.com/ADU-21/cd-in-cloud-reveal-js/784e1a49/index.html</a></p>
+<p>这个幻灯片中包含文本、图片、视频，下面我会逐一讲解是如何实现的。</p>
+<h1 id="价值"><a href="#价值" class="headerlink" title="价值"></a>价值</h1><ul>
+<li>解决微软的 PowerPoint 和 Mac keynote 跨平台不兼容问题</li>
+<li>传统幻灯片需要拷来拷去，在线幻灯片只需要一个 URL 就可以访问，避免忘带 U 盘的尴尬</li>
+<li>在线幻灯片本质上是 html 文件，也可以在无网络环境播放</li>
+</ul>
+<h1 id="用到的资源"><a href="#用到的资源" class="headerlink" title="用到的资源"></a>用到的资源</h1><ul>
+<li><a href="http://lab.hakim.se/reveal-js/#/" target="_blank" rel="external">reveal js</a> ：将幻灯片文本内容渲染为 html</li>
+<li><a href="https://github.com/" target="_blank" rel="external">github</a> : 用于存放幻灯片文件</li>
+<li><a href="http://rawgit.com/" target="_blank" rel="external">rawgit</a> : 将 GitHub 中的 html 正常加载，并添加 CDN </li>
+</ul>
+<h1 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h1><h2 id="第一步：-Fork-官方-Repo"><a href="#第一步：-Fork-官方-Repo" class="headerlink" title="第一步： Fork 官方 Repo"></a>第一步： Fork 官方 Repo</h2><p>前往<a href="https://github.com/hakimel/reveal.js" target="_blank" rel="external">https://github.com/hakimel/reveal.js</a> 点击 <code>fork</code>将代码复制到自己账号下。</p>
+<pre><code>git clone https://github.com/&lt;you account id&gt;/reveal.js
+</code></pre><p>这时你就得到了一个可运行的 reveal js 模板，运行根目录下的 index.html 即可预览。</p>
+<p><a href="https://github.com/hakimel/reveal.js/blob/master/README.md" target="_blank" rel="external">README</a> 中提供了很多配置编辑的方式，你要是没耐心看就跟着我继续吧。</p>
+<h2 id="第二步：-编辑-index-html"><a href="#第二步：-编辑-index-html" class="headerlink" title="第二步： 编辑 index.html"></a>第二步： 编辑 index.html</h2><p>找到<code>&lt;div class=&quot;slides&quot;&gt;</code> ，这里是幻灯片正文的开始，在这个标签中添加如下代码，开启 <code>markdown</code>编辑模式：</p>
+<pre><code>&lt;section data-markdown data-separator=&quot;---&quot; data-separator-vertical=&quot;--&quot;&gt;
+    &lt;script type=&quot;text/template&quot;&gt;
+    ### 正文在此
+    &lt;/script&gt;
+&lt;/section&gt;
+</code></pre><p>现在你可使用 markdown 语法开始编辑幻灯片内容了。</p>
+<h3 id="基本编辑方式"><a href="#基本编辑方式" class="headerlink" title="基本编辑方式"></a>基本编辑方式</h3><p><code>---</code> 表示横向分页。</p>
+<p><code>--</code> 表示竖向分页，通常一列可以作为一个章节。</p>
+<p><code># 标题</code> <code>- 列表</code></p>
+<h3 id="插入图片"><a href="#插入图片" class="headerlink" title="插入图片"></a>插入图片</h3><p>插入图片有两种方式，基本的插入 markdown 语法就可以支持：</p>
+<p><code>![](https://hostname.com/image.png)</code> 外部引用。</p>
+<p>考虑到一些时候我们需要在无网络的情况下播放 幻灯片，所以通常还是将图片保存到本地再添加。</p>
+<p><code>![](images/image.png)</code> 这种方式需要在根目录下创建一个叫 image 的文件夹，把图片放入其中命名为 imag.png。</p>
+<p>如果要对图片又更复杂的支持，比如调整长宽，则需要写 html 代码，如：</p>
+<p><code>&lt;img src=&quot;images/image.jpg&quot; alt=&quot;&quot; width=&quot;500px&quot;&gt;</code></p>
+<h3 id="插入视频"><a href="#插入视频" class="headerlink" title="插入视频"></a>插入视频</h3><p>以 youtube 视频为例，首先使用 youtube-dl 下载视频：</p>
+<pre><code>brew install youtube-dl                     # 安装 youtube-dl
+youtube-dl https://www.youtube.com/watch?v=oHg5SJYRHA0
+</code></pre><p>下载视频默认格式为 webm 格式，这是一种支持 HTML5 的视频文件格式，可以使用浏览器打开，将视频添加到幻灯片中：</p>
+<pre><code>&lt;section data-background-video=&quot;your_video_name.webm&quot;&gt;
+</code></pre><p>幻灯片 播放到这一页的时候就会开始自动播放视频。</p>
+<h2 id="第三步：-对外访问"><a href="#第三步：-对外访问" class="headerlink" title="第三步： 对外访问"></a>第三步： 对外访问</h2><p>将编辑好后的 reveal js 这个项目提交到 GitHub 上：</p>
+<pre><code>git add .
+git commit -m &quot;add my slides&quot;
+git push origin master
+</code></pre><p>从网页访问你的 repo，以示例中的幻灯片为例： <a href="https://github.com/ADU-21/cd-in-cloud-reveal-js/blob/master/index.html" target="_blank" rel="external">https://github.com/ADU-21/cd-in-cloud-reveal-js/blob/master/index.html</a> ，我们发现幻灯片并没有被正常渲染，而是以源代码的方式展示。这个时候就需要用到第三方工具将 github 代码库中的 html 文件按照期望的方式对外暴露使其访问，具体操作：</p>
+<ul>
+<li>打开 <a href="http://rawgit.com/" target="_blank" rel="external">http://rawgit.com/</a></li>
+<li>在中间的输入框输入 <code>https://github.com/&lt;your github id&gt;/cd-in-cloud-reveal-js/blob/master/index.html</code></li>
+<li>得到 <code>production url</code> 和 <code>development url</code>两个链接</li>
+</ul>
+<p>Production url 是带有 CDN 的，和 github 的同步会存在一定的延迟， developement url 的更新会及时一些，不过访问速度相对会没那么快。</p>
+<p>现在访问生成的 URL，你的在线幻灯片就已经制作完毕。</p>
+<p>以上，不一定是最佳实践，不过经笔者亲测，行之有效。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;都说不会做幻灯片的程序员不是好架构师，工作中有很多场合需要用到幻灯片。最近在准备一个对外分享，内容比较简单，顺手尝试了一下使用 &lt;code&gt;reveal js&lt;/code&gt;制作一个在线幻灯片。&lt;/p&gt;
+&lt;p&gt;效果展示：&lt;a href=&quot;https://cdn.rawgit.
+    
+    </summary>
+    
+      <category term="工具" scheme="https://www.duyidong.com/categories/%E5%B7%A5%E5%85%B7/"/>
+    
+    
+      <category term="工具" scheme="https://www.duyidong.com/tags/%E5%B7%A5%E5%85%B7/"/>
+    
+      <category term="reveal js" scheme="https://www.duyidong.com/tags/reveal-js/"/>
+    
+      <category term="在线幻灯片" scheme="https://www.duyidong.com/tags/%E5%9C%A8%E7%BA%BF%E5%B9%BB%E7%81%AF%E7%89%87/"/>
+    
+  </entry>
   
   <entry>
     <title>PaaS 平台（三）-- Openshift 使用</title>
@@ -2547,42 +2626,6 @@ ZQ 不保存退出
       <category term="无服务器架构" scheme="https://www.duyidong.com/tags/%E6%97%A0%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%9E%B6%E6%9E%84/"/>
     
       <category term="Lambda" scheme="https://www.duyidong.com/tags/Lambda/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>2016 野蛮生长的一年</title>
-    <link href="https://www.duyidong.com/2017/01/16/2016%E5%A4%A7%E4%BA%8B%E8%AE%B0/"/>
-    <id>https://www.duyidong.com/2017/01/16/2016大事记/</id>
-    <published>2017-01-16T08:35:41.000Z</published>
-    <updated>2017-05-04T12:23:51.000Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="15年的尾声"><a href="#15年的尾声" class="headerlink" title="15年的尾声"></a>15年的尾声</h2><p>15年经历了北京的痛不欲生回到成都，辗转踌躇，终于找到一份工作进入IT行业，算起来迄今不过只度过了短短一年，比起影视行业摸爬滚打的2年时光，还要短些，我已俨然一副程序员模样，享受着室内舒适的工作环境，稳定的收入，付出着擅长的脑力劳动，有时候会想，不是我选择了工作，是工作选择了我；有时候也会想，会不会有一天，我又不做程序员了，什么会让我生存下去？<br><a id="more"></a></p>
-<h2 id="成为一枚程序员"><a href="#成为一枚程序员" class="headerlink" title="成为一枚程序员"></a>成为一枚程序员</h2><p>之前的工作只是在码代码，对于代码的意义，如何成为一个网站，以及网站如何发挥它的价值是一无所知的，好在coding的内容都比较有趣，一边发掘着网络世界的神奇，一边学习养家糊口的本事。<br>从一开始的爬虫，到社工库，到端口扫描，对网络世界的认识逐步提高；从一开始不知道自己在做什么，到后来两周做的网站卖了三十万，到后来觉得技术可以改变世界；我一天天成长着，<br>直到找工作开始，我才算是真正的成为一名程序员，时间大概是在三月份左右，我笨手笨脚的搭建了自己的博客，开始系统回顾大学所学的知识，总结涉足IT行业半年以来的经验，研读一些自己没有遇到过但是别人遇到了的问题，对技术的态度由”讨口饭吃”，穿变成一种兴趣，对曾经不削一顾的计算机，竟然开始心心相惜。</p>
-<h2 id="跳槽"><a href="#跳槽" class="headerlink" title="跳槽"></a>跳槽</h2><p>时间大概是在四月份，我收到一封拉勾网的回复，”ThoughtWorks的HR对你的简历感兴趣“，当时已经拿到软通的offer，薪资不低，且有华为靠山；但比较顾虑软通工作环境不佳，会对个人发展不利；抱着试一试的想法在清明陪爷爷奶奶游玩九寨沟期间给HR发了一封自荐邮件，假期结束后当即收到了Cherry的邮件回复，欢呼雀跃之余感叹这是我理梦想最近的一次。<br>大概在年初的时候我就来过一次软件园，当时在天府五街的地铁站前，感叹这里的办公楼都好大气，因为在北京真的没见过什么正儿八经的写字楼，于是发誓将来一定要在这里上班，加上好友引荐，早就觉得ThoughtWorks是一家女神一样的公司，宽松的文化，舒适的办公环境，有很多技术大牛，入职居然还配mac电脑，哈哈，当时就这样被这家公司吸引着。后来大概花了两周时间一边上班一遍翻完了大学四年的教材，在网上看了很多python的博客，提交homework， homework过了，通知到公司面试，逻辑测试, pair, 有种不过如此的感觉，不过还是认真对待，最终拿到offer，已经是五月了。</p>
-<h2 id="复合"><a href="#复合" class="headerlink" title="复合"></a>复合</h2><p>拿到TW的offer之后果断拒绝了软通，也不再想面其他公司了，安心租房，过了一段自由自在的日子。<br>入职TW前期压力是比较大的，比找工作时更大强度的学习任务，更high-level的认知模型，在TW的最初两个月一度认为自己原来对软件开发一无所知，在此期间很感谢我的buddy给我的指引，还有好玩的同事们的帮助，海外项目组很轻松，又有很多高智商的人一起工作，没有以前公司经常可见的那种眼神呆滞的人，这样的环境让我觉得很舒服，成长也很快，在做过几次session，准备一段时间AWS认证考试无果之后，终于roll off了</p>
-<h2 id="出差北京"><a href="#出差北京" class="headerlink" title="出差北京"></a>出差北京</h2><p>大概是在11月份的时候，天很冷，而且我知道这个时候北京又雾霾，但是没有办法，我还是降临了北京，国内项目组比较辛苦，节奏比较快，度过了最初一个星期7*14小时的工作后慢慢适应了，几乎找到一些上一家公司的感觉，实践了一些反模式再回过头来看海外交付组的最佳实践，不觉暗暗点头，有道理。<br>国内交付的小伙伴们都很活跃，项目压力越大明显感到项目组氛围更好，在这里我学会了阿瓦隆，也了解到很多公司的八卦。<br>圣诞节项目上线之后，年底feedback，很快我又roll off 了。</p>
-<h2 id="家人来成都"><a href="#家人来成都" class="headerlink" title="家人来成都"></a>家人来成都</h2><p>元旦，2017结束了。<br>很多人都在总结，计划着新的一年新的开始，虽然感觉和大学时候的计划有所不同，但计划还是要有的，flag还是要立，哈哈，新年伊始，不能亏脑袋，毕竟在我精力最旺盛的年龄，我又是一个如此爱用脑的人。</p>
-<h1 id="2017盘算着制造几件大事"><a href="#2017盘算着制造几件大事" class="headerlink" title="2017盘算着制造几件大事"></a>2017盘算着制造几件大事</h1><ul>
-<li>考取AWS专家级认证</li>
-<li>考取阿里云认证</li>
-<li>争取一次Lead的机会</li>
-<li>参加公司招聘</li>
-<li>比较深入的研究云，PaaS服务</li>
-<li>了解性地学习学习算法，人工智能，区块链</li>
-</ul>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;15年的尾声&quot;&gt;&lt;a href=&quot;#15年的尾声&quot; class=&quot;headerlink&quot; title=&quot;15年的尾声&quot;&gt;&lt;/a&gt;15年的尾声&lt;/h2&gt;&lt;p&gt;15年经历了北京的痛不欲生回到成都，辗转踌躇，终于找到一份工作进入IT行业，算起来迄今不过只度过了短短一年，比起影视行业摸爬滚打的2年时光，还要短些，我已俨然一副程序员模样，享受着室内舒适的工作环境，稳定的收入，付出着擅长的脑力劳动，有时候会想，不是我选择了工作，是工作选择了我；有时候也会想，会不会有一天，我又不做程序员了，什么会让我生存下去？&lt;br&gt;
-    
-    </summary>
-    
-      <category term="学习总结" scheme="https://www.duyidong.com/categories/%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/"/>
-    
-    
-      <category term="大事记" scheme="https://www.duyidong.com/tags/%E5%A4%A7%E4%BA%8B%E8%AE%B0/"/>
     
   </entry>
   

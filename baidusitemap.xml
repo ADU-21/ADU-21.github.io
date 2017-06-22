@@ -4,6 +4,32 @@
 
     
   <url>
+    <loc>https://www.duyidong.com/2017/03/06/%E6%B5%85%E8%B0%88AWS-IAM/</loc>
+    <lastmod>2017-06-22T09:18:58.000Z</lastmod>
+    <data>
+        <display>
+        <title>AWS认证与权限管理IAM</title>
+        <pubTime>2017-03-06T12:41:50.000Z</pubTime>
+        
+        <tag>AWS</tag>
+         
+        <tag>亚马逊认证与权限</tag>
+         
+        <tag>Security</tag>
+         
+        <tag>IAM</tag>
+         
+         
+           
+             
+              <breadCrumb title="Amazon Web Services" url="https://www.duyidong.com/categories/Amazon-Web-Services/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://www.duyidong.com/2017/03/13/AWS-S3/</loc>
     <lastmod>2017-06-22T08:00:45.000Z</lastmod>
     <data>
@@ -348,11 +374,11 @@
         <title>部署和发布策略的演进</title>
         <pubTime>2016-10-24T06:30:20.000Z</pubTime>
         
+        <tag>持续交付</tag>
+         
         <tag>DevOps</tag>
          
         <tag>部署与发布</tag>
-         
-        <tag>持续交付</tag>
          
         <tag>持续部署</tag>
          
@@ -452,9 +478,9 @@
          
         <tag>Cloud Native</tag>
          
-        <tag>Cloud</tag>
-         
         <tag>架构</tag>
+         
+        <tag>Cloud</tag>
          
          
            
@@ -476,13 +502,13 @@
         
         <tag>Cloud</tag>
          
-        <tag>基础设施即代码</tag>
-         
-        <tag>持续交付</tag>
-         
         <tag>Infrastructure as Code</tag>
          
         <tag>ThoughtWorks技术雷达</tag>
+         
+        <tag>基础设施即代码</tag>
+         
+        <tag>持续交付</tag>
          
          
            
@@ -504,9 +530,9 @@
         
         <tag>工具</tag>
          
-        <tag>DevOps</tag>
-         
         <tag>基础设施即代码</tag>
+         
+        <tag>DevOps</tag>
          
         <tag>Ansible</tag>
          
@@ -832,9 +858,9 @@
         
         <tag>AWS</tag>
          
-        <tag>DevOps</tag>
-         
         <tag>基础设施即代码</tag>
+         
+        <tag>DevOps</tag>
          
          
            
@@ -914,32 +940,6 @@
            
              
               <breadCrumb title="我的博客" url="https://www.duyidong.com/categories/%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://www.duyidong.com/2017/03/06/%E6%B5%85%E8%B0%88AWS-IAM/</loc>
-    <lastmod>2017-05-04T12:25:04.000Z</lastmod>
-    <data>
-        <display>
-        <title>浅谈AWS IAM</title>
-        <pubTime>2017-03-06T12:41:50.000Z</pubTime>
-        
-        <tag>AWS</tag>
-         
-        <tag>亚马逊认证与权限</tag>
-         
-        <tag>Security</tag>
-         
-        <tag>IAM</tag>
-         
-         
-           
-             
-              <breadCrumb title="Amazon Web Services" url="https://www.duyidong.com/categories/Amazon-Web-Services/"/>
           
         </display>
     </data>
@@ -1090,9 +1090,9 @@
         
         <tag>AWS</tag>
          
-        <tag>EC2</tag>
-         
         <tag>云计算</tag>
+         
+        <tag>EC2</tag>
          
          
            

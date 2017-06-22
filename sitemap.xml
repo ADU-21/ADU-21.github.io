@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.duyidong.com/2017/03/06/%E6%B5%85%E8%B0%88AWS-IAM/</loc>
+    
+    <lastmod>2017-06-22T09:18:58.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://www.duyidong.com/2017/03/13/AWS-S3/</loc>
     
     <lastmod>2017-06-22T08:00:45.000Z</lastmod>
@@ -278,13 +285,6 @@
     <loc>https://www.duyidong.com/2017/03/07/Deploy-Hexo-to-S3/</loc>
     
     <lastmod>2017-05-04T12:25:18.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://www.duyidong.com/2017/03/06/%E6%B5%85%E8%B0%88AWS-IAM/</loc>
-    
-    <lastmod>2017-05-04T12:25:04.000Z</lastmod>
     
   </url>
   

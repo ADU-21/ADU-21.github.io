@@ -1081,13 +1081,13 @@ def test_hosts_file(File):
     
       <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
     
-      <category term="Infrastructure as Code" scheme="https://www.duyidong.com/tags/Infrastructure-as-Code/"/>
-    
-      <category term="ThoughtWorks技术雷达" scheme="https://www.duyidong.com/tags/ThoughtWorks%E6%8A%80%E6%9C%AF%E9%9B%B7%E8%BE%BE/"/>
-    
       <category term="基础设施即代码" scheme="https://www.duyidong.com/tags/%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E5%8D%B3%E4%BB%A3%E7%A0%81/"/>
     
       <category term="持续交付" scheme="https://www.duyidong.com/tags/%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98/"/>
+    
+      <category term="Infrastructure as Code" scheme="https://www.duyidong.com/tags/Infrastructure-as-Code/"/>
+    
+      <category term="ThoughtWorks技术雷达" scheme="https://www.duyidong.com/tags/ThoughtWorks%E6%8A%80%E6%9C%AF%E9%9B%B7%E8%BE%BE/"/>
     
   </entry>
   
@@ -1800,9 +1800,9 @@ feedback，开放式协作
     
       <category term="Cloud Native" scheme="https://www.duyidong.com/tags/Cloud-Native/"/>
     
-      <category term="架构" scheme="https://www.duyidong.com/tags/%E6%9E%B6%E6%9E%84/"/>
-    
       <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
+    
+      <category term="架构" scheme="https://www.duyidong.com/tags/%E6%9E%B6%E6%9E%84/"/>
     
   </entry>
   
@@ -2027,9 +2027,9 @@ feedback，开放式协作
     
       <category term="AWS" scheme="https://www.duyidong.com/tags/AWS/"/>
     
-      <category term="云计算" scheme="https://www.duyidong.com/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/"/>
-    
       <category term="EC2" scheme="https://www.duyidong.com/tags/EC2/"/>
+    
+      <category term="云计算" scheme="https://www.duyidong.com/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/"/>
     
   </entry>
   
@@ -2038,20 +2038,20 @@ feedback，开放式协作
     <link href="https://www.duyidong.com/2017/03/13/AWS-S3/"/>
     <id>https://www.duyidong.com/2017/03/13/AWS-S3/</id>
     <published>2017-03-13T01:45:12.000Z</published>
-    <updated>2017-05-04T12:16:48.000Z</updated>
+    <updated>2017-06-22T08:00:45.000Z</updated>
     
     <content type="html"><![CDATA[<p>AWS S3是一个非常厉害的服务，上个月S3宕机4小时，江湖上传出了“半个互联网出现问题”的传言。姑且不谈S3的影响力有多大，在计算单元越来越小且移动存储设备近两年并未降价的趋势下，高可用高伸缩的云存储服务应该成为每一个开发者必备的知识。</p>
 <p>简单来说S3提供了一些bucket，租户可以在其中存放一些对象，何为对象？所有静态文件都属于镜像。<br>关于S3的高持久和高可用：</p>
 <p><img src="/images/Table_S3.png" alt=""></p>
 <h2 id="S3有几个重要的特点"><a href="#S3有几个重要的特点" class="headerlink" title="S3有几个重要的特点"></a>S3有几个重要的特点</h2><ul>
 <li><strong>Sunolicity:</strong>简单，S3服务可以使用AWS console控制，可以使用命令行，可以通过各种语言的sdk与各应用深度集成。</li>
-<li><strong>Drability:</strong>数据持久，S3(除了冗余备份服务)可以提供高达11个9的数据持久性，且提供跨Region备份，版本管理，充分保证数据持久性和容灾性（数据丢失可通过版本管理即使回滚）</li>
-<li><strong>Scalability:</strong>可扩展性，S3对租户的文件存储总量不做限制，租户可以存放需求相当的任何数量级的对象在S3上</li>
-<li><strong>Security:</strong>安全，AWS S3的文件传输都经过SSL加密，租户可以通过设置IAM管理对象访问权限，租户也可以选择在本地加密后上传S3，使用前再选择解密文件</li>
-<li><strong>Available:</strong>可用性，S3的Standard提供可用性达到99.99%的服务，IA(Infrequent Access)达到99.9%，RRS(Reduced Redundancy Storage)达到99.99%</li>
-<li><strong>Low Cost:</strong>低花费，这一点除了体现在S3按需收费上，还体现在S3的生存周期管理上，S3可以定期将久不访问的数据转移到IA服务上，在定期归档备份至Glacier中</li>
-<li><strong>Broad integration with other AWS services:</strong>与AWS其他服务广泛集成，包括安全（IAM, KMS），报警（CLoudWatch, CloudTrail &amp; Event Notifications），计算（Lambda），数据库（EMR, Redshift）</li>
-<li><strong>Enterprise-class Storage Management:</strong>企业级存储管理，S3允许租户采用<strong>数据驱动</strong>的方式提高存储优化，数据安全性和管理效率</li>
+<li><strong>Drability:</strong>数据持久，S3(除了冗余备份服务)可以提供高达11个9的数据持久性，且提供跨Region备份，版本管理，充分保证数据持久性和容灾性（数据丢失可通过版本管理即使回滚）。</li>
+<li><strong>Scalability:</strong>可扩展性，S3对租户的文件存储总量不做限制，租户可以存放需求相当的任何数量级的对象在S3上。</li>
+<li><strong>Security:</strong>安全，AWS S3的文件传输都经过SSL加密，租户可以通过设置IAM管理对象访问权限，租户也可以选择在本地加密后上传S3，使用前再选择解密文件。</li>
+<li><strong>Available:</strong>可用性，S3的Standard提供可用性达到99.99%的服务，IA(Infrequent Access)达到99.9%，RRS(Reduced Redundancy Storage)达到99.99%。</li>
+<li><strong>Low Cost:</strong>低花费，这一点除了体现在S3按需收费上，还体现在S3的生存周期管理上，S3可以定期将久不访问的数据转移到IA服务上，在定期归档备份至Glacier中。</li>
+<li><strong>Broad integration with other AWS services:</strong>与AWS其他服务广泛集成，包括安全（IAM, KMS），报警（CLoudWatch, CloudTrail &amp; Event Notifications），计算（Lambda），数据库（EMR, Redshift）。</li>
+<li><strong>Enterprise-class Storage Management:</strong>企业级存储管理，S3允许租户采用<strong>数据驱动</strong>的方式提高存储优化，数据安全性和管理效率。</li>
 </ul>
 <h2 id="S3的使用场景"><a href="#S3的使用场景" class="headerlink" title="S3的使用场景"></a>S3的使用场景</h2><h3 id="内容存储及分发"><a href="#内容存储及分发" class="headerlink" title="内容存储及分发"></a>内容存储及分发</h3><p>S3可以用以上传/下载文件，包括音频视频文件，比如构建一个提供给用户分享视频的网站，S3可以提供无限伸缩的空间，以及跨Region的备份，和定期的存储转移，充分保证网站可用性和高负载能力，另外还提供上传下载加密，以及访问请权限控制的功能。</p>
 <h3 id="数据分析存储"><a href="#数据分析存储" class="headerlink" title="数据分析存储"></a>数据分析存储</h3><p>S3可以用于存储用于数据分析的原始数据，因其很容易和EC2，Lambda等AWS的计算资源或事件触发器集成，可以轻松使用S3构建数据驱动的Data Pipeline，用于数据分析。且S3也可以用于存放数据分析产生的报告。</p>
@@ -2066,22 +2066,22 @@ feedback，开放式协作
 <h3 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h3><h4 id="Version"><a href="#Version" class="headerlink" title="Version"></a>Version</h4><p>开启版本控制后，对于bucket里每一个object的操作都会在版本中被记录，租户可以在console中下载历史版本，回滚，删除版本。值得一提的是，在跨Region备份功能开启时，主Bucket的版本删除并不会影响到备份bucket的版本。</p>
 <h4 id="Logging"><a href="#Logging" class="headerlink" title="Logging"></a>Logging</h4><p>该功能可以指定一个bucket和一个路径用于存放租户对于S3使用的所有日志，包括该bucket内的存取更新对象的操作。</p>
 <h4 id="Staic-website-hosting"><a href="#Staic-website-hosting" class="headerlink" title="Staic website hosting"></a>Staic website hosting</h4><p>开启此功能可以将一个bucket变成一个静态网站，只需要制定入口index.html和错误页面即可。当然还有一个前提是设置对象权限为所有人外部可访问。</p>
-<h4 id="Tags"><a href="#Tags" class="headerlink" title="Tags"></a>Tags</h4><p>给Bucket资源打上一个或多个标签，方便管理</p>
-<h4 id="Cross-region-replication"><a href="#Cross-region-replication" class="headerlink" title="Cross-region replication"></a>Cross-region replication</h4><p>制定一个另一个Region的Bucket作为备份，需要Version功能开启</p>
-<h4 id="Transfer-Acceleration"><a href="#Transfer-Acceleration" class="headerlink" title="Transfer Acceleration"></a>Transfer Acceleration</h4><p>加速上传功能，类似于CloudFront，通过缓存在Globle Infrastructure的节点加速上传</p>
-<h4 id="Events"><a href="#Events" class="headerlink" title="Events"></a>Events</h4><p>开启这个功能，当S3的bucket或object发生动作时，可以触发SNS topic或SQS队列，或者Lambda Function</p>
-<h3 id="授权"><a href="#授权" class="headerlink" title="授权"></a>授权</h3><h4 id="Access-Control-List"><a href="#Access-Control-List" class="headerlink" title="Access Control List"></a>Access Control List</h4><p>大概就是IAM的某一个用户，可以对对象/权限控制执行如何操作（读/写），值得注意的是，默认情况下一个bucket创建出来后它的全显是只有它的创建者可以读/写这个bucket，粒度较大，适用于整个bucket的权控制</p>
-<h4 id="Bucket-Policy"><a href="#Bucket-Policy" class="headerlink" title="Bucket Policy"></a>Bucket Policy</h4><p>更细粒度的权限控制方案，以资源标识符为单位，与IAM相对应，可用于指定某个用户可以对bucket内部的哪些资源做何种操作</p>
-<h4 id="Cross-Origin-Resource-Sharing-CORS"><a href="#Cross-Origin-Resource-Sharing-CORS" class="headerlink" title="Cross-Origin Resource Sharing (CORS)"></a>Cross-Origin Resource Sharing (CORS)</h4><p>允许外链请求，在网站中使用API调用S3的资源的时候必须将调用url添加到该项信任中</p>
-<h3 id="管理"><a href="#管理" class="headerlink" title="管理"></a>管理</h3><h4 id="Lifecycle"><a href="#Lifecycle" class="headerlink" title="Lifecycle"></a>Lifecycle</h4><p>生存周期主要针对一个文件被上传到S3中，一段时间后访问会减少，再过一段时间可能根本不会被访问而只需要备份的应用场景，可以设置Standard S3 -&gt; IA S3 -&gt; Glacier 的转移顺序，主要价值是减小开支<br>关于Lifecycle还有一个重要的表格：</p>
-<p><img src="/images/Table_S3_Glacier.png" alt=""></p>
-<h4 id="Analytics"><a href="#Analytics" class="headerlink" title="Analytics"></a>Analytics</h4><p>可以按标签过滤bucket中的object，生成csv报告，并手动将过滤出来的object转存到另一个同Region的bucket内</p>
-<h4 id="Metrics"><a href="#Metrics" class="headerlink" title="Metrics"></a>Metrics</h4><p>分为Storage metrics，Request metrics，Data transfer metrics，跟Cloudwatch结合，从多个维度度量租户的S3使用情况</p>
-<h4 id="Inventory"><a href="#Inventory" class="headerlink" title="Inventory"></a>Inventory</h4><p>S3的一个对象分拣服务，通过Inventory的方式定期将对象分类</p>
+<h4 id="Tags"><a href="#Tags" class="headerlink" title="Tags"></a>Tags</h4><p>给Bucket资源打上一个或多个标签，方便管理。</p>
+<h4 id="Cross-region-replication"><a href="#Cross-region-replication" class="headerlink" title="Cross-region replication"></a>Cross-region replication</h4><p>制定一个另一个Region的Bucket作为备份，需要Version功能开启。</p>
+<h4 id="Transfer-Acceleration"><a href="#Transfer-Acceleration" class="headerlink" title="Transfer Acceleration"></a>Transfer Acceleration</h4><p>加速上传功能，类似于CloudFront，通过缓存在Globle Infrastructure的节点加速上传。</p>
+<h4 id="Events"><a href="#Events" class="headerlink" title="Events"></a>Events</h4><p>开启这个功能，当S3的bucket或object发生动作时，可以触发SNS topic或SQS队列，或者Lambda Function。</p>
+<h3 id="授权"><a href="#授权" class="headerlink" title="授权"></a>授权</h3><h4 id="Access-Control-List"><a href="#Access-Control-List" class="headerlink" title="Access Control List"></a>Access Control List</h4><p>大概就是IAM的某一个用户，可以对对象/权限控制执行如何操作（读/写），值得注意的是，默认情况下一个bucket创建出来后它的全显是只有它的创建者可以读/写这个bucket，粒度较大，适用于整个bucket的权控制。</p>
+<h4 id="Bucket-Policy"><a href="#Bucket-Policy" class="headerlink" title="Bucket Policy"></a>Bucket Policy</h4><p>更细粒度的权限控制方案，以资源标识符为单位，与IAM相对应，可用于指定某个用户可以对bucket内部的哪些资源做何种操作。</p>
+<h4 id="Cross-Origin-Resource-Sharing-CORS"><a href="#Cross-Origin-Resource-Sharing-CORS" class="headerlink" title="Cross-Origin Resource Sharing (CORS)"></a>Cross-Origin Resource Sharing (CORS)</h4><p>允许外链请求，在网站中使用API调用S3的资源的时候必须将调用url添加到该项信任中。</p>
+<h3 id="管理"><a href="#管理" class="headerlink" title="管理"></a>管理</h3><h4 id="Lifecycle"><a href="#Lifecycle" class="headerlink" title="Lifecycle"></a>Lifecycle</h4><p>生存周期主要针对一个文件被上传到S3中，一段时间后访问会减少，再过一段时间可能根本不会被访问而只需要备份的应用场景，可以设置Standard S3 -&gt; IA S3 -&gt; Glacier 的转移顺序，主要价值是减小开支。<br>关于Lifecycle还有一个重要的表格：</p>
+<p><img src="/images/Table_S3_Claicer.png" alt=""></p>
+<h4 id="Analytics"><a href="#Analytics" class="headerlink" title="Analytics"></a>Analytics</h4><p>可以按标签过滤bucket中的object，生成csv报告，并手动将过滤出来的object转存到另一个同Region的bucket内。</p>
+<h4 id="Metrics"><a href="#Metrics" class="headerlink" title="Metrics"></a>Metrics</h4><p>分为Storage metrics，Request metrics，Data transfer metrics，跟Cloudwatch结合，从多个维度度量租户的S3使用情况。</p>
+<h4 id="Inventory"><a href="#Inventory" class="headerlink" title="Inventory"></a>Inventory</h4><p>S3的一个对象分拣服务，通过Inventory的方式定期将对象分类。</p>
 <h2 id="限制"><a href="#限制" class="headerlink" title="限制"></a>限制</h2><ul>
-<li>一个对象最大不能超过5TB</li>
-<li>一个账号最多可创建100个bucket</li>
-<li>S3普通上传模式最大只支持5GB以下的文件大小，开启<a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/UploadingObjects.html" target="_blank" rel="external">multipart uploading</a>enable多进程上传和断点续传，从而提高上传效率，在带宽充足且有大文件需要上传的时候可以开启这个功能</li>
+<li>一个对象最大不能超过5TB。</li>
+<li>一个账号最多可创建100个bucket。</li>
+<li>S3普通上传模式最大只支持5GB以下的文件大小，开启<a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/UploadingObjects.html" target="_blank" rel="external">multipart uploading</a>enable多进程上传和断点续传，从而提高上传效率，在带宽充足且有大文件需要上传的时候可以开启这个功能。</li>
 </ul>
 <blockquote>
 <ul>

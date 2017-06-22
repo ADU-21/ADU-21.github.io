@@ -4,6 +4,30 @@
 
     
   <url>
+    <loc>https://www.duyidong.com/2017/03/13/AWS-S3/</loc>
+    <lastmod>2017-06-22T08:00:45.000Z</lastmod>
+    <data>
+        <display>
+        <title>AWS对象存储服务S3</title>
+        <pubTime>2017-03-13T01:45:12.000Z</pubTime>
+        
+        <tag>AWS</tag>
+         
+        <tag>S3</tag>
+         
+        <tag>对象存储服务</tag>
+         
+         
+           
+             
+              <breadCrumb title="Amazon Web Services" url="https://www.duyidong.com/categories/Amazon-Web-Services/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://www.duyidong.com/2017/06/20/reveal-js-quick-start/</loc>
     <lastmod>2017-06-20T09:17:08.000Z</lastmod>
     <data>
@@ -324,11 +348,11 @@
         <title>部署和发布策略的演进</title>
         <pubTime>2016-10-24T06:30:20.000Z</pubTime>
         
-        <tag>持续交付</tag>
-         
         <tag>DevOps</tag>
          
         <tag>部署与发布</tag>
+         
+        <tag>持续交付</tag>
          
         <tag>持续部署</tag>
          
@@ -428,9 +452,9 @@
          
         <tag>Cloud Native</tag>
          
-        <tag>架构</tag>
-         
         <tag>Cloud</tag>
+         
+        <tag>架构</tag>
          
          
            
@@ -452,13 +476,13 @@
         
         <tag>Cloud</tag>
          
-        <tag>Infrastructure as Code</tag>
-         
-        <tag>ThoughtWorks技术雷达</tag>
-         
         <tag>基础设施即代码</tag>
          
         <tag>持续交付</tag>
+         
+        <tag>Infrastructure as Code</tag>
+         
+        <tag>ThoughtWorks技术雷达</tag>
          
          
            
@@ -480,9 +504,9 @@
         
         <tag>工具</tag>
          
-        <tag>基础设施即代码</tag>
-         
         <tag>DevOps</tag>
+         
+        <tag>基础设施即代码</tag>
          
         <tag>Ansible</tag>
          
@@ -808,9 +832,9 @@
         
         <tag>AWS</tag>
          
-        <tag>基础设施即代码</tag>
-         
         <tag>DevOps</tag>
+         
+        <tag>基础设施即代码</tag>
          
          
            
@@ -1066,33 +1090,9 @@
         
         <tag>AWS</tag>
          
-        <tag>云计算</tag>
-         
         <tag>EC2</tag>
          
-         
-           
-             
-              <breadCrumb title="Amazon Web Services" url="https://www.duyidong.com/categories/Amazon-Web-Services/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://www.duyidong.com/2017/03/13/AWS-S3/</loc>
-    <lastmod>2017-05-04T12:16:48.000Z</lastmod>
-    <data>
-        <display>
-        <title>AWS对象存储服务S3</title>
-        <pubTime>2017-03-13T01:45:12.000Z</pubTime>
-        
-        <tag>AWS</tag>
-         
-        <tag>S3</tag>
-         
-        <tag>对象存储服务</tag>
+        <tag>云计算</tag>
          
          
            

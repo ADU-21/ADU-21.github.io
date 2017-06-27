@@ -11,9 +11,9 @@
         <title>AWS认证与权限管理IAM</title>
         <pubTime>2017-03-06T12:41:50.000Z</pubTime>
         
-        <tag>亚马逊认证与权限</tag>
-         
         <tag>AWS</tag>
+         
+        <tag>亚马逊认证与权限</tag>
          
         <tag>Security</tag>
          
@@ -242,9 +242,9 @@
         <title>云原生应用 (Cloud Native Application)</title>
         <pubTime>2017-05-03T03:04:03.000Z</pubTime>
         
-        <tag>Cloud Native</tag>
-         
         <tag>Cloud</tag>
+         
+        <tag>Cloud Native</tag>
          
         <tag>翻译</tag>
          
@@ -476,11 +476,11 @@
         
         <tag>AWS</tag>
          
+        <tag>Cloud</tag>
+         
         <tag>Cloud Native</tag>
          
         <tag>架构</tag>
-         
-        <tag>Cloud</tag>
          
          
            
@@ -500,8 +500,6 @@
         <title>基础设施代码测试</title>
         <pubTime>2017-04-13T05:41:29.000Z</pubTime>
         
-        <tag>Cloud</tag>
-         
         <tag>Infrastructure as Code</tag>
          
         <tag>ThoughtWorks技术雷达</tag>
@@ -509,6 +507,8 @@
         <tag>基础设施即代码</tag>
          
         <tag>持续交付</tag>
+         
+        <tag>Cloud</tag>
          
          
            

@@ -544,9 +544,9 @@ spec:
     
       <category term="小结" scheme="https://www.duyidong.com/tags/%E5%B0%8F%E7%BB%93/"/>
     
-      <category term="职场" scheme="https://www.duyidong.com/tags/%E8%81%8C%E5%9C%BA/"/>
-    
       <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
+    
+      <category term="职场" scheme="https://www.duyidong.com/tags/%E8%81%8C%E5%9C%BA/"/>
     
       <category term="Platform" scheme="https://www.duyidong.com/tags/Platform/"/>
     
@@ -658,9 +658,9 @@ High willingness to travel
       <category term="DevOps" scheme="https://www.duyidong.com/categories/DevOps/"/>
     
     
-      <category term="职场" scheme="https://www.duyidong.com/tags/%E8%81%8C%E5%9C%BA/"/>
-    
       <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
+    
+      <category term="职场" scheme="https://www.duyidong.com/tags/%E8%81%8C%E5%9C%BA/"/>
     
   </entry>
   
@@ -1493,9 +1493,9 @@ feedback，开放式协作
       <category term="ThoughtWorks" scheme="https://www.duyidong.com/categories/ThoughtWorks/"/>
     
     
-      <category term="ThoughtWorks" scheme="https://www.duyidong.com/tags/ThoughtWorks/"/>
-    
       <category term="职场" scheme="https://www.duyidong.com/tags/%E8%81%8C%E5%9C%BA/"/>
+    
+      <category term="ThoughtWorks" scheme="https://www.duyidong.com/tags/ThoughtWorks/"/>
     
   </entry>
   
@@ -1562,9 +1562,9 @@ feedback，开放式协作
       <category term="Amazon Web Services" scheme="https://www.duyidong.com/categories/Amazon-Web-Services/"/>
     
     
-      <category term="AWS" scheme="https://www.duyidong.com/tags/AWS/"/>
-    
       <category term="学习" scheme="https://www.duyidong.com/tags/%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="AWS" scheme="https://www.duyidong.com/tags/AWS/"/>
     
       <category term="云计算认证" scheme="https://www.duyidong.com/tags/%E4%BA%91%E8%AE%A1%E7%AE%97%E8%AE%A4%E8%AF%81/"/>
     
@@ -2027,9 +2027,9 @@ feedback，开放式协作
     
       <category term="AWS" scheme="https://www.duyidong.com/tags/AWS/"/>
     
-      <category term="云计算" scheme="https://www.duyidong.com/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/"/>
-    
       <category term="EC2" scheme="https://www.duyidong.com/tags/EC2/"/>
+    
+      <category term="云计算" scheme="https://www.duyidong.com/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/"/>
     
   </entry>
   

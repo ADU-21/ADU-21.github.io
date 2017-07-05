@@ -544,9 +544,9 @@ spec:
     
       <category term="小结" scheme="https://www.duyidong.com/tags/%E5%B0%8F%E7%BB%93/"/>
     
-      <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
-    
       <category term="职场" scheme="https://www.duyidong.com/tags/%E8%81%8C%E5%9C%BA/"/>
+    
+      <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
     
       <category term="Platform" scheme="https://www.duyidong.com/tags/Platform/"/>
     
@@ -658,9 +658,9 @@ High willingness to travel
       <category term="DevOps" scheme="https://www.duyidong.com/categories/DevOps/"/>
     
     
-      <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
-    
       <category term="职场" scheme="https://www.duyidong.com/tags/%E8%81%8C%E5%9C%BA/"/>
+    
+      <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
     
   </entry>
   
@@ -1493,9 +1493,9 @@ feedback，开放式协作
       <category term="ThoughtWorks" scheme="https://www.duyidong.com/categories/ThoughtWorks/"/>
     
     
-      <category term="职场" scheme="https://www.duyidong.com/tags/%E8%81%8C%E5%9C%BA/"/>
-    
       <category term="ThoughtWorks" scheme="https://www.duyidong.com/tags/ThoughtWorks/"/>
+    
+      <category term="职场" scheme="https://www.duyidong.com/tags/%E8%81%8C%E5%9C%BA/"/>
     
   </entry>
   
@@ -2227,9 +2227,9 @@ export AWS_SECRET_ACCESS_KEY=&lt;secret key&gt;
     
       <category term="AWS" scheme="https://www.duyidong.com/tags/AWS/"/>
     
-      <category term="S3" scheme="https://www.duyidong.com/tags/S3/"/>
-    
       <category term="Blog" scheme="https://www.duyidong.com/tags/Blog/"/>
+    
+      <category term="S3" scheme="https://www.duyidong.com/tags/S3/"/>
     
       <category term="Hexo" scheme="https://www.duyidong.com/tags/Hexo/"/>
     

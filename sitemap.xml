@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.duyidong.com/2017/06/15/openshift-quick-start/</loc>
+    
+    <lastmod>2017-07-10T10:38:03.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://www.duyidong.com/2017/03/06/%E6%B5%85%E8%B0%88AWS-IAM/</loc>
     
     <lastmod>2017-06-22T09:18:58.000Z</lastmod>
@@ -33,13 +40,6 @@
     <loc>https://www.duyidong.com/about/index.html</loc>
     
     <lastmod>2017-06-20T05:31:30.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://www.duyidong.com/2017/06/15/openshift-quick-start/</loc>
-    
-    <lastmod>2017-06-16T09:47:38.000Z</lastmod>
     
   </url>
   

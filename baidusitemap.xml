@@ -4,6 +4,34 @@
 
     
   <url>
+    <loc>https://www.duyidong.com/2017/06/15/openshift-quick-start/</loc>
+    <lastmod>2017-07-10T10:38:03.000Z</lastmod>
+    <data>
+        <display>
+        <title>PaaS 平台（三）-- Openshift 使用</title>
+        <pubTime>2017-06-15T10:27:41.000Z</pubTime>
+        
+        <tag>DevOps</tag>
+         
+        <tag>PaaS</tag>
+         
+        <tag>Openshift</tag>
+         
+        <tag>Kubernetes</tag>
+         
+        <tag>平台即服务</tag>
+         
+         
+           
+             
+              <breadCrumb title="Cloud" url="https://www.duyidong.com/categories/Cloud/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://www.duyidong.com/2017/03/06/%E6%B5%85%E8%B0%88AWS-IAM/</loc>
     <lastmod>2017-06-22T09:18:58.000Z</lastmod>
     <data>
@@ -11,9 +39,9 @@
         <title>AWS认证与权限管理IAM</title>
         <pubTime>2017-03-06T12:41:50.000Z</pubTime>
         
-        <tag>亚马逊认证与权限</tag>
-         
         <tag>AWS</tag>
+         
+        <tag>亚马逊认证与权限</tag>
          
         <tag>Security</tag>
          
@@ -99,34 +127,6 @@
     </url>
 
     
-    
-  <url>
-    <loc>https://www.duyidong.com/2017/06/15/openshift-quick-start/</loc>
-    <lastmod>2017-06-16T09:47:38.000Z</lastmod>
-    <data>
-        <display>
-        <title>PaaS 平台（三）-- Openshift 使用</title>
-        <pubTime>2017-06-15T10:27:41.000Z</pubTime>
-        
-        <tag>DevOps</tag>
-         
-        <tag>PaaS</tag>
-         
-        <tag>Openshift</tag>
-         
-        <tag>Kubernetes</tag>
-         
-        <tag>平台即服务</tag>
-         
-         
-           
-             
-              <breadCrumb title="Cloud" url="https://www.duyidong.com/categories/Cloud/"/>
-          
-        </display>
-    </data>
-    </url>
-
     
   <url>
     <loc>https://www.duyidong.com/2017/06/14/kubernetes-and-openshift/</loc>
@@ -242,9 +242,9 @@
         <title>云原生应用 (Cloud Native Application)</title>
         <pubTime>2017-05-03T03:04:03.000Z</pubTime>
         
-        <tag>Cloud</tag>
-         
         <tag>Cloud Native</tag>
+         
+        <tag>Cloud</tag>
          
         <tag>翻译</tag>
          
@@ -374,9 +374,9 @@
         <title>部署和发布策略的演进</title>
         <pubTime>2016-10-24T06:30:20.000Z</pubTime>
         
-        <tag>持续交付</tag>
-         
         <tag>DevOps</tag>
+         
+        <tag>持续交付</tag>
          
         <tag>部署与发布</tag>
          
@@ -476,11 +476,11 @@
         
         <tag>AWS</tag>
          
-        <tag>Cloud</tag>
-         
         <tag>Cloud Native</tag>
          
         <tag>架构</tag>
+         
+        <tag>Cloud</tag>
          
          
            
@@ -500,6 +500,8 @@
         <title>基础设施代码测试</title>
         <pubTime>2017-04-13T05:41:29.000Z</pubTime>
         
+        <tag>Cloud</tag>
+         
         <tag>Infrastructure as Code</tag>
          
         <tag>ThoughtWorks技术雷达</tag>
@@ -507,8 +509,6 @@
         <tag>基础设施即代码</tag>
          
         <tag>持续交付</tag>
-         
-        <tag>Cloud</tag>
          
          
            
@@ -528,11 +528,11 @@
         <title>Ansible学习小记</title>
         <pubTime>2016-06-15T12:30:46.000Z</pubTime>
         
-        <tag>基础设施即代码</tag>
+        <tag>工具</tag>
          
         <tag>DevOps</tag>
          
-        <tag>工具</tag>
+        <tag>基础设施即代码</tag>
          
         <tag>Ansible</tag>
          
@@ -858,9 +858,9 @@
         
         <tag>AWS</tag>
          
-        <tag>基础设施即代码</tag>
-         
         <tag>DevOps</tag>
+         
+        <tag>基础设施即代码</tag>
          
          
            
@@ -1066,9 +1066,9 @@
         <title>离骚</title>
         <pubTime>2017-04-11T16:01:40.000Z</pubTime>
         
-        <tag>ThoughtWorks</tag>
-         
         <tag>职场</tag>
+         
+        <tag>ThoughtWorks</tag>
          
          
            

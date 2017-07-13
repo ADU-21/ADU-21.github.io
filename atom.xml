@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.duyidong.com/"/>
-  <updated>2017-06-20T09:17:08.000Z</updated>
+  <updated>2017-07-13T11:43:36.000Z</updated>
   <id>https://www.duyidong.com/</id>
   
   <author>
@@ -14,6 +14,70 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>DevOps的三种方式</title>
+    <link href="https://www.duyidong.com/2017/07/12/the-three-ways-understanding-devops/"/>
+    <id>https://www.duyidong.com/2017/07/12/the-three-ways-understanding-devops/</id>
+    <published>2017-07-12T14:50:38.000Z</published>
+    <updated>2017-07-13T11:43:36.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文翻译自 <a href="https://itrevolution.com/author/gene-kim/" target="_blank" rel="external">Gene Kim</a> 的博客 <a href="http://itrevolution.com/the-three-ways-principles-underpinning-devops/" target="_blank" rel="external">The Three Ways: The Principles Underpinning DevOps</a></p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>这篇博客中提到的“三种方式“源自 <a href="http://www.itrevolution.com/book/the-devops-handbook/" target="_blank" rel="external">《DevOps Handbook》</a> 及《凤凰项目》（<a href="https://itrevolution.com/books/novel/" target="_blank" rel="external">The Phoenix Project: A Novel About IT, DevOps, and Helping Your Business Win.</a>），这三种方式描述了构成 DevOps 的理论框架、流程、实践及价值观和哲学。</p>
+<p>感谢《Lean IT》的作者 Mike Orzen 为此文提供宝贵建议。</p>
+<h1 id="三种方式"><a href="#三种方式" class="headerlink" title="三种方式"></a>三种方式</h1><p>下文将介绍三种模式及在该种模式指导下的 DevOps 实践。</p>
+<h2 id="第一种方式：-系统思考"><a href="#第一种方式：-系统思考" class="headerlink" title="第一种方式： 系统思考"></a>第一种方式： 系统思考</h2><p><img src="https://itrevolution.com/wp-content/uploads/2012/08/first-way2-400x191.png" alt=""></p>
+<p>第一种方式强调<strong>全局优化，而非局部改进</strong>。— 大到部门职能划分（例如研发部和运维部门），小到个人（开发和系统工程师）。</p>
+<p>这种方式将关注点放在整个业务价值流上。换句话说，整个团队应该关注在从需求被定义到开发，再到运维这个过程，直到价值被以服务的形式交付给最终用户。</p>
+<p>将这种方式带到实践中的产出便是永远不要将已知的缺陷传递到下游工作，永远不要为了局部优化影响了整体价值流交付，总是为了增加价值流动努力，永远追求对架构的深刻理解。</p>
+<p>涉及到这种方式的实践有：</p>
+<ul>
+<li>所有环境和代码使用同一个仓库，将软件包纳入版本管理</li>
+<li>团队共同决定发布流程</li>
+<li>保持 DEV、TEST、PRODUCTION 环境的一致性</li>
+<li>自动化回归测试</li>
+<li>小步提交，每日部署；而不是一次部署大量变更</li>
+<li>更快、更频繁发布</li>
+</ul>
+<h2 id="第二种方式：经过放大的反馈回路"><a href="#第二种方式：经过放大的反馈回路" class="headerlink" title="第二种方式：经过放大的反馈回路"></a>第二种方式：经过放大的反馈回路</h2><p><img src="https://itrevolution.com/wp-content/uploads/2012/08/second-way1-400x211.png" alt=""></p>
+<p>第二种方式是<strong>创建从开发过程下游至上游的反馈环</strong>。几乎所有的流程改进都是为了从时间上缩短和从覆盖面上放大反馈循环，从而可以不断地进行必要的改正。</p>
+<p>第二种方式的产出是关注到价值流中所有涉及到的用户，包括价值流内部和外部的，缩短和放大反馈回路，并且可以随时定位到需要改进的地方。</p>
+<p>涉及到这种方式的实践有：</p>
+<ul>
+<li>代码审查及配置变更检查</li>
+<li>有纪律的自动化测试，使许多同时的小型敏捷团队能够有效地工作</li>
+<li>尽早设置监控预警</li>
+<li>修复 bug 为团队最高优先级</li>
+<li>团队成员之间高度互相信任</li>
+<li>团队之间保持沟通和良好合作</li>
+</ul>
+<h2 id="第三种方式：持续做试验和学习的文化"><a href="#第三种方式：持续做试验和学习的文化" class="headerlink" title="第三种方式：持续做试验和学习的文化"></a>第三种方式：持续做试验和学习的文化</h2><p><img src="https://itrevolution.com/wp-content/uploads/2012/08/third-way-400x224.png" alt=""></p>
+<p>第三种方式提倡<strong>持续做试验，承担风险、从失败中学习；通过反复实践来达到精通</strong>。</p>
+<p>我们需要实验和冒着失败的风险，及时不断地尝试将我们置于一个危险的境地，我们要通过反复试错来掌握使我们远离危险的技能。</p>
+<p>第三种方式的输出为为改善日常工作分配时间、奖励团队冒险精神，将错误人工引入系统以提高系统健壮性。</p>
+<p>最具有代表性的就是 Netfilx 的 Chaos monkey ，Netflix 在他们的生产环境搭建一个服务用于定时随机关闭服务器，用以模拟服务器正常损坏或服务异常，他们的系统长期在这种环境下运行，“服务器故障”成为系统每日都要面临的问题，因此当服务器真的以外故障时不会对系统整体造成任何的影响。</p>
+<h1 id="译者后记"><a href="#译者后记" class="headerlink" title="译者后记"></a>译者后记</h1><p>全局优化、快速反馈、鼓励失败。我们发现其实敏捷、精益、持续交付、DevOps中间有很多相似的东西。</p>
+<blockquote>
+<p>参考资料: <a href="https://es.slideshare.net/SonatypeCorp/devops-connect-josh-corman-and-gene-kim-discuss-devopssec" target="_blank" rel="external">https://es.slideshare.net/SonatypeCorp/devops-connect-josh-corman-and-gene-kim-discuss-devopssec</a></p>
+</blockquote>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文翻译自 &lt;a href=&quot;https://itrevolution.com/author/gene-kim/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Gene Kim&lt;/a&gt; 的博客 &lt;a href=&quot;http://itrevolution.co
+    
+    </summary>
+    
+      <category term="DevOps" scheme="https://www.duyidong.com/categories/DevOps/"/>
+    
+    
+      <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
+    
+      <category term="翻译" scheme="https://www.duyidong.com/tags/%E7%BF%BB%E8%AF%91/"/>
+    
+      <category term="理论框架" scheme="https://www.duyidong.com/tags/%E7%90%86%E8%AE%BA%E6%A1%86%E6%9E%B6/"/>
+    
+  </entry>
   
   <entry>
     <title>如何制作在线幻灯片</title>
@@ -1483,9 +1547,9 @@ feedback，开放式协作
       <category term="ThoughtWorks" scheme="https://www.duyidong.com/categories/ThoughtWorks/"/>
     
     
-      <category term="职场" scheme="https://www.duyidong.com/tags/%E8%81%8C%E5%9C%BA/"/>
-    
       <category term="ThoughtWorks" scheme="https://www.duyidong.com/tags/ThoughtWorks/"/>
+    
+      <category term="职场" scheme="https://www.duyidong.com/tags/%E8%81%8C%E5%9C%BA/"/>
     
   </entry>
   
@@ -2017,9 +2081,9 @@ feedback，开放式协作
     
       <category term="AWS" scheme="https://www.duyidong.com/tags/AWS/"/>
     
-      <category term="EC2" scheme="https://www.duyidong.com/tags/EC2/"/>
-    
       <category term="云计算" scheme="https://www.duyidong.com/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/"/>
+    
+      <category term="EC2" scheme="https://www.duyidong.com/tags/EC2/"/>
     
   </entry>
   
@@ -2493,129 +2557,6 @@ ZQ 不保存退出
       <category term="vim" scheme="https://www.duyidong.com/tags/vim/"/>
     
       <category term="工具" scheme="https://www.duyidong.com/tags/%E5%B7%A5%E5%85%B7/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Lambda初体验</title>
-    <link href="https://www.duyidong.com/2017/02/23/Lambda%E5%88%9D%E4%BD%93%E9%AA%8C/"/>
-    <id>https://www.duyidong.com/2017/02/23/Lambda初体验/</id>
-    <published>2017-02-23T10:23:00.000Z</published>
-    <updated>2017-05-04T12:24:01.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>使用Lambda和CloudTrail给新创建的bucket打上tag</p>
-<h2 id="背景介绍"><a href="#背景介绍" class="headerlink" title="背景介绍"></a>背景介绍</h2><h3 id="什么是Lambda"><a href="#什么是Lambda" class="headerlink" title="什么是Lambda"></a>什么是Lambda</h3><p>AWS Lambda提供了一个不需要服务器就能运行代码的平台，有以下特点：</p>
-<ul>
-<li>高伸缩：适用于一天数次的访问频率到一秒数千次的访问量，横向纵向灵活扩展</li>
-<li>按需付费：你只需要根据访问量付费，价格非常便宜（$0.20每百万次访问）</li>
-<li>高可用：AWS负责维护代码运行的环境，使用者无需操心底层资源的配置，性能，维护</li>
-<li>支持语言：目前官方支持NodeJS, java, C#, Python, 有第三方工具可以支持多种语言</li>
-<li>事件响应：Function是Lambda的计算单元，可以由各种事件触发，这个事件可以是由AWS内部的资源发出的，也可以来自AWS外部。（比如往S3存放一个文件，或者一个HTTP请求）</li>
-</ul>
-<p>使用场景：</p>
-<ul>
-<li>构建一个数据触发的程序用于处理数据，处理Amazon Kinesis中存储的流数据</li>
-<li>构建一个微服务后端的一个模块，配合API Gateway用于响应HTTP事件</li>
-</ul>
-<h3 id="什么是CloudTrail"><a href="#什么是CloudTrail" class="headerlink" title="什么是CloudTrail"></a>什么是CloudTrail</h3><p>用于记录和追踪AWS内部的各种API调用，你可以在CloudTrail的日志中找到所有该账户在AWS中操作资源的事件，包括Console操作，SDK，AWS CLI，以及跟高级服务的调用。</p>
-<p>你可以在事件中找到资源调用者的用户信息，源IP，以及调用时间。</p>
-<h3 id="使用Lambda和CloudTrail实现创建一个S3-bucket自动打上创建者的tag"><a href="#使用Lambda和CloudTrail实现创建一个S3-bucket自动打上创建者的tag" class="headerlink" title="使用Lambda和CloudTrail实现创建一个S3 bucket自动打上创建者的tag"></a>使用Lambda和CloudTrail实现创建一个S3 bucket自动打上创建者的tag</h3><p>CouldTrail 会把所有监控到的API调用的时间写到S3 bucket里的日志文件中，同时产生一个event时间，我们要做的就是用这个event事件触发一个Lambda function，调用AWS的SDK获取API调用日志，当发现日志里出现了CreateBucket事件的时候，给这个bucket打上形如“Owner:dyd”的tag。</p>
-<p><img src="https://docs.aws.amazon.com/lambda/latest/dg/images/wt-cloudtrail-100.png" alt=""></p>
-<p>非常类似于这个功能不过最后吧SNS换成了打tag。</p>
-<ul>
-<li>AWS CloudTrail把日志保存在S3中</li>
-<li>S3 发出一个<code>s3:ObjectCreated:*</code>的事件触发了Lambda function，这个配置在Lambda中实现</li>
-<li>Lambda使用你创建function时赋予的role来执行function</li>
-<li>Lambda获取S3的事件作为一个参数，确定CloudTrail的日志存放在S3中的位置，进而读取日志，当日志中出现eventName=CreateBucket的事件的时候，获取该事件对应的BucketName和UserName，调用AWS S3 SDK</li>
-<li>使用S3 SDK给对应的bucket打上包含UserName的tag</li>
-</ul>
-<h2 id="Step-by-Step"><a href="#Step-by-Step" class="headerlink" title="Step by Step"></a>Step by Step</h2><h3 id="第一步，创建一个Trail"><a href="#第一步，创建一个Trail" class="headerlink" title="第一步，创建一个Trail"></a>第一步，创建一个Trail</h3><p>首先你得有一个AWS账号，选择一个Region，进入CloudTrail的界面。<br>选择左侧<strong>Trail -&gt; Add new Tail</strong>，填写如下信息</p>
-<blockquote>
-<p>Trail Name: Trail的名字，只需要不于同Region的CloudTrail重名即可<br>Apply trail to all regions: 是否需要在所有Region都使用这个CloudTrail，否则只监听CloudTrail所在Region的API调用事件。<br>S3 bucket: 用于存放CloudTrail日志</p>
-</blockquote>
-<p>填选好后点选<strong>Create</strong></p>
-<p><img src="/images/Create_CloudTrail.png" alt=""></p>
-<p>点击新创建的Trail你可以进行配置，确认右上角log为打开状态。<br>过一会儿你就可以在API activity history里看到如下所示的一些event事件了，主要包含事件触发的用户名，时间名称，类型，资源名称。</p>
-<p><img src="/images/CloudTrail_events.png" alt=""></p>
-<h3 id="第二步：为Lmabda-function创建一个role"><a href="#第二步：为Lmabda-function创建一个role" class="headerlink" title="第二步：为Lmabda function创建一个role"></a>第二步：为Lmabda function创建一个role</h3><p>进入 <strong>IAM -&gt; Roles</strong>， 点击 <strong>Create New Role</strong>，输入Role的名字，点选下一步：<br>选择 <strong>AWS Lambda</strong>，下一步：绑定一个Polly<br>这里因为我们除了读取S3的object还需要给S3的bucket打tag的权限，所以方便起见选择<code>AmazonS3FullAccess</code>，另外这个Role需要执行Lambda的权限，所以还需要选择<code>AWSLambdaFullAccess</code>，最后，<strong>确认 -&gt; 创建</strong></p>
-<p><img src="/images/Create_Lambda_Role.png" alt=""></p>
-<h3 id="第三步：创建Lambda-function"><a href="#第三步：创建Lambda-function" class="headerlink" title="第三步：创建Lambda function"></a>第三步：创建Lambda function</h3><p>进入<strong>Lambda</strong>的界面点选<strong>Create a Lambda function</strong><br>在Select blueprint的页面选择python2.7的运行环境，选择s3-get-object-python作为预配置</p>
-<p><img src="/images/Create_Lambda_Select_Blueprint.png" alt=""></p>
-<p>Configure Triggers 页面选择存放CouldTrail日志的S3 Bucket, 事件类型选 Object Created，勾选上Enable Trigger。</p>
-<p><img src="/images/Create_Lambda_Configure_Triggers.png" alt=""></p>
-<p>点击<strong>Next</strong>，输入Name，选择Role Name为上一步创建的Role，其他保持默认，<strong>Next -&gt; 确认配置 -&gt; Create function </strong></p>
-<p><img src="/images/Create_Lambda_Review.png" alt=""></p>
-<p>这里关于Lambda的部署方式，在生产中一般使用打包上传的方式，这里我们的案例比较简单，就直接在consloe上编辑了。</p>
-<h3 id="第四步：-获取测试数据"><a href="#第四步：-获取测试数据" class="headerlink" title="第四步： 获取测试数据"></a>第四步： 获取测试数据</h3><p>首先你需要测试你的Function能够被正常Trigger并拿到测试数据，所以你需要取消注释掉lambda_hander里面的第一行：</p>
-<pre><code class="python">print(&quot;Received event: &quot; + json.dumps(event, indent=2))
-</code></pre>
-<p>余下的不用管，点击<strong>test</strong>，你可以在Log output中看到你的测试内容，即event事件，即可。</p>
-<p>接下来你需要取得一份样本数据用于测试，最简单的方法就是创建一个S3 bucket，<strong>这里一定要注意，创建的bucket需要和CloudTrail在同一个Region，否则事件是无法被捕获的。</strong><br>进入<strong>S3 -&gt; Create bucket</strong> 快速创建一个Bucket:</p>
-<p><img src="/images/Create_S3_Bucket.png" alt=""></p>
-<p>稍等数分钟，这里会有十几分钟的延迟，在Cloudwatch中查看Lambda打印的log：<br>进入<strong>Cloudwatch -&gt; Logs -&gt; 对应Lambda名称的Log Group -&gt; 找到时间点对应的Log Stream</strong>，filter你的bucket名字你会发现一条这样的Log:</p>
-<pre><code class="json">{
-  &quot;Records&quot;: [
-    {
-      &quot;eventVersion&quot;: &quot;2.0&quot;,
-      &quot;eventTime&quot;: &quot;2017-02-23T13:42:18.654Z&quot;,
-      &quot;requestParameters&quot;: {
-        &quot;sourceIPAddress&quot;: &quot;54.224.144.182&quot;
-      },
-      &quot;s3&quot;: {
-        &quot;configurationId&quot;: &quot;fa401b72-97f2-48e8-9b74-b8d2a726a771&quot;,
-        &quot;object&quot;: {
-          &quot;eTag&quot;: &quot;25c76ac2f0284796baacebca934c3875&quot;,
-          &quot;sequencer&quot;: &quot;0058AEE6BA925A5848&quot;,
-          &quot;key&quot;: &quot;AWSLogs/994910148131/CloudTrail/us-east-1/2017/02/23/994910148131_CloudTrail_us-east-1_20170223T1340Z_nIJHY6wtS6EQRUtz.json.gz&quot;,
-          &quot;size&quot;: 17181
-        },
-        &quot;bucket&quot;: {
-          &quot;arn&quot;: &quot;arn:aws:s3:::yidongtrail&quot;,
-          &quot;name&quot;: &quot;yidongtrail&quot;,
-          &quot;ownerIdentity&quot;: {
-            &quot;principalId&quot;: &quot;A1EKSBYVFNIFR0&quot;
-          }
-        },
-        &quot;s3SchemaVersion&quot;: &quot;1.0&quot;
-      },
-      &quot;responseElements&quot;: {
-        &quot;x-amz-id-2&quot;: &quot;jN1tHU9s2/Y1RvA31IG34MhbHiAtB/45v938qdzsff2ufgZ8v5osNCcPKNWVrlnuh4qTs/J0odg=&quot;,
-        &quot;x-amz-request-id&quot;: &quot;57FBF80C150FB0CE&quot;
-      },
-      &quot;awsRegion&quot;: &quot;us-east-1&quot;,
-      &quot;eventName&quot;: &quot;ObjectCreated:Put&quot;,
-      &quot;userIdentity&quot;: {
-        &quot;principalId&quot;: &quot;AWS:AROAI6ZMWVXR3IZ6MKNSW:i-012030f0061c32dcd&quot;
-      },
-      &quot;eventSource&quot;: &quot;aws:s3&quot;
-    }
-  ]
-}
-</code></pre>
-<p>这就是我们要的测试数据</p>
-<h3 id="编写Function函数"><a href="#编写Function函数" class="headerlink" title="编写Function函数"></a>编写Function函数</h3><p>把上一步得到的json文件放到Lambda的“单元测试”（我是这么理解的）里：<br><strong>选中你的Function -&gt; Actions -&gt; Configure test event</strong>，直接把这个json粘贴进去。</p>
-<p>下面你可以一边写代码一边运行测试。<br>我得说AWS console的这个工具确实不太好用，推荐自行谷歌好用的第三方工具做这个事。我是在本地进行测试和断点调试的。<br>写好的代码在这里，可以作为参考：<a href="https://github.com/ADU-21/test_lambda/blob/master/lambda.py" target="_blank" rel="external">https://github.com/ADU-21/test_lambda/blob/master/lambda.py</a></p>
-<p>保存测试通过之后，你可以再尝试创建一个bucket，这个bucket在创建完成后十几分钟会被自动打上一个tag.</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Tag作为AWS官方推荐的管理资源计费的方式却并没有提供相应的接口给每个用户创建的资源打上自己的tag，我做这个实验的初衷原本是想通过这种方式给所有的AWS资源都打上tag，但是在操作过程中发现CloudTrail的日志并没有想象中那么容易过滤出有用信息，比如Create Instance这个动作并不会只有一个CreateInstance的event时间被产生，而是会在长达数十分钟的时间里产生多个RunInsatance的事件，时间延迟也是一个不小的问题，关于资源管理，还需要探索更好的方案。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;使用Lambda和CloudTrail给新创建的bucket打上tag&lt;/p&gt;
-&lt;h2 id=&quot;背景介绍&quot;&gt;&lt;a href=&quot;#背景介绍&quot; class=&quot;headerlink&quot; title=&quot;背景介绍&quot;&gt;&lt;/a&gt;背景介绍&lt;/h2&gt;&lt;h3 id=&quot;什么是Lambda&quot;&gt;&lt;a 
-    
-    </summary>
-    
-      <category term="Amazon Web Services" scheme="https://www.duyidong.com/categories/Amazon-Web-Services/"/>
-    
-    
-      <category term="AWS" scheme="https://www.duyidong.com/tags/AWS/"/>
-    
-      <category term="Serverless" scheme="https://www.duyidong.com/tags/Serverless/"/>
-    
-      <category term="无服务器架构" scheme="https://www.duyidong.com/tags/%E6%97%A0%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%9E%B6%E6%9E%84/"/>
-    
-      <category term="Lambda" scheme="https://www.duyidong.com/tags/Lambda/"/>
     
   </entry>
   

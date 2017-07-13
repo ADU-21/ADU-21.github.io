@@ -4,6 +4,30 @@
 
     
   <url>
+    <loc>https://www.duyidong.com/2017/07/12/the-three-ways-understanding-devops/</loc>
+    <lastmod>2017-07-13T11:43:36.000Z</lastmod>
+    <data>
+        <display>
+        <title>DevOps的三种方式</title>
+        <pubTime>2017-07-12T14:50:38.000Z</pubTime>
+        
+        <tag>DevOps</tag>
+         
+        <tag>翻译</tag>
+         
+        <tag>理论框架</tag>
+         
+         
+           
+             
+              <breadCrumb title="DevOps" url="https://www.duyidong.com/categories/DevOps/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://www.duyidong.com/2017/06/15/openshift-quick-start/</loc>
     <lastmod>2017-07-10T10:38:03.000Z</lastmod>
     <data>
@@ -374,9 +398,9 @@
         <title>部署和发布策略的演进</title>
         <pubTime>2016-10-24T06:30:20.000Z</pubTime>
         
-        <tag>DevOps</tag>
-         
         <tag>持续交付</tag>
+         
+        <tag>DevOps</tag>
          
         <tag>部署与发布</tag>
          
@@ -530,9 +554,9 @@
         
         <tag>工具</tag>
          
-        <tag>DevOps</tag>
-         
         <tag>基础设施即代码</tag>
+         
+        <tag>DevOps</tag>
          
         <tag>Ansible</tag>
          
@@ -858,9 +882,9 @@
         
         <tag>AWS</tag>
          
-        <tag>DevOps</tag>
-         
         <tag>基础设施即代码</tag>
+         
+        <tag>DevOps</tag>
          
          
            
@@ -1066,9 +1090,9 @@
         <title>离骚</title>
         <pubTime>2017-04-11T16:01:40.000Z</pubTime>
         
-        <tag>职场</tag>
-         
         <tag>ThoughtWorks</tag>
+         
+        <tag>职场</tag>
          
          
            
@@ -1090,9 +1114,9 @@
         
         <tag>AWS</tag>
          
-        <tag>EC2</tag>
-         
         <tag>云计算</tag>
+         
+        <tag>EC2</tag>
          
          
            

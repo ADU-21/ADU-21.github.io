@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.duyidong.com/2017/06/14/kubernetes-and-openshift/</loc>
+    
+    <lastmod>2017-07-14T03:37:41.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://www.duyidong.com/2017/07/12/the-three-ways-understanding-devops/</loc>
     
     <lastmod>2017-07-13T11:43:36.000Z</lastmod>
@@ -47,13 +54,6 @@
     <loc>https://www.duyidong.com/about/index.html</loc>
     
     <lastmod>2017-06-20T05:31:30.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://www.duyidong.com/2017/06/14/kubernetes-and-openshift/</loc>
-    
-    <lastmod>2017-06-15T10:32:07.000Z</lastmod>
     
   </url>
   

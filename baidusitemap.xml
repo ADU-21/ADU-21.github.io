@@ -4,6 +4,34 @@
 
     
   <url>
+    <loc>https://www.duyidong.com/2017/06/14/kubernetes-and-openshift/</loc>
+    <lastmod>2017-07-14T03:37:41.000Z</lastmod>
+    <data>
+        <display>
+        <title>PaaS 平台（一） -- Openshift 介绍</title>
+        <pubTime>2017-06-14T13:53:00.000Z</pubTime>
+        
+        <tag>DevOps</tag>
+         
+        <tag>PaaS</tag>
+         
+        <tag>Openshift</tag>
+         
+        <tag>Kubernetes</tag>
+         
+        <tag>平台即服务</tag>
+         
+         
+           
+             
+              <breadCrumb title="Cloud" url="https://www.duyidong.com/categories/Cloud/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://www.duyidong.com/2017/07/12/the-three-ways-understanding-devops/</loc>
     <lastmod>2017-07-13T11:43:36.000Z</lastmod>
     <data>
@@ -11,9 +39,9 @@
         <title>DevOps的三种方式</title>
         <pubTime>2017-07-12T14:50:38.000Z</pubTime>
         
-        <tag>DevOps</tag>
-         
         <tag>翻译</tag>
+         
+        <tag>DevOps</tag>
          
         <tag>理论框架</tag>
          
@@ -151,34 +179,6 @@
     </url>
 
     
-    
-  <url>
-    <loc>https://www.duyidong.com/2017/06/14/kubernetes-and-openshift/</loc>
-    <lastmod>2017-06-15T10:32:07.000Z</lastmod>
-    <data>
-        <display>
-        <title>PaaS 平台（一） -- Openshift 介绍</title>
-        <pubTime>2017-06-14T13:53:00.000Z</pubTime>
-        
-        <tag>DevOps</tag>
-         
-        <tag>PaaS</tag>
-         
-        <tag>Openshift</tag>
-         
-        <tag>Kubernetes</tag>
-         
-        <tag>平台即服务</tag>
-         
-         
-           
-             
-              <breadCrumb title="Cloud" url="https://www.duyidong.com/categories/Cloud/"/>
-          
-        </display>
-    </data>
-    </url>
-
     
   <url>
     <loc>https://www.duyidong.com/2017/06/15/kubernetes-infrastructure/</loc>
@@ -398,9 +398,9 @@
         <title>部署和发布策略的演进</title>
         <pubTime>2016-10-24T06:30:20.000Z</pubTime>
         
-        <tag>持续交付</tag>
-         
         <tag>DevOps</tag>
+         
+        <tag>持续交付</tag>
          
         <tag>部署与发布</tag>
          
@@ -502,9 +502,9 @@
          
         <tag>Cloud Native</tag>
          
-        <tag>架构</tag>
-         
         <tag>Cloud</tag>
+         
+        <tag>架构</tag>
          
          
            
@@ -526,11 +526,11 @@
         
         <tag>Cloud</tag>
          
+        <tag>基础设施即代码</tag>
+         
         <tag>Infrastructure as Code</tag>
          
         <tag>ThoughtWorks技术雷达</tag>
-         
-        <tag>基础设施即代码</tag>
          
         <tag>持续交付</tag>
          
@@ -554,9 +554,9 @@
         
         <tag>工具</tag>
          
-        <tag>基础设施即代码</tag>
-         
         <tag>DevOps</tag>
+         
+        <tag>基础设施即代码</tag>
          
         <tag>Ansible</tag>
          
@@ -882,9 +882,9 @@
         
         <tag>AWS</tag>
          
-        <tag>基础设施即代码</tag>
-         
         <tag>DevOps</tag>
+         
+        <tag>基础设施即代码</tag>
          
          
            

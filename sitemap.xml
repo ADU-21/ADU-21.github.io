@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.duyidong.com/2017/07/14/what-is-devops/</loc>
+    
+    <lastmod>2017-07-16T11:26:36.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://www.duyidong.com/2017/06/14/kubernetes-and-openshift/</loc>
     
     <lastmod>2017-07-14T03:37:41.000Z</lastmod>

@@ -4,6 +4,34 @@
 
     
   <url>
+    <loc>https://www.duyidong.com/2017/07/14/what-is-devops/</loc>
+    <lastmod>2017-07-16T11:26:36.000Z</lastmod>
+    <data>
+        <display>
+        <title>DevOps 从理论到实践</title>
+        <pubTime>2017-07-14T10:35:34.000Z</pubTime>
+        
+        <tag>DevOps</tag>
+         
+        <tag>持续交付</tag>
+         
+        <tag>敏捷</tag>
+         
+        <tag>DevOps文化</tag>
+         
+        <tag>CALMS</tag>
+         
+         
+           
+             
+              <breadCrumb title="DevOps" url="https://www.duyidong.com/categories/DevOps/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://www.duyidong.com/2017/06/14/kubernetes-and-openshift/</loc>
     <lastmod>2017-07-14T03:37:41.000Z</lastmod>
     <data>
@@ -91,9 +119,9 @@
         <title>AWS认证与权限管理IAM</title>
         <pubTime>2017-03-06T12:41:50.000Z</pubTime>
         
-        <tag>AWS</tag>
-         
         <tag>亚马逊认证与权限</tag>
+         
+        <tag>AWS</tag>
          
         <tag>Security</tag>
          
@@ -165,9 +193,9 @@
         <title>敏捷开发</title>
         <pubTime>2016-04-19T06:41:46.000Z</pubTime>
         
-        <tag>Agile</tag>
-         
         <tag>敏捷</tag>
+         
+        <tag>Agile</tag>
          
          
            
@@ -502,9 +530,9 @@
          
         <tag>Cloud Native</tag>
          
-        <tag>Cloud</tag>
-         
         <tag>架构</tag>
+         
+        <tag>Cloud</tag>
          
          
            
@@ -526,13 +554,13 @@
         
         <tag>Cloud</tag>
          
+        <tag>持续交付</tag>
+         
         <tag>基础设施即代码</tag>
          
         <tag>Infrastructure as Code</tag>
          
         <tag>ThoughtWorks技术雷达</tag>
-         
-        <tag>持续交付</tag>
          
          
            

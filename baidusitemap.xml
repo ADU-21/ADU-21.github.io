@@ -3,6 +3,34 @@
 
 
     
+  <url>
+    <loc>https://www.duyidong.com/2017/06/08/work-in-blackops/</loc>
+    <lastmod>2017-08-24T05:53:35.000Z</lastmod>
+    <data>
+        <display>
+        <title>DevOps 团队交付了什么？</title>
+        <pubTime>2017-06-08T08:38:47.000Z</pubTime>
+        
+        <tag>小结</tag>
+         
+        <tag>职场</tag>
+         
+        <tag>DevOps</tag>
+         
+        <tag>Platform</tag>
+         
+        <tag>工作</tag>
+         
+         
+           
+             
+              <breadCrumb title="ThoughtWorks" url="https://www.duyidong.com/categories/ThoughtWorks/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
     
   <url>
     <loc>https://www.duyidong.com/2017/07/14/what-is-devops/</loc>
@@ -68,9 +96,9 @@
         <title>DevOps的三种方式</title>
         <pubTime>2017-07-12T14:50:38.000Z</pubTime>
         
-        <tag>翻译</tag>
-         
         <tag>DevOps</tag>
+         
+        <tag>翻译</tag>
          
         <tag>理论框架</tag>
          
@@ -230,34 +258,6 @@
            
              
               <breadCrumb title="Cloud" url="https://www.duyidong.com/categories/Cloud/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://www.duyidong.com/2017/06/08/work-in-blackops/</loc>
-    <lastmod>2017-06-10T08:46:14.000Z</lastmod>
-    <data>
-        <display>
-        <title>DevOps 团队交付了什么？</title>
-        <pubTime>2017-06-08T08:38:47.000Z</pubTime>
-        
-        <tag>小结</tag>
-         
-        <tag>职场</tag>
-         
-        <tag>DevOps</tag>
-         
-        <tag>Platform</tag>
-         
-        <tag>工作</tag>
-         
-         
-           
-             
-              <breadCrumb title="ThoughtWorks" url="https://www.duyidong.com/categories/ThoughtWorks/"/>
           
         </display>
     </data>
@@ -1120,9 +1120,9 @@
         
         <tag>AWS</tag>
          
-        <tag>云计算</tag>
-         
         <tag>EC2</tag>
+         
+        <tag>云计算</tag>
          
          
            

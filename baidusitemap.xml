@@ -3,6 +3,7 @@
 
 
     
+    
   <url>
     <loc>https://www.duyidong.com/2017/08/30/what-new-in-java8/</loc>
     <lastmod>2017-08-30T11:20:43.000Z</lastmod>
@@ -52,7 +53,6 @@
     </data>
     </url>
 
-    
     
   <url>
     <loc>https://www.duyidong.com/2017/07/14/what-is-devops/</loc>
@@ -864,11 +864,11 @@
         <title>ThoughtWorks第一周学习总结</title>
         <pubTime>2016-05-24T13:44:57.000Z</pubTime>
         
+        <tag>ThoughtWorks</tag>
+         
         <tag>学习</tag>
          
         <tag>小结</tag>
-         
-        <tag>ThoughtWorks</tag>
          
          
            

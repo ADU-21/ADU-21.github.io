@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.duyidong.com/"/>
-  <updated>2017-07-16T11:26:36.000Z</updated>
+  <updated>2017-08-30T11:20:43.000Z</updated>
   <id>https://www.duyidong.com/</id>
   
   <author>
@@ -14,6 +14,358 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Java 8 新特性</title>
+    <link href="https://www.duyidong.com/2017/08/30/what-new-in-java8/"/>
+    <id>https://www.duyidong.com/2017/08/30/what-new-in-java8/</id>
+    <published>2017-08-30T02:42:34.000Z</published>
+    <updated>2017-08-30T11:20:43.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>Java 从 1995年正式发布第一个版本至今已走过 21 个年头，从一开始受人怀疑的慢语言发展为如今通用的健壮语言。笔者 11 年开始接触 Java1.6 到后来转投 Python，再转向云架构，而今因项目需求再次拾起 Java 已经过了两次版本更新，借项目上的机会，将 Java8 的新特性做一个梳理。</p>
+<p><a href="http://www.oracle.com/technetwork/java/javase/8-whats-new-2157071.html" target="_blank" rel="external">官方文档</a>； <a href="/pdf/What_new_in_java8_yidong.key">PPT</a></p>
+<h1 id="（一）Programming-Language"><a href="#（一）Programming-Language" class="headerlink" title="（一）Programming Language"></a>（一）Programming Language</h1><h2 id="Lambda-表达式-Lambda-Expression"><a href="#Lambda-表达式-Lambda-Expression" class="headerlink" title="Lambda 表达式 (Lambda Expression )"></a>Lambda 表达式 (Lambda Expression )</h2><p>Lambda允许把函数作为一个方法的参数（函数作为参数传递进方法中）。</p>
+<p>形如: <code>input -&gt; body</code></p>
+<p>在代码中:</p>
+<pre><code>(arg1, arg2...) -&gt; { body }
+
+(type1 arg1, type2 arg2...) -&gt; { body }
+</code></pre><p>示例如下：</p>
+<pre><code>() -&gt; 42
+
+a -&gt; return a*a
+
+(int a, int b) -&gt; {  return a + b; }
+
+() -&gt; System.out.println(&quot;Hello World&quot;);
+
+(String s) -&gt; { System.out.println(s); }
+</code></pre><p><strong>注意:</strong></p>
+<p>lambda 表达式只能引用 final 或 final 局部变量，这就是说不能在 lambda 内部修改定义在域外的变量，否则会编译错误。</p>
+<h2 id="方法引用-Method-References"><a href="#方法引用-Method-References" class="headerlink" title="方法引用 (Method References)"></a>方法引用 (Method References)</h2><p>适用场景：当一个Lambda表达式调用了一个已存在的方法</p>
+<ul>
+<li>构造器引用：它的语法是Class::new，或者更一般的Class&lt; T &gt;::new</li>
+<li>静态方法引用：它的语法是Class::static_method</li>
+<li>特定类的任意对象的方法引用：它的语法是Class::method</li>
+<li>特定对象的方法引用：它的语法是instance::method</li>
+</ul>
+<p>示例如下:</p>
+<pre><code>// 使用Lambda表达式
+(a, b) -&gt; {return a * b};
+
+// 使用Lambda表达式，调用已存在的方法
+(a, b) -&gt; Calculator.calculate(a, b);
+
+// 使用方法引用
+Calculator::calculate;
+</code></pre><p>换句话说，</p>
+<blockquote>
+<p><em>Instead of using</em><br><strong>AN ANONYMOUS CLASS</strong><br><em>you can use</em><br><strong>A LAMBDA EXPRESSION</strong><br><em>And if this just calls one method, you can use</em><br><strong>A METHOD REFERENCE</strong></p>
+</blockquote>
+<p><a href="https://docs.oracle.com/javase/tutorial/java/javaOO/methodreferences.html" target="_blank" rel="external">一个完整的例子</a> (<a href="https://my.oschina.net/luoyezhuifeng/blog/801343" target="_blank" rel="external">中文翻译</a>)</p>
+<p><strong>注意：</strong></p>
+<p>当需要往引用的方法传其它参数的时候不适用，如下示例：</p>
+<pre><code>IsReferable demo = () -&gt; ReferenceDemo.commonMethod(&quot;Argument in method.&quot;);
+</code></pre><h2 id="函数式接口（Functional-Interface）"><a href="#函数式接口（Functional-Interface）" class="headerlink" title="函数式接口（Functional Interface）"></a>函数式接口（Functional Interface）</h2><p>任何接口，如果只包含一个抽象方法（这种类型的接口也称为SAM接口，即Single Abstract Method interfaces），那么它就是一个函数式接口。为了让编译器帮助我们确保一个接口满足函数式接口的要求，Java8 提供了<code>@FunctionalInterface</code>注解，Java 不会强制要求你使用<code>@FunctionalInterface</code>注解来标记你的接口是函数式接口， 然而，作为API作者， 你可能倾向使用<code>@FunctionalInterface</code>指明特定的接口为函数式接口， 这只是一个设计上的考虑， 可以让用户很明显的知道一个接口是函数式接口。</p>
+<p>函数式接口的一个非常重要的用途就是对Lambda提供支持，看下面的例子：</p>
+<pre><code>public class Book {
+    public String name;
+    public String author;
+    public double price;
+}
+
+public class BookStore {
+    private List&lt;Book&gt; books = new ArrayList&lt;&gt;();
+}
+</code></pre><p>现在我希望BookStore能够筛选出BookStore中符合某种条件书籍，筛选条件可能多种多样，比如，所有Martin Fowler的著作，或者价格大于某个金额的所有书籍，于是，我们新增了BookFilter接口，并且为BookStore添加了list方法：</p>
+<pre><code>public interface BookFilter {
+    boolean test(Book book);
+}
+
+public class BookStore {
+    private List&lt;Book&gt; books = new ArrayList&lt;&gt;();
+
+    public List&lt;Book&gt; list(BookFilter filter) {
+        List&lt;Book&gt; result = new ArrayList&lt;&gt;();
+        books.forEach(book -&gt; {
+            if (filter.test(book)) {
+                result.add(book);
+            }
+        });
+        return result;
+    }
+}
+</code></pre><p>现在，我们就可以在调用list方法时使用Lambda表达式了：</p>
+<pre><code>// 筛选出所有价格大于15.0的书籍
+bookStore.list(book -&gt; book.price &gt; 15.0)
+</code></pre><p>因为BookFilter是一个函数式接口，只具有一个抽象方法，所以在编译期可以很容易推断Lambda表达式和BookFilter是否匹配，于是Lambda表达式的实现就简单了。</p>
+<p>更多例子参见： <a href="http://www.runoob.com/java/java8-functional-interfaces.html" target="_blank" rel="external">Java 8 函数式接口</a>; <a href="http://zyzhang.github.io/blog/2013/06/15/java8-preview-functional-interface/" target="_blank" rel="external">Java 8 预览之Functional Interface</a></p>
+<h2 id="默认方法（Default-Methods）"><a href="#默认方法（Default-Methods）" class="headerlink" title="默认方法（Default Methods）"></a>默认方法（Default Methods）</h2><p>官方文档给默认方法给出的定义：</p>
+<blockquote>
+<p><a href="http://docs.oracle.com/javase/tutorial/java/IandI/defaultmethods.html" target="_blank" rel="external">Default methods</a> enable new functionality to be added to the interfaces of libraries and ensure binary compatibility with code written for older versions of those interfaces.</p>
+<p>默认方法允许您添加新的功能到现有库的接口中，并能确保与采用旧版本接口编写的代码的二进制兼容性。</p>
+</blockquote>
+<p>当类实现接口的时候，类要实现接口中所有的方法，否则类必须声明为抽象的类。默认方法就是接口可以有实现方法，而且不需要实现类去实现其方法。也就是说，即使你的API已经发布出去了，你依然可以为接口添加新方法并且无需考虑向后兼容问题。</p>
+<p>默认方法是在接口中的方法签名前加上了 <code>default</code> 关键字的实现方法。</p>
+<p>举个例子:</p>
+<pre><code>interface InterfaceA {
+    default void foo() {
+        System.out.println(&quot;InterfaceA foo&quot;);
+    }
+}
+
+class ClassA implements InterfaceA {
+}
+
+public class Test {
+    public static void main(String[] args) {
+        new ClassA().foo(); // 打印：“InterfaceA foo”
+    }
+}
+</code></pre><p><code>ClassA</code> 类并没有实现 <code>InterfaceA</code> 接口中的 <code>foo</code> 方法，<code>InterfaceA</code> 接口中提供了 <code>foo</code> 方法的默认实现，因此可以直接调用 <code>ClassA</code> 类的 <code>foo</code> 方法。</p>
+<p>和其它方法一样，接口默认方法也可以被继承，这样一来接口就面临了多继承问题，如下图所示，Interface C 继承了 Interface A 和 B，如果 A 和 B 中存在相同的签名方法，C 就要处理继承冲突的问题。</p>
+<pre><code>+---------------+         +------------+
+|  Interface A  |         |Interface B |
++-----------^---+         +---^--------+
+            |                 |         
+            |                 |         
+            |                 |         
+            +-+------------+--+         
+              | Interface C|            
+              +------------+
+</code></pre><p>接口多继承冲突分为以下三种情况：</p>
+<ul>
+<li><code>A</code>和<code>B</code>的默认方法（传入参数）不同， C隐式继承了两个默认方法，不会有冲突。</li>
+<li>但是有的情况下即使是不同签名的方法也是很难分辨的，比如传入类型为<code>short</code> 和 <code>int</code>，Java会选择最适合的方法， 请参看 <a href="http://docs.oracle.com/javase/specs/jls/se8/html/jls-15.html#jls-15.12.2.5" target="_blank" rel="external">Java规范 15.12.2.5</a></li>
+<li>A,B拥有相同签名的默认方法如果接口C没有override这个方法， 则编译出错。这种情况需要在子接口<code>C</code>中覆盖override这个方法，并可以使用 <code>InterfaceName.super.methodName();</code> 的方式手动调用需要的接口默认方法。（注意方法签名不包括方法的返回值， 也就是仅仅返回值不同的两个方法的签名也是相同的）</li>
+</ul>
+<p>更多多继承问题，参见： <a href="http://colobu.com/2014/11/04/Java-8-default-method-and-multiple-inheritance/" target="_blank" rel="external">Java 8 默认方法和多继承</a></p>
+<h2 id="重复注解（Repeating-Annotations）"><a href="#重复注解（Repeating-Annotations）" class="headerlink" title="重复注解（Repeating Annotations）"></a>重复注解（Repeating Annotations）</h2><p>自从Java 5中引入<a href="http://www.javacodegeeks.com/2012/08/java-annotations-explored-explained.html" target="_blank" rel="external">注解</a>以来，这个特性开始变得非常流行，并在各个框架和项目中被广泛使用。不过，注解有一个很大的限制是：在同一个地方不能多次使用同一个注解。Java 8打破了这个限制，引入了重复注解的概念，允许在同一个地方多次使用同一个注解。</p>
+<p>例如：</p>
+<pre><code>@Repeatable(Authorities.class)
+public @interface Authority {
+     String role();
+}
+
+public @interface Authorities {
+    Authority[] value();
+}
+
+public class RepeatAnnotationUseNewVersion {
+    @Authority(role=&quot;Admin&quot;)
+    @Authority(role=&quot;Manager&quot;)
+    public void doSomeThing(){ }
+}
+</code></pre><p>具体参见：<a href="https://my.oschina.net/benhaile/blog/180932" target="_blank" rel="external">Java 8新特性探究（五）重复注解</a></p>
+<h2 id="类型注解（Type-Annotations）"><a href="#类型注解（Type-Annotations）" class="headerlink" title="类型注解（Type Annotations）"></a>类型注解（Type Annotations）</h2><p>在java 8之前，注解只能是在声明的地方所使用，比如类，方法，属性；java 8里面，注解可以应用在任何地方，比如：</p>
+<pre><code>// 创建类实例
+new @Interned MyObject();
+
+// 类型映射       
+myString = (@NonNull String) str;
+
+// implements 语句中        
+class UnmodifiableList&lt;T&gt; implements @Readonly List&lt;@Readonly T&gt; { ... }
+
+// throw exception声明        
+void monitorTemperature() throws @Critical TemperatureException { ... }
+</code></pre><p>需要注意的是，类型注解只是语法而不是语义，并不会影响java的编译时间，加载时间，以及运行时间，也就是说，编译成class文件的时候并不包含类型注解。</p>
+<p>类型注解的作用，参见：<a href="https://my.oschina.net/benhaile/blog/179642" target="_blank" rel="external">Java 8新特性探究（四）类型注解 复杂还是便捷</a></p>
+<h1 id="（二）Stream"><a href="#（二）Stream" class="headerlink" title="（二）Stream"></a>（二）Stream</h1><p>官方文档对 Collection 的解释：</p>
+<blockquote>
+<p>Classes in the new <code>java.util.stream</code> package provide a Stream API to support functional-style operations on streams of elements. The Stream API is integrated into the Collections API, which enables bulk operations on collections, such as sequential or parallel map-reduce transformations.</p>
+<p><code>java.util.stream</code> 提供了一系列 Stream API 以支持函数式的流式操作。 Stream API 集成在 Collections API 中，它可以对集合进行批量操作，例如串行或并行转换流。</p>
+</blockquote>
+<p>Java 8 中的<em>Stream</em> 是对集合（<em>Collection</em>）对象功能的增强，它专注于对集合对象进行各种非常便利、高效的聚合操作（aggregate operation），或者大批量数据操作 (bulk data operation)。Stream API 借助于同样新出现的 Lambda 表达式，极大的提高编程效率和程序可读性。</p>
+<p>参考：<a href="https://www.ibm.com/developerworks/cn/java/j-lo-java8streamapi/" target="_blank" rel="external">Java 8 中的 Streams API 详解</a></p>
+<h2 id="什么是-Stream"><a href="#什么是-Stream" class="headerlink" title="什么是 Stream"></a>什么是 Stream</h2><p>Stream 不是集合元素，它不是数据结构并不保存数据，它是有关算法和计算的，它更像一个高级版本的迭代器(Iterator)，单向，不可往复，数据只能遍历一次，遍历过一次后即用尽了，就好比流水从面前流过，一去不复返。而和迭代器又不同的是，Stream 可以并行化操作，且数据源本身可以是无限的。</p>
+<h2 id="Stream-的生命周期"><a href="#Stream-的生命周期" class="headerlink" title="Stream 的生命周期"></a>Stream 的生命周期</h2><p>当我们使用一个流的时候，通常包括三个基本步骤：</p>
+<p>获取一个数据源（source）→ 数据转换→执行操作获取想要的结果。</p>
+<p><img src="https://www.ibm.com/developerworks/cn/java/j-lo-java8streamapi/img001.png" alt=""></p>
+<h3 id="Stream-的构造"><a href="#Stream-的构造" class="headerlink" title="Stream 的构造"></a>Stream 的构造</h3><p><strong>构造流的几种常见方法</strong></p>
+<pre><code>// 1. Individual values
+Stream stream = Stream.of(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;);
+
+// 2. Arrays
+String [] strArray = new String[] {&quot;a&quot;, &quot;b&quot;, &quot;c&quot;};
+stream = Stream.of(strArray);
+stream = Arrays.stream(strArray);
+
+// 3. Collections
+List&lt;String&gt; list = Arrays.asList(strArray);
+stream = list.stream();
+</code></pre><p>需要注意的是，对于基本数值型，目前有三种对应的包装类型 Stream：IntStream、LongStream、DoubleStream。当然我们也可以用 Stream<integer>、Stream<long>、Stream<double>，但是 boxing 和 unboxing 会很耗时，所以特别为这三种基本数值型提供了对应的 Stream。</double></long></integer></p>
+<p>Java 8 中还没有提供其它数值型 Stream，因为这将导致扩增的内容较多。而常规的数值型聚合运算可以通过上面三种 Stream 进行。</p>
+<p><strong>数值流的构造</strong></p>
+<pre><code>IntStream.of(new int[]{1, 2, 3}).forEach(System.out::println);
+IntStream.range(1, 3).forEach(System.out::println);
+IntStream.rangeClosed(1, 3).forEach(System.out::println);
+</code></pre><h3 id="Stream-的转换"><a href="#Stream-的转换" class="headerlink" title="Stream 的转换"></a>Stream 的转换</h3><p>Stream 的转换分为以下三种操作类型：</p>
+<ul>
+<li><p><strong>Intermediate</strong>：一个流可以后面跟随零个或多个 intermediate 操作。其目的主要是打开流，做出某种程度的数据映射/过滤，然后返回一个新的流，交给下一个操作使用。这类操作都是惰性化的（lazy），就是说，仅仅调用到这类方法，并没有真正开始流的遍历。</p>
+<p>包括：map (mapToInt, flatMap 等)、 filter、 distinct、 sorted、 peek、 limit、 skip、 parallel、 sequential、 unordered</p>
+</li>
+</ul>
+<ul>
+<li><p><strong>Terminal</strong>：一个流只能有一个 terminal 操作，当这个操作执行后，流就被使用“光”了，无法再被操作。所以这必定是流的最后一个操作。Terminal 操作的执行，才会真正开始流的遍历，并且会生成一个结果，或者一个 side effect。</p>
+<p>包括：forEach、 forEachOrdered、 toArray、 reduce、 collect、 min、 max、 count、 anyMatch、 allMatch、 noneMatch、 findFirst、 findAny、 iterator</p>
+</li>
+<li><p>还有一种操作被称为 <strong>short-circuiting</strong>。用以指：</p>
+<ul>
+<li>对于一个 intermediate 操作，如果它接受的是一个无限大（infinite/unbounded）的 Stream，但返回一个有限的新 Stream。</li>
+<li>对于一个 terminal 操作，如果它接受的是一个无限大的 Stream，但能在有限的时间计算出结果。</li>
+</ul>
+<p>包括：anyMatch、 allMatch、 noneMatch、 findFirst、 findAny、 limit</p>
+</li>
+</ul>
+<h3 id="Stream-的消费"><a href="#Stream-的消费" class="headerlink" title="Stream 的消费"></a>Stream 的消费</h3><p>流转换为其它数据结构：</p>
+<pre><code>// 1. Array
+String[] strArray1 = stream.toArray(String[]::new);
+
+// 2. Collection
+List&lt;String&gt; list1 = stream.collect(Collectors.toList());
+List&lt;String&gt; list2 = stream.collect(Collectors.toCollection(ArrayList::new));
+Set set1 = stream.collect(Collectors.toSet());
+Stack stack1 = stream.collect(Collectors.toCollection(Stack::new));
+
+// 3. String
+String str = stream.collect(Collectors.joining()).toString();
+</code></pre><h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><blockquote>
+<ul>
+<li>Stream 不是数据结构</li>
+<li>所有 Stream 的操作必须以 lambda 表达式为参数</li>
+<li>不支持索引访问，你可以请求第一个元素，但无法请求第二个，第三个，或最后一个。</li>
+<li>很多 Stream 操作是向后延迟的，一直到它弄清楚了最后需要多少数据才会开始。</li>
+<li>可以是无限的，limit(n) 和 findFirst() 这类的 short-circuiting 操作可以对无限的 Stream 进行运算并很快完成。</li>
+<li>调用<code>paralle()</code>构造并行stream</li>
+</ul>
+</blockquote>
+<p>更多例子: <a href="http://winterbe.com/posts/2014/07/31/java8-stream-tutorial-examples/" target="_blank" rel="external">Java 8 Stream Tutorial Examples</a></p>
+<h2 id="Parallel-Stream"><a href="#Parallel-Stream" class="headerlink" title="Parallel Stream"></a>Parallel Stream</h2><p><strong>Think Twice Before Using Java 8 Parallel Streams</strong></p>
+<p>Stream 的并行功能适用于计算密集且运行在多核操作系统上的应用，而非 IO 密集型。因为Parallel Stream 采用的是 jdk7 中引入的 ForkJoin框架， 使用<strong>分治法(Divide-and-Conquer Algorithm)</strong>管理线程池，这种方案在进程阻塞的情况下会导致事倍功半的效果，相比串行方案还会浪费一些计算资源。</p>
+<p>具体可参见这篇文章：<a href="http://www.jianshu.com/p/bd825cb89e00" target="_blank" rel="external">深入浅出parallelStream</a></p>
+<h1 id="（三）新增类库"><a href="#（三）新增类库" class="headerlink" title="（三）新增类库"></a>（三）新增类库</h1><h2 id="Date-Time-Package"><a href="#Date-Time-Package" class="headerlink" title="Date-Time Package"></a><a href="http://docs.oracle.com/javase/8/docs/technotes/guides/datetime/index.html" target="_blank" rel="external">Date-Time Package</a></h2><p>Java 8通过发布新的Date-Time API (JSR 310)来进一步加强对日期与时间的处理。<br>在旧版的 Java 中，日期时间 API 存在诸多问题，第三方包又些许存在一些兼容性问题，Java 8 在 java.time 包下提供了很多新的 API，包含以下相应的包：</p>
+<ul>
+<li>java.time包：这是新的Java日期/时间API的基础包，所有的主要基础类都是这个包的一部分，如：LocalDate, LocalTime, LocalDateTime, Instant, Period, Duration等等。所有这些类都是不可变的和线程安全的，在绝大多数情况下，这些类能够有效地处理一些公共的需求。</li>
+<li>java.time.chrono包：这个包为非ISO的日历系统定义了一些泛化的API，我们可以扩展AbstractChronology类来创建自己的日历系统。</li>
+<li>java.time.format包：这个包包含能够格式化和解析日期时间对象的类，在绝大多数情况下，我们不应该直接使用它们，因为java.time包中相应的类已经提供了格式化和解析的方法。</li>
+<li>java.time.temporal包：这个包包含一些时态对象，我们可以用其找出关于日期/时间对象的某个特定日期或时间，比如说，可以找到某月的第一天或最后一天。你可以非常容易地认出这些方法，因为它们都具有“withXXX”的格式。</li>
+<li>java.time.zone包：这个包包含支持不同时区以及相关规则的类。</li>
+</ul>
+<h2 id="Optional-类"><a href="#Optional-类" class="headerlink" title="Optional 类"></a>Optional 类</h2><p><strong>优雅的空指针处理</strong></p>
+<p>身为一名Java程序员，大家可能都有这样的经历：调用一个方法得到了返回值却不能直接将返回值作为参数去调用别的方法。我们首先要判断这个返回值是否为null，只有在非空的前提下才能将其作为其他方法的参数。这正是一些类似<a href="http://docs.guava-libraries.googlecode.com/git/javadoc/com/google/common/base/Optional.html" target="_blank" rel="external">Guava</a>的外部API试图解决的问题。一些JVM编程语言比如Scala、Ceylon等已经将对在核心API中解决了这个问题。新版本的Java，比如<a href="http://blog.sanaulla.info/tag/java-8/" target="_blank" rel="external">Java 8</a>引入了一个新的<a href="http://download.java.net/jdk8/docs/api/java/util/Optional.html" target="_blank" rel="external">Optional</a>类。Optional类的Javadoc描述如下：</p>
+<blockquote>
+<p>这是一个可以为null的容器对象。如果值存在则isPresent()方法会返回true，调用get()方法会返回该对象。</p>
+</blockquote>
+<p>Optional 类提供了许多方法用于解决空指针的问题，下面列举几个个我认为最常用的方法，完整版可参见这篇文章：<a href="http://www.importnew.com/6675.html" target="_blank" rel="external">Java 8 Optional类深度解析</a></p>
+<ul>
+<li><p><strong>ifPresent</strong></p>
+<p>如果Optional实例有值则为其调用consumer，否则不做处理，For example:</p>
+<pre><code>//ifPresent方法接受lambda表达式作为参数。
+
+//lambda表达式对Optional的值调用consumer进行处理。
+
+name.ifPresent((value) -&gt; {
+
+  System.out.println(&quot;The length of the value is: &quot; + value.length());
+
+});
+</code></pre></li>
+<li><p><strong>orElse</strong></p>
+<p>如果Optional实例有值则将其返回，否则返回orElse方法传入的参数，For example：</p>
+<pre><code>//如果值不为null，orElse方法返回Optional实例的值。
+
+//如果为null，返回传入的消息。
+
+//输出：There is no value present!
+
+System.out.println(empty.orElse(&quot;There is no value present!&quot;));
+
+//输出：Sanaulla
+
+System.out.println(name.orElse(&quot;There is some value!&quot;));
+</code></pre></li>
+<li><p><strong>orElseGet</strong></p>
+<p>orElseGet与orElse方法类似，区别在于得到的默认值。orElse方法将传入的字符串作为默认值，orElseGet方法可以接受<a href="http://blog.sanaulla.info/2013/04/02/supplier-interface-in-java-util-function-package-in-java-8/" target="_blank" rel="external">Supplier接口</a>的实现用来生成默认值，For example：</p>
+<pre><code>//orElseGet与orElse方法类似，区别在于orElse传入的是默认值，
+
+//orElseGet可以接受一个lambda表达式生成默认值。
+
+//输出：Default Value
+
+System.out.println(empty.orElseGet(() -&gt; &quot;Default Value&quot;));
+
+//输出：Sanaulla
+
+System.out.println(name.orElseGet(() -&gt; &quot;Default Value&quot;));
+</code></pre></li>
+<li><p><strong>map</strong></p>
+<p>如果有值，则对其执行调用mapping函数得到返回值。如果返回值不为null，则创建包含mapping返回值的Optional作为map方法返回值，否则返回空Optional，For example：</p>
+<pre><code>//map方法执行传入的lambda表达式参数对Optional实例的值进行修改。
+
+//为lambda表达式的返回值创建新的Optional实例作为map方法的返回值。
+
+Optional&lt;String&gt; upperName = name.map((value) -&gt; value.toUpperCase());
+
+System.out.println(upperName.orElse(&quot;No value found&quot;));
+</code></pre></li>
+</ul>
+<h2 id="Base64"><a href="#Base64" class="headerlink" title="Base64"></a>Base64</h2><p>在Java 8中，Base64编码已经成为Java类库的标准。<br>Java 8 内置了 Base64 编码的编码器和解码器。<br>Base64工具类提供了一套静态方法获取下面三种BASE64编解码器：</p>
+<ul>
+<li>基本：输出被映射到一组字符A-Za-z0-9+/，编码不添加任何行标，输出的解码仅支持A-Za-z0-9+/。</li>
+<li>URL：输出映射到一组字符A-Za-z0-9+_，输出是URL和文件。</li>
+<li>MIME：输出隐射到MIME友好格式。输出每行不超过76字符，并且使用’\r’并跟随’\n’作为分割。编码输出最后没有行分割。</li>
+</ul>
+<h2 id="JavaFX"><a href="#JavaFX" class="headerlink" title="JavaFX"></a><a href="http://docs.oracle.com/javase/8/javase-clienttechnologies.htm" target="_blank" rel="external">JavaFX</a></h2><p>JavaFX主要致力于富客户端开发，以弥补swing的缺陷，主要提供图形库与media库，支持audio,video,graphics,animation,3D等，同时采用现代化的css方式支持界面设计。</p>
+<p>具体可参见：<a href="https://my.oschina.net/benhaile/blog/335109" target="_blank" rel="external">Java 8新特性探究（十三）JavaFX 8新特性以及开发2048游戏</a></p>
+<h1 id="（四）JVM-升级"><a href="#（四）JVM-升级" class="headerlink" title="（四）JVM 升级"></a>（四）<a href="http://docs.oracle.com/javase/8/docs/technotes/guides/vm/" target="_blank" rel="external">JVM</a> 升级</h1><p>JVM 为了方便内存回收将堆内存分为<strong>新生代（Young generation）</strong>， <strong>老年代（Old generation）</strong>， <strong>持久代（ permanent generation ）</strong>（如下图所示）具体参考：<a href="http://www.importnew.com/1993.html" target="_blank" rel="external">成为JavaGC专家（1）—深入浅出Java垃圾回收机制</a></p>
+<p><img src="http://www.importnew.com/wp-content/uploads/2012/12/Figure-1-GC-Area-Data-Flow.png" alt=""></p>
+<p>Java8 移除了 Permanent Generation，取而代之的是一个叫 MetaSpace（元空间） 的内存空间（如下图所示），MetaSpace 使用的是本地内存（Native heap），带来的最大好处是不会再有  <a href="http://javaeesupportpatterns.blogspot.com/2011/02/outofmemoryerror-permgen-patterns-part1.html" target="_blank" rel="external">java.lang.OutOfMemoryError: PermGen</a> 的问题，MetaSpace 回根据使用情况自动扩容，其理论最大值即为操作系统所能提供的内存最大值；另外 MetaSpace 的 GC 扫描只会发生在 MetaSpace 达到 MaxMetaspaceSize 设置的上限的时候，减少 GC 扫描次数在一定程度上优化了 JVM 的性能。</p>
+<p>具体参照：<a href="https://dzone.com/articles/java-8-permgen-metaspace" target="_blank" rel="external">Java 8: From PermGen to Metaspace</a></p>
+<p>关于 JVM 是什么：<a href="http://www.jianshu.com/p/28639d7a00fe" target="_blank" rel="external">【转】JVM介绍——不得不知的JVM</a></p>
+<p><img src="http://static.oschina.net/uploads/space/2014/0329/195605_gspc_1028150.png" alt=""></p>
+<h1 id="（五）新工具"><a href="#（五）新工具" class="headerlink" title="（五）新工具"></a>（五）新工具</h1><p>新的编译工具，如：Nashorn JavaScript引擎 jjs、 类依赖分析器jdeps。具体参见：<a href="http://docs.oracle.com/javase/8/docs/technotes/tools/enhancements-8.html" target="_blank" rel="external">官方文档</a></p>
+<h2 id="Nashorn-JavaScript-引擎"><a href="#Nashorn-JavaScript-引擎" class="headerlink" title="Nashorn JavaScript 引擎"></a>Nashorn JavaScript 引擎</h2><p>Nashorn 一个 javascript 引擎。<br>从JDK 1.8开始，Nashorn取代Rhino(JDK 1.6, JDK1.7)成为Java的嵌入式JavaScript引擎。Nashorn完全支持ECMAScript 5.1规范以及一些扩展。它使用基于JSR 292的新语言特性，其中包含在JDK 7中引入的 invokedynamic，将JavaScript编译成Java字节码。</p>
+<p>更多参见：<a href="https://my.oschina.net/benhaile/blog/290276" target="_blank" rel="external">Java 8新特性探究（十二）Nashorn ：新犀牛</a></p>
+<h1 id="（六）安全"><a href="#（六）安全" class="headerlink" title="（六）安全"></a>（六）<a href="http://docs.oracle.com/javase/8/docs/technotes/guides/security/enhancements-8.html" target="_blank" rel="external">安全</a></h1><p>众多安全性上的提提升，如更好的 TSL/SSL 支持，改进加密算法等等，具体参见<a href="https://docs.oracle.com/javase/8/docs/technotes/guides/security/enhancements-8.html" target="_blank" rel="external">官方文档</a></p>
+<hr>
+<h1 id="云时代-Java"><a href="#云时代-Java" class="headerlink" title="云时代 Java"></a>云时代 Java</h1><p>最开始接触 Java 了解到 Java 最大的优势（也是 Java 诞生的初衷）就是它的跨平台性和易于移植，其实 JVM 也是一种容器，但是这种容器特性正在被Linux学习与赶超，Docker 之类容器可以在本地笔记本或电脑上运行，然后同样可以部署到云上运行。当在云上运行时，Kubernetes 能够以一种可控的方式升级容器从而实现运行管理一批容器，如同一个大型船队或舰队一样，你可以控制它们的流量访问量，可以指定多少个容器来扩展支撑一个服务的运行，随着访问量提升，你通过增加容器数量能够整个系统的负载能力。</p>
+<p>当然，Java 的大型分布式系统越来越多，Java在云计算与分布式系统中还是扮演主要角色，形成一个大型的生态圈。当我们站在泰山之上，一览众山小，当你在全球拥有多个数据中心时，语言已经变得不那么重要了，关键是架构设计。</p>
+<blockquote>
+<p>Refer:</p>
+<ul>
+<li><a href="http://www.importnew.com/9060.html" target="_blank" rel="external">Java的历史</a></li>
+<li><a href="http://www.infoq.com/cn/news/2015/05/java-20-history-future" target="_blank" rel="external">Java 20年：历史与未来</a></li>
+<li><a href="https://my.oschina.net/benhaile/blog?sort=time&amp;catalog=410404&amp;p=2&amp;temp=1503637545998" target="_blank" rel="external">成熟的毛毛虫：Java8</a></li>
+<li><a href="http://www.runoob.com/java/java8-new-features.html" target="_blank" rel="external">http://www.runoob.com/java/java8-new-features.html</a></li>
+<li><a href="http://blog.oneapm.com/apm-tech/226.html" target="_blank" rel="external">深入浅出 Java 8 Lambda 表达式</a></li>
+<li><a href="https://www.codementor.io/eh3rrera/using-java-8-method-reference-du10866vx" target="_blank" rel="external">Java 8 Method Reference: How to Use it</a></li>
+<li><a href="http://colobu.com/2014/10/28/secrets-of-java-8-functional-interface/" target="_blank" rel="external">http://colobu.com/2014/10/28/secrets-of-java-8-functional-interface/</a></li>
+<li><a href="http://blog.csdn.net/zxhoo/article/details/38349011" target="_blank" rel="external">http://blog.csdn.net/zxhoo/article/details/38349011</a></li>
+<li><a href="http://ebnbin.com/2015/12/20/java-8-default-methods/" target="_blank" rel="external">http://ebnbin.com/2015/12/20/java-8-default-methods/</a></li>
+<li><a href="https://nkcoder.github.io/2016/01/24/java-8-stream-api/" target="_blank" rel="external">https://nkcoder.github.io/2016/01/24/java-8-stream-api/</a></li>
+<li><a href="http://www.jianshu.com/p/5b800057f2d8" target="_blank" rel="external">http://www.jianshu.com/p/5b800057f2d8</a></li>
+<li><a href="http://www.importnew.com/14140.html" target="_blank" rel="external">http://www.importnew.com/14140.html</a></li>
+<li><a href="http://brianway.github.io/2017/03/29/javase-java8/" target="_blank" rel="external">http://brianway.github.io/2017/03/29/javase-java8/</a></li>
+<li><a href="http://www.sczyh30.com/posts/Java/jvm-metaspace/" target="_blank" rel="external">http://www.sczyh30.com/posts/Java/jvm-metaspace/</a></li>
+</ul>
+</blockquote>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Java 从 1995年正式发布第一个版本至今已走过 21 个年头，从一开始受人怀疑的慢语言发展为如今通用的健壮语言。笔者 11 年开始接触 Java1.6 到后来转投 Python，再转向云架构，而今因项目需求再次拾起 Java 已经过了两次版本更新，借项目上的机会，将 
+    
+    </summary>
+    
+      <category term="Java" scheme="https://www.duyidong.com/categories/Java/"/>
+    
+    
+      <category term="Java" scheme="https://www.duyidong.com/tags/Java/"/>
+    
+      <category term="代码" scheme="https://www.duyidong.com/tags/%E4%BB%A3%E7%A0%81/"/>
+    
+  </entry>
   
   <entry>
     <title>DevOps 从理论到实践</title>
@@ -211,9 +563,9 @@
       <category term="DevOps" scheme="https://www.duyidong.com/categories/DevOps/"/>
     
     
-      <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
-    
       <category term="翻译" scheme="https://www.duyidong.com/tags/%E7%BF%BB%E8%AF%91/"/>
+    
+      <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
     
       <category term="理论框架" scheme="https://www.duyidong.com/tags/%E7%90%86%E8%AE%BA%E6%A1%86%E6%9E%B6/"/>
     
@@ -2224,9 +2576,9 @@ feedback，开放式协作
     
       <category term="AWS" scheme="https://www.duyidong.com/tags/AWS/"/>
     
-      <category term="EC2" scheme="https://www.duyidong.com/tags/EC2/"/>
-    
       <category term="云计算" scheme="https://www.duyidong.com/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/"/>
+    
+      <category term="EC2" scheme="https://www.duyidong.com/tags/EC2/"/>
     
   </entry>
   
@@ -2508,146 +2860,6 @@ export AWS_SECRET_ACCESS_KEY=&lt;secret key&gt;
       <category term="Security" scheme="https://www.duyidong.com/tags/Security/"/>
     
       <category term="IAM" scheme="https://www.duyidong.com/tags/IAM/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Amazon Web Server 服务概览</title>
-    <link href="https://www.duyidong.com/2017/02/28/AWS-Services-Overview/"/>
-    <id>https://www.duyidong.com/2017/02/28/AWS-Services-Overview/</id>
-    <published>2017-02-28T06:55:01.000Z</published>
-    <updated>2017-05-13T12:28:40.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>最近在准备AWS助理级架构师认证考试，借此机会梳理一下AWS比较核心的几个服务，不会太深入细节，只做简单阐释。</p>
-<p>首先关于AWS服务一览：</p>
-<p><img src="/images/AWS_Services_Overview.png" alt=""></p>
-<p>以下服务会出现在助理级架构师考试中：</p>
-<p><img src="/images/AWS_Services_Exam.png" alt=""></p>
-<p>下面就按照这个顺序过一下AWS的众多服务。</p>
-<h2 id="AWS-Global-Infrastructure"><a href="#AWS-Global-Infrastructure" class="headerlink" title="AWS Global Infrastructure"></a>AWS Global Infrastructure</h2><p>AWS拥有全球化的基础设施让你的服务可以在瞬间扩展到全球，你可以在<a href="https://aws.amazon.com/about-aws/global-infrastructure/" target="_blank" rel="external">这里</a>查看亚马逊当前拥有的全球基础设施信息。<br>截止到今天（2017.02.28）AWS Cloud在全球共有<strong>42</strong>个<code>Availablity Zone</code>和<strong>16</strong>个<code>geographic Regions</code>，中国区有2个Region分别在北京和宁夏（宁夏区暂未开放），每个Region各有两个AZ，受政策限制，AWS中国区与其他各地区服务分离，由<a href="https://www.sinnet.com.cn/home/product/indexyun/16" target="_blank" rel="external">光环新网</a>代理，需要单独<a href="https://www.amazonaws.cn/en/sign-up/" target="_blank" rel="external">申请账号</a>。</p>
-<p><img src="https://d0.awsstatic.com/global-infrastructure/Global_Infrastructure_12-15-2016.png" alt=""></p>
-<h3 id="Region-amp-Availablity-Zone"><a href="#Region-amp-Availablity-Zone" class="headerlink" title="Region &amp; Availablity Zone"></a>Region &amp; Availablity Zone</h3><p>Region是AWS按物理地理划分的节点，每个Region包含两个或以上AZ，AZ可以理解为同在一个Region的多个数据中心。之所以一个Region要有至少两个Region是因为AWS很多服务都推荐跨AZ备份而做到高可用。<br>另外AZ之间网络通信延迟远大于Region之前通信，原因也很好理解，Region的物理距离很远，而同Region的AZ是在同一个城市。</p>
-<h3 id="Edge-Location"><a href="#Edge-Location" class="headerlink" title="Edge Location"></a>Edge Location</h3><p>Edge Location是比亚马逊数据中心覆盖面还广的服务，我们访问AWS console就使用过Edge Location，同时Edge Location还作为AWS Cloudfront（CDN）服务的节点，你可以在<a href="https://www.google.com/maps/d/viewer?msa=0&amp;mid=z8tAG_iMI0RE.kBLn8p8h4GGw" target="_blank" rel="external">这里</a>看到AWS服务在全球分布的情况，在<a href="https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/#AWS Edge Network Locations" target="_blank" rel="external">这里</a>查看AWS的Edge Location分部情况。</p>
-<h2 id="Networking-amp-Content-Deivery"><a href="#Networking-amp-Content-Deivery" class="headerlink" title="Networking &amp; Content Deivery"></a>Networking &amp; Content Deivery</h2><p>这一部分的内容主要包含网络和CDN。</p>
-<h3 id="VPC"><a href="#VPC" class="headerlink" title="VPC"></a>VPC</h3><p>VPC(<a href="https://aws.amazon.com/vpc/" target="_blank" rel="external">Virtual Private Cloud</a>)，AWS服务中关于网络最重要的一个服务，作用是在AWS中虚拟一个定制化局域网，从而可以像管理一个虚拟数据中心一样管理AWS中的资源。一个Region最多可以有5个VPC，你可以自由定义VPC的局域网网段（当然要使用专用网段），每个VPC之间可以单点连通前提是专用网段不重复。<br>VPC就是一个虚拟的局域网，可以通过给VPC绑定InternetGateway的方式让VPC成为public VPC，即在外网可以访问VPC内的服务。就好比公司网络中加了一个从内网出去的路由。当然要让外网的设备找到VPC中的资源还需要给VPC中的资源绑定一个公网IP。</p>
-<h3 id="Route53"><a href="#Route53" class="headerlink" title="Route53"></a>Route53</h3><p><a href="https://aws.amazon.com/route53/" target="_blank" rel="external">Route53</a>是AWS的DNS服务。可以注册DNS，配置A地址和CNAME。</p>
-<h3 id="Cloud-Front"><a href="#Cloud-Front" class="headerlink" title="Cloud Front"></a>Cloud Front</h3><p><a href="https://aws.amazon.com/cloudfront/" target="_blank" rel="external">Cloud Front</a>是亚马逊的CDN（Content Delivery Network）服务，用于缓存下载或上传的数据。</p>
-<h3 id="Direct-Connect"><a href="#Direct-Connect" class="headerlink" title="Direct Connect"></a>Direct Connect</h3><p><a href="https://aws.amazon.com/directconnect/" target="_blank" rel="external">Direct Connect</a>是亚马逊的网络直连服务，就是用一跟又粗又长的网线，从你的数据中心翻山越岭地连接到AWS的数据中心从而建立一个稳定可靠高效的私有连接。</p>
-<h2 id="Compute"><a href="#Compute" class="headerlink" title="Compute"></a>Compute</h2><p><a href="https://aws.amazon.com/products/compute/" target="_blank" rel="external">AWS Compute</a>包含了亚马逊最重要的服务——计算服务</p>
-<h3 id="EC2"><a href="#EC2" class="headerlink" title="EC2"></a>EC2</h3><p>EC2(<a href="https://aws.amazon.com/ec2/" target="_blank" rel="external">Elastic Compute Cloud</a>)可以理解为AWS的虚拟机，包含存储（EBS），镜像（AMI），备份（snapshot），防火墙（Security Group）等紧密相关的服务，AWS的一部分服务也是基于EC2的，比如ECS和RDS。<br>使用EC2你可以按照你的需要创建Instance，不仅可以自由控制Instance的数量，还可以动态调整虚拟机的各种参数，比如内存，CPU。最重要的是，使用AWS EC2你可以——按需付费。</p>
-<h3 id="EC2-Contianer-Service"><a href="#EC2-Contianer-Service" class="headerlink" title="EC2 Contianer Service"></a>EC2 Contianer Service</h3><p>ECS(<a href="https://aws.amazon.com/ecs/" target="_blank" rel="external">EC2 Contianer Service</a>)帮助管理在EC2上运行Docker或容器集群，适用于构建微服务。</p>
-<blockquote>
-<p>注：该服务不会出现在SAA考试中</p>
-</blockquote>
-<h3 id="Elastic-Beanstalk"><a href="#Elastic-Beanstalk" class="headerlink" title="Elastic Beanstalk"></a>Elastic Beanstalk</h3><p><a href="https://aws.amazon.com/elasticbeanstalk/" target="_blank" rel="external">Elastic Beanstalk</a>是一个用于方便部署web服务的一个傻瓜式应用，你不需要知道关于AWS的一切，只需要上传代码，Beanstalk会帮你选择合适的环境，运行环境，负载均衡，监控等等，目前支持语言包括 Java, .NET, PHP, Node.js, Python, Ruby, Go。</p>
-<blockquote>
-<p>注：该服务不会出现在SAA考试中，只需要知道Beanstalk是什么就可以。</p>
-</blockquote>
-<h3 id="Lambda"><a href="#Lambda" class="headerlink" title="Lambda"></a>Lambda</h3><p><a href="https://aws.amazon.com/lambda/" target="_blank" rel="external">Lambda</a>是一个云计算革命性的服务，关键词<strong>Serverless</strong>，也是AWS这几年大力在推的服务，主要特点是除了功能性的function以外的所有服务（操作系统，物理硬件，运行环境）都由AWS管理，资源只在被调用时创建并在使用完后立即销毁，最大限度地做到了高可用高伸缩，同时非常便宜，按照访问次数收费。（每百万次0.05美刀）<br>主要使用场景是流处理，应用后端。</p>
-<blockquote>
-<p>注：因为是比较新的服务，所以暂时还没有在SAA考试或样题中出现，但毫无疑问这是AWS一个重要的服务。</p>
-</blockquote>
-<h3 id="Lightsail"><a href="#Lightsail" class="headerlink" title="Lightsail"></a>Lightsail</h3><p><a href="https://amazonlightsail.com/" target="_blank" rel="external">Lightsail</a>与Elastic Beanstalk类似，也是一个给不会使用AWS的用户提供自动化部署的一个服务。</p>
-<blockquote>
-<p>注：该服务不算是AWS的核心服务，仅作为了解，考试内容不会涉及。</p>
-</blockquote>
-<h2 id="Storage"><a href="#Storage" class="headerlink" title="Storage"></a>Storage</h2><p><a href="https://aws.amazon.com/products/storage/" target="_blank" rel="external">AWS Storage</a>包含了AWS存储有关的服务，这里暂不列举EBS。</p>
-<h3 id="S3"><a href="#S3" class="headerlink" title="S3"></a>S3</h3><p>S3(<a href="https://aws.amazon.com/s3/" target="_blank" rel="external">Simple Storage Service</a>) 差不多是和AWS一样老的一个服务，同时支撑着AWS中很多其他的服务。<br>S3是一个高可用的对象存储服务，可以理解为一个巨大的磁盘可以存放图片，视频一类的大小静态文件，其存储持久性可达到11个9，可用性可以达到4个9。S3的对象存储单个文件最大可达5TB，总大小不设上限。同时S3可以作为静态网站使用，可以开启版本管理。本博客也准备迁移到AWS S3上。<br>S3的使用场景可以用作静态网站部署，数据存储（例如数据胡泊），用于数据分析，数据备份等。当然也可以用来构建Serverless服务。</p>
-<h3 id="Clacier"><a href="#Clacier" class="headerlink" title="Clacier"></a>Clacier</h3><p><a href="https://aws.amazon.com/glacier/" target="_blank" rel="external">Claier</a>是用于存档数据长期保存的一个服务，如果你有长时间不使用但是需要保存的数据，例如医院的病例，电视台的历史影像资料，你可以使用这个服务，其主要特点是异常便宜（0.004美刀/GB），同时能做到11个9的持久度。另外归档数据在提取时大概需要4-5个小时，所以不适宜存储需要频繁读写的数据。</p>
-<h3 id="EFS"><a href="#EFS" class="headerlink" title="EFS"></a>EFS</h3><p>EFS(<a href="https://aws.amazon.com/efs/" target="_blank" rel="external">Elastic File System</a>)是一个可移动的块存储设备，你可以想象成一个可以任意扩容的移动硬盘，在需要时被接到任何一台EC2 instance上，同时它还具有nfs的功能，可以同时连接多台设备。EFS在刚创建的时候大小为零，随着存放资源增多逐渐扩容，真正做到按需付费，缺点是小贵，大概0.3美刀/GB</p>
-<h3 id="Storage-Gateway"><a href="#Storage-Gateway" class="headerlink" title="Storage Gateway"></a>Storage Gateway</h3><p><a href="https://aws.amazon.com/storagegateway/" target="_blank" rel="external">Storage Gateway</a>是一个让你的数据中心可以和AWS存储设备无缝对接的服务，你可以像访问本地文件系统一样访问你存储在AWS云上的资源。</p>
-<blockquote>
-<p>注：该服务在Ops认证会被重点考察，SAA涉及不多。</p>
-</blockquote>
-<h2 id="Databases"><a href="#Databases" class="headerlink" title="Databases"></a>Databases</h2><p><a href="https://aws.amazon.com/products/databases" target="_blank" rel="external">AWS Cloud Database</a><br>涉及到考试，重点在针对不同的使用场景选择合适的数据库服务，另外非关系型数据库的高性能高伸缩和关系型数据库如何做到高可用，读写分离也常会作为考点。</p>
-<h3 id="RDS"><a href="#RDS" class="headerlink" title="RDS"></a>RDS</h3><p>RDS(<a href="https://aws.amazon.com/rds/" target="_blank" rel="external">Relation Database Serveice</a>)是一个托管在AWS上的关系型数据库，目前支持MySQL，Postgresql，SQLserver，MariaDB，Oracle和一个亚马逊自己出的Aurora（据说很屌）。</p>
-<h3 id="DynamoDB"><a href="#DynamoDB" class="headerlink" title="DynamoDB"></a>DynamoDB</h3><p><a href="https://aws.amazon.com/dynamodb/" target="_blank" rel="external">DynamoDB</a>是AWS提供的非关系型数据库，特点是高一致，低延迟，极易伸缩，相当灵活。</p>
-<blockquote>
-<p>注：该服务在Developor认证考试中重点考察，SAA认证也有涉及。</p>
-</blockquote>
-<h3 id="Redshift"><a href="#Redshift" class="headerlink" title="Redshift"></a>Redshift</h3><p><a href="https://aws.amazon.com/redshift/" target="_blank" rel="external">Redshift</a>是托管在AWS上的数据仓库，提供PB级的存储服务。</p>
-<h3 id="Elasticache"><a href="#Elasticache" class="headerlink" title="Elasticache"></a>Elasticache</h3><p><a href="https://aws.amazon.com/elasticache/" target="_blank" rel="external">Elasticache</a>AWS上一个高吞吐的缓存服务，有Redis和Memcached两种类型。</p>
-<h2 id="Migration"><a href="#Migration" class="headerlink" title="Migration"></a>Migration</h2><h3 id="Snowball"><a href="#Snowball" class="headerlink" title="Snowball"></a>Snowball</h3><p>AWS官方提供的物理迁移，小型的是一个手提箱，大型的有卡车大小的移动存储，帮助你将大量数据加密传输到亚马逊的云上。<br>关于Snowball一个重要的概念就是Import和Export，你可以从S3导出或导入数据到Snowball。</p>
-<h3 id="DMS"><a href="#DMS" class="headerlink" title="DMS"></a>DMS</h3><p>DMS(<a href="https://aws.amazon.com/dms/" target="_blank" rel="external">Database Migration Service</a>)帮助你将本地数据库中的数据迁移到AWS上，同时还支持在AWS中不同类型的数据库之间做零宕机的数据迁移。比如从本地的Oracle中将数据迁移到AWS的Aurora上。</p>
-<blockquote>
-<p>注：DMS是AWS中一个重要的服务，但暂未出现在SAA的考试中。</p>
-</blockquote>
-<h3 id="SMS"><a href="#SMS" class="headerlink" title="SMS"></a>SMS</h3><p>SMS(<a href="https://aws.amazon.com/server-migration-service/" target="_blank" rel="external">Server Migration Service</a>)AWS服务器迁移服务是一种无代理服务，使租户能够快速将本地服务增量式地迁移到云上，具体就是将本地服务器的卷打成镜像放到云上再跑起来。</p>
-<blockquote>
-<p>注：该服务暂时没有在所有考试中出现。</p>
-</blockquote>
-<h2 id="Analytics"><a href="#Analytics" class="headerlink" title="Analytics"></a>Analytics</h2><p><a href="https://aws.amazon.com/products/analytics/" target="_blank" rel="external">Analytics</a>主要用于处理，分析，可视化数据。</p>
-<h3 id="Athena"><a href="#Athena" class="headerlink" title="Athena"></a>Athena</h3><p><a href="https://aws.amazon.com/athena/" target="_blank" rel="external">Athena</a>让租户可以使用SQL交互式地查询S3中的数据，Athena是Serverless的，所以用户只需按使用次数付费。</p>
-<h3 id="EMR"><a href="#EMR" class="headerlink" title="EMR"></a>EMR</h3><p>Elastic MapReduce，就是托管在AWS上的map reduce，用于管理大数据集群（EC2 instance集群）</p>
-<blockquote>
-<p>注：SAA考试会涉及。</p>
-</blockquote>
-<h3 id="Cloud-Search-amp-Elastic-Search"><a href="#Cloud-Search-amp-Elastic-Search" class="headerlink" title="Cloud Search &amp; Elastic Search"></a>Cloud Search &amp; Elastic Search</h3><p>用于构建站内搜索或应用内搜索。</p>
-<blockquote>
-<p>注：助理级考试均不涉及。</p>
-</blockquote>
-<h3 id="Kinesis"><a href="#Kinesis" class="headerlink" title="Kinesis"></a>Kinesis</h3><p><a href="https://aws.amazon.com/kinesis/" target="_blank" rel="external">Kinesis</a>强大的实时数据流处理服务，速度可达TB每小时，用于上传，分析实时数据流。比较重要。</p>
-<h3 id="Data-Pipeline"><a href="#Data-Pipeline" class="headerlink" title="Data Pipeline"></a>Data Pipeline</h3><p>提供有序处理数据，洗数据，数据迁移的工作。</p>
-<h3 id="Quick-Sight"><a href="#Quick-Sight" class="headerlink" title="Quick Sight"></a>Quick Sight</h3><p>为你的数据创建可视化面板。</p>
-<h2 id="Security-amp-Identity"><a href="#Security-amp-Identity" class="headerlink" title="Security &amp; Identity"></a>Security &amp; Identity</h2><h3 id="IAM"><a href="#IAM" class="headerlink" title="IAM"></a>IAM</h3><p>IAM(<a href="https://aws.amazon.com/iam/" target="_blank" rel="external">Identity &amp; Access Management</a>)是AWS的权限管理服务，是一个非常重要的服务。这个服务是免费的，而且Global，即不收Region限制的。<br>关于IAM主要需要知道关于User Group, User, Role, Polic几个概念即可；User Group和User都类似于Linux中的用户组和用户的概念，不同的是AWS根据Polic赋予用户权限，关于Polic，主要就是规定可以对“何种资源”进行“何种操作”两个参数，Role的定义类似于User，但是Role不是赋予用户使用，而是赋予给AWS的资源的，例如租户需要创建一个EC2 instance，这个Instance需要操纵S3的资源，那么你需要在创建这个EC2 instance的时候赋予一个带S3操作权限的Role，需要注意的是Role只能在创建资源的时候被赋予，且不能更改不能解除绑定，另外在包含Role的instance中你无法看到AWS ACCESS KEY 之类的文本文件，这是AWS出于安全的设计。</p>
-<h3 id="Inspector"><a href="#Inspector" class="headerlink" title="Inspector"></a>Inspector</h3><p><a href="https://aws.amazon.com/inspector/" target="_blank" rel="external">Inspector</a>是一个安装在EC2 instance上的客户端，用于生成安全报告。</p>
-<blockquote>
-<p>注：暂不在考试中出现</p>
-</blockquote>
-<h3 id="Certificate-Manager"><a href="#Certificate-Manager" class="headerlink" title="Certificate Manager"></a>Certificate Manager</h3><p><a href="https://aws.amazon.com/certificate-manager/" target="_blank" rel="external">Certificate Manager</a>是一个用于管理SSL证书的服务。</p>
-<h3 id="Directory-Service"><a href="#Directory-Service" class="headerlink" title="Directory Service"></a>Directory Service</h3><p><a href="https://aws.amazon.com/directoryservice/" target="_blank" rel="external">Directory Service</a>让租户可以将AWS权限管理和自建数据中的AD group集合在一起，可以直接使用Microsoft AD Group创建AWS中的资源。</p>
-<h3 id="WAF"><a href="#WAF" class="headerlink" title="WAF"></a>WAF</h3><p>WAF(<a href="https://aws.amazon.com/certificate-manager.com/waf/" target="_blank" rel="external">Web Application Firewall</a>)给予租户应用级别的安全防护，比如SQL注入，跨站攻击，等。</p>
-<h3 id="Artifact"><a href="#Artifact" class="headerlink" title="Artifact"></a>Artifact</h3><p>这是让你能访问到AWS compliance document 的服务，可以从中获取各种合规文件。</p>
-<h2 id="Management-Tools"><a href="#Management-Tools" class="headerlink" title="Management Tools"></a>Management Tools</h2><h3 id="Could-Watch"><a href="#Could-Watch" class="headerlink" title="Could Watch"></a>Could Watch</h3><p>Cloud Watch 是AWS重要的Ops工具，作用为监控AWS资源状态的工具，可以设置连个级别，分别是五分钟一个心跳（默认）和一分钟一个心跳。该服务监控类目(Metrics)繁多，甚至包括花费的监控预警，可以设置Alarm触发SNS给到租户通知实现报警的功能。</p>
-<h3 id="Cloud-Formation"><a href="#Cloud-Formation" class="headerlink" title="Cloud Formation"></a>Cloud Formation</h3><p>Cloud Formation是AWS一个重要的DevOps工具，实践了基础设施及代码，租户可以使用一套模板（Template），即一个Json或者Yaml的文件定义整个AWS服务的使用，包括资源，网络，权限。是一个可以投入大量精力使用学习的一个服务。</p>
-<blockquote>
-<p>注：Cloud Formation是一个重要的服务，但不会在SAA考试中出现很多，只需要一定程度的了解即可，但想成为一个真正的架构师，这个服务必须要熟悉。</p>
-</blockquote>
-<h3 id="Cloud-Trail"><a href="#Cloud-Trail" class="headerlink" title="Cloud Trail"></a>Cloud Trail</h3><p>用于监控AWS API调用的一个服务，哪些操作属于AWS API调用——创建一个资源，改变一个资源的配置，销毁一个资源，往S3上传一个对象，都算。这些操作被Cloud Trail记录下来保存在S3中作为log供租户使用，AWS的一些边缘服务也有依赖于Cloud Trail的。但笔者在使用该服务时发现其存在延迟时间长（10-20min），无法划分日志级别，且日志冗余不易分析等缺点，仍不是很好用。</p>
-<h3 id="Opsworks"><a href="#Opsworks" class="headerlink" title="Opsworks"></a>Opsworks</h3><p>AWS提供的有一个基础设施及代码的工具，使用<a href="https://www.chef.io/chef/" target="_blank" rel="external">Chef</a>。</p>
-<h3 id="Config"><a href="#Config" class="headerlink" title="Config"></a>Config</h3><p><a href="https://aws.amazon.com/waf/" target="_blank" rel="external">Config</a>是用于记录资源配置规则变更，并判断资源配置是否合规的一个服务。</p>
-<blockquote>
-<p>注：该服务不会出现在助理级考试中，但会在Security的考察中出现。</p>
-</blockquote>
-<h3 id="Service-Catalog-amp-Trusted-Advisor"><a href="#Service-Catalog-amp-Trusted-Advisor" class="headerlink" title="Service Catalog &amp; Trusted Advisor"></a>Service Catalog &amp; Trusted Advisor</h3><p>Trusted Advisor是一个有意思的服务，从安全，省钱，性能，容错四个角度给你的AWS资源配给一个全面的分析，这四个角度也是AWS架构师设计一个良好的架构必须要考虑的四个角度。且该服务与AWS收费等级强相关，AWS的服务等级分为基础版、开发版、商业版、企业版四个级别，交的钱不同会高度体现在这个服务的内容上。<a href="https://aws.amazon.com/premiumsupport/compare-plans/" target="_blank" rel="external">https://aws.amazon.com/premiumsupport/compare-plans/</a></p>
-<h2 id="Application-Services"><a href="#Application-Services" class="headerlink" title="Application Services"></a>Application Services</h2><h3 id="Step-Functions"><a href="#Step-Functions" class="headerlink" title="Step Functions"></a>Step Functions</h3><p><a href="https://aws.amazon.com/step-functions/" target="_blank" rel="external">Step Functions</a>是在2017年初才推出的一个新服务，可用于执行批处理脚本。</p>
-<blockquote>
-<p>注：因为该服务还很新，暂未出现在认证考试中</p>
-</blockquote>
-<h3 id="SWF"><a href="#SWF" class="headerlink" title="SWF"></a>SWF</h3><p>SWF(<a href="https://aws.amazon.com/swf/" target="_blank" rel="external">Simple Workflow Service</a>)让开发者可以按顺序执行一些后台命令，如果您的应用程序的步骤需要超过500毫秒的时间来完成，您需要跟踪处理状态，如果任务失败，您需要恢复或重试，Amazon SWF可以做到。</p>
-<blockquote>
-<p>注：这个服务比较重要，需要动手实践。</p>
-</blockquote>
-<h3 id="API-Gateway"><a href="#API-Gateway" class="headerlink" title="API Gateway"></a>API Gateway</h3><p>API Gateway是AWS一个Serverless有关的重要的服务，常用于触发Lambda function。</p>
-<blockquote>
-<p>注：这个服务在构建无服务架构的时候非常重要，但不会在考试中涉及很多细节，只需要了解其作用，用法即可。</p>
-</blockquote>
-<h3 id="Elasic-Transcoder"><a href="#Elasic-Transcoder" class="headerlink" title="Elasic Transcoder"></a>Elasic Transcoder</h3><p>用于视频转码。</p>
-<h2 id="Message"><a href="#Message" class="headerlink" title="Message"></a>Message</h2><p>消息服务是AWS一个非常重要的服务，我们可以通过SNS(Simple Noticfication Service)发送短信，邮件提示，使用SQS（Simple Queue Service）构建一个保证交付的消息队列，使用SES(Simple Email Service)收发邮件。</p>
-<h2 id="Desktop-amp-App-Streaming"><a href="#Desktop-amp-App-Streaming" class="headerlink" title="Desktop &amp; App Streaming"></a>Desktop &amp; App Streaming</h2><h3 id="workspace"><a href="#workspace" class="headerlink" title="workspace"></a>workspace</h3><p>一个在AWS云端的远程办公桌面。</p>
-<h3 id="AppStream2-0"><a href="#AppStream2-0" class="headerlink" title="AppStream2.0"></a>AppStream2.0</h3><p><a href="https://aws.amazon.com/appstream2/" target="_blank" rel="external">AppStream</a>可以将桌面应用程序流式传输到运行Web浏览器的任何设备，安全地从任何地方即时访问桌面应用程序，如AWS console。</p>
-<blockquote>
-<ul>
-<li>参考资料</li>
-<li><a href="https://www.linuxnix.com/amazon-aws-regions-vs-availability-zones-vs-edge-locations-vs-data-centers/" target="_blank" rel="external">https://www.linuxnix.com/amazon-aws-regions-vs-availability-zones-vs-edge-locations-vs-data-centers/</a></li>
-</ul>
-</blockquote>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;最近在准备AWS助理级架构师认证考试，借此机会梳理一下AWS比较核心的几个服务，不会太深入细节，只做简单阐释。&lt;/p&gt;
-&lt;p&gt;首先关于AWS服务一览：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;/images/AWS_Services_Overview.png&quot; alt=&quot;&quot;&gt;&lt;/
-    
-    </summary>
-    
-      <category term="Amazon Web Services" scheme="https://www.duyidong.com/categories/Amazon-Web-Services/"/>
-    
-    
-      <category term="AWS" scheme="https://www.duyidong.com/tags/AWS/"/>
-    
-      <category term="云计算" scheme="https://www.duyidong.com/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/"/>
     
   </entry>
   

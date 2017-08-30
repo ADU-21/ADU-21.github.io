@@ -4,6 +4,28 @@
 
     
   <url>
+    <loc>https://www.duyidong.com/2017/08/30/what-new-in-java8/</loc>
+    <lastmod>2017-08-30T11:20:43.000Z</lastmod>
+    <data>
+        <display>
+        <title>Java 8 新特性</title>
+        <pubTime>2017-08-30T02:42:34.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>代码</tag>
+         
+         
+           
+             
+              <breadCrumb title="Java" url="https://www.duyidong.com/categories/Java/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://www.duyidong.com/2017/06/08/work-in-blackops/</loc>
     <lastmod>2017-08-24T05:53:35.000Z</lastmod>
     <data>
@@ -96,9 +118,9 @@
         <title>DevOps的三种方式</title>
         <pubTime>2017-07-12T14:50:38.000Z</pubTime>
         
-        <tag>DevOps</tag>
-         
         <tag>翻译</tag>
+         
+        <tag>DevOps</tag>
          
         <tag>理论框架</tag>
          
@@ -404,9 +426,9 @@
         <title>Python代码优化小技巧</title>
         <pubTime>2016-03-29T12:26:33.000Z</pubTime>
         
-        <tag>Python</tag>
-         
         <tag>代码</tag>
+         
+        <tag>Python</tag>
          
          
            
@@ -842,11 +864,11 @@
         <title>ThoughtWorks第一周学习总结</title>
         <pubTime>2016-05-24T13:44:57.000Z</pubTime>
         
-        <tag>ThoughtWorks</tag>
-         
         <tag>学习</tag>
          
         <tag>小结</tag>
+         
+        <tag>ThoughtWorks</tag>
          
          
            
@@ -1120,9 +1142,9 @@
         
         <tag>AWS</tag>
          
-        <tag>EC2</tag>
-         
         <tag>云计算</tag>
+         
+        <tag>EC2</tag>
          
          
            

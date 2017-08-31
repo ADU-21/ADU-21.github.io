@@ -3,10 +3,9 @@
 
 
     
-    
   <url>
     <loc>https://www.duyidong.com/2017/08/30/what-new-in-java8/</loc>
-    <lastmod>2017-08-30T11:20:43.000Z</lastmod>
+    <lastmod>2017-08-31T08:29:16.000Z</lastmod>
     <data>
         <display>
         <title>Java 8 新特性</title>
@@ -25,6 +24,7 @@
     </data>
     </url>
 
+    
     
   <url>
     <loc>https://www.duyidong.com/2017/06/08/work-in-blackops/</loc>
@@ -170,9 +170,9 @@
         <title>AWS认证与权限管理IAM</title>
         <pubTime>2017-03-06T12:41:50.000Z</pubTime>
         
-        <tag>AWS</tag>
-         
         <tag>亚马逊认证与权限</tag>
+         
+        <tag>AWS</tag>
          
         <tag>Security</tag>
          
@@ -244,9 +244,9 @@
         <title>敏捷开发</title>
         <pubTime>2016-04-19T06:41:46.000Z</pubTime>
         
-        <tag>敏捷</tag>
-         
         <tag>Agile</tag>
+         
+        <tag>敏捷</tag>
          
          
            
@@ -982,9 +982,9 @@
         
         <tag>AWS</tag>
          
-        <tag>S3</tag>
-         
         <tag>Blog</tag>
+         
+        <tag>S3</tag>
          
         <tag>Hexo</tag>
          

@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.duyidong.com/"/>
-  <updated>2017-08-30T11:20:43.000Z</updated>
+  <updated>2017-08-31T08:29:16.000Z</updated>
   <id>https://www.duyidong.com/</id>
   
   <author>
@@ -20,14 +20,13 @@
     <link href="https://www.duyidong.com/2017/08/30/what-new-in-java8/"/>
     <id>https://www.duyidong.com/2017/08/30/what-new-in-java8/</id>
     <published>2017-08-30T02:42:34.000Z</published>
-    <updated>2017-08-30T11:20:43.000Z</updated>
+    <updated>2017-08-31T08:29:16.000Z</updated>
     
     <content type="html"><![CDATA[<p>Java 从 1995年正式发布第一个版本至今已走过 21 个年头，从一开始受人怀疑的慢语言发展为如今通用的健壮语言。笔者 11 年开始接触 Java1.6 到后来转投 Python，再转向云架构，而今因项目需求再次拾起 Java 已经过了两次版本更新，借项目上的机会，将 Java8 的新特性做一个梳理。</p>
 <p><a href="http://www.oracle.com/technetwork/java/javase/8-whats-new-2157071.html" target="_blank" rel="external">官方文档</a>； <a href="/pdf/What_new_in_java8_yidong.key">PPT</a></p>
 <h1 id="（一）Programming-Language"><a href="#（一）Programming-Language" class="headerlink" title="（一）Programming Language"></a>（一）Programming Language</h1><h2 id="Lambda-表达式-Lambda-Expression"><a href="#Lambda-表达式-Lambda-Expression" class="headerlink" title="Lambda 表达式 (Lambda Expression )"></a>Lambda 表达式 (Lambda Expression )</h2><p>Lambda允许把函数作为一个方法的参数（函数作为参数传递进方法中）。</p>
 <p>形如: <code>input -&gt; body</code></p>
-<p>在代码中:</p>
-<pre><code>(arg1, arg2...) -&gt; { body }
+<h2 id="在代码中"><a href="#在代码中" class="headerlink" title="在代码中:"></a>在代码中:</h2><pre><code>(arg1, arg2...) -&gt; { body }
 
 (type1 arg1, type2 arg2...) -&gt; { body }
 </code></pre><p>示例如下：</p>
@@ -182,7 +181,7 @@ void monitorTemperature() throws @Critical TemperatureException { ... }
 <h2 id="Stream-的生命周期"><a href="#Stream-的生命周期" class="headerlink" title="Stream 的生命周期"></a>Stream 的生命周期</h2><p>当我们使用一个流的时候，通常包括三个基本步骤：</p>
 <p>获取一个数据源（source）→ 数据转换→执行操作获取想要的结果。</p>
 <p><img src="https://www.ibm.com/developerworks/cn/java/j-lo-java8streamapi/img001.png" alt=""></p>
-<h3 id="Stream-的构造"><a href="#Stream-的构造" class="headerlink" title="Stream 的构造"></a>Stream 的构造</h3><p><strong>构造流的几种常见方法</strong></p>
+<h3 id="Stream-的构造和转换"><a href="#Stream-的构造和转换" class="headerlink" title="Stream 的构造和转换"></a>Stream 的构造和转换</h3><p><strong>构造流的几种常见方法</strong></p>
 <pre><code>// 1. Individual values
 Stream stream = Stream.of(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;);
 
@@ -200,7 +199,21 @@ stream = list.stream();
 <pre><code>IntStream.of(new int[]{1, 2, 3}).forEach(System.out::println);
 IntStream.range(1, 3).forEach(System.out::println);
 IntStream.rangeClosed(1, 3).forEach(System.out::println);
-</code></pre><h3 id="Stream-的转换"><a href="#Stream-的转换" class="headerlink" title="Stream 的转换"></a>Stream 的转换</h3><p>Stream 的转换分为以下三种操作类型：</p>
+</code></pre><p><strong>数值流的转换</strong></p>
+<p>流转换为其它数据结构：</p>
+<pre><code>// 1. Array
+String[] strArray1 = stream.toArray(String[]::new);
+
+// 2. Collection
+List&lt;String&gt; list1 = stream.collect(Collectors.toList());
+List&lt;String&gt; list2 = stream.collect(Collectors.toCollection(ArrayList::new));
+Set set1 = stream.collect(Collectors.toSet());
+Stack stack1 = stream.collect(Collectors.toCollection(Stack::new));
+
+// 3. String
+String str = stream.collect(Collectors.joining()).toString();
+</code></pre><p>### </p>
+<h3 id="Stream-的操作"><a href="#Stream-的操作" class="headerlink" title="Stream 的操作"></a>Stream 的操作</h3><p>Stream 的转换分为以下三种操作类型：</p>
 <ul>
 <li><p><strong>Intermediate</strong>：一个流可以后面跟随零个或多个 intermediate 操作。其目的主要是打开流，做出某种程度的数据映射/过滤，然后返回一个新的流，交给下一个操作使用。这类操作都是惰性化的（lazy），就是说，仅仅调用到这类方法，并没有真正开始流的遍历。</p>
 <p>包括：map (mapToInt, flatMap 等)、 filter、 distinct、 sorted、 peek、 limit、 skip、 parallel、 sequential、 unordered</p>
@@ -218,19 +231,7 @@ IntStream.rangeClosed(1, 3).forEach(System.out::println);
 <p>包括：anyMatch、 allMatch、 noneMatch、 findFirst、 findAny、 limit</p>
 </li>
 </ul>
-<h3 id="Stream-的消费"><a href="#Stream-的消费" class="headerlink" title="Stream 的消费"></a>Stream 的消费</h3><p>流转换为其它数据结构：</p>
-<pre><code>// 1. Array
-String[] strArray1 = stream.toArray(String[]::new);
-
-// 2. Collection
-List&lt;String&gt; list1 = stream.collect(Collectors.toList());
-List&lt;String&gt; list2 = stream.collect(Collectors.toCollection(ArrayList::new));
-Set set1 = stream.collect(Collectors.toSet());
-Stack stack1 = stream.collect(Collectors.toCollection(Stack::new));
-
-// 3. String
-String str = stream.collect(Collectors.joining()).toString();
-</code></pre><h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><blockquote>
+<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><blockquote>
 <ul>
 <li>Stream 不是数据结构</li>
 <li>所有 Stream 的操作必须以 lambda 表达式为参数</li>
@@ -2776,9 +2777,9 @@ export AWS_SECRET_ACCESS_KEY=&lt;secret key&gt;
     
       <category term="AWS" scheme="https://www.duyidong.com/tags/AWS/"/>
     
-      <category term="S3" scheme="https://www.duyidong.com/tags/S3/"/>
-    
       <category term="Blog" scheme="https://www.duyidong.com/tags/Blog/"/>
+    
+      <category term="S3" scheme="https://www.duyidong.com/tags/S3/"/>
     
       <category term="Hexo" scheme="https://www.duyidong.com/tags/Hexo/"/>
     
@@ -2853,9 +2854,9 @@ export AWS_SECRET_ACCESS_KEY=&lt;secret key&gt;
       <category term="Amazon Web Services" scheme="https://www.duyidong.com/categories/Amazon-Web-Services/"/>
     
     
-      <category term="AWS" scheme="https://www.duyidong.com/tags/AWS/"/>
-    
       <category term="亚马逊认证与权限" scheme="https://www.duyidong.com/tags/%E4%BA%9A%E9%A9%AC%E9%80%8A%E8%AE%A4%E8%AF%81%E4%B8%8E%E6%9D%83%E9%99%90/"/>
+    
+      <category term="AWS" scheme="https://www.duyidong.com/tags/AWS/"/>
     
       <category term="Security" scheme="https://www.duyidong.com/tags/Security/"/>
     

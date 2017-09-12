@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.duyidong.com/2017/03/20/Enable-HTTPS-and-CDN-with-Cloudfront/</loc>
+    
+    <lastmod>2017-09-12T13:45:07.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://www.duyidong.com/2017/08/30/what-new-in-java8/</loc>
     
     <lastmod>2017-08-31T08:29:16.000Z</lastmod>
@@ -145,13 +152,6 @@
     <loc>https://www.duyidong.com/2017/02/28/AWS-Services-Overview/</loc>
     
     <lastmod>2017-05-13T12:28:40.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://www.duyidong.com/2017/03/20/Enable-HTTPS-and-CDN-with-Cloudfront/</loc>
-    
-    <lastmod>2017-05-13T12:22:15.000Z</lastmod>
     
   </url>
   

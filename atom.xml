@@ -496,9 +496,9 @@ System.out.println(upperName.orElse(&quot;No value found&quot;));
       <category term="DevOps" scheme="https://www.duyidong.com/categories/DevOps/"/>
     
     
-      <category term="持续交付" scheme="https://www.duyidong.com/tags/%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98/"/>
-    
       <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
+    
+      <category term="持续交付" scheme="https://www.duyidong.com/tags/%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98/"/>
     
       <category term="敏捷" scheme="https://www.duyidong.com/tags/%E6%95%8F%E6%8D%B7/"/>
     
@@ -1094,9 +1094,9 @@ spec:
     
       <category term="小结" scheme="https://www.duyidong.com/tags/%E5%B0%8F%E7%BB%93/"/>
     
-      <category term="职场" scheme="https://www.duyidong.com/tags/%E8%81%8C%E5%9C%BA/"/>
-    
       <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
+    
+      <category term="职场" scheme="https://www.duyidong.com/tags/%E8%81%8C%E5%9C%BA/"/>
     
       <category term="Platform" scheme="https://www.duyidong.com/tags/Platform/"/>
     
@@ -1208,9 +1208,9 @@ High willingness to travel
       <category term="DevOps" scheme="https://www.duyidong.com/categories/DevOps/"/>
     
     
-      <category term="职场" scheme="https://www.duyidong.com/tags/%E8%81%8C%E5%9C%BA/"/>
-    
       <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
+    
+      <category term="职场" scheme="https://www.duyidong.com/tags/%E8%81%8C%E5%9C%BA/"/>
     
   </entry>
   
@@ -1482,9 +1482,9 @@ High willingness to travel
       <category term="Cloud" scheme="https://www.duyidong.com/categories/Cloud/"/>
     
     
-      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
-    
       <category term="Cloud Native" scheme="https://www.duyidong.com/tags/Cloud-Native/"/>
+    
+      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
     
       <category term="翻译" scheme="https://www.duyidong.com/tags/%E7%BF%BB%E8%AF%91/"/>
     
@@ -1629,6 +1629,8 @@ def test_hosts_file(File):
       <category term="DevOps" scheme="https://www.duyidong.com/categories/DevOps/"/>
     
     
+      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
+    
       <category term="Infrastructure as Code" scheme="https://www.duyidong.com/tags/Infrastructure-as-Code/"/>
     
       <category term="ThoughtWorks技术雷达" scheme="https://www.duyidong.com/tags/ThoughtWorks%E6%8A%80%E6%9C%AF%E9%9B%B7%E8%BE%BE/"/>
@@ -1636,8 +1638,6 @@ def test_hosts_file(File):
       <category term="基础设施即代码" scheme="https://www.duyidong.com/tags/%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E5%8D%B3%E4%BB%A3%E7%A0%81/"/>
     
       <category term="持续交付" scheme="https://www.duyidong.com/tags/%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98/"/>
-    
-      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
     
   </entry>
   
@@ -2348,9 +2348,9 @@ feedback，开放式协作
     
       <category term="AWS" scheme="https://www.duyidong.com/tags/AWS/"/>
     
-      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
-    
       <category term="Cloud Native" scheme="https://www.duyidong.com/tags/Cloud-Native/"/>
+    
+      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
     
       <category term="架构" scheme="https://www.duyidong.com/tags/%E6%9E%B6%E6%9E%84/"/>
     
@@ -2361,7 +2361,7 @@ feedback，开放式协作
     <link href="https://www.duyidong.com/2017/03/20/Enable-HTTPS-and-CDN-with-Cloudfront/"/>
     <id>https://www.duyidong.com/2017/03/20/Enable-HTTPS-and-CDN-with-Cloudfront/</id>
     <published>2017-03-20T12:23:37.000Z</published>
-    <updated>2017-05-13T12:22:15.000Z</updated>
+    <updated>2017-09-12T13:45:07.000Z</updated>
     
     <content type="html"><![CDATA[<p>在上一篇博客中，笔者已经介绍了<a href="https://www.duyidong.com/2017/03/07/Deploy-Hexo-to-S3/">将hexo博客发布到S3</a>，这一部分我将介绍如何使用AWS的Route53应用上自己的域名，以及如何使用Cloudfront开启HTTPS/HTTP2和CDN加速。</p>
 <h2 id="关于Route53"><a href="#关于Route53" class="headerlink" title="关于Route53"></a>关于Route53</h2><p>Route53是AWS提供的DNS服务，提供常见域名服务，用户可以使用Route53注册使用域名，指向自己的服务，可以除了一般域名服务都支持的A类地址（直接指向IP），及CNAME（指向另一个域名）以外，Route53还支持一个功能叫做A-record，即可以将DNS指向AWS内部的资源，该服务功能与CNAME基本相同，但是免费。此外，Route53支持以下几种路由策略：</p>
@@ -2372,7 +2372,7 @@ feedback，开放式协作
 <li><strong>Failover Routing Policy</strong>：该路由策略在其中一个被路由资源宕机的情况下会停止流量引入，从而避免用户访问到错误页面，这里涉及到Route53的另一个功能———健康检查。</li>
 <li><strong>Geolocation Routing Policy</strong>：地理位置策略允许用户设置将不同地理位置的用户流量导入到不同服务，例如希望悉尼的用户和北京的用户在一个网站上看到不同的页面，可以采用这种路由方式。</li>
 </ul>
-<h2 id="关于Cloudfront"><a href="#关于Cloudfront" class="headerlink" title="关于Cloudfront"></a>关于Cloudfront</h2><p>Cloudfront是AWS的CND服务，利用AWS分布在全球的节点服务器（Edge Location）缓存用户的访问，用户在第二次访问（或同区域的另一个用户在非首次访问）页面时会直接从节点服务器取到已经缓存的数据，速度会大大加快。<br>同理，Cloudfront也可以用于文件上传。</p>
+<h2 id="关于Cloudfront"><a href="#关于Cloudfront" class="headerlink" title="关于Cloudfront"></a>关于Cloudfront</h2><p>Cloudfront是AWS的CDN(Content Delivery Network, 内容分发网络)服务，利用AWS分布在全球的节点服务器（Edge Location）缓存用户的访问，用户在第二次访问（或同区域的另一个用户在非首次访问）页面时会直接从节点服务器取到已经缓存的数据，速度会大大加快。<br>同理，Cloudfront也可以用于文件上传。</p>
 <h2 id="申请Route53和Cloudfront权限"><a href="#申请Route53和Cloudfront权限" class="headerlink" title="申请Route53和Cloudfront权限"></a>申请Route53和Cloudfront权限</h2><p>默认情况下，所有账户都是没有开启Cloudfront和Route53服务的，这个时候需要使用账号注册邮箱发送邮件到<a href="aws-verification@amazon.com">aws-verification@amazon.com</a>申请开通。</p>
 <h2 id="申请域名"><a href="#申请域名" class="headerlink" title="申请域名"></a>申请域名</h2><p>得到服务使用权限之后，还需要申请一个域名，这个时候可以在AWS的<a href="https://console.aws.amazon.com/cloudfront/route53" target="_blank" rel="external">Route53</a>进行购买，也可以在阿里云的<a href="https://wanwang.aliyun.com/domain/" target="_blank" rel="external">万网</a>注册一个域名，域名会按使用年数收费，不同域名收费不同。<br>在亚马逊购买域名，只需要进入<a href="https://console.aws.amazon.com/route53/home" target="_blank" rel="external">Console</a>，在<strong>Register Domain</strong>栏输入你想要的域名，点选Check，接下来如果域名可用，可以Add to Card然后付费即可。大约一小时后，这个域名就可以被使用了。</p>
 <p><img src="/images/Route53_Register_Domain.png" alt=""></p>

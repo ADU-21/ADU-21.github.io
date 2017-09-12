@@ -4,6 +4,38 @@
 
     
   <url>
+    <loc>https://www.duyidong.com/2017/03/20/Enable-HTTPS-and-CDN-with-Cloudfront/</loc>
+    <lastmod>2017-09-12T13:45:07.000Z</lastmod>
+    <data>
+        <display>
+        <title>使用AWS解锁HTTPS和CDN</title>
+        <pubTime>2017-03-20T12:23:37.000Z</pubTime>
+        
+        <tag>AWS</tag>
+         
+        <tag>Blog</tag>
+         
+        <tag>HTTPS</tag>
+         
+        <tag>CDN</tag>
+         
+        <tag>Cloudfront</tag>
+         
+        <tag>Route53</tag>
+         
+        <tag>博客上云</tag>
+         
+         
+           
+             
+              <breadCrumb title="我的博客" url="https://www.duyidong.com/categories/%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://www.duyidong.com/2017/08/30/what-new-in-java8/</loc>
     <lastmod>2017-08-31T08:29:16.000Z</lastmod>
     <data>
@@ -36,9 +68,9 @@
         
         <tag>小结</tag>
          
-        <tag>职场</tag>
-         
         <tag>DevOps</tag>
+         
+        <tag>职场</tag>
          
         <tag>Platform</tag>
          
@@ -62,9 +94,9 @@
         <title>DevOps 从理论到实践</title>
         <pubTime>2017-07-14T10:35:34.000Z</pubTime>
         
-        <tag>持续交付</tag>
-         
         <tag>DevOps</tag>
+         
+        <tag>持续交付</tag>
          
         <tag>敏捷</tag>
          
@@ -294,9 +326,9 @@
         <title>DevOps 技能树</title>
         <pubTime>2017-05-18T08:30:47.000Z</pubTime>
         
-        <tag>职场</tag>
-         
         <tag>DevOps</tag>
+         
+        <tag>职场</tag>
          
          
            
@@ -316,9 +348,9 @@
         <title>云原生应用 (Cloud Native Application)</title>
         <pubTime>2017-05-03T03:04:03.000Z</pubTime>
         
-        <tag>Cloud</tag>
-         
         <tag>Cloud Native</tag>
+         
+        <tag>Cloud</tag>
          
         <tag>翻译</tag>
          
@@ -448,9 +480,9 @@
         <title>部署和发布策略的演进</title>
         <pubTime>2016-10-24T06:30:20.000Z</pubTime>
         
-        <tag>持续交付</tag>
-         
         <tag>DevOps</tag>
+         
+        <tag>持续交付</tag>
          
         <tag>部署与发布</tag>
          
@@ -489,38 +521,6 @@
 
     
   <url>
-    <loc>https://www.duyidong.com/2017/03/20/Enable-HTTPS-and-CDN-with-Cloudfront/</loc>
-    <lastmod>2017-05-13T12:22:15.000Z</lastmod>
-    <data>
-        <display>
-        <title>使用AWS解锁HTTPS和CDN</title>
-        <pubTime>2017-03-20T12:23:37.000Z</pubTime>
-        
-        <tag>AWS</tag>
-         
-        <tag>Blog</tag>
-         
-        <tag>HTTPS</tag>
-         
-        <tag>CDN</tag>
-         
-        <tag>Cloudfront</tag>
-         
-        <tag>Route53</tag>
-         
-        <tag>博客上云</tag>
-         
-         
-           
-             
-              <breadCrumb title="我的博客" url="https://www.duyidong.com/categories/%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://www.duyidong.com/2017/05/13/chinese-document-style/</loc>
     <lastmod>2017-05-13T09:51:01.000Z</lastmod>
     <data>
@@ -550,9 +550,9 @@
         
         <tag>AWS</tag>
          
-        <tag>Cloud</tag>
-         
         <tag>Cloud Native</tag>
+         
+        <tag>Cloud</tag>
          
         <tag>架构</tag>
          
@@ -574,6 +574,8 @@
         <title>基础设施代码测试</title>
         <pubTime>2017-04-13T05:41:29.000Z</pubTime>
         
+        <tag>Cloud</tag>
+         
         <tag>Infrastructure as Code</tag>
          
         <tag>ThoughtWorks技术雷达</tag>
@@ -581,8 +583,6 @@
         <tag>基础设施即代码</tag>
          
         <tag>持续交付</tag>
-         
-        <tag>Cloud</tag>
          
          
            
@@ -604,9 +604,9 @@
         
         <tag>工具</tag>
          
-        <tag>基础设施即代码</tag>
-         
         <tag>DevOps</tag>
+         
+        <tag>基础设施即代码</tag>
          
         <tag>Ansible</tag>
          
@@ -910,9 +910,9 @@
         
         <tag>AWS</tag>
          
-        <tag>基础设施即代码</tag>
-         
         <tag>DevOps</tag>
+         
+        <tag>基础设施即代码</tag>
          
          
            

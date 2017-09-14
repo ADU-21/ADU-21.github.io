@@ -496,9 +496,9 @@ System.out.println(upperName.orElse(&quot;No value found&quot;));
       <category term="DevOps" scheme="https://www.duyidong.com/categories/DevOps/"/>
     
     
-      <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
-    
       <category term="持续交付" scheme="https://www.duyidong.com/tags/%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98/"/>
+    
+      <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
     
       <category term="敏捷" scheme="https://www.duyidong.com/tags/%E6%95%8F%E6%8D%B7/"/>
     
@@ -564,9 +564,9 @@ System.out.println(upperName.orElse(&quot;No value found&quot;));
       <category term="DevOps" scheme="https://www.duyidong.com/categories/DevOps/"/>
     
     
-      <category term="翻译" scheme="https://www.duyidong.com/tags/%E7%BF%BB%E8%AF%91/"/>
-    
       <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
+    
+      <category term="翻译" scheme="https://www.duyidong.com/tags/%E7%BF%BB%E8%AF%91/"/>
     
       <category term="理论框架" scheme="https://www.duyidong.com/tags/%E7%90%86%E8%AE%BA%E6%A1%86%E6%9E%B6/"/>
     
@@ -2350,9 +2350,9 @@ feedback，开放式协作
     
       <category term="Cloud Native" scheme="https://www.duyidong.com/tags/Cloud-Native/"/>
     
-      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
-    
       <category term="架构" scheme="https://www.duyidong.com/tags/%E6%9E%B6%E6%9E%84/"/>
+    
+      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
     
   </entry>
   
@@ -2577,9 +2577,9 @@ feedback，开放式协作
     
       <category term="AWS" scheme="https://www.duyidong.com/tags/AWS/"/>
     
-      <category term="云计算" scheme="https://www.duyidong.com/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/"/>
-    
       <category term="EC2" scheme="https://www.duyidong.com/tags/EC2/"/>
+    
+      <category term="云计算" scheme="https://www.duyidong.com/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/"/>
     
   </entry>
   

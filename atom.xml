@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.duyidong.com/"/>
-  <updated>2017-08-31T08:29:16.000Z</updated>
+  <updated>2017-09-15T10:48:18.000Z</updated>
   <id>https://www.duyidong.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="https://www.duyidong.com/2017/08/30/what-new-in-java8/"/>
     <id>https://www.duyidong.com/2017/08/30/what-new-in-java8/</id>
     <published>2017-08-30T02:42:34.000Z</published>
-    <updated>2017-08-31T08:29:16.000Z</updated>
+    <updated>2017-09-15T10:48:18.000Z</updated>
     
     <content type="html"><![CDATA[<p>Java 从 1995年正式发布第一个版本至今已走过 21 个年头，从一开始受人怀疑的慢语言发展为如今通用的健壮语言。笔者 11 年开始接触 Java1.6 到后来转投 Python，再转向云架构，而今因项目需求再次拾起 Java 已经过了两次版本更新，借项目上的机会，将 Java8 的新特性做一个梳理。</p>
 <p><a href="http://www.oracle.com/technetwork/java/javase/8-whats-new-2157071.html" target="_blank" rel="external">官方文档</a>； <a href="/pdf/What_new_in_java8_yidong.key">PPT</a></p>
@@ -359,7 +359,7 @@ System.out.println(upperName.orElse(&quot;No value found&quot;));
     
     </summary>
     
-      <category term="Java" scheme="https://www.duyidong.com/categories/Java/"/>
+      <category term="Coding" scheme="https://www.duyidong.com/categories/Coding/"/>
     
     
       <category term="Java" scheme="https://www.duyidong.com/tags/Java/"/>
@@ -656,7 +656,7 @@ git push origin master
     <link href="https://www.duyidong.com/2017/06/15/openshift-quick-start/"/>
     <id>https://www.duyidong.com/2017/06/15/openshift-quick-start/</id>
     <published>2017-06-15T10:27:41.000Z</published>
-    <updated>2017-07-10T10:38:03.000Z</updated>
+    <updated>2017-09-15T10:46:13.000Z</updated>
     
     <content type="html"><![CDATA[<p>Openshift 是一个基于 Kubernetes 和 Docker 的 PaaS 平台。</p>
 <h1 id="Openshift-概念补充"><a href="#Openshift-概念补充" class="headerlink" title="Openshift 概念补充"></a>Openshift 概念补充</h1><p>我们在上文–<a href="https://www.duyidong.com/2017/06/15/kubernetes-infrastructure/">Kubernetes 介绍</a>中已经提到 Kubernetes 引入了一些概念，Openshift 在此基础之上又对这些概念进行了封装。了解 Openshift 除了了解它的架构以外，还要了解他抽象出来的概念。</p>
@@ -746,7 +746,7 @@ docker -v
     
     </summary>
     
-      <category term="Cloud" scheme="https://www.duyidong.com/categories/Cloud/"/>
+      <category term="Cloud &amp; PaaS" scheme="https://www.duyidong.com/categories/Cloud-PaaS/"/>
     
     
       <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
@@ -766,7 +766,7 @@ docker -v
     <link href="https://www.duyidong.com/2017/06/15/kubernetes-infrastructure/"/>
     <id>https://www.duyidong.com/2017/06/15/kubernetes-infrastructure/</id>
     <published>2017-06-15T01:38:41.000Z</published>
-    <updated>2017-06-15T07:10:15.000Z</updated>
+    <updated>2017-09-15T10:46:05.000Z</updated>
     
     <content type="html"><![CDATA[<p>Kubernetes 的很多概念和架构“代表了谷歌过去十余年设计、构建和管理大规模容器集群经验”。</p>
 <h1 id="Kubernetes-概念引入"><a href="#Kubernetes-概念引入" class="headerlink" title="Kubernetes 概念引入"></a>Kubernetes 概念引入</h1><p>Kubernetes 基于容器引入了许多重要的概念，了解这些概念有助于认知 Kubernetes 是如何工作的。<br>以下介绍均为 Kubernetes 中被定义的资源，Kubernetes 架构按照 Restful 架构设计，及遵循：</p>
@@ -961,7 +961,7 @@ spec:
     
     </summary>
     
-      <category term="Cloud" scheme="https://www.duyidong.com/categories/Cloud/"/>
+      <category term="Cloud &amp; PaaS" scheme="https://www.duyidong.com/categories/Cloud-PaaS/"/>
     
     
       <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
@@ -981,7 +981,7 @@ spec:
     <link href="https://www.duyidong.com/2017/06/14/kubernetes-and-openshift/"/>
     <id>https://www.duyidong.com/2017/06/14/kubernetes-and-openshift/</id>
     <published>2017-06-14T13:53:00.000Z</published>
-    <updated>2017-07-14T03:37:41.000Z</updated>
+    <updated>2017-09-15T10:45:58.000Z</updated>
     
     <content type="html"><![CDATA[<p>Openshift 是一个基于 Kubernetes 和 Docker 的 PaaS 平台。</p>
 <h1 id="历史背景"><a href="#历史背景" class="headerlink" title="历史背景"></a>历史背景</h1><h2 id="容器和容器云的历史"><a href="#容器和容器云的历史" class="headerlink" title="容器和容器云的历史"></a>容器和容器云的历史</h2><p>如下图所示，我整理了一个简单的容器历史年表，蓝色箭头表示容器的发展史，红色箭头表示 Openshift 重大事件。<br>在 2013年以前，容器还是 OpenVZ，LXC 等虚拟化技术的形态，在 2013年3月，Docker 正式发布开源版本，随即在 Github 中代码提交量盛况空前，打响了容器化技术的第一枪。<br>在 Docker 发布之后短短数月的时间，Redhat 就开始了基于 Docker 的 PaaS 平台研发(<a href="https://www.openshift.org/" target="_blank" rel="external">官网</a>标注是在13年6月 Openshift 就已经在基于 Kubernetes 研发)，并在随后发布的 REHL6.5 中集成了对 Docker的支持，标拉开了业界各大厂商竞相支持 Docker 的序幕。次年，云计算三巨头亚马逊、微软、谷歌相继推出了支持 Docker 的云计算品台。<br>2015年7月，谷歌发布了 Kubernetes 的第一个版本，Kubernetes 脱胎于谷歌内部的大规模集群管理工具 Borg，且参与 Kubernetes 项目的早期贡献者正式参与过 Borg 项目的工程师，所以业界基本认同 Kubernetes 的很多概念和架构“代表了谷歌过去十余年设计、构建和管理大规模容器集群经验”的说法。虽然 Kubernest 在容器调度方面表现出众，但他的功能还元不构成一个 PaaS 平台，于是很多厂商开始基于 Kubernetes 开发自己的 PaaS 平台，其中就有目前在国内创业公司被大量使用的 Rancher，值得注意的是 Rancher 是在2016年才开始发布第一个版本，而 Openshift 则早在13年就开始基于 Kubernetes 的开发，但目前看来国内市场对 Ranchard 的接受度是远高于 Openshift 的，就使用体验上看，Rancher 也确实更简单易用。<br>今年（2017年）四月份发生了一件引爆容器社区的事，就是 Docker 开源社区版改名为 Moby，此举为 Docker 公司的商业行为，在此不表态，不赘述。<br>截止到这边文章发出为止，目前 Moby 的最新版本为 17.3.2(Docker 的版本从1.2之后变更了命名方式直接跳到了17)，Kubernetes 为1.7.0(基本与 Docker 更新保持同步) ，Openshift 则为 3.6.0。</p>
@@ -1018,7 +1018,7 @@ spec:
     
     </summary>
     
-      <category term="Cloud" scheme="https://www.duyidong.com/categories/Cloud/"/>
+      <category term="Cloud &amp; PaaS" scheme="https://www.duyidong.com/categories/Cloud-PaaS/"/>
     
     
       <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
@@ -1038,7 +1038,7 @@ spec:
     <link href="https://www.duyidong.com/2017/06/08/work-in-blackops/"/>
     <id>https://www.duyidong.com/2017/06/08/work-in-blackops/</id>
     <published>2017-06-08T08:38:47.000Z</published>
-    <updated>2017-08-24T05:53:35.000Z</updated>
+    <updated>2017-09-15T10:51:24.000Z</updated>
     
     <content type="html"><![CDATA[<p>大熊最近在 ThoughtWorks 给大家讲<a href="http://gigix.thoughtworkers.org/2017/4/25/ditigal-platform-strategy-intro/" target="_blank" rel="external">数字平台战略(Digital Platform Strategy)</a>，非常高兴向大家地宣布，我们已经有了战略框架，鼓励项目上的同事多讲讲故事，那我就来讲一个。借此对过去5个月在项目上的磕磕绊绊做个整理。</p>
 <h1 id="背景介绍"><a href="#背景介绍" class="headerlink" title="背景介绍"></a>背景介绍</h1><p>客户是一家澳洲大型金融保险企业，在保险领域处于本地绝对领先地位，其IT部门总人数在千人以上，维护应用两百余个。在经历了几年的收购和合并之后，在业务上指定了将收购来的多个品牌进行整合的大方针，于是IT部门也开始面临着系统整合，业务线整合，网站合并的问题，同时客户正在将他们的服务逐渐从自建数据中心向 AWS 公有云服务上迁移。</p>
@@ -1089,14 +1089,14 @@ spec:
     
     </summary>
     
-      <category term="ThoughtWorks" scheme="https://www.duyidong.com/categories/ThoughtWorks/"/>
+      <category term="DevOps" scheme="https://www.duyidong.com/categories/DevOps/"/>
     
     
       <category term="小结" scheme="https://www.duyidong.com/tags/%E5%B0%8F%E7%BB%93/"/>
     
-      <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
-    
       <category term="职场" scheme="https://www.duyidong.com/tags/%E8%81%8C%E5%9C%BA/"/>
+    
+      <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
     
       <category term="Platform" scheme="https://www.duyidong.com/tags/Platform/"/>
     
@@ -1208,9 +1208,9 @@ High willingness to travel
       <category term="DevOps" scheme="https://www.duyidong.com/categories/DevOps/"/>
     
     
-      <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
-    
       <category term="职场" scheme="https://www.duyidong.com/tags/%E8%81%8C%E5%9C%BA/"/>
+    
+      <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
     
   </entry>
   
@@ -1380,7 +1380,7 @@ High willingness to travel
     <link href="https://www.duyidong.com/2017/05/03/Cloud-Native/"/>
     <id>https://www.duyidong.com/2017/05/03/Cloud-Native/</id>
     <published>2017-05-03T03:04:03.000Z</published>
-    <updated>2017-05-18T14:58:29.000Z</updated>
+    <updated>2017-09-15T10:45:42.000Z</updated>
     
     <content type="html"><![CDATA[<p>本文翻译自Pivotal的<a href="https://pivotal.io/cloud-native" target="_blank" rel="external">Cloud Native</a>。</p>
 <h2 id="更快部署，更低风险，和业务一同扩展"><a href="#更快部署，更低风险，和业务一同扩展" class="headerlink" title="更快部署，更低风险，和业务一同扩展"></a>更快部署，更低风险，和业务一同扩展</h2><p>云原生应用程序是专为云上的应用而设计的。这些应用程序通过小型专用功能团队实现快速构建和频繁部署，提供了轻松扩展和硬件解耦的平台，让组织更敏捷，更具有可扩展性和云端可移植性。</p>
@@ -1479,12 +1479,12 @@ High willingness to travel
     
     </summary>
     
-      <category term="Cloud" scheme="https://www.duyidong.com/categories/Cloud/"/>
+      <category term="Cloud &amp; PaaS" scheme="https://www.duyidong.com/categories/Cloud-PaaS/"/>
     
-    
-      <category term="Cloud Native" scheme="https://www.duyidong.com/tags/Cloud-Native/"/>
     
       <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
+    
+      <category term="Cloud Native" scheme="https://www.duyidong.com/tags/Cloud-Native/"/>
     
       <category term="翻译" scheme="https://www.duyidong.com/tags/%E7%BF%BB%E8%AF%91/"/>
     
@@ -1629,8 +1629,6 @@ def test_hosts_file(File):
       <category term="DevOps" scheme="https://www.duyidong.com/categories/DevOps/"/>
     
     
-      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
-    
       <category term="Infrastructure as Code" scheme="https://www.duyidong.com/tags/Infrastructure-as-Code/"/>
     
       <category term="ThoughtWorks技术雷达" scheme="https://www.duyidong.com/tags/ThoughtWorks%E6%8A%80%E6%9C%AF%E9%9B%B7%E8%BE%BE/"/>
@@ -1639,6 +1637,8 @@ def test_hosts_file(File):
     
       <category term="持续交付" scheme="https://www.duyidong.com/tags/%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98/"/>
     
+      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
+    
   </entry>
   
   <entry>
@@ -1646,7 +1646,7 @@ def test_hosts_file(File):
     <link href="https://www.duyidong.com/2017/04/12/leave-TW/"/>
     <id>https://www.duyidong.com/2017/04/12/leave-TW/</id>
     <published>2017-04-11T16:01:40.000Z</published>
-    <updated>2017-05-04T12:19:46.000Z</updated>
+    <updated>2017-09-15T10:52:13.000Z</updated>
     
     <content type="html"><![CDATA[<p>最近在公司的离职群里出现了一个调查问卷，我觉得很有意思，引发了我对ThoughtWorks的一些思考，顺手贴在这里。</p>
 <p>另，骚窝为ThoughtWorks音译，所以从骚窝离职的人被称为离骚。</p>
@@ -2129,7 +2129,7 @@ feedback，开放式协作
     <link href="https://www.duyidong.com/2017/03/23/AWS-well-architected-framework/"/>
     <id>https://www.duyidong.com/2017/03/23/AWS-well-architected-framework/</id>
     <published>2017-03-23T14:01:23.000Z</published>
-    <updated>2017-05-05T07:23:24.000Z</updated>
+    <updated>2017-09-15T10:45:46.000Z</updated>
     
     <content type="html"><![CDATA[<p>AWS Well Architected framework，其实是亚马逊的一封<a href="https://d0.awsstatic.com/whitepapers/architecture/AWS_Well-Architected_Framework.pdf" target="_blank" rel="external">白皮书</a>，围绕云架构设计的安全性，可靠性，负载，花销，运维（2016年11月加入）五个支柱阐述了一个良好的架构应该遵循什么样的原则，以及一些最佳实践。</p>
 <p>亚马逊在云服务届处于世界领先水平，且在十多年的云架构实践中已经积累了相当的经验，该白皮书是对这些经验的一个总结和提炼。不管是对于考试，对于成为一个云架构师，还是对于单纯的学习和了解云服务，都是一份不可多得的好材料。<br>下面附上资源地址：<a href="https://d0.awsstatic.com/whitepapers/architecture/AWS_Well-Architected_Framework.pdf" target="_blank" rel="external">https://d0.awsstatic.com/whitepapers/architecture/AWS_Well-Architected_Framework.pdf</a></p>
@@ -2343,16 +2343,16 @@ feedback，开放式协作
     
     </summary>
     
-      <category term="Cloud" scheme="https://www.duyidong.com/categories/Cloud/"/>
+      <category term="Cloud &amp; PaaS" scheme="https://www.duyidong.com/categories/Cloud-PaaS/"/>
     
     
       <category term="AWS" scheme="https://www.duyidong.com/tags/AWS/"/>
     
+      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
+    
       <category term="Cloud Native" scheme="https://www.duyidong.com/tags/Cloud-Native/"/>
     
       <category term="架构" scheme="https://www.duyidong.com/tags/%E6%9E%B6%E6%9E%84/"/>
-    
-      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
     
   </entry>
   
@@ -2577,9 +2577,9 @@ feedback，开放式协作
     
       <category term="AWS" scheme="https://www.duyidong.com/tags/AWS/"/>
     
-      <category term="EC2" scheme="https://www.duyidong.com/tags/EC2/"/>
-    
       <category term="云计算" scheme="https://www.duyidong.com/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/"/>
+    
+      <category term="EC2" scheme="https://www.duyidong.com/tags/EC2/"/>
     
   </entry>
   

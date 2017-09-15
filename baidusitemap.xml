@@ -4,6 +4,320 @@
 
     
   <url>
+    <loc>https://www.duyidong.com/2017/04/12/leave-TW/</loc>
+    <lastmod>2017-09-15T10:52:13.000Z</lastmod>
+    <data>
+        <display>
+        <title>离骚</title>
+        <pubTime>2017-04-11T16:01:40.000Z</pubTime>
+        
+        <tag>ThoughtWorks</tag>
+         
+        <tag>职场</tag>
+         
+         
+           
+             
+              <breadCrumb title="ThoughtWorks" url="https://www.duyidong.com/categories/ThoughtWorks/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2017/06/08/work-in-blackops/</loc>
+    <lastmod>2017-09-15T10:51:24.000Z</lastmod>
+    <data>
+        <display>
+        <title>DevOps 团队交付了什么？</title>
+        <pubTime>2017-06-08T08:38:47.000Z</pubTime>
+        
+        <tag>小结</tag>
+         
+        <tag>职场</tag>
+         
+        <tag>DevOps</tag>
+         
+        <tag>Platform</tag>
+         
+        <tag>工作</tag>
+         
+         
+           
+             
+              <breadCrumb title="DevOps" url="https://www.duyidong.com/categories/DevOps/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2016/03/29/%E6%8E%A8%E8%8D%90%E5%87%A0%E4%B8%AA%E5%AD%A6%E4%B9%A0python%E8%BF%98%E4%B8%8D%E9%94%99%E7%9A%84%E7%BD%91%E7%AB%99/</loc>
+    <lastmod>2017-09-15T10:50:01.000Z</lastmod>
+    <data>
+        <display>
+        <title>推荐几个学习Python还不错的网站</title>
+        <pubTime>2016-03-29T13:16:04.000Z</pubTime>
+        
+        <tag>学习</tag>
+         
+        <tag>Python</tag>
+         
+         
+           
+             
+              <breadCrumb title="Coding" url="https://www.duyidong.com/categories/Coding/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2016/04/02/Python%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8%E5%B0%8F%E6%8A%80%E5%B7%A7/</loc>
+    <lastmod>2017-09-15T10:49:52.000Z</lastmod>
+    <data>
+        <display>
+        <title>Python函数调用小技巧</title>
+        <pubTime>2016-04-02T01:54:08.000Z</pubTime>
+        
+        <tag>Python</tag>
+         
+         
+           
+             
+              <breadCrumb title="Coding" url="https://www.duyidong.com/categories/Coding/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2016/04/13/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/</loc>
+    <lastmod>2017-09-15T10:49:31.000Z</lastmod>
+    <data>
+        <display>
+        <title>单元测试</title>
+        <pubTime>2016-04-13T12:25:47.000Z</pubTime>
+        
+        <tag>Python</tag>
+         
+        <tag>TDD</tag>
+         
+         
+           
+             
+              <breadCrumb title="Coding" url="https://www.duyidong.com/categories/Coding/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2016/04/02/%E5%85%B3%E4%BA%8E%E7%88%AC%E8%99%AB%E4%BD%A0%E4%B8%8D%E5%BE%97%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84%E5%87%A0%E4%B8%AA%E5%BA%93/</loc>
+    <lastmod>2017-09-15T10:49:26.000Z</lastmod>
+    <data>
+        <display>
+        <title>关于爬虫你不得不知道的几个库</title>
+        <pubTime>2016-04-02T02:21:33.000Z</pubTime>
+        
+        <tag>Python</tag>
+         
+        <tag>爬虫</tag>
+         
+         
+           
+             
+              <breadCrumb title="Coding" url="https://www.duyidong.com/categories/Coding/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2016/03/29/Python%E4%BB%A3%E7%A0%81%E4%BC%98%E5%8C%96%E5%B0%8F%E6%8A%80%E5%B7%A7/</loc>
+    <lastmod>2017-09-15T10:48:58.000Z</lastmod>
+    <data>
+        <display>
+        <title>Python代码优化小技巧</title>
+        <pubTime>2016-03-29T12:26:33.000Z</pubTime>
+        
+        <tag>代码</tag>
+         
+        <tag>Python</tag>
+         
+         
+           
+             
+              <breadCrumb title="Coding" url="https://www.duyidong.com/categories/Coding/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2017/08/30/what-new-in-java8/</loc>
+    <lastmod>2017-09-15T10:48:18.000Z</lastmod>
+    <data>
+        <display>
+        <title>Java 8 新特性</title>
+        <pubTime>2017-08-30T02:42:34.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>代码</tag>
+         
+         
+           
+             
+              <breadCrumb title="Coding" url="https://www.duyidong.com/categories/Coding/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2017/06/15/openshift-quick-start/</loc>
+    <lastmod>2017-09-15T10:46:13.000Z</lastmod>
+    <data>
+        <display>
+        <title>PaaS 平台（三）-- Openshift 使用</title>
+        <pubTime>2017-06-15T10:27:41.000Z</pubTime>
+        
+        <tag>DevOps</tag>
+         
+        <tag>PaaS</tag>
+         
+        <tag>Openshift</tag>
+         
+        <tag>Kubernetes</tag>
+         
+        <tag>平台即服务</tag>
+         
+         
+           
+             
+              <breadCrumb title="Cloud &amp; PaaS" url="https://www.duyidong.com/categories/Cloud-PaaS/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2017/06/15/kubernetes-infrastructure/</loc>
+    <lastmod>2017-09-15T10:46:05.000Z</lastmod>
+    <data>
+        <display>
+        <title>PaaS 平台（二） -- Kubernetes 介绍</title>
+        <pubTime>2017-06-15T01:38:41.000Z</pubTime>
+        
+        <tag>DevOps</tag>
+         
+        <tag>PaaS</tag>
+         
+        <tag>Openshift</tag>
+         
+        <tag>Kubernetes</tag>
+         
+        <tag>平台即服务</tag>
+         
+         
+           
+             
+              <breadCrumb title="Cloud &amp; PaaS" url="https://www.duyidong.com/categories/Cloud-PaaS/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2017/06/14/kubernetes-and-openshift/</loc>
+    <lastmod>2017-09-15T10:45:58.000Z</lastmod>
+    <data>
+        <display>
+        <title>PaaS 平台（一） -- Openshift 介绍</title>
+        <pubTime>2017-06-14T13:53:00.000Z</pubTime>
+        
+        <tag>DevOps</tag>
+         
+        <tag>PaaS</tag>
+         
+        <tag>Openshift</tag>
+         
+        <tag>Kubernetes</tag>
+         
+        <tag>平台即服务</tag>
+         
+         
+           
+             
+              <breadCrumb title="Cloud &amp; PaaS" url="https://www.duyidong.com/categories/Cloud-PaaS/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2017/03/23/AWS-well-architected-framework/</loc>
+    <lastmod>2017-09-15T10:45:46.000Z</lastmod>
+    <data>
+        <display>
+        <title>AWS认为，什么样的架构是一个良好的架构</title>
+        <pubTime>2017-03-23T14:01:23.000Z</pubTime>
+        
+        <tag>AWS</tag>
+         
+        <tag>Cloud</tag>
+         
+        <tag>Cloud Native</tag>
+         
+        <tag>架构</tag>
+         
+         
+           
+             
+              <breadCrumb title="Cloud &amp; PaaS" url="https://www.duyidong.com/categories/Cloud-PaaS/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2017/05/03/Cloud-Native/</loc>
+    <lastmod>2017-09-15T10:45:42.000Z</lastmod>
+    <data>
+        <display>
+        <title>云原生应用 (Cloud Native Application)</title>
+        <pubTime>2017-05-03T03:04:03.000Z</pubTime>
+        
+        <tag>Cloud</tag>
+         
+        <tag>Cloud Native</tag>
+         
+        <tag>翻译</tag>
+         
+         
+           
+             
+              <breadCrumb title="Cloud &amp; PaaS" url="https://www.duyidong.com/categories/Cloud-PaaS/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://www.duyidong.com/2017/03/20/Enable-HTTPS-and-CDN-with-Cloudfront/</loc>
     <lastmod>2017-09-12T13:45:07.000Z</lastmod>
     <data>
@@ -35,56 +349,6 @@
     </url>
 
     
-  <url>
-    <loc>https://www.duyidong.com/2017/08/30/what-new-in-java8/</loc>
-    <lastmod>2017-08-31T08:29:16.000Z</lastmod>
-    <data>
-        <display>
-        <title>Java 8 新特性</title>
-        <pubTime>2017-08-30T02:42:34.000Z</pubTime>
-        
-        <tag>Java</tag>
-         
-        <tag>代码</tag>
-         
-         
-           
-             
-              <breadCrumb title="Java" url="https://www.duyidong.com/categories/Java/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-    
-  <url>
-    <loc>https://www.duyidong.com/2017/06/08/work-in-blackops/</loc>
-    <lastmod>2017-08-24T05:53:35.000Z</lastmod>
-    <data>
-        <display>
-        <title>DevOps 团队交付了什么？</title>
-        <pubTime>2017-06-08T08:38:47.000Z</pubTime>
-        
-        <tag>小结</tag>
-         
-        <tag>DevOps</tag>
-         
-        <tag>职场</tag>
-         
-        <tag>Platform</tag>
-         
-        <tag>工作</tag>
-         
-         
-           
-             
-              <breadCrumb title="ThoughtWorks" url="https://www.duyidong.com/categories/ThoughtWorks/"/>
-          
-        </display>
-    </data>
-    </url>
-
     
   <url>
     <loc>https://www.duyidong.com/2017/07/14/what-is-devops/</loc>
@@ -115,34 +379,6 @@
 
     
   <url>
-    <loc>https://www.duyidong.com/2017/06/14/kubernetes-and-openshift/</loc>
-    <lastmod>2017-07-14T03:37:41.000Z</lastmod>
-    <data>
-        <display>
-        <title>PaaS 平台（一） -- Openshift 介绍</title>
-        <pubTime>2017-06-14T13:53:00.000Z</pubTime>
-        
-        <tag>DevOps</tag>
-         
-        <tag>PaaS</tag>
-         
-        <tag>Openshift</tag>
-         
-        <tag>Kubernetes</tag>
-         
-        <tag>平台即服务</tag>
-         
-         
-           
-             
-              <breadCrumb title="Cloud" url="https://www.duyidong.com/categories/Cloud/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://www.duyidong.com/2017/07/12/the-three-ways-understanding-devops/</loc>
     <lastmod>2017-07-13T11:43:36.000Z</lastmod>
     <data>
@@ -160,34 +396,6 @@
            
              
               <breadCrumb title="DevOps" url="https://www.duyidong.com/categories/DevOps/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://www.duyidong.com/2017/06/15/openshift-quick-start/</loc>
-    <lastmod>2017-07-10T10:38:03.000Z</lastmod>
-    <data>
-        <display>
-        <title>PaaS 平台（三）-- Openshift 使用</title>
-        <pubTime>2017-06-15T10:27:41.000Z</pubTime>
-        
-        <tag>DevOps</tag>
-         
-        <tag>PaaS</tag>
-         
-        <tag>Openshift</tag>
-         
-        <tag>Kubernetes</tag>
-         
-        <tag>平台即服务</tag>
-         
-         
-           
-             
-              <breadCrumb title="Cloud" url="https://www.duyidong.com/categories/Cloud/"/>
           
         </display>
     </data>
@@ -276,42 +484,14 @@
         <title>敏捷开发</title>
         <pubTime>2016-04-19T06:41:46.000Z</pubTime>
         
-        <tag>Agile</tag>
-         
         <tag>敏捷</tag>
+         
+        <tag>Agile</tag>
          
          
            
              
               <breadCrumb title="持续交付" url="https://www.duyidong.com/categories/%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://www.duyidong.com/2017/06/15/kubernetes-infrastructure/</loc>
-    <lastmod>2017-06-15T07:10:15.000Z</lastmod>
-    <data>
-        <display>
-        <title>PaaS 平台（二） -- Kubernetes 介绍</title>
-        <pubTime>2017-06-15T01:38:41.000Z</pubTime>
-        
-        <tag>DevOps</tag>
-         
-        <tag>PaaS</tag>
-         
-        <tag>Openshift</tag>
-         
-        <tag>Kubernetes</tag>
-         
-        <tag>平台即服务</tag>
-         
-         
-           
-             
-              <breadCrumb title="Cloud" url="https://www.duyidong.com/categories/Cloud/"/>
           
         </display>
     </data>
@@ -326,146 +506,14 @@
         <title>DevOps 技能树</title>
         <pubTime>2017-05-18T08:30:47.000Z</pubTime>
         
-        <tag>DevOps</tag>
-         
         <tag>职场</tag>
+         
+        <tag>DevOps</tag>
          
          
            
              
               <breadCrumb title="DevOps" url="https://www.duyidong.com/categories/DevOps/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://www.duyidong.com/2017/05/03/Cloud-Native/</loc>
-    <lastmod>2017-05-18T14:58:29.000Z</lastmod>
-    <data>
-        <display>
-        <title>云原生应用 (Cloud Native Application)</title>
-        <pubTime>2017-05-03T03:04:03.000Z</pubTime>
-        
-        <tag>Cloud Native</tag>
-         
-        <tag>Cloud</tag>
-         
-        <tag>翻译</tag>
-         
-         
-           
-             
-              <breadCrumb title="Cloud" url="https://www.duyidong.com/categories/Cloud/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://www.duyidong.com/2016/03/29/%E6%8E%A8%E8%8D%90%E5%87%A0%E4%B8%AA%E5%AD%A6%E4%B9%A0python%E8%BF%98%E4%B8%8D%E9%94%99%E7%9A%84%E7%BD%91%E7%AB%99/</loc>
-    <lastmod>2017-05-15T05:32:56.000Z</lastmod>
-    <data>
-        <display>
-        <title>推荐几个学习Python还不错的网站</title>
-        <pubTime>2016-03-29T13:16:04.000Z</pubTime>
-        
-        <tag>学习</tag>
-         
-        <tag>Python</tag>
-         
-         
-           
-             
-              <breadCrumb title="Python" url="https://www.duyidong.com/categories/Python/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://www.duyidong.com/2016/04/13/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/</loc>
-    <lastmod>2017-05-15T05:31:36.000Z</lastmod>
-    <data>
-        <display>
-        <title>单元测试</title>
-        <pubTime>2016-04-13T12:25:47.000Z</pubTime>
-        
-        <tag>Python</tag>
-         
-        <tag>TDD</tag>
-         
-         
-           
-             
-              <breadCrumb title="Python" url="https://www.duyidong.com/categories/Python/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://www.duyidong.com/2016/04/02/%E5%85%B3%E4%BA%8E%E7%88%AC%E8%99%AB%E4%BD%A0%E4%B8%8D%E5%BE%97%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84%E5%87%A0%E4%B8%AA%E5%BA%93/</loc>
-    <lastmod>2017-05-15T05:31:29.000Z</lastmod>
-    <data>
-        <display>
-        <title>关于爬虫你不得不知道的几个库</title>
-        <pubTime>2016-04-02T02:21:33.000Z</pubTime>
-        
-        <tag>Python</tag>
-         
-        <tag>爬虫</tag>
-         
-         
-           
-             
-              <breadCrumb title="Python" url="https://www.duyidong.com/categories/Python/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://www.duyidong.com/2016/04/02/Python%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8%E5%B0%8F%E6%8A%80%E5%B7%A7/</loc>
-    <lastmod>2017-05-15T05:31:19.000Z</lastmod>
-    <data>
-        <display>
-        <title>Python函数调用小技巧</title>
-        <pubTime>2016-04-02T01:54:08.000Z</pubTime>
-        
-        <tag>Python</tag>
-         
-         
-           
-             
-              <breadCrumb title="Python" url="https://www.duyidong.com/categories/Python/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://www.duyidong.com/2016/03/29/Python%E4%BB%A3%E7%A0%81%E4%BC%98%E5%8C%96%E5%B0%8F%E6%8A%80%E5%B7%A7/</loc>
-    <lastmod>2017-05-15T05:31:12.000Z</lastmod>
-    <data>
-        <display>
-        <title>Python代码优化小技巧</title>
-        <pubTime>2016-03-29T12:26:33.000Z</pubTime>
-        
-        <tag>代码</tag>
-         
-        <tag>Python</tag>
-         
-         
-           
-             
-              <breadCrumb title="Python" url="https://www.duyidong.com/categories/Python/"/>
           
         </display>
     </data>
@@ -541,32 +589,6 @@
 
     
   <url>
-    <loc>https://www.duyidong.com/2017/03/23/AWS-well-architected-framework/</loc>
-    <lastmod>2017-05-05T07:23:24.000Z</lastmod>
-    <data>
-        <display>
-        <title>AWS认为，什么样的架构是一个良好的架构</title>
-        <pubTime>2017-03-23T14:01:23.000Z</pubTime>
-        
-        <tag>AWS</tag>
-         
-        <tag>Cloud Native</tag>
-         
-        <tag>架构</tag>
-         
-        <tag>Cloud</tag>
-         
-         
-           
-             
-              <breadCrumb title="Cloud" url="https://www.duyidong.com/categories/Cloud/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://www.duyidong.com/2017/04/13/Infrastructure-as-Code-Testing/</loc>
     <lastmod>2017-05-05T07:23:01.000Z</lastmod>
     <data>
@@ -574,8 +596,6 @@
         <title>基础设施代码测试</title>
         <pubTime>2017-04-13T05:41:29.000Z</pubTime>
         
-        <tag>Cloud</tag>
-         
         <tag>Infrastructure as Code</tag>
          
         <tag>ThoughtWorks技术雷达</tag>
@@ -583,6 +603,8 @@
         <tag>基础设施即代码</tag>
          
         <tag>持续交付</tag>
+         
+        <tag>Cloud</tag>
          
          
            
@@ -864,11 +886,11 @@
         <title>ThoughtWorks第一周学习总结</title>
         <pubTime>2016-05-24T13:44:57.000Z</pubTime>
         
-        <tag>ThoughtWorks</tag>
-         
         <tag>学习</tag>
          
         <tag>小结</tag>
+         
+        <tag>ThoughtWorks</tag>
          
          
            
@@ -1111,28 +1133,6 @@
 
     
   <url>
-    <loc>https://www.duyidong.com/2017/04/12/leave-TW/</loc>
-    <lastmod>2017-05-04T12:19:46.000Z</lastmod>
-    <data>
-        <display>
-        <title>离骚</title>
-        <pubTime>2017-04-11T16:01:40.000Z</pubTime>
-        
-        <tag>ThoughtWorks</tag>
-         
-        <tag>职场</tag>
-         
-         
-           
-             
-              <breadCrumb title="ThoughtWorks" url="https://www.duyidong.com/categories/ThoughtWorks/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://www.duyidong.com/2017/03/15/AWS-EC2/</loc>
     <lastmod>2017-05-04T12:18:08.000Z</lastmod>
     <data>
@@ -1142,9 +1142,9 @@
         
         <tag>AWS</tag>
          
-        <tag>EC2</tag>
-         
         <tag>云计算</tag>
+         
+        <tag>EC2</tag>
          
          
            

@@ -3,6 +3,7 @@
 
 
     
+    
   <url>
     <loc>https://www.duyidong.com/2017/04/12/leave-TW/</loc>
     <lastmod>2017-09-15T10:52:13.000Z</lastmod>
@@ -147,9 +148,9 @@
         <title>Python代码优化小技巧</title>
         <pubTime>2016-03-29T12:26:33.000Z</pubTime>
         
-        <tag>代码</tag>
-         
         <tag>Python</tag>
+         
+        <tag>代码</tag>
          
          
            
@@ -169,9 +170,9 @@
         <title>Java 8 新特性</title>
         <pubTime>2017-08-30T02:42:34.000Z</pubTime>
         
-        <tag>Java</tag>
-         
         <tag>代码</tag>
+         
+        <tag>Java</tag>
          
          
            
@@ -277,9 +278,9 @@
         
         <tag>AWS</tag>
          
-        <tag>Cloud</tag>
-         
         <tag>Cloud Native</tag>
+         
+        <tag>Cloud</tag>
          
         <tag>架构</tag>
          
@@ -301,9 +302,9 @@
         <title>云原生应用 (Cloud Native Application)</title>
         <pubTime>2017-05-03T03:04:03.000Z</pubTime>
         
-        <tag>Cloud</tag>
-         
         <tag>Cloud Native</tag>
+         
+        <tag>Cloud</tag>
          
         <tag>翻译</tag>
          
@@ -349,7 +350,6 @@
     </url>
 
     
-    
   <url>
     <loc>https://www.duyidong.com/2017/07/14/what-is-devops/</loc>
     <lastmod>2017-07-16T11:26:36.000Z</lastmod>
@@ -386,9 +386,9 @@
         <title>DevOps的三种方式</title>
         <pubTime>2017-07-12T14:50:38.000Z</pubTime>
         
-        <tag>DevOps</tag>
-         
         <tag>翻译</tag>
+         
+        <tag>DevOps</tag>
          
         <tag>理论框架</tag>
          
@@ -596,6 +596,8 @@
         <title>基础设施代码测试</title>
         <pubTime>2017-04-13T05:41:29.000Z</pubTime>
         
+        <tag>Cloud</tag>
+         
         <tag>Infrastructure as Code</tag>
          
         <tag>ThoughtWorks技术雷达</tag>
@@ -603,8 +605,6 @@
         <tag>基础设施即代码</tag>
          
         <tag>持续交付</tag>
-         
-        <tag>Cloud</tag>
          
          
            
@@ -886,11 +886,11 @@
         <title>ThoughtWorks第一周学习总结</title>
         <pubTime>2016-05-24T13:44:57.000Z</pubTime>
         
+        <tag>ThoughtWorks</tag>
+         
         <tag>学习</tag>
          
         <tag>小结</tag>
-         
-        <tag>ThoughtWorks</tag>
          
          
            

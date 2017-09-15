@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.duyidong.com/about/index.html</loc>
+    
+    <lastmod>2017-09-15T14:03:01.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://www.duyidong.com/2017/04/12/leave-TW/</loc>
     
     <lastmod>2017-09-15T10:52:13.000Z</lastmod>
@@ -96,13 +103,6 @@
     <loc>https://www.duyidong.com/2017/03/20/Enable-HTTPS-and-CDN-with-Cloudfront/</loc>
     
     <lastmod>2017-09-12T13:45:07.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://www.duyidong.com/about/index.html</loc>
-    
-    <lastmod>2017-08-30T11:33:37.000Z</lastmod>
     
   </url>
   

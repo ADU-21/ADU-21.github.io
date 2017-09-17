@@ -3,6 +3,34 @@
 
 
     
+  <url>
+    <loc>https://www.duyidong.com/2017/06/15/openshift-quick-start/</loc>
+    <lastmod>2017-09-17T05:04:04.000Z</lastmod>
+    <data>
+        <display>
+        <title>PaaS 平台（三）-- Openshift 使用</title>
+        <pubTime>2017-06-15T10:27:41.000Z</pubTime>
+        
+        <tag>DevOps</tag>
+         
+        <tag>PaaS</tag>
+         
+        <tag>Openshift</tag>
+         
+        <tag>Kubernetes</tag>
+         
+        <tag>平台即服务</tag>
+         
+         
+           
+             
+              <breadCrumb title="Cloud &amp; PaaS" url="https://www.duyidong.com/categories/Cloud-PaaS/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
     
   <url>
     <loc>https://www.duyidong.com/2017/04/12/leave-TW/</loc>
@@ -148,9 +176,9 @@
         <title>Python代码优化小技巧</title>
         <pubTime>2016-03-29T12:26:33.000Z</pubTime>
         
-        <tag>Python</tag>
-         
         <tag>代码</tag>
+         
+        <tag>Python</tag>
          
          
            
@@ -170,42 +198,14 @@
         <title>Java 8 新特性</title>
         <pubTime>2017-08-30T02:42:34.000Z</pubTime>
         
-        <tag>代码</tag>
-         
         <tag>Java</tag>
+         
+        <tag>代码</tag>
          
          
            
              
               <breadCrumb title="Coding" url="https://www.duyidong.com/categories/Coding/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://www.duyidong.com/2017/06/15/openshift-quick-start/</loc>
-    <lastmod>2017-09-15T10:46:13.000Z</lastmod>
-    <data>
-        <display>
-        <title>PaaS 平台（三）-- Openshift 使用</title>
-        <pubTime>2017-06-15T10:27:41.000Z</pubTime>
-        
-        <tag>DevOps</tag>
-         
-        <tag>PaaS</tag>
-         
-        <tag>Openshift</tag>
-         
-        <tag>Kubernetes</tag>
-         
-        <tag>平台即服务</tag>
-         
-         
-           
-             
-              <breadCrumb title="Cloud &amp; PaaS" url="https://www.duyidong.com/categories/Cloud-PaaS/"/>
           
         </display>
     </data>
@@ -280,9 +280,9 @@
          
         <tag>Cloud Native</tag>
          
-        <tag>Cloud</tag>
-         
         <tag>架构</tag>
+         
+        <tag>Cloud</tag>
          
          
            
@@ -484,9 +484,9 @@
         <title>敏捷开发</title>
         <pubTime>2016-04-19T06:41:46.000Z</pubTime>
         
-        <tag>敏捷</tag>
-         
         <tag>Agile</tag>
+         
+        <tag>敏捷</tag>
          
          
            

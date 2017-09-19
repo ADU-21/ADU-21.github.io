@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.duyidong.com/about/index.html</loc>
+    
+    <lastmod>2017-09-19T09:45:16.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://www.duyidong.com/2017/09/19/tw-tech-interview/</loc>
     
     <lastmod>2017-09-19T06:30:53.000Z</lastmod>
@@ -12,13 +19,6 @@
     <loc>https://www.duyidong.com/2017/06/15/openshift-quick-start/</loc>
     
     <lastmod>2017-09-17T05:04:04.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://www.duyidong.com/about/index.html</loc>
-    
-    <lastmod>2017-09-15T14:03:01.000Z</lastmod>
     
   </url>
   

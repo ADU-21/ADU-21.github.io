@@ -4,6 +4,30 @@
 
     
   <url>
+    <loc>https://www.duyidong.com/2017/09/19/tw-tech-interview/</loc>
+    <lastmod>2017-09-19T06:30:53.000Z</lastmod>
+    <data>
+        <display>
+        <title>ThoughtWorks 技术面试</title>
+        <pubTime>2017-09-19T06:12:33.000Z</pubTime>
+        
+        <tag>ThoughtWorks</tag>
+         
+        <tag>面试</tag>
+         
+        <tag>职场</tag>
+         
+         
+           
+             
+              <breadCrumb title="ThoughtWorks" url="https://www.duyidong.com/categories/ThoughtWorks/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://www.duyidong.com/2017/06/15/openshift-quick-start/</loc>
     <lastmod>2017-09-17T05:04:04.000Z</lastmod>
     <data>
@@ -176,9 +200,9 @@
         <title>Python代码优化小技巧</title>
         <pubTime>2016-03-29T12:26:33.000Z</pubTime>
         
-        <tag>代码</tag>
-         
         <tag>Python</tag>
+         
+        <tag>代码</tag>
          
          
            
@@ -198,9 +222,9 @@
         <title>Java 8 新特性</title>
         <pubTime>2017-08-30T02:42:34.000Z</pubTime>
         
-        <tag>Java</tag>
-         
         <tag>代码</tag>
+         
+        <tag>Java</tag>
          
          
            
@@ -280,9 +304,9 @@
          
         <tag>Cloud Native</tag>
          
-        <tag>架构</tag>
-         
         <tag>Cloud</tag>
+         
+        <tag>架构</tag>
          
          
            
@@ -358,9 +382,9 @@
         <title>DevOps 从理论到实践</title>
         <pubTime>2017-07-14T10:35:34.000Z</pubTime>
         
-        <tag>持续交付</tag>
-         
         <tag>DevOps</tag>
+         
+        <tag>持续交付</tag>
          
         <tag>敏捷</tag>
          
@@ -484,9 +508,9 @@
         <title>敏捷开发</title>
         <pubTime>2016-04-19T06:41:46.000Z</pubTime>
         
-        <tag>Agile</tag>
-         
         <tag>敏捷</tag>
+         
+        <tag>Agile</tag>
          
          
            
@@ -528,9 +552,9 @@
         <title>部署和发布策略的演进</title>
         <pubTime>2016-10-24T06:30:20.000Z</pubTime>
         
-        <tag>持续交付</tag>
-         
         <tag>DevOps</tag>
+         
+        <tag>持续交付</tag>
          
         <tag>部署与发布</tag>
          
@@ -598,13 +622,13 @@
         
         <tag>Cloud</tag>
          
-        <tag>Infrastructure as Code</tag>
-         
-        <tag>ThoughtWorks技术雷达</tag>
+        <tag>持续交付</tag>
          
         <tag>基础设施即代码</tag>
          
-        <tag>持续交付</tag>
+        <tag>Infrastructure as Code</tag>
+         
+        <tag>ThoughtWorks技术雷达</tag>
          
          
            
@@ -626,9 +650,9 @@
         
         <tag>工具</tag>
          
-        <tag>基础设施即代码</tag>
-         
         <tag>DevOps</tag>
+         
+        <tag>基础设施即代码</tag>
          
         <tag>Ansible</tag>
          
@@ -932,9 +956,9 @@
         
         <tag>AWS</tag>
          
-        <tag>基础设施即代码</tag>
-         
         <tag>DevOps</tag>
+         
+        <tag>基础设施即代码</tag>
          
          
            

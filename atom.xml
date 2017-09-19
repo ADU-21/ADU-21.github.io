@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.duyidong.com/"/>
-  <updated>2017-09-15T10:48:18.000Z</updated>
+  <updated>2017-09-19T06:30:53.000Z</updated>
   <id>https://www.duyidong.com/</id>
   
   <author>
@@ -14,6 +14,43 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>ThoughtWorks 技术面试</title>
+    <link href="https://www.duyidong.com/2017/09/19/tw-tech-interview/"/>
+    <id>https://www.duyidong.com/2017/09/19/tw-tech-interview/</id>
+    <published>2017-09-19T06:12:33.000Z</published>
+    <updated>2017-09-19T06:30:53.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>第一次参加公司校招面试，还是比较有感触的。在此之前我理解的校招面试大多得考运气，因为大家普遍认为校招进来的学生什么都不会，需要从零培养，所以我也一直认为 TW 的校招无非就是挑选一些看起来比较聪明的孩子，技术方面没有过多要求。今日一见，发觉相去甚远，公司凭借稍长的面试周期，从技术，性格，成长多维度的考察，可谓是360度无死角地最大限度保证了应届生质量。</p>
+<p>这次校招主要分以下几个阶段：HR电话面试 -&gt; Homework -&gt; 技术面试 -&gt; HR 终面，笔者作为 Developer 参加了看作业和技术面试两个环节，从和资深面试官结对面试到听 HR 们对候选人的评价分析，不但学习到如何辨识优秀应届生，对自我审查也是大有裨益。</p>
+<p>基本上应届生中有以下几种能力是比较被看重的：</p>
+<h1 id="扎实的基本工"><a href="#扎实的基本工" class="headerlink" title="扎实的基本工"></a>扎实的基本工</h1><p>考察基本功第一个点就是家庭作业，Homework 实现起来其实都不难，考察点主要在代码质量，处理逻辑，和工程实践上，这些考察点均要建立在平时有足够的编码实践，有扎实的基础知识的前提下。基础稍弱的候选人在作业上表现往往表现出读题不仔细，功能实现不完整，未按题目要求作答，例如题目中明确要求要面向对象，而交上来的作业却只有一个类，这样的代码显然不能通过作业审查。扎实的基础还会表现在现场面试时针对作业的交流上，平时在学校写代码可能很少有用语言去解释代码的机会，面试的时候对实现细节的描述就很容易暴露候选人对语言特性和实现机制是否了解。</p>
+<p>扎实的基本功并非一朝一夕可以练就，需要从平时的学习中来，还需要候选人有强烈的好奇心不断地钻研，实现功能的同时不但要知其然还要<strong>知其所以然</strong>，最好还能列出几种实现方式，并说清楚他们的优势劣势。这一点我想对所有的程序员都适用。</p>
+<h1 id="熟练的编程技能"><a href="#熟练的编程技能" class="headerlink" title="熟练的编程技能"></a>熟练的编程技能</h1><p>说起 ThoughtWorks 的现场面试，最容易让人脸红心跳的可能就是结对编程环节，这个环节除了处理好情绪上的问题之外最重要的还是平时的积累，一句话就是要<strong>多写</strong>。这一点差距是很明显的，不太写代码的候选人拿到题目就会咬指甲、紧张、沉思很久，写起代码来磕磕绊绊，IDE 频繁报错还不知道错从何来。而编程技能熟练的候选人除了能做到流畅书写代码之外甚至还能够边写边解释，这一步是在做什么，为什么这样做，对面试官提出的提问还能做出深入的解释，快速响应面试官提出的修改意见，这都离不开平时的练习。</p>
+<p>这一点主要还是要靠平时跟着老师做项目，研究生会比较占优势。或者凭借自己的兴趣写点小工具解决自己生活中的问题，要是有参与过开源项目就更出彩了。</p>
+<h1 id="实事求是的简历"><a href="#实事求是的简历" class="headerlink" title="实事求是的简历"></a>实事求是的简历</h1><p>这次面试比较多的遇到了这种情况：从简历上看，这位候选人很优秀，学霸，项目经验丰富，各种技术齐全，落坐也是自信满满，可一到提问环节，越深入问下去越是伤痕累累，一问到细节就答不上来或者想蒙混过关。这其实反应出后选人在平时编码过程中缺乏思考，没有理解透彻，尤其对习惯于“项目驱动学习”或是“老师驱动学习”的同学表现明显，好的程序员不但应有<strong>主动学习</strong>的习惯，还应掌握一定的<strong>学习方法</strong>，具体可以参考我司同事写的这篇<a href="http://insights.thoughtworks.cn/getting-started-guide-to-self-learner/" target="_blank" rel="external"> 写给自学者的入门指南</a>。另外对于蒙混过关这种行为着实不可取，参与面试的考官平均工作年限也有七八年，一些没吃透的知识点其实很容易就被看出来了。</p>
+<p>这一点还是要求候选人要对自己简历上写的东西负责，“精通”，“熟悉”这类词要慎用，尤其不要想显得什么都会，还是要突出重点，再有就是选择投简历的时候看着点方向，尽可能去吻合自己熟悉和感兴趣的领域。</p>
+<h1 id="不要把面试太当回事，秀出你自己"><a href="#不要把面试太当回事，秀出你自己" class="headerlink" title="不要把面试太当回事，秀出你自己"></a>不要把面试太当回事，秀出你自己</h1><p>一些候选人在面试的时候会比较紧张，尤其到根据简历提问的环节，会显得畏首畏尾，这样的候选人除了可能面试经验不足，我推测在他们心里一定还把面试当成了一场考试，时时想着“千万不要考我不懂的地方”，“千万不要问我去年那个项目因为我没做点啥”，可是越是畏惧越是漏出破绽（根据<a href="https://baike.baidu.com/item/%E5%A2%A8%E8%8F%B2%E5%AE%9A%E5%BE%8B" target="_blank" rel="external">墨菲定律</a>，如果你担心某种情况发生，那么它就更有可能发生）。其实可以换种思路，面试是让你秀出自己，说你擅长的，聊你想聊的。在众多后续人让你脱颖而出的一定是你的自信和你的闪光点，考官并不会像试卷一样为难你（其实考试也不是，只是人往往更容易记住那些让你绞尽脑汁的体验，就跟老师同学会上总会对班上的差生印象深刻一个道理），相反考官其实很想看到你擅长的地方地方是什么，他们会小心翼翼地提问，哪个项目是你映像最深刻的，深入细节前先问问这个技术是不是你熟悉的，如果不是那我们就换一个也没关系，目的就是要看到候选人在自己擅长的领域究竟有多擅长，对自己“喜欢”的技术究竟有投入多少去学习。这一点可能是 TW 和别的公司不太一样的地方，产品公司技术面试一般会偏重公司用到的技术，因为大部分时候他们在发布招聘启事的时候已经想好怎么用这个人了，而 TW 因为项目类型繁多各式技术都有涉及，所以会更关注候选人自己的兴趣和技术方向，候选人应该充分利用这一点，引导考官来到自己擅长的领域，我们会非常乐意看到出彩的你。</p>
+<h1 id="面试之前问问你自己：你真的喜欢编程吗？"><a href="#面试之前问问你自己：你真的喜欢编程吗？" class="headerlink" title="面试之前问问你自己：你真的喜欢编程吗？"></a>面试之前问问你自己：你真的喜欢编程吗？</h1><p>很多考生在来之前会做很多功课，了解公司面试流程和喜好偏向，甚至为心仪的公司准备定制好的简历，这是聪明的做法。但我认为有一类人在面 TW 前可以说几乎不需要准备，那就是他真正热爱编程。如果你热爱编程，你一定会投入时间和经历去学习，如果你经常写代码，你一定会遇到很多问题并自己动手解决，在此过程中自然会积累扎实的编程技能，如果你有丰富的编程经验，必然会有一份拿得出手且不需要过度美化的简历。如果你以上都满足了，面试的时候不用太紧张，聊你想聊的，秀你想秀的，你会和面试官成为朋友并获得他的强烈推荐的。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;第一次参加公司校招面试，还是比较有感触的。在此之前我理解的校招面试大多得考运气，因为大家普遍认为校招进来的学生什么都不会，需要从零培养，所以我也一直认为 TW 的校招无非就是挑选一些看起来比较聪明的孩子，技术方面没有过多要求。今日一见，发觉相去甚远，公司凭借稍长的面试周期，
+    
+    </summary>
+    
+      <category term="ThoughtWorks" scheme="https://www.duyidong.com/categories/ThoughtWorks/"/>
+    
+    
+      <category term="ThoughtWorks" scheme="https://www.duyidong.com/tags/ThoughtWorks/"/>
+    
+      <category term="面试" scheme="https://www.duyidong.com/tags/%E9%9D%A2%E8%AF%95/"/>
+    
+      <category term="职场" scheme="https://www.duyidong.com/tags/%E8%81%8C%E5%9C%BA/"/>
+    
+  </entry>
   
   <entry>
     <title>Java 8 新特性</title>
@@ -362,9 +399,9 @@ System.out.println(upperName.orElse(&quot;No value found&quot;));
       <category term="Coding" scheme="https://www.duyidong.com/categories/Coding/"/>
     
     
-      <category term="Java" scheme="https://www.duyidong.com/tags/Java/"/>
-    
       <category term="代码" scheme="https://www.duyidong.com/tags/%E4%BB%A3%E7%A0%81/"/>
+    
+      <category term="Java" scheme="https://www.duyidong.com/tags/Java/"/>
     
   </entry>
   
@@ -496,9 +533,9 @@ System.out.println(upperName.orElse(&quot;No value found&quot;));
       <category term="DevOps" scheme="https://www.duyidong.com/categories/DevOps/"/>
     
     
-      <category term="持续交付" scheme="https://www.duyidong.com/tags/%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98/"/>
-    
       <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
+    
+      <category term="持续交付" scheme="https://www.duyidong.com/tags/%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98/"/>
     
       <category term="敏捷" scheme="https://www.duyidong.com/tags/%E6%95%8F%E6%8D%B7/"/>
     
@@ -1637,13 +1674,13 @@ def test_hosts_file(File):
     
       <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
     
-      <category term="Infrastructure as Code" scheme="https://www.duyidong.com/tags/Infrastructure-as-Code/"/>
-    
-      <category term="ThoughtWorks技术雷达" scheme="https://www.duyidong.com/tags/ThoughtWorks%E6%8A%80%E6%9C%AF%E9%9B%B7%E8%BE%BE/"/>
+      <category term="持续交付" scheme="https://www.duyidong.com/tags/%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98/"/>
     
       <category term="基础设施即代码" scheme="https://www.duyidong.com/tags/%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E5%8D%B3%E4%BB%A3%E7%A0%81/"/>
     
-      <category term="持续交付" scheme="https://www.duyidong.com/tags/%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98/"/>
+      <category term="Infrastructure as Code" scheme="https://www.duyidong.com/tags/Infrastructure-as-Code/"/>
+    
+      <category term="ThoughtWorks技术雷达" scheme="https://www.duyidong.com/tags/ThoughtWorks%E6%8A%80%E6%9C%AF%E9%9B%B7%E8%BE%BE/"/>
     
   </entry>
   
@@ -2356,9 +2393,9 @@ feedback，开放式协作
     
       <category term="Cloud Native" scheme="https://www.duyidong.com/tags/Cloud-Native/"/>
     
-      <category term="架构" scheme="https://www.duyidong.com/tags/%E6%9E%B6%E6%9E%84/"/>
-    
       <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
+    
+      <category term="架构" scheme="https://www.duyidong.com/tags/%E6%9E%B6%E6%9E%84/"/>
     
   </entry>
   
@@ -2788,85 +2825,6 @@ export AWS_SECRET_ACCESS_KEY=&lt;secret key&gt;
       <category term="Blog" scheme="https://www.duyidong.com/tags/Blog/"/>
     
       <category term="Hexo" scheme="https://www.duyidong.com/tags/Hexo/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>AWS认证与权限管理IAM</title>
-    <link href="https://www.duyidong.com/2017/03/06/%E6%B5%85%E8%B0%88AWS-IAM/"/>
-    <id>https://www.duyidong.com/2017/03/06/浅谈AWS-IAM/</id>
-    <published>2017-03-06T12:41:50.000Z</published>
-    <updated>2017-06-22T09:18:58.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>IAM，全称Identity &amp; Access Management，作用是AWS资源的权限管理。</p>
-<h2 id="IAM解决了什么问题"><a href="#IAM解决了什么问题" class="headerlink" title="IAM解决了什么问题"></a>IAM解决了什么问题</h2><p>解决了什么问题，等同于带来了什么价值，在AWS的<a href="https://aws.amazon.com/iam/details/" target="_blank" rel="external">官方文档</a>中，IAM主要是出于以下需求被设计出来的：</p>
-<ul>
-<li><strong>增强安全：</strong>AWS给每个用户单独的验证，保证每个用户能够被分配恰当的权限，从而保证AWS资源的安全。默认情况下，IAM的User在被创建的时候是没有任何权限的，所以IAM是默认安全的。</li>
-<li><strong>粒度控制：</strong>IAM让租户可以进行细粒度的权限控制，比如terminate instance的权限，比如对S3 bucket中对象的只读权限。</li>
-<li><strong>临时证书：</strong>IAM允许创造生命周期短于用户的权限（Role），Role被绑定在AWS资源（如EC2 instance）上，确保资源之间的相互调用有适当的权限。</li>
-<li><strong>灵活的安全证书管理：</strong>IAM提供了多种验证方式，包括key pair， 用户名密码，X.509 certificates， MFA，用于Console，CLI，sdk等API调用。</li>
-<li><strong>外部身份系统：</strong>IAM使AWS支持第三方登录或与企业现有权限管理系统集成，比如微软的Active Directory，或第三方验证，比如Google，Facebook。</li>
-<li><strong>与AWS服务无缝贴合：</strong>IAM与AWS的几乎所有服务集成，首先你需要IAM的权限再能访问和使用AWS的服务，其次AWS中的服务需要IAM的权限才能完成对AWS其他资源的调用。</li>
-</ul>
-<h2 id="几个概念"><a href="#几个概念" class="headerlink" title="几个概念"></a>几个概念</h2><p>AWS的官方文档和很多博客都在说的Get Start，最重要的就是AWS中的几个名词：</p>
-<ul>
-<li><strong>User：</strong>一个User对应一个AWS用户，这个用户指的是一个真实的用户，用户在创建初期是没有任何权限的，需要被加到用户组或绑定Policy才能有相应权限，User有两种验证方式，一种是key pair，常用于集成到程序中和AWS CLI 使用，另一种是Username+Password的方式，这种方式只能用于Console登录。</li>
-<li><strong>UserGroup：</strong>类比Linux系统的UserGroup，一个UserGroup可以包含多个User，这些User具有UserGroup指定的所有权限，UserGroup的权限由Policy制定，Group不能嵌套Group，一个用户如在多个UserGroup中，权限取Group权限的和。</li>
-<li><strong>Policy：</strong>由“资源类型”和“操作类型”两个重要参数构成的Json文件，用于定义一定粒度的权限，支持模糊匹配（*），分为官方定义和自己定义，用于定义用户可对何种资源执行何种操作，Policy可以与User，UserGroup，Role绑定。</li>
-<li><strong>Role：</strong>IAM定义用于代替User赋予资源权限的权限单位，比如给一个EC2 instance S3 administrator的权限，便可以在改Instance上执行aws s3的所有命令，且在本地不会出现Creadentical文件（比User安全）。与User相同，Role 的权限也由Polic组成，由用户定义。另外，Role还可以用于赋予外部账号权限。</li>
-</ul>
-<h2 id="官方推荐最佳实践"><a href="#官方推荐最佳实践" class="headerlink" title="官方推荐最佳实践"></a>官方推荐最佳实践</h2><p>参照官方文档：<a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html" target="_blank" rel="external">https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html</a></p>
-<ul>
-<li>禁用AWS Root账户：因为Root用户权限实在太大，要尽可能避免Root账户认证被泄露的风险，建议不要给Root账户创建Access Key，另外开启MFA验证。</li>
-<li>为每个用户创建单独的User</li>
-<li>尽可能使用Policies 添加权限</li>
-<li>使用UserGroup对用户权限进行分组管理</li>
-<li>最小权限原则</li>
-<li>开启强密码限制</li>
-<li>开启MFA设备验证</li>
-<li>为EC2 instance上的应用程序创建Role</li>
-<li>使用Role而不是User的Credentials</li>
-<li>经常更新Credentials</li>
-<li>移除不再使用的Creadentials</li>
-<li>使用策略提高额外的安全性：比如限制该资源只能从哪个网段访问，只能在某个时间段访问，强制开启MFA验证后才可访问，等等</li>
-<li>监控账户活动情况：CloudFront, CloudTrail, CloudWatch, Config, S3 log都可以保证账户活动被监控</li>
-</ul>
-<h2 id="限制"><a href="#限制" class="headerlink" title="限制"></a>限制</h2><p><a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-limits.html" target="_blank" rel="external">https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-limits.html</a><br>大部分限制大部分情况下都碰不到，列几个常见的：</p>
-<ul>
-<li>每个User最多可被加入到10个UserGroup</li>
-<li>每个User最多可以有2个Access key(包括root account)</li>
-<li>一个用户只能验证一个MFA设备</li>
-<li>User Policy的长度限制为2KB</li>
-<li>Role Policy的长度限制为10KB</li>
-<li>UserGroup Policy的长度限制为5KB</li>
-</ul>
-<h2 id="几个知识点"><a href="#几个知识点" class="headerlink" title="几个知识点"></a>几个知识点</h2><p>以下知识点是笔者在查阅 <a href="https://aws.amazon.com/iam/faqs/" target="_blank" rel="external">FAQs</a> 时记录的：</p>
-<ul>
-<li>一个EC2 instance不能有多个Role，但一个Role可以被多个EC2 instance共用</li>
-<li>Role可以被attach 到一个正在运行的实例</li>
-<li>可以将Role与Auto Scaing Group关联，这样每个在该安全组内被启动的实例都会被附上该Role所指的权限</li>
-<li>AWS有一个用于测试你的Polic的工具：<a href="https://policysim.aws.amazon.com/" target="_blank" rel="external">Policy Simulator</a></li>
-<li>IAM的每一个记录都会被CloudTrail记录log，保存在S3中</li>
-</ul>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;IAM，全称Identity &amp;amp; Access Management，作用是AWS资源的权限管理。&lt;/p&gt;
-&lt;h2 id=&quot;IAM解决了什么问题&quot;&gt;&lt;a href=&quot;#IAM解决了什么问题&quot; class=&quot;headerlink&quot; title=&quot;IAM解决了什么问题&quot;
-    
-    </summary>
-    
-      <category term="Amazon Web Services" scheme="https://www.duyidong.com/categories/Amazon-Web-Services/"/>
-    
-    
-      <category term="AWS" scheme="https://www.duyidong.com/tags/AWS/"/>
-    
-      <category term="亚马逊认证与权限" scheme="https://www.duyidong.com/tags/%E4%BA%9A%E9%A9%AC%E9%80%8A%E8%AE%A4%E8%AF%81%E4%B8%8E%E6%9D%83%E9%99%90/"/>
-    
-      <category term="Security" scheme="https://www.duyidong.com/tags/Security/"/>
-    
-      <category term="IAM" scheme="https://www.duyidong.com/tags/IAM/"/>
     
   </entry>
   

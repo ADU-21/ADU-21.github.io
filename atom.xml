@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.duyidong.com/"/>
-  <updated>2017-09-19T06:30:53.000Z</updated>
+  <updated>2017-09-25T12:23:17.000Z</updated>
   <id>https://www.duyidong.com/</id>
   
   <author>
@@ -14,6 +14,160 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Openshift 多节点部署</title>
+    <link href="https://www.duyidong.com/2017/09/23/openshift-cluster-in-aws/"/>
+    <id>https://www.duyidong.com/2017/09/23/openshift-cluster-in-aws/</id>
+    <published>2017-09-23T14:10:00.000Z</published>
+    <updated>2017-09-25T12:23:17.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文介绍如何在 AWS 中搭建一个 Openshift 集群。</p>
+<p>主要用到的资源：<a href="https://github.com/openshift/openshift-ansible-contrib/tree/master/reference-architecture/aws-ansible" target="_blank" rel="external">https://github.com/openshift/openshift-ansible-contrib/tree/master/reference-architecture/aws-ansible</a></p>
+<p>开始之前你最好对这这些知识点有一定了解：<a href="https://www.duyidong.com/2017/02/28/AWS-Services-Overview/">AWS</a> (<a href="https://www.duyidong.com/2017/03/15/AWS-EC2/">EC2</a>, ELB, <a href="https://www.duyidong.com/2017/03/06/%E6%B5%85%E8%B0%88AWS-IAM/">IAM</a>, <a href="https://www.duyidong.com/2016/08/02/AWS%E4%B9%8BCloudFormation/">CloudFormation</a>)，<a href="https://www.duyidong.com/2016/06/15/Ansible%E5%AD%A6%E4%B9%A0%E5%B0%8F%E8%AE%B0/">Ansible</a>，<a href="https://www.duyidong.com/2016/08/05/Bash%E5%AD%A6%E4%B9%A0%E5%B0%8F%E8%AE%A1/">Bash</a>，同时建议先看看本博客中关于 Openshift 和 Kubernetes 的基础知识：<a href="https://www.duyidong.com/2017/06/14/kubernetes-and-openshift/">Part 1</a> <a href="https://www.duyidong.com/2017/06/15/kubernetes-infrastructure/">Part 2</a> <a href="https://www.duyidong.com/2017/06/15/openshift-quick-start/">Part 3</a></p>
+<p>完整的 Openshift 架构：</p>
+<p><img src="https://github.com/openshift/openshift-ansible-contrib/raw/master/reference-architecture/aws-ansible/images/arch.jpg" alt=""></p>
+<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><ul>
+<li>使用 Route53 申请一个域名。这里注册为 <code>oc-tw.net</code> ，后文中出现这个 <code>oc-tw.net</code> 的部分请替换为注册域名。</li>
+<li>选择一个至少有 3 个 AZ 的 Region。这里选择为悉尼，Region id（可在console的 URL 中获得）为：ap-southeast-2。</li>
+</ul>
+<h1 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h1><h2 id="创建堡垒机"><a href="#创建堡垒机" class="headerlink" title="创建堡垒机"></a>创建堡垒机</h2><p>这个堡垒机是用于运行 Ansible 脚本及配置集群使用，并非 Openshift 集群的一部分。所以可以用手动创建的方式，可以选择在本地运行。</p>
+<p>从 Marketplace 找一个 Centos7 的 AMI （如图所示）创建一个 EC2 instance 并绑定一个 EIP，开启 22 端口。</p>
+<p><img src="/images/aws_marketplace_ami_centos7.png" alt=""></p>
+<p>Instance 启动完成后，登录到堡垒机上，执行如下安装命令：（后面的全部命令行操作均在堡垒机上执行）</p>
+<pre><code>yum -y install atomic-openshift-utils ansible openshift-ansible-playbooks
+rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+yum -y install python2-boto \
+                 pyOpenSSL \
+                 git \
+                 python-netaddr \
+                 python-six \
+                 python2-boto3 \
+                 python-click \
+                 python-httplib2
+
+rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+yum -y install python-pip git python2-boto \
+                 python-netaddr python-httplib2 python-devel \
+                 gcc libffi-devel openssl-devel python2-boto3 \
+                 python-click python-six pyOpenSSL
+</code></pre><h2 id="获取-Ansible-脚本"><a href="#获取-Ansible-脚本" class="headerlink" title="获取 Ansible 脚本"></a>获取 Ansible 脚本</h2><pre><code>mkdir -p /usr/share/ansible/openshift-ansible
+# Openshift 官方配置脚本
+git clone https://github.com/openshift/openshift-ansible.git /usr/share/ansible/openshift-ansible
+
+# contribution 脚本
+git clone https://github.com/openshift/openshift-ansible.git
+cd openshift-ansible-contrib/reference-architecture/aws-ansible/
+</code></pre><h2 id="配置-SSH"><a href="#配置-SSH" class="headerlink" title="配置 SSH"></a>配置 SSH</h2><pre><code>vi ~/.ssh/config
+Host *.oc-tw.net           # 这里需要替换申请来的注册域名
+     ProxyCommand               ssh ec2-user@bastion -W %h:%p   
+     IdentityFile               /root/.ssh/yidong_ohio_openshift.pem
+
+Host bastion
+     Hostname                   bastion.oc-tw.net       # 替换为注册域名
+     user                       ec2-user            
+     StrictHostKeyChecking      no
+     ProxyCommand               none
+     CheckHostIP                no
+     ForwardAgent               yes
+     IdentityFile               /root/.ssh/yidong_sydney.pem  # 保存在本地的 ssh 私钥
+</code></pre><h2 id="AWS-秘钥对写入环境变量"><a href="#AWS-秘钥对写入环境变量" class="headerlink" title="AWS 秘钥对写入环境变量"></a>AWS 秘钥对写入环境变量</h2><p>由于堡垒机需要申请 AWS 资源并取得配置权限，所以需要配置 AWS 秘钥对，这里因为 Ansible 是从环境变量里获得 AWS 秘钥的，所以没有使用 IAM role。</p>
+<pre><code>export AWS_ACCESS_KEY_ID=foo
+export AWS_SECRET_ACCESS_KEY=bar
+</code></pre><h2 id="设置-Github-OAuth"><a href="#设置-Github-OAuth" class="headerlink" title="设置 Github OAuth"></a>设置 Github OAuth</h2><p>这里需要使用 github OAuth 完成单点登录设置，参照<a href="https://help.github.com/enterprise/2.10/admin/guides/user-management/using-github-oauth/" target="_blank" rel="external">官方文档</a>。</p>
+<p><img src="/images/Github_OAuth_App.png" alt=""></p>
+<p><strong>Homepage URL</strong> 格式为：<a href="https://openshift-master.oc-tw.net" target="_blank" rel="external">https://openshift-master.oc-tw.net</a> （一二级域名替换为注册域名）</p>
+<p><strong>Authorization callback URL</strong> 格式为：<a href="https://openshift-master.oc-tw.net/oauth2callback/github" target="_blank" rel="external">https://openshift-master.oc-tw.net/oauth2callback/github</a>（一二级域名替换为注册域名）</p>
+<p>OAuth App 添加完成后将会得到一个 <strong>Client ID</strong> 和一个 <strong>Client Secret</strong>，后面会使用到。</p>
+<h1 id="执行"><a href="#执行" class="headerlink" title="执行"></a>执行</h1><p>在堡垒机中<code>openshift-ansible-contrib/reference-architecture/aws-ansible/</code>目录下创建并执行如下脚本：</p>
+<pre><code>./ose-on-aws.py \
+--keypair=yidong_sydney \                    # 所以 EC2 Instance 用于通信的 keypair
+--public-hosted-zone=oc-tw.net \             # 注册域名
+--deployment-type=origin \                   # 在 Region 部署(会创建 VPC )
+--ami=ami-ccecf5af \                         # 注意*
+--github-client-secret=&lt;Client Secret&gt; \     # Github Client Secret
+--github-organization=&lt;Organization name&gt; \  # Github 中 OAuth Organization 的名字
+--github-client-id=&lt;Client ID&gt; \             # Github Client ID
+--region=ap-southeast-2 \                    # 堡垒机所在 Region，也是创建 Openshift 集群的 Region
+--key-path=/root/.ssh/yidong_sydney.pem \    # 堡垒机上私钥存放位置
+--containerized=true                         # 集群以容器的方式启动
+</code></pre><blockquote>
+<p>*这里有一个需要特别注意的地方，就是 AMI 必须使用 RHEL 的 AMI，在 AWS 中 RHEL 会比 CentOS 大约贵 30%，但是使用 CentOS 会比 REHL 缺很多包，安装起来非常麻烦，所以建议直接使用 RHEL，AMI ID 可以在直接在 AWS EC2 lunch instance 的界面中找到。</p>
+</blockquote>
+<p>还有很多可配置项，保持默认值即可。</p>
+<h2 id="创建集群基础设施"><a href="#创建集群基础设施" class="headerlink" title="创建集群基础设施"></a>创建集群基础设施</h2><p>运行脚本，大致逻辑是：</p>
+<p>使用 Cloudformation 创建基础设施资源 -&gt; 使用 Ansible连接 EC2 instance 并配置集群 -&gt; 开启监控和日志搜集。</p>
+<p>Cloudformation 里的基础设施大致包含：EC2, EIP, SG, ELB,  IAM(User, Role, Policy, AccessKey), VPC(RouteTable, Subnet, Route, InternetGateway, RouteTable), NatGateway。</p>
+<p><img src="/images/Openshift_Instances.png" alt=""></p>
+<blockquote>
+<p>注意：这套脚本所启动的集群至少需要 9 个 EC2 instance，（如图所示）从 t2.micro 到 m4.xlarge，在Cloudformation 创建开始后，如果你的账户没有在免费试用期每小时大概会划费 2-3$，具体参见<a href="https://aws.amazon.com/ec2/pricing/on-demand/" target="_blank" rel="external">官方文档</a>，注意选择<code>RHEL</code>和<code>你所在的Region</code>，价格会有差异。</p>
+</blockquote>
+<h2 id="Trouble-Shooting"><a href="#Trouble-Shooting" class="headerlink" title="Trouble Shooting"></a>Trouble Shooting</h2><p>Ansible 脚本的运行时间大概在一个小时，有 4000+ 个 Tasks（有的是重复执行），这里列举一些常见错误并给出解决思路。</p>
+<h3 id="Anisble-连接不上目标机"><a href="#Anisble-连接不上目标机" class="headerlink" title="Anisble 连接不上目标机"></a>Anisble 连接不上目标机</h3><p>形如下图，如果错误中包含连接错误或是 SSH 问题，</p>
+<p><img src="/images/Ansibe_Trouble_SSH.png" alt=""></p>
+<p>Repo 里的 Ansible 是通过 SSH 连接配置目标机的，这种情况以下三种原因基本可以覆盖：</p>
+<ol>
+<li>SSH Config 没写对</li>
+<li>Key Pair 有问题</li>
+<li>服务器指纹有问题</li>
+</ol>
+<p>排查思路：直接尝试从堡垒机 SSH 到目标机（<code>ssh &lt;instance name&gt;</code>这里因为配置了域名解析所以可以直接用 instance name ssh），再根据错误信息排查（可以跟上参数 -vvvv 打印详细日志），如果 SSH 能成功，Ansible 执行也就没有问题。</p>
+<h3 id="找不到-Docker"><a href="#找不到-Docker" class="headerlink" title="找不到 Docker"></a>找不到 Docker</h3><p>形如：</p>
+<p><img src="/images/Ansible_Trouble_Docker_NotFound.png" alt=""></p>
+<p>是由于 Docker registry 没有配置正确，需要手动到机器上执行 <code>yum-config-manager --enable rhui-REGION-rhel-server-extras</code>，写个 for 循环自动执行：</p>
+<pre><code>all_hosts=&quot;master01 master02 master03 app-node01 app-node02 infra-node01 infra-node02 infra-node03&quot;
+for h in $all_hosts; do ssh ec2-user@ose-$h.oc-tw.net &#39;sudo yum-config-manager --enable rhui-REGION-rhel-server-extras -y&#39;; done
+</code></pre><h3 id="缺少依赖"><a href="#缺少依赖" class="headerlink" title="缺少依赖"></a>缺少依赖</h3><p>形如：</p>
+<p><img src="/images/Ansible_Trouble_Dependence.png" alt=""></p>
+<p>解决思路比较简单，缺什么装什么，比如缺少<code>httpd-tools</code>:</p>
+<pre><code>sudo yum install -y httpd-tools
+</code></pre><p>不过有的包可能会麻烦点，需要在网上找一下，比如<code>python-passlib</code>:</p>
+<pre><code>rpm -Uvh ftp://rpmfind.net/linux/centos/7.4.1708/extras/x86_64/Packages/python-passlib-1.6.5-2.el7.noarch.rpm
+</code></pre><h1 id="安装成功"><a href="#安装成功" class="headerlink" title="安装成功"></a>安装成功</h1><p><img src="/images/Openshift_Install_Success.png" alt=""></p>
+<p>经过一段时间的运行，脚本跑完的时候也就说明 Openshift 安装成功了，这个时候你可以通过<a href="https://openshift-master.oc-tw.net/console/" target="_blank" rel="external">https://openshift-master.oc-tw.net/console/</a> 这个连接访问它的 Console 界面，直接使用 GitHub账号登录。</p>
+<p>同时一个外部可访问的 Registry 也被创建出来（如图） <a href="https://registry-console-default.apps.oc-tw.net/" target="_blank" rel="external">https://registry-console-default.apps.oc-tw.net/</a></p>
+<p><img src="/images/Openshift_Registry_Console.png" alt=""></p>
+<p>查看 Node，登录到其中一台 master node 上执行 <code>oc get nodes -o wide</code></p>
+<p><img src="/images/Openshift_Cluster_Nodes.png" alt=""></p>
+<h1 id="命令行登录"><a href="#命令行登录" class="headerlink" title="命令行登录"></a>命令行登录</h1><p>使用 Token 登录，可以在 <a href="https://openshift-master.oc-tw.net/console/command-line" target="_blank" rel="external">https://openshift-master.oc-tw.net/console/command-line</a> 获取登录 Token</p>
+<pre><code>oc login https://openshift-master.oc-tw.net --token=bcD3sprC9hjOgopov9VfbHEaBbPK03WQt23MXm-KtGw
+# 尝试创建新 app
+oc new-app centos/ruby-22-centos7~https://github.com/openshift/ruby-ex.git
+</code></pre><h1 id="更多命令"><a href="#更多命令" class="headerlink" title="更多命令"></a>更多命令</h1><p>添加 Node：</p>
+<pre><code>./add-node.py --region=us-east-2 --keypair=yidong_sydney --public-hosted-zone=oc-tw.net --deployment-type=origin --ami=ami-ccecf5af \
+--use-cloudformation-facts --subnet-id=subnet-1139825c \
+--node-type=app --shortname=ose-app-node03 --existing-stack=openshift-infra
+</code></pre><p>销毁 Openshift 集群：（也可以直接删除 Cloudformation Stack）</p>
+<pre><code>
+ansible-playbook -i inventory/aws/hosts \
+    -e &#39;region=us-east-2 stack_name=openshift-infra ci=true&#39; \
+    -e &#39;extra_app_nodes=openshift-infra-ose-app-node03&#39; \
+    playbooks/teardown.yaml
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文介绍如何在 AWS 中搭建一个 Openshift 集群。&lt;/p&gt;
+&lt;p&gt;主要用到的资源：&lt;a href=&quot;https://github.com/openshift/openshift-ansible-contrib/tree/master/reference-arch
+    
+    </summary>
+    
+      <category term="Cloud &amp; PaaS" scheme="https://www.duyidong.com/categories/Cloud-PaaS/"/>
+    
+    
+      <category term="AWS" scheme="https://www.duyidong.com/tags/AWS/"/>
+    
+      <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
+    
+      <category term="PaaS" scheme="https://www.duyidong.com/tags/PaaS/"/>
+    
+      <category term="Openshift" scheme="https://www.duyidong.com/tags/Openshift/"/>
+    
+      <category term="Kubernetes" scheme="https://www.duyidong.com/tags/Kubernetes/"/>
+    
+      <category term="平台即服务" scheme="https://www.duyidong.com/tags/%E5%B9%B3%E5%8F%B0%E5%8D%B3%E6%9C%8D%E5%8A%A1/"/>
+    
+  </entry>
   
   <entry>
     <title>ThoughtWorks 技术面试</title>
@@ -601,9 +755,9 @@ System.out.println(upperName.orElse(&quot;No value found&quot;));
       <category term="DevOps" scheme="https://www.duyidong.com/categories/DevOps/"/>
     
     
-      <category term="翻译" scheme="https://www.duyidong.com/tags/%E7%BF%BB%E8%AF%91/"/>
-    
       <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
+    
+      <category term="翻译" scheme="https://www.duyidong.com/tags/%E7%BF%BB%E8%AF%91/"/>
     
       <category term="理论框架" scheme="https://www.duyidong.com/tags/%E7%90%86%E8%AE%BA%E6%A1%86%E6%9E%B6/"/>
     
@@ -1135,13 +1289,13 @@ spec:
       <category term="DevOps" scheme="https://www.duyidong.com/categories/DevOps/"/>
     
     
+      <category term="小结" scheme="https://www.duyidong.com/tags/%E5%B0%8F%E7%BB%93/"/>
+    
       <category term="职场" scheme="https://www.duyidong.com/tags/%E8%81%8C%E5%9C%BA/"/>
     
       <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
     
       <category term="Platform" scheme="https://www.duyidong.com/tags/Platform/"/>
-    
-      <category term="小结" scheme="https://www.duyidong.com/tags/%E5%B0%8F%E7%BB%93/"/>
     
       <category term="工作" scheme="https://www.duyidong.com/tags/%E5%B7%A5%E4%BD%9C/"/>
     
@@ -1525,9 +1679,9 @@ High willingness to travel
       <category term="Cloud &amp; PaaS" scheme="https://www.duyidong.com/categories/Cloud-PaaS/"/>
     
     
-      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
-    
       <category term="Cloud Native" scheme="https://www.duyidong.com/tags/Cloud-Native/"/>
+    
+      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
     
       <category term="翻译" scheme="https://www.duyidong.com/tags/%E7%BF%BB%E8%AF%91/"/>
     
@@ -1672,6 +1826,8 @@ def test_hosts_file(File):
       <category term="DevOps" scheme="https://www.duyidong.com/categories/DevOps/"/>
     
     
+      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
+    
       <category term="Infrastructure as Code" scheme="https://www.duyidong.com/tags/Infrastructure-as-Code/"/>
     
       <category term="ThoughtWorks技术雷达" scheme="https://www.duyidong.com/tags/ThoughtWorks%E6%8A%80%E6%9C%AF%E9%9B%B7%E8%BE%BE/"/>
@@ -1679,8 +1835,6 @@ def test_hosts_file(File):
       <category term="基础设施即代码" scheme="https://www.duyidong.com/tags/%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E5%8D%B3%E4%BB%A3%E7%A0%81/"/>
     
       <category term="持续交付" scheme="https://www.duyidong.com/tags/%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98/"/>
-    
-      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
     
   </entry>
   
@@ -2391,11 +2545,11 @@ feedback，开放式协作
     
       <category term="AWS" scheme="https://www.duyidong.com/tags/AWS/"/>
     
-      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
-    
       <category term="Cloud Native" scheme="https://www.duyidong.com/tags/Cloud-Native/"/>
     
       <category term="架构" scheme="https://www.duyidong.com/tags/%E6%9E%B6%E6%9E%84/"/>
+    
+      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
     
   </entry>
   
@@ -2703,128 +2857,6 @@ feedback，开放式协作
       <category term="S3" scheme="https://www.duyidong.com/tags/S3/"/>
     
       <category term="对象存储服务" scheme="https://www.duyidong.com/tags/%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8%E6%9C%8D%E5%8A%A1/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>将Hexo博客发布到S3</title>
-    <link href="https://www.duyidong.com/2017/03/07/Deploy-Hexo-to-S3/"/>
-    <id>https://www.duyidong.com/2017/03/07/Deploy-Hexo-to-S3/</id>
-    <published>2017-03-07T09:42:34.000Z</published>
-    <updated>2017-05-04T12:25:18.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>最近在学习AWS服务，加之两次遇到github.io无法访问的情况，决定将博客迁移到AWS S3上。</p>
-<h2 id="S3介绍"><a href="#S3介绍" class="headerlink" title="S3介绍"></a>S3介绍</h2><p>S3是AWS一个对象存储服务，拥有11个9的耐久度和3个9的可用性（并不算高），属于AWS底层存储服务。同时提供Host静态网站的功能</p>
-<h2 id="第一步：创建一个Bucket"><a href="#第一步：创建一个Bucket" class="headerlink" title="第一步：创建一个Bucket"></a>第一步：创建一个Bucket</h2><ul>
-<li>进入S3界面，点击<strong>CreateBucket</strong>，取名为www.duyidong.com</li>
-<li>选择一个Region，你可以在<a href="https://s3-accelerate-speedtest.s3-accelerate.amazonaws.com/en/accelerate-speed-comparsion.html" target="_blank" rel="external">这里</a>找到延迟最低的Region用于存放你的博客</li>
-<li><p>设置Policy，确保外部可访问：</p>
-<pre><code>{
- &quot;Version&quot;: &quot;2012-10-17&quot;,
- &quot;Statement&quot;: [
-     {
-         &quot;Sid&quot;: &quot;PublicReadForGetBucketObjects&quot;,
-         &quot;Effect&quot;: &quot;Allow&quot;,
-         &quot;Principal&quot;: &quot;*&quot;,
-         &quot;Action&quot;: &quot;s3:GetObject&quot;,
-         &quot;Resource&quot;: &quot;arn:aws:s3:::www.duyidong.com/*&quot;
-     }
- ]
-}
-</code></pre><blockquote>
-<p>注： <code>arn:aws:s3:::www.duyidong.com/*</code>为bucket里对象的资源标识符</p>
-</blockquote>
-</li>
-<li><p>在<strong>Properties</strong>下开启<strong>Static website hosting</strong>，设置入口文件为<code>index.html</code>，404页面为<code>404/index.html</code></p>
-</li>
-</ul>
-<h2 id="第二步：创建一个用于上传静态文件的用户"><a href="#第二步：创建一个用于上传静态文件的用户" class="headerlink" title="第二步：创建一个用于上传静态文件的用户"></a>第二步：创建一个用于上传静态文件的用户</h2><h4 id="使用Policy-Generator创建一个Policy"><a href="#使用Policy-Generator创建一个Policy" class="headerlink" title="使用Policy Generator创建一个Policy"></a>使用Policy Generator创建一个Policy</h4><p>这里需要一个只有对www.duyidong.com这个bucket有上传权限的用户，首先要创建Policy，这里要用到Policy Generator。</p>
-<ul>
-<li>进入<strong>IAM -&gt; Policies -&gt; Create Policy -&gt; Policy Generator</strong></li>
-<li><p>选择S3的PutObject Action, ARN为目标Bucket的ARN，届时会生成如下Policy:</p>
-<blockquote>
-<p>注：经笔者反复试错，再参照<a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/example-policies-s3.html" target="_blank" rel="external">官方文档</a>，最终确定User Policy需要以下权限：</p>
-</blockquote>
-<pre><code>{
-&quot;Version&quot;:&quot;2012-10-17&quot;,
-&quot;Statement&quot;:[
-   {
-      &quot;Effect&quot;:&quot;Allow&quot;,
-      &quot;Action&quot;:[
-         &quot;s3:ListBucket&quot;,
-         &quot;s3:GetBucketLocation&quot;
-      ],
-      &quot;Resource&quot;:&quot;arn:aws:s3:::www.duyidong.com&quot;
-   },
-   {
-      &quot;Effect&quot;:&quot;Allow&quot;,
-      &quot;Action&quot;:[
-         &quot;s3:PutObject&quot;,
-         &quot;s3:GetObject&quot;,
-         &quot;s3:DeleteObject&quot;
-      ],
-      &quot;Resource&quot;:&quot;arn:aws:s3:::www.duyidong.com/*&quot;
-   }
-]
-}
-</code></pre></li>
-</ul>
-<h4 id="创建用户组"><a href="#创建用户组" class="headerlink" title="创建用户组"></a>创建用户组</h4><p><strong>Groups -&gt; Create New Group -&gt; </strong>将上一步创建的Policy attach到该UserGroup上，用户组创建完成。</p>
-<h4 id="创建用户"><a href="#创建用户" class="headerlink" title="创建用户"></a>创建用户</h4><p><strong>Users -&gt; Add User</strong>，勾选<code>Programmatic access</code>，输入用户名，将用户加入到上一步创建的用户组中，将用户的Access key下载到本地。</p>
-<h2 id="第三步：安装插件，上传静态文件"><a href="#第三步：安装插件，上传静态文件" class="headerlink" title="第三步：安装插件，上传静态文件"></a>第三步：安装插件，上传静态文件</h2><ul>
-<li>运行命令</li>
-</ul>
-<pre><code>npm install --save hexo-deployer-s3
-</code></pre><p>编辑<code>_config.yml</code>:</p>
-<pre><code>deploy:
-  type: s3
-  bucket: &lt;AWS bucket name&gt;
-  aws_key: &lt;AWS id key&gt;
-  aws_secret: &lt;AWS secret key&gt;
-  region: &lt;AWS bucket region&gt;
-</code></pre><p>由于我会把博客源码放到Github上，Access key不能写在配置文件里，而采用环境变量的方式，在~/.bashrc中加入：</p>
-<pre><code>export AWS_ACCESS_KEY-ID=&lt;access key&gt;
-export AWS_SECRET_ACCESS_KEY=&lt;secret key&gt;
-</code></pre><p>再执行</p>
-<pre><code>source ~/.bashrc
-</code></pre><p>届时将可以成功将博客发布到S3上，执行：</p>
-<pre><code>hexo d
-</code></pre><h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>对比了一下Github和S3的速度，最大的一个页面github.io大概需要6-9秒，而S3要11秒左右，虽然github的速度不太稳定，但毕竟要比S3快，所以暂不把DNS指向S3，待日后开启CloudFront服务后再做决定。<br>另外，hexo是支持多路径发布的，形如：</p>
-<pre><code>deploy:
-- type: git
-  repo:
-- type: heroku
-  repo:
-</code></pre><h2 id="后续"><a href="#后续" class="headerlink" title="后续"></a>后续</h2><p>要使用自己的域名，开启HTTPS，使用AWS的CND，参照：<a href="https://www.duyidong.com/2017/03/20/Enable-HTTPS-and-CDN-with-Cloudfront/">使用AWS解锁HTTPS和CDN</a></p>
-<blockquote>
-<ul>
-<li>参考资料:</li>
-<li><a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">https://hexo.io/docs/deployment.html</a></li>
-<li><a href="https://inject.coffee/hexo-travis-s3-part-2-deploying-to-aws/" target="_blank" rel="external">https://inject.coffee/hexo-travis-s3-part-2-deploying-to-aws/</a></li>
-<li><a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/website-hosting-custom-domain-walkthrough.html" target="_blank" rel="external">https://docs.aws.amazon.com/AmazonS3/latest/dev/website-hosting-custom-domain-walkthrough.html</a></li>
-<li><a href="https://aws.amazon.com/s3/storage-classes/" target="_blank" rel="external">https://aws.amazon.com/s3/storage-classes/</a></li>
-<li><a href="https://aws.amazon.com/s3/reduced-redundancy/" target="_blank" rel="external">https://aws.amazon.com/s3/reduced-redundancy/</a></li>
-</ul>
-</blockquote>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;最近在学习AWS服务，加之两次遇到github.io无法访问的情况，决定将博客迁移到AWS S3上。&lt;/p&gt;
-&lt;h2 id=&quot;S3介绍&quot;&gt;&lt;a href=&quot;#S3介绍&quot; class=&quot;headerlink&quot; title=&quot;S3介绍&quot;&gt;&lt;/a&gt;S3介绍&lt;/h2&gt;&lt;p&gt;S3是A
-    
-    </summary>
-    
-      <category term="我的博客" scheme="https://www.duyidong.com/categories/%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2/"/>
-    
-    
-      <category term="AWS" scheme="https://www.duyidong.com/tags/AWS/"/>
-    
-      <category term="S3" scheme="https://www.duyidong.com/tags/S3/"/>
-    
-      <category term="Blog" scheme="https://www.duyidong.com/tags/Blog/"/>
-    
-      <category term="Hexo" scheme="https://www.duyidong.com/tags/Hexo/"/>
     
   </entry>
   

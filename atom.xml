@@ -755,9 +755,9 @@ System.out.println(upperName.orElse(&quot;No value found&quot;));
       <category term="DevOps" scheme="https://www.duyidong.com/categories/DevOps/"/>
     
     
-      <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
-    
       <category term="翻译" scheme="https://www.duyidong.com/tags/%E7%BF%BB%E8%AF%91/"/>
+    
+      <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
     
       <category term="理论框架" scheme="https://www.duyidong.com/tags/%E7%90%86%E8%AE%BA%E6%A1%86%E6%9E%B6/"/>
     
@@ -2547,9 +2547,9 @@ feedback，开放式协作
     
       <category term="Cloud Native" scheme="https://www.duyidong.com/tags/Cloud-Native/"/>
     
-      <category term="架构" scheme="https://www.duyidong.com/tags/%E6%9E%B6%E6%9E%84/"/>
-    
       <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
+    
+      <category term="架构" scheme="https://www.duyidong.com/tags/%E6%9E%B6%E6%9E%84/"/>
     
   </entry>
   

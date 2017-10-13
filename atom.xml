@@ -553,9 +553,9 @@ System.out.println(upperName.orElse(&quot;No value found&quot;));
       <category term="Coding" scheme="https://www.duyidong.com/categories/Coding/"/>
     
     
-      <category term="Java" scheme="https://www.duyidong.com/tags/Java/"/>
-    
       <category term="代码" scheme="https://www.duyidong.com/tags/%E4%BB%A3%E7%A0%81/"/>
+    
+      <category term="Java" scheme="https://www.duyidong.com/tags/Java/"/>
     
   </entry>
   
@@ -2547,9 +2547,9 @@ feedback，开放式协作
     
       <category term="Cloud Native" scheme="https://www.duyidong.com/tags/Cloud-Native/"/>
     
-      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
-    
       <category term="架构" scheme="https://www.duyidong.com/tags/%E6%9E%B6%E6%9E%84/"/>
+    
+      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
     
   </entry>
   

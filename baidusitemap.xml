@@ -230,9 +230,9 @@
         <title>Python代码优化小技巧</title>
         <pubTime>2016-03-29T12:26:33.000Z</pubTime>
         
-        <tag>代码</tag>
-         
         <tag>Python</tag>
+         
+        <tag>代码</tag>
          
          
            
@@ -252,9 +252,9 @@
         <title>Java 8 新特性</title>
         <pubTime>2017-08-30T02:42:34.000Z</pubTime>
         
-        <tag>Java</tag>
-         
         <tag>代码</tag>
+         
+        <tag>Java</tag>
          
          
            
@@ -332,11 +332,11 @@
         
         <tag>AWS</tag>
          
+        <tag>Cloud</tag>
+         
         <tag>Cloud Native</tag>
          
         <tag>架构</tag>
-         
-        <tag>Cloud</tag>
          
          
            
@@ -356,9 +356,9 @@
         <title>云原生应用 (Cloud Native Application)</title>
         <pubTime>2017-05-03T03:04:03.000Z</pubTime>
         
-        <tag>Cloud Native</tag>
-         
         <tag>Cloud</tag>
+         
+        <tag>Cloud Native</tag>
          
         <tag>翻译</tag>
          
@@ -538,9 +538,9 @@
         <title>敏捷开发</title>
         <pubTime>2016-04-19T06:41:46.000Z</pubTime>
         
-        <tag>敏捷</tag>
-         
         <tag>Agile</tag>
+         
+        <tag>敏捷</tag>
          
          
            
@@ -650,8 +650,6 @@
         <title>基础设施代码测试</title>
         <pubTime>2017-04-13T05:41:29.000Z</pubTime>
         
-        <tag>Cloud</tag>
-         
         <tag>Infrastructure as Code</tag>
          
         <tag>ThoughtWorks技术雷达</tag>
@@ -659,6 +657,8 @@
         <tag>基础设施即代码</tag>
          
         <tag>持续交付</tag>
+         
+        <tag>Cloud</tag>
          
          
            

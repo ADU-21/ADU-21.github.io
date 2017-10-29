@@ -553,9 +553,9 @@ System.out.println(upperName.orElse(&quot;No value found&quot;));
       <category term="Coding" scheme="https://www.duyidong.com/categories/Coding/"/>
     
     
-      <category term="代码" scheme="https://www.duyidong.com/tags/%E4%BB%A3%E7%A0%81/"/>
-    
       <category term="Java" scheme="https://www.duyidong.com/tags/Java/"/>
+    
+      <category term="代码" scheme="https://www.duyidong.com/tags/%E4%BB%A3%E7%A0%81/"/>
     
   </entry>
   
@@ -687,9 +687,9 @@ System.out.println(upperName.orElse(&quot;No value found&quot;));
       <category term="DevOps" scheme="https://www.duyidong.com/categories/DevOps/"/>
     
     
-      <category term="持续交付" scheme="https://www.duyidong.com/tags/%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98/"/>
-    
       <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
+    
+      <category term="持续交付" scheme="https://www.duyidong.com/tags/%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98/"/>
     
       <category term="敏捷" scheme="https://www.duyidong.com/tags/%E6%95%8F%E6%8D%B7/"/>
     
@@ -755,9 +755,9 @@ System.out.println(upperName.orElse(&quot;No value found&quot;));
       <category term="DevOps" scheme="https://www.duyidong.com/categories/DevOps/"/>
     
     
-      <category term="翻译" scheme="https://www.duyidong.com/tags/%E7%BF%BB%E8%AF%91/"/>
-    
       <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
+    
+      <category term="翻译" scheme="https://www.duyidong.com/tags/%E7%BF%BB%E8%AF%91/"/>
     
       <category term="理论框架" scheme="https://www.duyidong.com/tags/%E7%90%86%E8%AE%BA%E6%A1%86%E6%9E%B6/"/>
     
@@ -963,10 +963,10 @@ docker -v
     <link href="https://www.duyidong.com/2017/06/15/kubernetes-infrastructure/"/>
     <id>https://www.duyidong.com/2017/06/15/kubernetes-infrastructure/</id>
     <published>2017-06-15T01:38:41.000Z</published>
-    <updated>2017-09-15T10:46:05.000Z</updated>
+    <updated>2017-10-29T03:50:19.000Z</updated>
     
     <content type="html"><![CDATA[<p>Kubernetes 的很多概念和架构“代表了谷歌过去十余年设计、构建和管理大规模容器集群经验”。</p>
-<h1 id="Kubernetes-概念引入"><a href="#Kubernetes-概念引入" class="headerlink" title="Kubernetes 概念引入"></a>Kubernetes 概念引入</h1><p>Kubernetes 基于容器引入了许多重要的概念，了解这些概念有助于认知 Kubernetes 是如何工作的。<br>以下介绍均为 Kubernetes 中被定义的资源，Kubernetes 架构按照 Restful 架构设计，及遵循：</p>
+<h1 id="Kubernetes-概念引入"><a href="#Kubernetes-概念引入" class="headerlink" title="Kubernetes 概念引入"></a>Kubernetes 概念引入</h1><p>Kubernetes 基于容器引入了许多重要的概念，了解这些概念有助于认知 Kubernetes 是如何工作的。<br>以下介绍均为 Kubernetes 中被定义的资源，Kubernetes 架构按照 Restful 架构设计，即遵循：</p>
 <ul>
 <li>网络上的所有事物都被抽象为资源</li>
 <li>每个资源对应一个唯一的资源标识符</li>
@@ -1291,9 +1291,9 @@ spec:
     
       <category term="小结" scheme="https://www.duyidong.com/tags/%E5%B0%8F%E7%BB%93/"/>
     
-      <category term="职场" scheme="https://www.duyidong.com/tags/%E8%81%8C%E5%9C%BA/"/>
-    
       <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
+    
+      <category term="职场" scheme="https://www.duyidong.com/tags/%E8%81%8C%E5%9C%BA/"/>
     
       <category term="Platform" scheme="https://www.duyidong.com/tags/Platform/"/>
     
@@ -1405,9 +1405,9 @@ High willingness to travel
       <category term="DevOps" scheme="https://www.duyidong.com/categories/DevOps/"/>
     
     
-      <category term="职场" scheme="https://www.duyidong.com/tags/%E8%81%8C%E5%9C%BA/"/>
-    
       <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
+    
+      <category term="职场" scheme="https://www.duyidong.com/tags/%E8%81%8C%E5%9C%BA/"/>
     
   </entry>
   
@@ -1679,9 +1679,9 @@ High willingness to travel
       <category term="Cloud &amp; PaaS" scheme="https://www.duyidong.com/categories/Cloud-PaaS/"/>
     
     
-      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
-    
       <category term="Cloud Native" scheme="https://www.duyidong.com/tags/Cloud-Native/"/>
+    
+      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
     
       <category term="翻译" scheme="https://www.duyidong.com/tags/%E7%BF%BB%E8%AF%91/"/>
     
@@ -1826,6 +1826,8 @@ def test_hosts_file(File):
       <category term="DevOps" scheme="https://www.duyidong.com/categories/DevOps/"/>
     
     
+      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
+    
       <category term="Infrastructure as Code" scheme="https://www.duyidong.com/tags/Infrastructure-as-Code/"/>
     
       <category term="ThoughtWorks技术雷达" scheme="https://www.duyidong.com/tags/ThoughtWorks%E6%8A%80%E6%9C%AF%E9%9B%B7%E8%BE%BE/"/>
@@ -1833,8 +1835,6 @@ def test_hosts_file(File):
       <category term="基础设施即代码" scheme="https://www.duyidong.com/tags/%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E5%8D%B3%E4%BB%A3%E7%A0%81/"/>
     
       <category term="持续交付" scheme="https://www.duyidong.com/tags/%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98/"/>
-    
-      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
     
   </entry>
   
@@ -2545,11 +2545,11 @@ feedback，开放式协作
     
       <category term="AWS" scheme="https://www.duyidong.com/tags/AWS/"/>
     
-      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
-    
       <category term="Cloud Native" scheme="https://www.duyidong.com/tags/Cloud-Native/"/>
     
       <category term="架构" scheme="https://www.duyidong.com/tags/%E6%9E%B6%E6%9E%84/"/>
+    
+      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
     
   </entry>
   
@@ -2774,9 +2774,9 @@ feedback，开放式协作
     
       <category term="AWS" scheme="https://www.duyidong.com/tags/AWS/"/>
     
-      <category term="EC2" scheme="https://www.duyidong.com/tags/EC2/"/>
-    
       <category term="云计算" scheme="https://www.duyidong.com/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/"/>
+    
+      <category term="EC2" scheme="https://www.duyidong.com/tags/EC2/"/>
     
   </entry>
   

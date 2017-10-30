@@ -4,6 +4,30 @@
 
     
   <url>
+    <loc>https://www.duyidong.com/2017/10/29/trunk-base-development/</loc>
+    <lastmod>2017-10-30T09:52:28.000Z</lastmod>
+    <data>
+        <display>
+        <title>分支模型与主干开发</title>
+        <pubTime>2017-10-29T07:47:20.000Z</pubTime>
+        
+        <tag>git</tag>
+         
+        <tag>coding</tag>
+         
+        <tag>持续集成</tag>
+         
+         
+           
+             
+              <breadCrumb title="持续交付" url="https://www.duyidong.com/categories/%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://www.duyidong.com/2017/06/15/kubernetes-infrastructure/</loc>
     <lastmod>2017-10-29T03:50:19.000Z</lastmod>
     <data>
@@ -146,9 +170,9 @@
         
         <tag>小结</tag>
          
-        <tag>DevOps</tag>
-         
         <tag>职场</tag>
+         
+        <tag>DevOps</tag>
          
         <tag>Platform</tag>
          
@@ -332,11 +356,11 @@
         
         <tag>AWS</tag>
          
+        <tag>Cloud</tag>
+         
         <tag>Cloud Native</tag>
          
         <tag>架构</tag>
-         
-        <tag>Cloud</tag>
          
          
            
@@ -356,9 +380,9 @@
         <title>云原生应用 (Cloud Native Application)</title>
         <pubTime>2017-05-03T03:04:03.000Z</pubTime>
         
-        <tag>Cloud Native</tag>
-         
         <tag>Cloud</tag>
+         
+        <tag>Cloud Native</tag>
          
         <tag>翻译</tag>
          
@@ -412,9 +436,9 @@
         <title>DevOps 从理论到实践</title>
         <pubTime>2017-07-14T10:35:34.000Z</pubTime>
         
-        <tag>DevOps</tag>
-         
         <tag>持续交付</tag>
+         
+        <tag>DevOps</tag>
          
         <tag>敏捷</tag>
          
@@ -440,9 +464,9 @@
         <title>DevOps的三种方式</title>
         <pubTime>2017-07-12T14:50:38.000Z</pubTime>
         
-        <tag>DevOps</tag>
-         
         <tag>翻译</tag>
+         
+        <tag>DevOps</tag>
          
         <tag>理论框架</tag>
          
@@ -560,9 +584,9 @@
         <title>DevOps 技能树</title>
         <pubTime>2017-05-18T08:30:47.000Z</pubTime>
         
-        <tag>DevOps</tag>
-         
         <tag>职场</tag>
+         
+        <tag>DevOps</tag>
          
          
            
@@ -582,9 +606,9 @@
         <title>部署和发布策略的演进</title>
         <pubTime>2016-10-24T06:30:20.000Z</pubTime>
         
-        <tag>DevOps</tag>
-         
         <tag>持续交付</tag>
+         
+        <tag>DevOps</tag>
          
         <tag>部署与发布</tag>
          
@@ -650,8 +674,6 @@
         <title>基础设施代码测试</title>
         <pubTime>2017-04-13T05:41:29.000Z</pubTime>
         
-        <tag>Cloud</tag>
-         
         <tag>Infrastructure as Code</tag>
          
         <tag>ThoughtWorks技术雷达</tag>
@@ -659,6 +681,8 @@
         <tag>基础设施即代码</tag>
          
         <tag>持续交付</tag>
+         
+        <tag>Cloud</tag>
          
          
            
@@ -680,9 +704,9 @@
         
         <tag>工具</tag>
          
-        <tag>DevOps</tag>
-         
         <tag>基础设施即代码</tag>
+         
+        <tag>DevOps</tag>
          
         <tag>Ansible</tag>
          
@@ -986,9 +1010,9 @@
         
         <tag>AWS</tag>
          
-        <tag>DevOps</tag>
-         
         <tag>基础设施即代码</tag>
+         
+        <tag>DevOps</tag>
          
          
            

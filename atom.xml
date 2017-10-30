@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.duyidong.com/"/>
-  <updated>2017-09-25T12:23:17.000Z</updated>
+  <updated>2017-10-30T09:52:28.000Z</updated>
   <id>https://www.duyidong.com/</id>
   
   <author>
@@ -14,6 +14,101 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>分支模型与主干开发</title>
+    <link href="https://www.duyidong.com/2017/10/29/trunk-base-development/"/>
+    <id>https://www.duyidong.com/2017/10/29/trunk-base-development/</id>
+    <published>2017-10-29T07:47:20.000Z</published>
+    <updated>2017-10-30T09:52:28.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近我和我的所在的团队在翻译一个网站： <a href="https://trunkbaseddevelopment.com/" target="_blank" rel="external">https://trunkbaseddevelopment.com/</a>主干开发。本文结合笔者的开发经验，谈一谈项目中用到过的分支模型与使用场景，对主干开发做一个简单的介绍。</p>
+<h1 id="Gitflow"><a href="#Gitflow" class="headerlink" title="Gitflow"></a>Gitflow</h1><p>Gitflow 最早应该是出现在一篇名叫<a href="http://nvie.com/posts/a-successful-git-branching-model/" target="_blank" rel="external">A successful Git branching model</a>的文章中，阮一峰的<a href="http://www.ruanyifeng.com/blog/2015/12/git-workflow.html" target="_blank" rel="external">Git 工作流程</a>做了更便于理解的阐述。正如问中提到，Gitflow 偏向控制管理，比较多地使用分支，试用 GitFlow 的项目基本上工作流会是这个样子:</p>
+<p><img src="/images/gitflow_branches.png" alt=""></p>
+<center>图片出自:<a href="https://yaowenjie.github.io/devops/thinking-in-two-kinds-of-ci-cd-strategies-and-git-branch-models" target="_blank" rel="external">关于两种CI/CD策略以及git分支模型的思考</a></center>
+
+<p>Master 分支用于发布，Develop 分支用于存放待发布（不稳定）的版本。在迭代计划里，Epic 会被先划分为一个个 Feature，一个 Feature 表示一个完整的功能，这个feature 会被拆成一个个更小的 Story（卡），如果 Feature 小的话也可以是一个 Feature 对应一个 Story，一个 Story 从被创建出来到最终上线会经历以下过程：</p>
+<ul>
+<li>Dev 领卡，从 Develop 分支创建一个 Feature 分支。</li>
+<li>在 Feature 分支进行开发并通过本地测试（单元测试和部分集成测试）。</li>
+<li>从 Feature 分支发起一个 Pull-Request 到 Develop 分支。</li>
+<li>相关人员进行 Code Review，并将 Feature 分支合并到 Develop 分支。</li>
+<li>写卡 Dev 删除 Feature 分支，并将卡挪到 Test，交给 QA 测试。</li>
+<li>QA 在 Develop 分支测试完成，把卡挪到 Ready for release。</li>
+<li>等待 Realease Master 将该 Feature 从 Devlop 分支 Merge 到 Master。</li>
+<li>QA 在 Master 分支进行测试。</li>
+<li>测试通过后进行发布，并在Master 分支打上 Release Tag。</li>
+</ul>
+<p>可以看出流程是颇为复杂的。不过在一个团队成员流动相对较小，大家对 Gitflow 都比较熟悉的情况下，实施过程倒是没有遇到任何问题。而且可以感觉得到，这样的分支模型下的发布非常有计划性，Dev 之间的开发冲突也比较少（得益于 Feature 划分合理）。但在时间长了以后，问题还是逐一暴露出来，主要有以下几个：</p>
+<ul>
+<li><strong>重复测试</strong>，一个功能从开发到上线至少要经历三次内容重合度很高的测试：本地，Develop 分支合并，Master 分支合并；如果有 Fix bug，Merge 回 Master 还要多测一次，每一次都可能有意外的结果，而且 Develop 分支的测试和 Master 分支的测试内容几乎是一模一样的。</li>
+<li><strong>Release Master 的存在</strong>，在一个目标为持续发布的敏捷团队里 Release Master 的存在是不合理的，Release Master 需要在上线前的一段时间一直盯着 Pipeline（持续交付流水线），这不但意味着一个劳动力的缺失，并且一个人要想掌握一次发布的左右更改细节和影响也是几乎不可能的，所以到后来每次上线前 Release Master 都要组织一次 Release Meeting，所有开发在一起讨论这次 Release 的 Feature，非常浪费时间。</li>
+<li><strong>并没有做到持续交付</strong>，在 Gitflow 得分支模型下，发布是非常有计划的，一个 Feature 必须要经过以上这么多步骤才能到达生产环境，在时间上平均一个 Feature 都要等待 两周时间才能长线，这样的等待并非是需求上的“按计划发布”，而是从技术上就造成了发布瓶颈，显然难以达到持续交付的要求的。</li>
+</ul>
+<h1 id="Github-Flow"><a href="#Github-Flow" class="headerlink" title="Github Flow"></a>Github Flow</h1><p>相比 Gitflow，Github Flow 就要简单很多，介绍可以参考<a href="https://guides.github.com/introduction/flow/" target="_blank" rel="external">Github 官方文档</a>，同样在<a href="http://www.ruanyifeng.com/blog/2015/12/git-workflow.html" target="_blank" rel="external">这篇文章</a>中也可以看到中文版。在项目上使用 Github Flow 基本上分支会变成这个样子：</p>
+<p><img src="/images/githubflow_branches.png" alt=""></p>
+<p>所有 Story 直接提交到 Feature 分支，再从 Feature 分支发 Pull-Request 到主分支（Master 或 Develop），Pull-Request 是为了方便 Code Review，相比于 Gitflow，这种方式因为省去了一些分支而降低了复杂度，同时也更复合持续集成的思想，以一张故事卡为集成的最小单位，相对来说集成的周期短，反馈的速度也快，能够及早的遇到问题，从而及早的解决问题。</p>
+<p>Github flow 的另一个好处在于，可以处理跨团队协作问题。当时的项目是一个多团队共享的基础设施代码库，大部分团队需要同样的功能，就从主库 Fork 一份代码，一旦产品团队产生定制化的需求，就可以在自己的代码库里更改，并向主库发一个 Pull-Request，如果主库的维护团队认为这是一个有通用价值的更改，则会接受合并到主库中。这种方式就既保证了分布式团队拥有代码和主库的同步，又让各团队都可以向主库贡献代码，非常适合多个独立团队工作在一个代码库的情形。</p>
+<p><img src="https://git-scm.com/figures/18333fig0502-tn.png" alt=""></p>
+<center>图片来源：<a href="https://ruby-china.org/topics/29263" target="_blank" rel="external">GIT 之我见</a></center>
+
+<h1 id="Trunk-Based-Development"><a href="#Trunk-Based-Development" class="headerlink" title="Trunk Based Development"></a>Trunk Based Development</h1><p>顺着持续集成的思想，如果我们把上一种分支模型做得再极致一点，我们不要 Feature 分支，或者把 Feature 分支只留在本地；不需要使用 Pull-Request 而是直接 Push 到远程 Master 分支，我们就做到了 Trunk based Development。（关于从 GitFlow 到 TBD 的论述，TW 同事尚齐在洞见上有一篇<a href="http://insights.thoughtworkers.org/gitflow-consider-harmful/" target="_blank" rel="external">Gitflow有害论</a>值得一读，另外想要了解得更细致可以去到<a href="https://trunkbaseddevelopment.com/" target="_blank" rel="external">官网</a>（<a href="https://cn.trunkbaseddevelopment.com/" target="_blank" rel="external">中文版</a>），里面详细列举了各种实践和反模式。）本文主要就项目上落地过程中遇到的一些问题做个简要的说明。</p>
+<p>使用主干开发后，我们的代码库原则上就只能有一个 Master 分支了，所有新功能的提交也都提交到 Master 分支上，没有了分支的代码隔离，测试和解决冲突都变得简单，持续集成也变得稳定了许多，问题也接踵而至，主要有以下三个：</p>
+<ul>
+<li>如何避免发布的时候引入未完成的 Feature </li>
+<li>如何进行线上 Bug Fix</li>
+<li>如何重构</li>
+</ul>
+<p><img src="http://paulhammant.com/images/what_is_trunk.jpg" alt=""></p>
+<center>图片来自:<a href="https://paulhammant.com/2013/04/05/what-is-trunk-based-development/" target="_blank" rel="external">What is Trunk-Based Development?</a></center>
+
+<h2 id="如何避免发布引入未完成-Feature"><a href="#如何避免发布引入未完成-Feature" class="headerlink" title="如何避免发布引入未完成 Feature"></a>如何避免发布引入未完成 Feature</h2><p>答案是： <a href="https://martinfowler.com/articles/feature-toggles.html" target="_blank" rel="external">Feature Toggle</a>。</p>
+<p>既然代码要随时保持可发布，而我们又需要只有一份代码来支持持续集成，在代码库里加一个特性开关来随时打开和关闭新特性是最容易想到的也是最容易被质疑的解决方案。</p>
+<p>Feature Toggle 是有成本的，不管是在加 Toggle 的时候的代码设计，还是在移除 Toggle 时的人力成本和风险，都是需要和它带来的价值进行衡量的。事实上，在我们做一个前端的大特性变更的时候，我们确实没有因为没办法 Toggle 而采用了一个独立的 Feature 分支，我们认为即使为了这个分支单独做一套 Pipeline，也比在前端的各种样式间添加移除 Toggle 来得简单。但同时，团队商议决定在每次提交前都要先将 Master 分支 Merge 到 Feature 分支，以此避免分支隔离久以后合并时的痛苦。</p>
+<h2 id="如何进行线上-Bug-Fix"><a href="#如何进行线上-Bug-Fix" class="headerlink" title="如何进行线上 Bug Fix"></a>如何进行线上 Bug Fix</h2><p>在发布时打上 Release Tag，一旦发现这个版本有问题，如果这个时候Master分支上没有其他提交，可以直接在 Master 分支上 Hot Fix，如果 Master 分支已经有了提交就要做以下三件事：</p>
+<ul>
+<li>从 Release Tag 创建发布分支。</li>
+<li>在 Master 上做 Fix Bug 提交。</li>
+<li>将 Fix Bug 提交 Cherry Pick 到 Release 分支。</li>
+<li>在Release 分支再做一次发布。</li>
+</ul>
+<p>线上 Fix 通常都比较紧急。看完这个略显繁琐 Bug Fix 流程，你可能会问为什么不在 Release 分支直接 Fix，再合并到 Master 分支？</p>
+<p>这样做确实比较符合直觉，但事实是，如果在 Release 分支做 Fix，很可能会忘了 Merge 回 Master，试想深夜两点你做完 Bug Fix 眼看终于上线成功，这时的第一反应就是“终于可以下班了。什么，Merge 回 Master？ 明天再来吧“ 等到第二天你早已把这个事忘得一干二净。而问题要等到下一次上线才会被暴露出来，一旦发现，而这个时候上一次 Release 的人又不在，无疑增加了很多工作量。</p>
+<h2 id="如何重构"><a href="#如何重构" class="headerlink" title="如何重构"></a>如何重构</h2><p>这里指的是比较大规模的重构，无法在一次提交完成，TBD 要求每一次提交都是一个可上线的版本，所以这同时还意味着这个重构无法再一个上线周期内完成。</p>
+<p>这种情况，需要在代码设计中增加一个抽象层，保证在重构过程中先不动原来的代码，也不破坏既有功能，类似于蓝绿部署中的负载均衡器的作用，这样的流程就是：</p>
+<p><img src="/images/TBD_Abstraction_layer.png" alt=""></p>
+<ul>
+<li>在将要被重构的代码逻辑附近引入抽象层然后提交，对所有人可见。如果有需要可以是多个提交，这些提交都不能破坏 build，然后依次 push 到共享代码库。</li>
+</ul>
+<ul>
+<li>为将要被引入的代码写抽象层的第二次实现，然后提交。但在主干上由于关闭状态所以其他开发人员暂时不依赖于它。如果需要的话，这可能像上面那样需要多次提交。第一步的抽象层也可能偶然被调整，但必须遵循同样的原则：不能破坏build。</li>
+<li>切换使用重构后的代码，然后 Push。</li>
+<li>删除原有的旧实现（被重构代码）</li>
+<li>删除抽象层</li>
+</ul>
+<p>这个流程和汽车换轮胎有那么点类似，新旧轮胎代表重构前后代码，抽象层就好比千斤顶。</p>
+<p><img src="https://cn.trunkbaseddevelopment.com/branch-by-abstraction/cars.png" alt=""></p>
+<center>图片来自: <a href="https://cn.trunkbaseddevelopment.com/branch-by-abstraction/" target="_blank" rel="external">主干开发：抽象分支</a></center>
+
+<h1 id="一点感受"><a href="#一点感受" class="headerlink" title="一点感受"></a>一点感受</h1><p>TBD 还因为被 Google，亚马逊这样的公司采用而闻名，可以参照阮一峰的另篇文章：<a href="http://www.ruanyifeng.com/blog/2016/07/google-monolithic-source-repository.html" target="_blank" rel="external">谷歌的代码管理</a>，但并不因此意味着 TBD 就适用于所有场景。即使是是 CICD 已经被广泛接受，也不能称持续交付为软件开发的银弹。技术用的对不对，还是要看上下文。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;最近我和我的所在的团队在翻译一个网站： &lt;a href=&quot;https://trunkbaseddevelopment.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://trunkbaseddevelopment.com/&lt;/a&gt;主干开
+    
+    </summary>
+    
+      <category term="持续交付" scheme="https://www.duyidong.com/categories/%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98/"/>
+    
+    
+      <category term="git" scheme="https://www.duyidong.com/tags/git/"/>
+    
+      <category term="coding" scheme="https://www.duyidong.com/tags/coding/"/>
+    
+      <category term="持续集成" scheme="https://www.duyidong.com/tags/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/"/>
+    
+  </entry>
   
   <entry>
     <title>Openshift 多节点部署</title>
@@ -687,9 +782,9 @@ System.out.println(upperName.orElse(&quot;No value found&quot;));
       <category term="DevOps" scheme="https://www.duyidong.com/categories/DevOps/"/>
     
     
-      <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
-    
       <category term="持续交付" scheme="https://www.duyidong.com/tags/%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98/"/>
+    
+      <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
     
       <category term="敏捷" scheme="https://www.duyidong.com/tags/%E6%95%8F%E6%8D%B7/"/>
     
@@ -755,9 +850,9 @@ System.out.println(upperName.orElse(&quot;No value found&quot;));
       <category term="DevOps" scheme="https://www.duyidong.com/categories/DevOps/"/>
     
     
-      <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
-    
       <category term="翻译" scheme="https://www.duyidong.com/tags/%E7%BF%BB%E8%AF%91/"/>
+    
+      <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
     
       <category term="理论框架" scheme="https://www.duyidong.com/tags/%E7%90%86%E8%AE%BA%E6%A1%86%E6%9E%B6/"/>
     
@@ -1291,9 +1386,9 @@ spec:
     
       <category term="小结" scheme="https://www.duyidong.com/tags/%E5%B0%8F%E7%BB%93/"/>
     
-      <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
-    
       <category term="职场" scheme="https://www.duyidong.com/tags/%E8%81%8C%E5%9C%BA/"/>
+    
+      <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
     
       <category term="Platform" scheme="https://www.duyidong.com/tags/Platform/"/>
     
@@ -1405,9 +1500,9 @@ High willingness to travel
       <category term="DevOps" scheme="https://www.duyidong.com/categories/DevOps/"/>
     
     
-      <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
-    
       <category term="职场" scheme="https://www.duyidong.com/tags/%E8%81%8C%E5%9C%BA/"/>
+    
+      <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
     
   </entry>
   
@@ -1679,9 +1774,9 @@ High willingness to travel
       <category term="Cloud &amp; PaaS" scheme="https://www.duyidong.com/categories/Cloud-PaaS/"/>
     
     
-      <category term="Cloud Native" scheme="https://www.duyidong.com/tags/Cloud-Native/"/>
-    
       <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
+    
+      <category term="Cloud Native" scheme="https://www.duyidong.com/tags/Cloud-Native/"/>
     
       <category term="翻译" scheme="https://www.duyidong.com/tags/%E7%BF%BB%E8%AF%91/"/>
     
@@ -1826,8 +1921,6 @@ def test_hosts_file(File):
       <category term="DevOps" scheme="https://www.duyidong.com/categories/DevOps/"/>
     
     
-      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
-    
       <category term="Infrastructure as Code" scheme="https://www.duyidong.com/tags/Infrastructure-as-Code/"/>
     
       <category term="ThoughtWorks技术雷达" scheme="https://www.duyidong.com/tags/ThoughtWorks%E6%8A%80%E6%9C%AF%E9%9B%B7%E8%BE%BE/"/>
@@ -1835,6 +1928,8 @@ def test_hosts_file(File):
       <category term="基础设施即代码" scheme="https://www.duyidong.com/tags/%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E5%8D%B3%E4%BB%A3%E7%A0%81/"/>
     
       <category term="持续交付" scheme="https://www.duyidong.com/tags/%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98/"/>
+    
+      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
     
   </entry>
   
@@ -2545,11 +2640,11 @@ feedback，开放式协作
     
       <category term="AWS" scheme="https://www.duyidong.com/tags/AWS/"/>
     
+      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
+    
       <category term="Cloud Native" scheme="https://www.duyidong.com/tags/Cloud-Native/"/>
     
       <category term="架构" scheme="https://www.duyidong.com/tags/%E6%9E%B6%E6%9E%84/"/>
-    
-      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
     
   </entry>
   
@@ -2777,86 +2872,6 @@ feedback，开放式协作
       <category term="云计算" scheme="https://www.duyidong.com/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/"/>
     
       <category term="EC2" scheme="https://www.duyidong.com/tags/EC2/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>AWS对象存储服务S3</title>
-    <link href="https://www.duyidong.com/2017/03/13/AWS-S3/"/>
-    <id>https://www.duyidong.com/2017/03/13/AWS-S3/</id>
-    <published>2017-03-13T01:45:12.000Z</published>
-    <updated>2017-06-22T08:00:45.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>AWS S3是一个非常厉害的服务，上个月S3宕机4小时，江湖上传出了“半个互联网出现问题”的传言。姑且不谈S3的影响力有多大，在计算单元越来越小且移动存储设备近两年并未降价的趋势下，高可用高伸缩的云存储服务应该成为每一个开发者必备的知识。</p>
-<p>简单来说S3提供了一些bucket，租户可以在其中存放一些对象，何为对象？所有静态文件都属于镜像。<br>关于S3的高持久和高可用：</p>
-<p><img src="/images/Table_S3.png" alt=""></p>
-<h2 id="S3有几个重要的特点"><a href="#S3有几个重要的特点" class="headerlink" title="S3有几个重要的特点"></a>S3有几个重要的特点</h2><ul>
-<li><strong>Sunolicity:</strong>简单，S3服务可以使用AWS console控制，可以使用命令行，可以通过各种语言的sdk与各应用深度集成。</li>
-<li><strong>Drability:</strong>数据持久，S3(除了冗余备份服务)可以提供高达11个9的数据持久性，且提供跨Region备份，版本管理，充分保证数据持久性和容灾性（数据丢失可通过版本管理即使回滚）。</li>
-<li><strong>Scalability:</strong>可扩展性，S3对租户的文件存储总量不做限制，租户可以存放需求相当的任何数量级的对象在S3上。</li>
-<li><strong>Security:</strong>安全，AWS S3的文件传输都经过SSL加密，租户可以通过设置IAM管理对象访问权限，租户也可以选择在本地加密后上传S3，使用前再选择解密文件。</li>
-<li><strong>Available:</strong>可用性，S3的Standard提供可用性达到99.99%的服务，IA(Infrequent Access)达到99.9%，RRS(Reduced Redundancy Storage)达到99.99%。</li>
-<li><strong>Low Cost:</strong>低花费，这一点除了体现在S3按需收费上，还体现在S3的生存周期管理上，S3可以定期将久不访问的数据转移到IA服务上，在定期归档备份至Glacier中。</li>
-<li><strong>Broad integration with other AWS services:</strong>与AWS其他服务广泛集成，包括安全（IAM, KMS），报警（CLoudWatch, CloudTrail &amp; Event Notifications），计算（Lambda），数据库（EMR, Redshift）。</li>
-<li><strong>Enterprise-class Storage Management:</strong>企业级存储管理，S3允许租户采用<strong>数据驱动</strong>的方式提高存储优化，数据安全性和管理效率。</li>
-</ul>
-<h2 id="S3的使用场景"><a href="#S3的使用场景" class="headerlink" title="S3的使用场景"></a>S3的使用场景</h2><h3 id="内容存储及分发"><a href="#内容存储及分发" class="headerlink" title="内容存储及分发"></a>内容存储及分发</h3><p>S3可以用以上传/下载文件，包括音频视频文件，比如构建一个提供给用户分享视频的网站，S3可以提供无限伸缩的空间，以及跨Region的备份，和定期的存储转移，充分保证网站可用性和高负载能力，另外还提供上传下载加密，以及访问请权限控制的功能。</p>
-<h3 id="数据分析存储"><a href="#数据分析存储" class="headerlink" title="数据分析存储"></a>数据分析存储</h3><p>S3可以用于存储用于数据分析的原始数据，因其很容易和EC2，Lambda等AWS的计算资源或事件触发器集成，可以轻松使用S3构建数据驱动的Data Pipeline，用于数据分析。且S3也可以用于存放数据分析产生的报告。</p>
-<h3 id="备份，存档以及灾难恢复"><a href="#备份，存档以及灾难恢复" class="headerlink" title="备份，存档以及灾难恢复"></a>备份，存档以及灾难恢复</h3><p>因为S3的版本管理和跨Region备份特特性，S3很适合作为备份，且可以定期将数据转归档存储到Glacier中，且易于恢复。</p>
-<h3 id="静态网站部署"><a href="#静态网站部署" class="headerlink" title="静态网站部署"></a>静态网站部署</h3><p>利用S3的高持久和4个9的可用性，可以将自己的静态网站部署到S3上，有以下几个好处：</p>
-<ul>
-<li>不用担心激增的访问量，S3可以处理激增的访问量，而不用改变网站架构</li>
-<li>S3是全球的，意味着你的网站可以在瞬间被部署到全球任意一个或多个节点</li>
-<li>S3是按使用付费的</li>
-</ul>
-<h2 id="S3的功能及特性"><a href="#S3的功能及特性" class="headerlink" title="S3的功能及特性"></a>S3的功能及特性</h2><p>S3有很多功能特性用于构建服务，这些服务都往往相互依存，了解服务功能固然重要，但结合使用场景才能凸显其价值。<br>参照：<a href="https://aws.amazon.com/s3/details/" target="_blank" rel="external">https://aws.amazon.com/s3/details/</a>和<a href="https://www.amazonaws.cn/en/s3/details/" target="_blank" rel="external">https://www.amazonaws.cn/en/s3/details/</a></p>
-<h3 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h3><h4 id="Version"><a href="#Version" class="headerlink" title="Version"></a>Version</h4><p>开启版本控制后，对于bucket里每一个object的操作都会在版本中被记录，租户可以在console中下载历史版本，回滚，删除版本。值得一提的是，在跨Region备份功能开启时，主Bucket的版本删除并不会影响到备份bucket的版本。</p>
-<h4 id="Logging"><a href="#Logging" class="headerlink" title="Logging"></a>Logging</h4><p>该功能可以指定一个bucket和一个路径用于存放租户对于S3使用的所有日志，包括该bucket内的存取更新对象的操作。</p>
-<h4 id="Staic-website-hosting"><a href="#Staic-website-hosting" class="headerlink" title="Staic website hosting"></a>Staic website hosting</h4><p>开启此功能可以将一个bucket变成一个静态网站，只需要制定入口index.html和错误页面即可。当然还有一个前提是设置对象权限为所有人外部可访问。</p>
-<h4 id="Tags"><a href="#Tags" class="headerlink" title="Tags"></a>Tags</h4><p>给Bucket资源打上一个或多个标签，方便管理。</p>
-<h4 id="Cross-region-replication"><a href="#Cross-region-replication" class="headerlink" title="Cross-region replication"></a>Cross-region replication</h4><p>制定一个另一个Region的Bucket作为备份，需要Version功能开启。</p>
-<h4 id="Transfer-Acceleration"><a href="#Transfer-Acceleration" class="headerlink" title="Transfer Acceleration"></a>Transfer Acceleration</h4><p>加速上传功能，类似于CloudFront，通过缓存在Globle Infrastructure的节点加速上传。</p>
-<h4 id="Events"><a href="#Events" class="headerlink" title="Events"></a>Events</h4><p>开启这个功能，当S3的bucket或object发生动作时，可以触发SNS topic或SQS队列，或者Lambda Function。</p>
-<h3 id="授权"><a href="#授权" class="headerlink" title="授权"></a>授权</h3><h4 id="Access-Control-List"><a href="#Access-Control-List" class="headerlink" title="Access Control List"></a>Access Control List</h4><p>大概就是IAM的某一个用户，可以对对象/权限控制执行如何操作（读/写），值得注意的是，默认情况下一个bucket创建出来后它的全显是只有它的创建者可以读/写这个bucket，粒度较大，适用于整个bucket的权控制。</p>
-<h4 id="Bucket-Policy"><a href="#Bucket-Policy" class="headerlink" title="Bucket Policy"></a>Bucket Policy</h4><p>更细粒度的权限控制方案，以资源标识符为单位，与IAM相对应，可用于指定某个用户可以对bucket内部的哪些资源做何种操作。</p>
-<h4 id="Cross-Origin-Resource-Sharing-CORS"><a href="#Cross-Origin-Resource-Sharing-CORS" class="headerlink" title="Cross-Origin Resource Sharing (CORS)"></a>Cross-Origin Resource Sharing (CORS)</h4><p>允许外链请求，在网站中使用API调用S3的资源的时候必须将调用url添加到该项信任中。</p>
-<h3 id="管理"><a href="#管理" class="headerlink" title="管理"></a>管理</h3><h4 id="Lifecycle"><a href="#Lifecycle" class="headerlink" title="Lifecycle"></a>Lifecycle</h4><p>生存周期主要针对一个文件被上传到S3中，一段时间后访问会减少，再过一段时间可能根本不会被访问而只需要备份的应用场景，可以设置Standard S3 -&gt; IA S3 -&gt; Glacier 的转移顺序，主要价值是减小开支。<br>关于Lifecycle还有一个重要的表格：</p>
-<p><img src="/images/Table_S3_Claicer.png" alt=""></p>
-<h4 id="Analytics"><a href="#Analytics" class="headerlink" title="Analytics"></a>Analytics</h4><p>可以按标签过滤bucket中的object，生成csv报告，并手动将过滤出来的object转存到另一个同Region的bucket内。</p>
-<h4 id="Metrics"><a href="#Metrics" class="headerlink" title="Metrics"></a>Metrics</h4><p>分为Storage metrics，Request metrics，Data transfer metrics，跟Cloudwatch结合，从多个维度度量租户的S3使用情况。</p>
-<h4 id="Inventory"><a href="#Inventory" class="headerlink" title="Inventory"></a>Inventory</h4><p>S3的一个对象分拣服务，通过Inventory的方式定期将对象分类。</p>
-<h2 id="限制"><a href="#限制" class="headerlink" title="限制"></a>限制</h2><ul>
-<li>一个对象最大不能超过5TB。</li>
-<li>一个账号最多可创建100个bucket。</li>
-<li>S3普通上传模式最大只支持5GB以下的文件大小，开启<a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/UploadingObjects.html" target="_blank" rel="external">multipart uploading</a>enable多进程上传和断点续传，从而提高上传效率，在带宽充足且有大文件需要上传的时候可以开启这个功能。</li>
-</ul>
-<blockquote>
-<ul>
-<li>参考资料</li>
-<li>AWS S3 FAQ<a href="https://aws.amazon.com/s3/faqs/" target="_blank" rel="external">https://aws.amazon.com/s3/faqs/</a></li>
-<li>AWS S3 Detail<a href="https://aws.amazon.com/s3/details/" target="_blank" rel="external">https://aws.amazon.com/s3/details/</a></li>
-<li>AWS S3 Use Case<a href="https://docs.aws.amazon.com/AmazonS3/latest/gsg/S3-gsg-CommonUseScenarios.html" target="_blank" rel="external">https://docs.aws.amazon.com/AmazonS3/latest/gsg/S3-gsg-CommonUseScenarios.html</a></li>
-<li><a href="https://www.amazonaws.cn/en/s3/" target="_blank" rel="external">https://www.amazonaws.cn/en/s3/</a></li>
-<li>Uploading Object<a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/UploadingObjects.html" target="_blank" rel="external">https://docs.aws.amazon.com/AmazonS3/latest/dev/UploadingObjects.html</a></li>
-</ul>
-</blockquote>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;AWS S3是一个非常厉害的服务，上个月S3宕机4小时，江湖上传出了“半个互联网出现问题”的传言。姑且不谈S3的影响力有多大，在计算单元越来越小且移动存储设备近两年并未降价的趋势下，高可用高伸缩的云存储服务应该成为每一个开发者必备的知识。&lt;/p&gt;
-&lt;p&gt;简单来说S3提供了一
-    
-    </summary>
-    
-      <category term="Amazon Web Services" scheme="https://www.duyidong.com/categories/Amazon-Web-Services/"/>
-    
-    
-      <category term="AWS" scheme="https://www.duyidong.com/tags/AWS/"/>
-    
-      <category term="S3" scheme="https://www.duyidong.com/tags/S3/"/>
-    
-      <category term="对象存储服务" scheme="https://www.duyidong.com/tags/%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8%E6%9C%8D%E5%8A%A1/"/>
     
   </entry>
   

@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.duyidong.com/"/>
-  <updated>2017-10-30T09:52:28.000Z</updated>
+  <updated>2017-10-30T09:58:01.000Z</updated>
   <id>https://www.duyidong.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="https://www.duyidong.com/2017/10/29/trunk-base-development/"/>
     <id>https://www.duyidong.com/2017/10/29/trunk-base-development/</id>
     <published>2017-10-29T07:47:20.000Z</published>
-    <updated>2017-10-30T09:52:28.000Z</updated>
+    <updated>2017-10-30T09:58:01.000Z</updated>
     
     <content type="html"><![CDATA[<p>最近我和我的所在的团队在翻译一个网站： <a href="https://trunkbaseddevelopment.com/" target="_blank" rel="external">https://trunkbaseddevelopment.com/</a>主干开发。本文结合笔者的开发经验，谈一谈项目中用到过的分支模型与使用场景，对主干开发做一个简单的介绍。</p>
 <h1 id="Gitflow"><a href="#Gitflow" class="headerlink" title="Gitflow"></a>Gitflow</h1><p>Gitflow 最早应该是出现在一篇名叫<a href="http://nvie.com/posts/a-successful-git-branching-model/" target="_blank" rel="external">A successful Git branching model</a>的文章中，阮一峰的<a href="http://www.ruanyifeng.com/blog/2015/12/git-workflow.html" target="_blank" rel="external">Git 工作流程</a>做了更便于理解的阐述。正如问中提到，Gitflow 偏向控制管理，比较多地使用分支，试用 GitFlow 的项目基本上工作流会是这个样子:</p>
@@ -91,6 +91,7 @@
 <center>图片来自: <a href="https://cn.trunkbaseddevelopment.com/branch-by-abstraction/" target="_blank" rel="external">主干开发：抽象分支</a></center>
 
 <h1 id="一点感受"><a href="#一点感受" class="headerlink" title="一点感受"></a>一点感受</h1><p>TBD 还因为被 Google，亚马逊这样的公司采用而闻名，可以参照阮一峰的另篇文章：<a href="http://www.ruanyifeng.com/blog/2016/07/google-monolithic-source-repository.html" target="_blank" rel="external">谷歌的代码管理</a>，但并不因此意味着 TBD 就适用于所有场景。即使是是 CICD 已经被广泛接受，也不能称持续交付为软件开发的银弹。技术用的对不对，还是要看上下文。</p>
+<p>最后附上 Truk Based Development 的中文网站（还在翻译中）：<a href="https://cn.trunkbaseddevelopment.com/" target="_blank" rel="external">https://cn.trunkbaseddevelopment.com/</a></p>
 ]]></content>
     
     <summary type="html">
@@ -1774,9 +1775,9 @@ High willingness to travel
       <category term="Cloud &amp; PaaS" scheme="https://www.duyidong.com/categories/Cloud-PaaS/"/>
     
     
-      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
-    
       <category term="Cloud Native" scheme="https://www.duyidong.com/tags/Cloud-Native/"/>
+    
+      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
     
       <category term="翻译" scheme="https://www.duyidong.com/tags/%E7%BF%BB%E8%AF%91/"/>
     
@@ -1921,6 +1922,8 @@ def test_hosts_file(File):
       <category term="DevOps" scheme="https://www.duyidong.com/categories/DevOps/"/>
     
     
+      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
+    
       <category term="Infrastructure as Code" scheme="https://www.duyidong.com/tags/Infrastructure-as-Code/"/>
     
       <category term="ThoughtWorks技术雷达" scheme="https://www.duyidong.com/tags/ThoughtWorks%E6%8A%80%E6%9C%AF%E9%9B%B7%E8%BE%BE/"/>
@@ -1928,8 +1931,6 @@ def test_hosts_file(File):
       <category term="基础设施即代码" scheme="https://www.duyidong.com/tags/%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E5%8D%B3%E4%BB%A3%E7%A0%81/"/>
     
       <category term="持续交付" scheme="https://www.duyidong.com/tags/%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98/"/>
-    
-      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
     
   </entry>
   
@@ -2640,11 +2641,11 @@ feedback，开放式协作
     
       <category term="AWS" scheme="https://www.duyidong.com/tags/AWS/"/>
     
-      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
-    
       <category term="Cloud Native" scheme="https://www.duyidong.com/tags/Cloud-Native/"/>
     
       <category term="架构" scheme="https://www.duyidong.com/tags/%E6%9E%B6%E6%9E%84/"/>
+    
+      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
     
   </entry>
   

@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.duyidong.com/"/>
-  <updated>2017-10-31T08:15:06.000Z</updated>
+  <updated>2017-11-03T08:40:25.000Z</updated>
   <id>https://www.duyidong.com/</id>
   
   <author>
@@ -14,6 +14,103 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>如何在 Linode 上搭建加强版 Shadowsocks</title>
+    <link href="https://www.duyidong.com/2017/11/03/how-to-setup-ss-on-linode/"/>
+    <id>https://www.duyidong.com/2017/11/03/how-to-setup-ss-on-linode/</id>
+    <published>2017-11-03T02:04:05.000Z</published>
+    <updated>2017-11-03T08:40:25.000Z</updated>
+    
+    <content type="html"><![CDATA[<p> 本文介绍如何在 Linode 上搭建 Shadowsocks，并开启 TCP BBR 拥塞算法达到稳定代理的目的。</p>
+<h1 id="为什么选用-Linode"><a href="#为什么选用-Linode" class="headerlink" title="为什么选用 Linode"></a>为什么选用 Linode</h1><ul>
+<li><strong>便宜</strong> 一台最小的 Linode 服务器(单CPU/1G内存/20G硬盘/1TB流量) 只需 5$ 一月，1TB 的流量只要不被攻击基本可以放心使用而不用操心流量超的问题。</li>
+<li><strong>方便</strong> 相比于 AWS, Linode 的服务器资源申请和维护很简单，不需要你具备太多的平台知识，从这个角度来说定制化的反面就是易用性。付费也很简单，一台机器就是一台机器的钱，没有很多隐藏收费的地方。除此之外，机器重启公网 IP 也不会变，不需要像 AWS 一样还有绑定 EIP。你可能会担心这台服务器 IP 被封，Linode 有服务器 clone 功能可以很快克隆一台一模一样的服务器（with different public ip）。</li>
+<li><strong>速度</strong> 亲测按照本文配置的 ss 外网下载速度可达 4MB/s，Youtube 1080p 可以说是无压力了。</li>
+</ul>
+<h1 id="注册-申请服务器"><a href="#注册-申请服务器" class="headerlink" title="注册/申请服务器"></a>注册/申请服务器</h1><h2 id="注册账号"><a href="#注册账号" class="headerlink" title="注册账号"></a>注册账号</h2><p>申请注册，邀请码：<a href="https://www.linode.com/?r=1edbed5f98d2e15d9866e174f7d6653dbe63a0bf" target="_blank" rel="external">https://www.linode.com/?r=1edbed5f98d2e15d9866e174f7d6653dbe63a0bf</a></p>
+<p>你需要准备一张支持美元的信用卡，并在注册时预先扣费 5$，接下来注册邮箱会收到一封确认邮件，确认后还有等一段时间的人工 Review, 大概半小时后账号就可用了。</p>
+<h2 id="申请服务器"><a href="#申请服务器" class="headerlink" title="申请服务器"></a>申请服务器</h2><ul>
+<li><strong>Add a Linode</strong> 创建服务器</li>
+<li><strong>Select an instance type</strong> 因为这里只做流量转发，所以选最小的类型:1024</li>
+<li><strong>Location</strong> 服务器位置选新加坡或日本（注意服务器位置并不等于 IP 地区）</li>
+<li>点击 <strong>Add This Linode</strong></li>
+</ul>
+<p><img src="/images/linode_create_instance.jpg" alt=""></p>
+<h2 id="配置操作系统镜像"><a href="#配置操作系统镜像" class="headerlink" title="配置操作系统镜像"></a>配置操作系统镜像</h2><ul>
+<li>回到 Linodes 界面，点选 <strong>Deploy Images</strong></li>
+<li>选择交换分区大小保持默认，应用操作系统镜像 <strong>Ubuntu 17.04</strong>，输入密码（服务器被创建）</li>
+<li>Boot 服务器</li>
+</ul>
+<p>接下来可以再 Linodes 界面看到服务器的公网 IP，可以通过 ssh 登录服务器了。</p>
+<pre><code>ssh root@&lt;public-ip&gt;
+</code></pre><h2 id="禁用密码登录（可选）"><a href="#禁用密码登录（可选）" class="headerlink" title="禁用密码登录（可选）"></a>禁用密码登录（可选）</h2><p>密码可以被猜测到，所以为了安全性通常会禁用密码登录而改用秘钥对登录。</p>
+<p>首先将本地的公钥放到 Linode 服务器上：</p>
+<pre><code>ssh-copy-id root@&lt;public-ip&gt;
+</code></pre><p>然后禁用服务器上的密码登录，方法是编辑 Linode 服务器上的 <code>/etc/ssh/sshd_config</code>文件，设置<code>PasswordAuthentication no</code>，再重启 sshd <code>service sshd restart</code></p>
+<h1 id="搭建-Shadowsocks"><a href="#搭建-Shadowsocks" class="headerlink" title="搭建 Shadowsocks"></a>搭建 Shadowsocks</h1><h2 id="安装-pip"><a href="#安装-pip" class="headerlink" title="安装 pip"></a>安装 pip</h2><p>登录到服务器上，依次执行以下命令：</p>
+<pre><code>apt update -y           # apt 更新
+apt install python3-pip # 安装 pip3
+</code></pre><h2 id="安装并开启-shadowsocks"><a href="#安装并开启-shadowsocks" class="headerlink" title="安装并开启 shadowsocks"></a>安装并开启 shadowsocks</h2><pre><code>pip3 install shadowsocks              # 安装 Shadowsocks
+ssserver -p 8388 -k PassWord -d start # 启动 Shadowsocks, 8388是代理端口，PassWord为连接口令，-d 表示后台启动，看到 Started 即表示启动成功
+</code></pre><h2 id="Trouble-shooting"><a href="#Trouble-shooting" class="headerlink" title="Trouble shooting"></a>Trouble shooting</h2><h3 id="apt-update-很慢"><a href="#apt-update-很慢" class="headerlink" title="apt update 很慢"></a>apt update 很慢</h3><p>如果遇到 <code>apt update</code> 特别慢或者出现 ipv6 地址无法解析，可以参照<a href="http://www.wuce.org/disable-linode-ipv6-solve-google-error/" target="_blank" rel="external">这篇博客</a> 禁用 IPV6。</p>
+<p>再不行就把 <code>/etc/apt/sources.list</code> 里的<code>http://security.ubuntu.com/ubuntu</code>源（最后三行）给注释掉</p>
+<h1 id="安装客户端"><a href="#安装客户端" class="headerlink" title="安装客户端"></a>安装客户端</h1><h2 id="系统配置"><a href="#系统配置" class="headerlink" title="系统配置"></a>系统配置</h2><ul>
+<li>Mac客户端： <a href="/software/GoAgentX.zip"><strong>goAgentX</strong></a> ，解压后放到 <code>Application</code> 目录里，启动。</li>
+<li>Windows: <a href="https://github.com/shadowsocks/shadowsocks-windows/releases/download/4.0.6/Shadowsocks-4.0.6.zip" target="_blank" rel="external"><strong>Shadowsocks-4.0.6.zip</strong></a>, 解压后运行。</li>
+</ul>
+<p>配置：</p>
+<p><img src="http://7q5cfr.com1.z0.glb.clouddn.com/kxsw3.png" alt=""></p>
+<p>Windows 和 Mac 的客户端的配置是一样的，原理是把本机从代理端口出去的流量全部转发到 Shadowsocks 服务器，配置五个参数：</p>
+<ul>
+<li>本地端口：本地代理端口</li>
+<li>服务器地址：Linode 服务器公网 IP</li>
+<li>端口：启动 Shadowsocks server 时的端口</li>
+<li>密码：启动 Shadowsocks server 时的密码</li>
+<li>加密方式：默认为 <code>aes-256-cfb</code></li>
+</ul>
+<p>启动，看到 <code>server listening at port xxx…</code> 就表示启动成功了。</p>
+<p>goAgentX 有两种可选项目，一种是全局代理（Global Proxy Model），一种是局部代理（Stand alone Model）。全局代理是将服务器出去的流量全部转发到代理服务器，局部代理是需要将本机流量先转发到代理端口才能启用代理。一般建议配置局部代理，这样操控性更强。</p>
+<h2 id="Chrome-配置"><a href="#Chrome-配置" class="headerlink" title="Chrome 配置"></a>Chrome 配置</h2><p>使用插件<a href="https://chrome.google.com/webstore/search/SwitchyOmega" target="_blank" rel="external"><strong>SwitchyOmega</strong></a>，</p>
+<ul>
+<li>添加默认代理： SOCKS5/localhost/&lt;代理端口&gt;</li>
+<li>配置转发规则（如图所示），<a href="https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt" target="_blank" rel="external">https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt</a> 是一个自动更新的 GFW 白名单，文本里用<code>非</code>语句表示白名单里的站点可不通过代理访问，这样就避免了代理访问国内网站速度变慢的问题。</li>
+</ul>
+<p><img src="/images/SwitchOmega_configure.png" alt=""></p>
+<p>使用方法，在插件的下拉菜单中选择<code>auto switch</code>，访问 Google，测试通过。</p>
+<h2 id="Shell-配置"><a href="#Shell-配置" class="headerlink" title="Shell 配置"></a>Shell 配置</h2><p>使用环境变量可以将 Shell 的所有流量转发到代理端口，需要始终生效可以将以下命令加入 <code>.xshrc</code>:</p>
+<pre><code>export http_proxy=http://localhost:&lt;代理端口&gt;
+export https_proxy=https://localhost:&lt;代理端口&gt;
+</code></pre><p><code>ping google.com</code> 测试通过。</p>
+<h1 id="开启-TCP-BBR-增强版"><a href="#开启-TCP-BBR-增强版" class="headerlink" title="开启 TCP BBR 增强版"></a>开启 TCP BBR 增强版</h1><p>这部分内容来自<a href="https://moeclub.org/2017/06/06/249/" target="_blank" rel="external">Debian/Ubuntu 开启 TCP BBR 拥塞算法</a>，<a href="https://moeclub.org/2017/06/24/278/" target="_blank" rel="external">Debian/Ubuntu TCP BBR 改进版/增强版</a>，BBR 算法介绍可以参考<a href="https://www.zhihu.com/question/53559433" target="_blank" rel="external">知乎：Linux Kernel 4.9 中的 BBR 算法与之前的 TCP 拥塞控制相比有什么优势？</a>，太长不读版就是通过重复发包来减少流量转发过程中的丢包现象从而使代理服务更加稳定。这个功能需要 Linux 内核支持，具体操作如下：</p>
+<h2 id="修改-Linode-服务器的-Boot-Kernel"><a href="#修改-Linode-服务器的-Boot-Kernel" class="headerlink" title="修改 Linode 服务器的 Boot Kernel"></a>修改 Linode 服务器的 Boot Kernel</h2><p>将 Linode 服务器管理界面中 <strong>Boot Settings</strong> 部分的 <strong>Kernel</strong>设置为 <code>GRUB2</code> </p>
+<p><img src="/images/Linode_kernal_change.png" alt=""></p>
+<h2 id="开启-TCP-BBR"><a href="#开启-TCP-BBR" class="headerlink" title="开启 TCP BBR"></a>开启 TCP BBR</h2><p>在 Linode 服务器上运行：</p>
+<pre><code>wget --no-check-certificate -qO &#39;BBR.sh&#39; &#39;https://moeclub.org/attachment/LinuxShell/BBR.sh&#39; &amp;&amp; chmod a+x BBR.sh &amp;&amp; bash BBR.sh -f  v4.11.9
+</code></pre><p>期间服务器会重启一次，如果你没有给 ss 配置自动重启则需要手动起一下。</p>
+<h2 id="增强-TCP-BBR-性能"><a href="#增强-TCP-BBR-性能" class="headerlink" title="增强 TCP BBR 性能"></a>增强 TCP BBR 性能</h2><p>在 Linode 服务器上运行：</p>
+<pre><code>wget --no-check-certificate -qO &#39;BBR_POWERED.sh&#39; &#39;https://moeclub.org/attachment/LinuxShell/BBR_POWERED.sh&#39; &amp;&amp; chmod a+x BBR_POWERED.sh &amp;&amp; bash BBR_POWERED.sh -f v4.11.9
+</code></pre><p>提示 Success 则表示安装成功，Trouble Shooting 可以参考<a href="https://moeclub.org/2017/06/24/278/" target="_blank" rel="external">这篇文章</a></p>
+<blockquote>
+<p>如果你完成了上面所有操作，那么恭喜你，可以享受畅通无阻的翻墙体验了。</p>
+</blockquote>
+<h1 id="一点题外话"><a href="#一点题外话" class="headerlink" title="一点题外话"></a>一点题外话</h1>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt; 本文介绍如何在 Linode 上搭建 Shadowsocks，并开启 TCP BBR 拥塞算法达到稳定代理的目的。&lt;/p&gt;
+&lt;h1 id=&quot;为什么选用-Linode&quot;&gt;&lt;a href=&quot;#为什么选用-Linode&quot; class=&quot;headerlink&quot; title=&quot;为什
+    
+    </summary>
+    
+      <category term="工具" scheme="https://www.duyidong.com/categories/%E5%B7%A5%E5%85%B7/"/>
+    
+    
+      <category term="云服务" scheme="https://www.duyidong.com/tags/%E4%BA%91%E6%9C%8D%E5%8A%A1/"/>
+    
+      <category term="代理" scheme="https://www.duyidong.com/tags/%E4%BB%A3%E7%90%86/"/>
+    
+  </entry>
   
   <entry>
     <title>分支模型与主干开发</title>
@@ -855,9 +952,9 @@ System.out.println(upperName.orElse(&quot;No value found&quot;));
       <category term="DevOps" scheme="https://www.duyidong.com/categories/DevOps/"/>
     
     
-      <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
-    
       <category term="翻译" scheme="https://www.duyidong.com/tags/%E7%BF%BB%E8%AF%91/"/>
+    
+      <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
     
       <category term="理论框架" scheme="https://www.duyidong.com/tags/%E7%90%86%E8%AE%BA%E6%A1%86%E6%9E%B6/"/>
     
@@ -1391,9 +1488,9 @@ spec:
     
       <category term="小结" scheme="https://www.duyidong.com/tags/%E5%B0%8F%E7%BB%93/"/>
     
-      <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
-    
       <category term="职场" scheme="https://www.duyidong.com/tags/%E8%81%8C%E5%9C%BA/"/>
+    
+      <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
     
       <category term="Platform" scheme="https://www.duyidong.com/tags/Platform/"/>
     
@@ -1505,9 +1602,9 @@ High willingness to travel
       <category term="DevOps" scheme="https://www.duyidong.com/categories/DevOps/"/>
     
     
-      <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
-    
       <category term="职场" scheme="https://www.duyidong.com/tags/%E8%81%8C%E5%9C%BA/"/>
+    
+      <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
     
   </entry>
   
@@ -1779,9 +1876,9 @@ High willingness to travel
       <category term="Cloud &amp; PaaS" scheme="https://www.duyidong.com/categories/Cloud-PaaS/"/>
     
     
-      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
-    
       <category term="Cloud Native" scheme="https://www.duyidong.com/tags/Cloud-Native/"/>
+    
+      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
     
       <category term="翻译" scheme="https://www.duyidong.com/tags/%E7%BF%BB%E8%AF%91/"/>
     
@@ -1926,6 +2023,8 @@ def test_hosts_file(File):
       <category term="DevOps" scheme="https://www.duyidong.com/categories/DevOps/"/>
     
     
+      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
+    
       <category term="Infrastructure as Code" scheme="https://www.duyidong.com/tags/Infrastructure-as-Code/"/>
     
       <category term="ThoughtWorks技术雷达" scheme="https://www.duyidong.com/tags/ThoughtWorks%E6%8A%80%E6%9C%AF%E9%9B%B7%E8%BE%BE/"/>
@@ -1933,8 +2032,6 @@ def test_hosts_file(File):
       <category term="基础设施即代码" scheme="https://www.duyidong.com/tags/%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E5%8D%B3%E4%BB%A3%E7%A0%81/"/>
     
       <category term="持续交付" scheme="https://www.duyidong.com/tags/%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98/"/>
-    
-      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
     
   </entry>
   
@@ -2645,11 +2742,11 @@ feedback，开放式协作
     
       <category term="AWS" scheme="https://www.duyidong.com/tags/AWS/"/>
     
-      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
-    
       <category term="Cloud Native" scheme="https://www.duyidong.com/tags/Cloud-Native/"/>
     
       <category term="架构" scheme="https://www.duyidong.com/tags/%E6%9E%B6%E6%9E%84/"/>
+    
+      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
     
   </entry>
   
@@ -2746,137 +2843,6 @@ feedback，开放式协作
       <category term="Route53" scheme="https://www.duyidong.com/tags/Route53/"/>
     
       <category term="博客上云" scheme="https://www.duyidong.com/tags/%E5%8D%9A%E5%AE%A2%E4%B8%8A%E4%BA%91/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>AWS虚拟机EC2</title>
-    <link href="https://www.duyidong.com/2017/03/15/AWS-EC2/"/>
-    <id>https://www.duyidong.com/2017/03/15/AWS-EC2/</id>
-    <published>2017-03-15T12:02:03.000Z</published>
-    <updated>2017-05-04T12:18:08.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>Amazon Elastic Cloud Compute，简单来说就是亚马逊的虚拟机服务，用户可以使用EC2服务创建一个个实例(instances)，即虚拟机。</p>
-<p>亚马逊的EC2标榜有几大优势：完全控制，灵活使用，方便集成，安全，便宜，简单好用。<br>关于EC2有几个重要的概念：Instance Type，即在选择Instance的时候的内存，CUP等硬件指标；然后是EBS，即挂载硬盘，租户可以选择不同IO，不同介质的虚拟硬盘；其次是AMI，即用于启动虚拟机的操作系统镜像；另外还有Security Group，可以理解为虚拟机的防火墙；其他的服务都属于附加服务，比如负载均衡，弹性伸缩，监控报警，权限控制，类似nfs的弹性存储介质等等。<br>虚拟机服务是云服务最重要的服务，几乎各大云厂商最终要的一项都是对租户提供虚拟机，看大厂的虚拟机策略，其他各厂基本可通晓一二。<br>由于企业级应用很少用windows的使用场景，笔者将主要关注在Linux的使用上，本文对windows使用场景改不涉及。</p>
-<h2 id="Instances"><a href="#Instances" class="headerlink" title="Instances"></a>Instances</h2><p>EC2为亚马逊的服务，Instance就是该服务提供的一个实例 —— 虚拟机</p>
-<h3 id="Instance-Purchasing-Options"><a href="#Instance-Purchasing-Options" class="headerlink" title="Instance Purchasing Options"></a>Instance Purchasing Options</h3><p>在说Instance Type之前，有个更重要的东西：Instance的收费方式（Instance Purchasing Options）。Instance有四种收费方式，针对不同应用场景要学会选择适合的Purchasing Option:</p>
-<ul>
-<li><strong>On-Demand Instance</strong> 按小时收费，也是默认的收费方式，不足一小时按一小时计费；属于比较灵活的按需付费方式</li>
-<li><strong>Reserved Instances</strong> 预留实例，可选1-3年，一次付费，完成付费之后不管是否使用都会收费，价格相对按小时计费要便宜些，企业作为服务器长期使用通常会选择使用的付费方式</li>
-<li><strong>Scheduled Reserved Instances</strong> 计划预留实例，为期一年，在计划时间内可用。值得注意的是，只有几个高性能的Instance Type支持该购买方式，且每年使用不得少于1200小时，需提前三个月购买</li>
-<li><strong>Spot Instances</strong> 竞价实例，价格随时间浮动，租户在申请时出价，当租户出价高于该时间点竞价实例价格时，租户获得该实例使用权，当价格再次浮动导致实例价格高于租户出价，亚马逊会提前十分钟提醒租户，而后terminate实例，转移到别的地方。注意，被亚马逊销毁的实例最后一小时不收费，而用户在使用期间自行销毁的实例，不足一小时仍以一小时计费。这种收费方式适用于不需长期提供稳定服务的应用场景，比如大数据流处理。</li>
-<li><strong>Dedicated hosts</strong>买下一个跑在固定物理设备上的Instance的使用权，保证租户的licenses不会因为不同物理设备过期。</li>
-<li><strong>Dedicated Instances</strong>按小时计费的Dedicated hosts</li>
-</ul>
-<h3 id="Instances-Type"><a href="#Instances-Type" class="headerlink" title="Instances Type"></a>Instances Type</h3><p><a href="https://aws.amazon.com/ec2/instance-types/" target="_blank" rel="external">Instance Type</a>有10种类型，用于区分大致的应用场景，每个类型下有从nano, micro, small, medium, large, xlarge到16xlarge数目不等的型号，主要区分CPU数量，vCPU(亚马逊创造的用于衡量单个CPU运算能力的一个参数)，内存，不同，大小、类型不同，直接影响价格。</p>
-<p><img src="/images/AWS_Instances_Type.png" alt=""></p>
-<ul>
-<li>D2 - Dense storage Instance，特点是硬盘价格平衡，支持HDD硬盘，支持EC2 Enhanced Networking，适用于对存储需求比较高的场景，比如数据库，大数据存储</li>
-<li>R4: 特点是内存大</li>
-<li>M4: 各项平衡的一个Instance类型，也是默认情况下首选的Instance Type</li>
-<li>C4 - Compute Optimized: 计算能力优化，特点自然是计算速度快</li>
-<li>G2: 包含GPU的Instance，适合于图形计算，视频转码等场景</li>
-<li>I3 - High I/O Instance，高硬盘IO，使用固态硬盘，适用于非关系型数据库，大数据处理等</li>
-<li>F1 - 可以为程序定制硬件加速</li>
-<li>T2: 最常见的Instance使用类型，因为它最便宜，性能也最平衡，生产环境只适用于做web服务器，或小型数据库</li>
-<li>P2: 通用GPU计算机，常用于人工智能等需要大量计算的领域</li>
-<li><p>X1: CPU，内存都相当大，针对大规模，企业级，内存应用程序进行了优化，并且在Amazon EC2实例类型中具有每GiB最低的RAM价格</p>
-<p>Instance类型在创建后可以被更改，前提是Stop Instance</p>
-</li>
-</ul>
-<h3 id="Instance-LifeCycle"><a href="#Instance-LifeCycle" class="headerlink" title="Instance LifeCycle"></a>Instance LifeCycle</h3><p>Instance的生命周期，有pending, running, stop ,terminate几个主要的状态和动作，详见下图：</p>
-<p><img src="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/images/instance_lifecycle.png" alt=""></p>
-<h3 id="MetaData-amp-UserData"><a href="#MetaData-amp-UserData" class="headerlink" title="MetaData &amp; UserData"></a>MetaData &amp; UserData</h3><p>UserData是创建完成Instance最后一步用来准备Instance环境的Bash脚本，而MetaData是Instance与生俱来的元数据，通过<code>curl https://169.254.169.254/latest/meta-data/</code>这种奇特的方式获得，包含Instance类型，IP，public-key等信息。值得一提的是IAM的Role之所以在Instance的文件系统中不会出现Credential key的文件，是因为它把Credential key放到了MetaData中，可以通过获取MetaData的方式获得。</p>
-<h2 id="EBS"><a href="#EBS" class="headerlink" title="EBS"></a>EBS</h2><p>简单来讲，EBS(Elastic Block Storage)就是AWS为租户提供的虚拟硬盘，Instance可以看做主板，EBS可以被关联到任何一个Instance上，启动Instance时也必须要一个启动硬盘作为系统盘才能启动。这里就要区分一个重要的概念，EBS 和 Instance Store，两种类型的Instance，应该说EBS Instance比Instance Store 更健全一些，支持更多的Instance Type，生命周期完整；而Instance Store，是由存放在S3的文件系统启动的，启动速度慢，生命周期不完整，只能被Reboot或者Terminate，不能Stop，一旦启动失败就会丢失所有数据，且支持类型有限，被称为短暂存储（ephemeral Storage）<br>下面重点区分一下<a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html" target="_blank" rel="external">EBS Volum Type</a>，与Instance相同，重点也在使用场景和节省开销：</p>
-<ul>
-<li>SSD, General Purporse - <strong>gp2</strong>: 兼顾性能与价格，吞吐量160MB/s，最大IOPS为10,000; 挂载卷大小在1GB-16TB；使用场景：推荐使用在大部分场景，虚拟机启动磁盘，提供低延迟的服务，可在开发测试环境应用</li>
-<li>SSD, Provisioned IOPS - <strong>io1</strong>: 高性能磁盘，吞吐量320MB/s，IOPS在10,000-20,000; 挂载卷大小在4GB-16TB；使用场景：执行紧急任务的应用模块，大数据库，比如MongDB, Orale, SQL Server等</li>
-<li>HDD, Throughput Optimized HDD - <strong>st1</strong>: 价格相对便宜的机械硬盘，用于存放不常使用的数据，IOPS最大仅500，吞吐量可达500MB/s，磁盘大小为500GB-16TB；使用场景：需要高吞吐量量有需要控制预算的场景，比如大数据，日志存放；不能用作启动磁盘</li>
-<li>HDD, Code HDD - <strong>sc1</strong>: 比普通机械硬盘更便宜的磁盘，IOPS仅为250，吞吐量250MB/s，容量500GB-16TB，使用场景：非常强调便宜的不常访问数据的存储</li>
-<li>HDD, EBS Magnetic - <strong>standard</strong>: 磁带存储，非常便宜的低频次访问的磁盘，性能最次（40-200IOPS, 40-60MB/s吞吐）</li>
-</ul>
-<blockquote>
-<p>注：以上参数均需在Instance类型的支持才能发挥到最大值，机械硬盘的优势在于高吞吐，固态硬盘的好处在于高IO；另外一个需要注意的是，你可以在一个Instance上绑定多个EBS，但是不能将一个EBS绑定在多个Instance上（这种情况要使用EFS）</p>
-</blockquote>
-<h2 id="Security-Group"><a href="#Security-Group" class="headerlink" title="Security Group"></a>Security Group</h2><p>Security Group可以理解为Instance的防火墙，在Instance的网络中大概处在以下位置：</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/1765038-d1edcf22e1e4784c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
-<p>SG的安全策略大范围分为Inbound和Outbound，顾名思义为控制进出，SG刚被创建时默认所有Inbound都是被禁止的，所有Outbound都是被允许的。<br>SG由数条规则（rules）构成，Rules有几个重要参数：目标地址（网段），协议类型，端口号。<br>关于SG有以下几个值得注意的点：</p>
-<ul>
-<li>SG策略在修改后立即生效</li>
-<li>一个SG可以被绑定到任意数量的Instance上</li>
-<li>一个Instance可以有多个SG，且被允许的Rules为多个SG的合</li>
-<li>SG是有状态的，也就是说当租户允许了一个请求进入，默认会打开到目的地址的返回请求</li>
-<li>通常情况我们不适用SG的Rules来组织IP访问，组织IP访问应该用ACL(Access Control List)</li>
-<li>SG只能添加允许访问的策略，不能添加禁止访问的策略</li>
-</ul>
-<h2 id="Volumse-amp-Snapshots"><a href="#Volumse-amp-Snapshots" class="headerlink" title="Volumse &amp; Snapshots"></a>Volumse &amp; Snapshots</h2><p>关于Volume Type，已经在EBS部分提到了，这里主要想讲的是磁盘的生命周期。<br>Volume可以从EBS创建，Attache到一个Instance上，再在操作系统中进行挂载，使其成为一个可用的文件系统，Volume可以随时扩容，但扩容后需要更新文件系统。<br>Volume可以凭空创建，也可以使用Snapshot创建，Snapshot就是磁盘的一个镜像，存放于S3中，用于定期备份磁盘。Snapshot是增量式的，也就是说只有被更改的部分会被记录在S3中。<br>第一个Snapshot的创建会比较花时间。<br>Snapshot可以通过S3在账户之间共享。<br>可以开启自动备份定时备份Volume。<br>EBS可以被加密，除了root Volume，租户可以使用第三方工具对启动磁盘进行加密。<br>另外说一下关于Windows卷扩容，需要停止磁盘读写，有以下措施可以做到：</p>
-<ul>
-<li>冻结文件系统</li>
-<li>卸载磁盘驱动（Unmount the RAID Array）</li>
-<li>关闭关联的EC2 Instance</li>
-</ul>
-<blockquote>
-<p>注：一个EBS可以被创建10,000个Snapshot，一个账户可以拥有的Volume存储大小总量单个类型不得超过20TB</p>
-</blockquote>
-<h2 id="AMI"><a href="#AMI" class="headerlink" title="AMI"></a>AMI</h2><p>既然有了Snapshot，另一个重要的概念就不得不提了，AMI，Amazon Machine Image，可以理解为虚拟机的启动镜像。一个AMI包含了在云上启动一个实例所需的所有信息，包括：</p>
-<ul>
-<li>一个Root Volume的模板（比如一个操作系统，一个应用）</li>
-<li>启动许可（在启动时用于判断该用户是否有从该AMI启动实例的权限）</li>
-<li>启动实例时需要挂载的磁盘映射表</li>
-</ul>
-<p>一个AMI的生命周期看起来像是这个样子的：</p>
-<p><img src="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/images/ami_lifecycle.png" alt=""></p>
-<p>AMI是划分Region的，租户可以通过Console或CLI在Region之间拷贝AMI。<br>AMI可以用于在<a href="https://aws.amazon.com/marketplace/search/results?x=0&amp;y=0&amp;searchTerms=&amp;page=1&amp;ref_=nav_search_box" target="_blank" rel="external">AWS Marketplace</a>出售。</p>
-<p>AMI依赖于Snapshot缺不被Instance依赖，这意味着租户不能删除一个被注册的AMI的Snapshot，却可以删除一个运行中实例的AMI，Snapshot，AMI，Instance的关系如下图:<br><img src="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/images/ami_delete_ebs.png" alt=""></p>
-<h2 id="ELB-amp-Health-Checks"><a href="#ELB-amp-Health-Checks" class="headerlink" title="ELB &amp; Health Checks"></a>ELB &amp; Health Checks</h2><p>ELB，Elastic LoadBalancer是构建一个高可用可用不得不谈的服务，经常和Autoscaling Group一起实现负载伸缩和高可用。<br>ELB是AWS提供的负载均衡器，用于将外部访问请求分发给状态健康的EC2 Instance。<br>ELB在创建的时候会有对外会有一个DNS解析域名，对所属Instance会做健康检查，所谓健康检查就是去定期访问一个文件，判断返回状态码为200即表明这个服务正常，Instance可以动态地被加载到ELB下，也可以动态移除，ELB会自动判断这个Instance已经失去连接并停止发送请求到这个Instance。<br>值得一提的是，ELB一个重要的功能是增加服务容灾性，通常会挂载多个不同AZ的Instance，做到一个数据中心挂掉仍然能够正常提供服务。</p>
-<h2 id="Cloud-Watch-EC2"><a href="#Cloud-Watch-EC2" class="headerlink" title="Cloud Watch EC2"></a>Cloud Watch EC2</h2><p>CloudWatch是AWS提供的EC2监控报警的服务，简单好用。<br>作为一款与AWS各种资源高度集成且简单好用的监控工具，CloudWatch有以下功能：</p>
-<ul>
-<li>构建Dashboard用于可视化云环境资源状况</li>
-<li>警告：配合SNS在某项指标超出一定阈值时发出邮件或短信通知</li>
-<li>事件：监控事件用于动态变更云设施</li>
-<li>日志：日志保存在S3中</li>
-</ul>
-<p>CloudWatch的一些类目默认情况是免费的，免费版本是5分钟取回一次数据，收费后变成1分钟一次，且部分metrics需要收费才能监控。默认监控的内容包括CPU，网络，硬盘IO等，但是没有内存。</p>
-<h2 id="Autoscaling-Group"><a href="#Autoscaling-Group" class="headerlink" title="Autoscaling Group"></a>Autoscaling Group</h2><p>一个Autoscaling Group包含多个特性相同的Instance，可以根据Instance的负载自动扩容或缩减，同时可以对Instance开启健康检查，如果一个Instance服务异常，Group会依照Lunch Configuration重新启动一个实例替换掉旧的实例。这种方式保证了Group内的Instance总是健康的，且Instance数目会根据负载情况进行动态伸缩。</p>
-<h2 id="Placement-Group"><a href="#Placement-Group" class="headerlink" title="Placement Group"></a>Placement Group</h2><p>Placement Group是一个在同AZ中的一组Instance，同PG的Instance可以享受到高带宽，低延迟的好处，但同时也有如下限制：</p>
-<ul>
-<li>一个Placement Group不能跨多个AZ</li>
-<li>一个Placement Group的名字必须在一个账号中是独一无二的</li>
-<li>Placement Group只支持一部分类型的Instance</li>
-<li>AWS推荐在一个PG中使用同质的Instance</li>
-<li>PG不能被合并</li>
-<li>租户不能移动一个已经存在的Instance到一个PG中，可以对这个Instance创建AMI，再使用这个AMI在PG中启动一个Instance</li>
-</ul>
-<h2 id="EFS"><a href="#EFS" class="headerlink" title="EFS"></a>EFS</h2><p>EFS是AWS提供可以再Instance之间贡献的一个NFS server，其最大的优点是不需要预先设置大小，其空间大小会随文件写入增多逐步扩容至PB级别，而租户只需按使用收费。<br>EFS可以支持上千个NFS4连接，适用于大数据存储，Web服务器静态文件共享，等诸多应用场景。<br>AWS目前有4个Region支持EFS，EFS的文件存放在多个AZ中，可以跨AZ共享文件。</p>
-<h2 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h2><ul>
-<li>每个账户默认被限制可以申请20个保留实例，增加上限需要给亚马逊提Request</li>
-<li>使用EC2发送邮件数量是有限制的</li>
-<li>每个账户最多可申请5个Elastic IP</li>
-<li>不同账户标记的一个AZ名字（比如us-east-1a）可能指向不同的物理数据中心</li>
-<li>要使用增强网络型实例（Enhanced Network）租户不需要另外付费，只需要选择适当的AMI和适当的Instance类型在一个VPC中即可</li>
-<li>默认情况下，当租户停止监控EC2实例或销毁了实例，两周内仍可访问CloudWatch的数据</li>
-<li>如果删掉一个Auto Scaling Group，其中的Instance会先被销毁</li>
-<li>租户可使用VM Import/Export从EC2导入/导出虚拟机镜像</li>
-<li>虽然Snapshot被存在S3中，但租户不能通过S3的API访问到Snapshot，而只能通过EC2的API访问</li>
-<li>分享Snapshot给特定的账户，Snapshot的状态仍为“private”</li>
-</ul>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;Amazon Elastic Cloud Compute，简单来说就是亚马逊的虚拟机服务，用户可以使用EC2服务创建一个个实例(instances)，即虚拟机。&lt;/p&gt;
-&lt;p&gt;亚马逊的EC2标榜有几大优势：完全控制，灵活使用，方便集成，安全，便宜，简单好用。&lt;br&gt;关于EC
-    
-    </summary>
-    
-      <category term="Amazon Web Services" scheme="https://www.duyidong.com/categories/Amazon-Web-Services/"/>
-    
-    
-      <category term="AWS" scheme="https://www.duyidong.com/tags/AWS/"/>
-    
-      <category term="云计算" scheme="https://www.duyidong.com/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/"/>
-    
-      <category term="EC2" scheme="https://www.duyidong.com/tags/EC2/"/>
     
   </entry>
   

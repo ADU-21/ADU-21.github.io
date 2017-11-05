@@ -4,6 +4,28 @@
 
     
   <url>
+    <loc>https://www.duyidong.com/2017/11/05/martinflower-and-his-photograph/</loc>
+    <lastmod>2017-11-05T07:52:42.000Z</lastmod>
+    <data>
+        <display>
+        <title>老马博客的里的图片</title>
+        <pubTime>2017-11-05T07:23:28.000Z</pubTime>
+        
+        <tag>爬虫</tag>
+         
+        <tag>其他</tag>
+         
+         
+           
+             
+              <breadCrumb title="ThoughtWorks" url="https://www.duyidong.com/categories/ThoughtWorks/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://www.duyidong.com/2017/11/03/how-to-setup-ss-on-linode/</loc>
     <lastmod>2017-11-03T08:54:29.000Z</lastmod>
     <data>
@@ -286,9 +308,9 @@
         <title>关于爬虫你不得不知道的几个库</title>
         <pubTime>2016-04-02T02:21:33.000Z</pubTime>
         
-        <tag>Python</tag>
-         
         <tag>爬虫</tag>
+         
+        <tag>Python</tag>
          
          
            
@@ -990,11 +1012,11 @@
         <title>ThoughtWorks第一周学习总结</title>
         <pubTime>2016-05-24T13:44:57.000Z</pubTime>
         
+        <tag>ThoughtWorks</tag>
+         
         <tag>学习</tag>
          
         <tag>小结</tag>
-         
-        <tag>ThoughtWorks</tag>
          
          
            

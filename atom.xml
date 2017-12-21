@@ -792,9 +792,9 @@ System.out.println(upperName.orElse(&quot;No value found&quot;));
       <category term="Java" scheme="https://www.duyidong.com/categories/Java/"/>
     
     
-      <category term="代码" scheme="https://www.duyidong.com/tags/%E4%BB%A3%E7%A0%81/"/>
-    
       <category term="Java" scheme="https://www.duyidong.com/tags/Java/"/>
+    
+      <category term="代码" scheme="https://www.duyidong.com/tags/%E4%BB%A3%E7%A0%81/"/>
     
   </entry>
   

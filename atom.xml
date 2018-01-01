@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.duyidong.com/"/>
-  <updated>2017-12-28T11:14:36.000Z</updated>
+  <updated>2018-01-01T15:29:28.000Z</updated>
   <id>https://www.duyidong.com/</id>
   
   <author>
@@ -20,17 +20,17 @@
     <link href="https://www.duyidong.com/2017/12/28/goodbye-2017-hello-2018/"/>
     <id>https://www.duyidong.com/2017/12/28/goodbye-2017-hello-2018/</id>
     <published>2017-12-28T08:30:29.000Z</published>
-    <updated>2017-12-28T11:14:36.000Z</updated>
+    <updated>2018-01-01T15:29:28.000Z</updated>
     
     <content type="html"><![CDATA[<p><img src="/images/2017-commit-github-yidong.png" alt=""></p>
 <center><strong>2017年我的 github commit</strong></center>
 
 
 
-<p>伴随着支付宝红包羊毛党铺天盖地的短信，本命年也在忙碌的十二月底宣告接近尾声。过去的一年，我似乎成为了一个还不错的程序员，同事们的互评中出现了“快速学习”、“努力”、“DevOps专家”这些词以示认可，在自我认识中也渐渐意识到自己已经走入了在公司的一个舒适区，也许是过去一年都待在海外交付项目上的缘故，项目上的事情总是忙一阵闲一阵，公司的事情和自己的学习计划却从来没有中断过。</p>
-<h1 id="云计算红红火火"><a href="#云计算红红火火" class="headerlink" title="云计算红红火火"></a>云计算红红火火</h1><p>漫长的上半年，我一直在一个“大型跨国金融保险企业-架构师团队”做开发，日常工作基本是和客户开会和发邮件，线上 debug 的能力练就了不少，遗憾的是鲜有时间写代码。在此期间，云计算一度被炒的很火，我的股票断断续续涨了24%，期间也抽空考取了 <a href="/2017/04/05/How-to-pass-the-aws-certification/">AWS 助理架构师认证</a>，算是赶上了又一波云计算的大潮。在这个项目组期间一直不太开心，一是没有比我强的人带我，学不到东西，二是团队松散，成都团队一直没有超过两个人所以不太有团队归属感，在下项目后写的一篇文章<a href="http://insights.thoughtworks.cn/what-does-the-devops-team-has-delivered/" target="_blank" rel="external">《DevOps 之殇》</a>中有体现。好在及时调整心态，认真对待每一份到手的工作，在频繁的沟通中大幅提升了英文能力，利用工作之余的时间学习并拿到了<a href="/pdf/awsSolutionsArchitect_AE.pdf">云计算能力的证明</a>。这份证明为后来我争取到很多接触其他项目的机会，也让我得到了比在同一个项目上的同事更多的锻炼。</p>
+<p>伴随着支付宝红包羊毛党铺天盖地的短信，本命年也在忙碌的十二月底宣告接近尾声。过去的一年，我似乎成为了一个还不错的程序员，同事们的互评中出现了“快速学习”、“努力”、“DevOps专家”这些词以示认可，在自我认识中也渐渐意识到自己已经走入了在公司的一个舒适区，也许是过去一年都待在海外交付项目上的缘故，项目上的事情总是忙一阵闲一阵，还好公司的事情和自己的学习计划从来没有中断过。</p>
+<h1 id="云计算红红火火"><a href="#云计算红红火火" class="headerlink" title="云计算红红火火"></a>云计算红红火火</h1><p>漫长的上半年，我一直在一个“大型跨国金融保险企业-架构师团队”做开发，日常工作基本是和客户开会和发邮件，线上 debug 的能力练就了不少，遗憾的是鲜有时间写代码。在此期间，云计算一度被炒的很火，我的股票断断续续涨了24%，期间也在抽空准备考取 <a href="/2017/04/05/How-to-pass-the-aws-certification/">AWS 助理架构师认证</a>，算是赶上了又一波云计算的大潮。在这个项目组期间因为种种原因我一直不是很开心，一方面是因为日常工作太琐碎目标不明确，另一方面团队长期只有一两个人而没有归属感。那段时间我几乎每天都去游泳，在泳池交织的浪花和水底的静谧中思考着未来的种种可能。也是在一次游泳的时候，经博文的指点及时调整了心态，认真对待每一份到手的工作，在频繁的沟通中大幅提升了英文能力，在琐碎的工作中打磨自己的 DevOps 技能，并在下项目后将团队中的一系列实践和感受总结成文，（见：<a href="http://insights.thoughtworks.cn/what-does-the-devops-team-has-delivered/" target="_blank" rel="external">《DevOps 之殇》</a> ），得到了公司和同事们的认可。更开心的是，我利用工作之余的时间学习并拿到了<a href="/pdf/awsSolutionsArchitect_AE.pdf">云计算能力的证明</a>，这份证明为后来我争取到很多接触其他项目的机会，也让我得到了比在同一个项目上的同事更多的锻炼。</p>
 <h1 id="DevOps-没有死"><a href="#DevOps-没有死" class="headerlink" title="DevOps 没有死"></a>DevOps 没有死</h1><p>还记得公司群里一句“DevOps已死”，让刚一脚迈进云计算大门的我措手不及，“DevOps 已经开始被平台取代，我司未来的咨询方向将是人工智能，大数据，区块链”这是我当时听到的话。</p>
-<p>在我看来选择公司最重要的就是和自己的发展目标一致，那我现在最擅长的领域将被技术革命，是不是意味着我必须要换个方向？于是我抬头，四顾枉然：AI 对数学的要求很高，而我数学成绩并不是很好；大数据不错，但我司似乎缺少立项机会；区块链听着挺牛的，是不是该学一学呢？技术方向的选择让我迷茫了好一阵子，又被忙碌的下半年冲淡了。其实回过头来看当时的想法，才发现 <strong>DevOps 并没有死，而是化作了 CICD、化作了微服务、化作了 DPS 数字化平台战略。</strong>PaaS 也许会取代 DevOps 里的诸多实践，但 DevOps 所提倡的“为最终交付价值负责”的产品思维，将继续无处不在地影响着我们的日常交付。</p>
+<p>在我看来选择公司最重要的就是和自己的发展目标一致，那我现在最擅长的领域将被技术革命，是不是意味着我必须要换个方向？于是我抬头，四顾枉然：AI 对数学的要求很高，而我数学成绩并不是很好；大数据不错，但目前似乎缺少立项机会；区块链听着挺牛的，是不是该学一学呢？技术方向的选择让我迷茫了好一阵子，又被忙碌的下半年冲淡了。其实回过头来看当时的想法，才发现 <strong>DevOps 并没有死，而是化作了 CICD、化作了微服务、化作了 DPS 数字化平台战略。</strong>PaaS 也许会取代 DevOps 里的诸多实践，但 DevOps 所提倡的“为最终交付价值负责”的产品思维，将继续无处不在地影响着我们的日常交付。</p>
 <p>这么一想，我似乎更理解了咨询的意义。</p>
 <h1 id="比特币暴涨"><a href="#比特币暴涨" class="headerlink" title="比特币暴涨"></a>比特币暴涨</h1><p><img src="/images/2017-bitcoin-price.png" alt=""></p>
 <center><strong>2017年疯涨的比特币</strong></center>
@@ -50,18 +50,17 @@
 
 
 
-<p>18年对我来说比较有挑战性的一件事就是承担起成都 Cloud &amp; DevOps 社区运营的职责，在过去我一直是一个高输出的贡献者，偶尔喜欢发发牢骚。从成员到社区服务者的角色转变，就好比在台下嘈杂的观众席中，我是最能发言最有见解的一个，突然被一只大手拉上台来，面对台下的观众却结结巴巴不知道说什么，连续几周都是一脸懵逼的状态：我连自己的发展方向都没想好，更别说社区未来的发展方向。不过最近我开始渐渐意识到，这是一次走出舒适区的机会，是对我组织沟通能力的一次考验。既然我可以用自己的学习方法快速获取各种技能，那为什么不能把社区运营作为一种技能去学习呢？</p>
-<p>过去一年我恰好犯了我原本以为所有程序员都会犯只有我不会犯的一个错误——只关注技术。对身边的人漠不关心，做事只追求效率而缺乏艺术。例如在问问题的时候，我总是会在谈话开始前明确我想要知道的目标，交谈过程就是尽快得到我想要得到的信息，而完全忽视了要建立一个良好沟通氛围以及关注你的谈话对象，所有的沟通只是为了在我固有的认知框架里添砖加瓦，而没有真心实意想听进去别人的不同观点，在谈话过程中也忽视了“人”这个角色的存在。举个实际一点的例子，在跟客户聊天时，如果用“How are you？”作为开头，用”have a good day, mate :)”作为结尾，就会比“Hi, Mike”开头然后就吧啦吧啦说事，最后以一个“Thanks” 结尾效果好很多，时不时还能聊到一些八卦和他们开心不开心的事情，事情办得即顺利又开心。如果称前者为开放式谈话，那么后者则趋于收敛，在事情比较紧急的时候我们想要快速达到目标可以多收敛、确认谈话信息；大部分时候事情不是那么紧急，可以让谈话变得开放一些，慢一些，让谈话变得更舒服和容纳更多信息。</p>
-<blockquote>
+<p>18年对我来说比较有挑战性的一件事就是承担起成都 Cloud &amp; DevOps 社区运营的职责，在过去我一直是一个高输出的贡献者，偶尔喜欢发发牢骚。从成员到社区服务者的角色转变，就好比在台下振振有词的观众，突然被一只大手拉上台，面对台下的观众却结结巴巴不知道说什么，连续几周都是一脸懵逼的状态：我连自己的发展方向都没想好，更别说社区未来的发展方向。不过最近我开始渐渐意识到，这是一次走出舒适区的机会，是对我组织沟通能力的一次考验。既然我可以用自己的学习方法快速获取各种技能，那为什么不能把社区运营作为一种技能去学习？</p>
+<h1 id="新的开始"><a href="#新的开始" class="headerlink" title="新的开始"></a>新的开始</h1><blockquote>
 <p>过去我沉浸在自己的节奏和自己的认知闭环中，未来希望我能更多为别人着想，有更开阔的心胸和从容的心态。</p>
 </blockquote>
-<h1 id="新的开始"><a href="#新的开始" class="headerlink" title="新的开始"></a>新的开始</h1><p>明年希望自己在以下几个方面能有所提升：</p>
+<p>明年希望自己在以下几个方面能有所提升：</p>
 <ul>
-<li><p><strong>全局思考</strong><br>记得以前学素描的时候，我总喜欢在勾勒外形的时候就把线画得很实，在上阴影前就把物体画得很像。我自己看着很满意，但老师却要我擦掉重画，原因是我没有先描出物体结构和明暗的大关系。过去这一年我一直在各种技术的学习、各种 Session、Workshop 的准备中挣扎。我忽视了一种能力，就是描绘美好愿景，畅想美好生活的能力，而太过注重如何去计划去实施。我已经是一个好的执行者，明年我希望我还能做好一个梦想家。有一句老话这么说的，要有最朴素的生活，和最遥远的梦想。</p>
+<li><p><strong>关注”人“，而不只是”事“</strong><br>我经常说”对事不对人“，过去一年我恰好犯了我原本以为所有程序员都会犯只有我不会犯的一个错误——只关注技术。对身边的人漠不关心，做事只追求效率而缺乏艺术。例如在问问题的时候，我总是会在谈话开始前明确我想要知道的目标，交谈过程就是尽快得到我想要得到的信息，而完全忽视了要建立一个良好沟通氛围以及关注你的谈话对象，所有的沟通只是为了在我固有的认知框架里添砖加瓦，而没有真心实意想听进去别人的不同观点，在谈话过程中也忽视了“人”这个角色的存在。举个实际一点的例子，在跟客户聊天时，如果用“How are you？”作为开头，用”have a good day, mate.”作为结尾，就会比“Hi, Mike”开头然后就吧啦吧啦说事，最后以一个“Thanks” 结尾效果好很多，时不时还能聊到一些八卦和他们开心不开心的事情，事情办得即顺利又开心。如果称前者为开放式谈话，那么后者则趋于收敛，在事情比较紧急的时候我们想要快速达到目标可以多收敛、确认谈话信息；大部分时候事情不是那么紧急，可以让谈话变得开放一些，慢一些，让谈话变得更舒服和容纳更多信息。</p>
 </li>
-<li><p><strong>更多自信</strong><br>又是一个我犯下的我以为我绝不会犯的错误，就是缺乏自信。过去我总是带着“我行”地态度去承担一个又一个责任，但是却忽略了一点——让更多人看到自己。这一点也许是来自从小所处的环境，总是会对位高权重的人有种恐惧，因此表现出刻意回避，相处不自在，或者是想要推翻它。在工作中者种行为更多地表现为不敢和领导做正面沟通，从而错失了及时得到指导的机会，领导往往看得更远，有更多的信息可以帮助权衡利弊和做出判断，还有就是，你做的事应该被人看到，你需要从别人那里获得反馈，因此信息的扩散往往比信息本身更为重要。</p>
+<li><p><strong>培养全局思考的能力</strong><br>记得以前学素描的时候，我总喜欢在勾勒外形的时候就把线画得很实，在上阴影前就把物体画得很像。我自己看着很满意，但老师却要我擦掉重画，原因是我没有先描出物体结构和明暗的大关系。过去这一年我一直在各种技术的学习、各种 Session、Workshop 的准备中挣扎。我忽视了一种能力，就是描绘美好愿景，畅想美好生活的能力，而太过注重如何去计划去实施。我已经是一个好的执行者，明年我希望我还能做好一个梦想家。有一句老话这么说的，要有最朴素的生活，和最遥远的梦想。</p>
 </li>
-<li><p><strong>回归生活</strong><br>过去的一年几乎没怎么操心过家里的事，希望明年可以做得好一点。</p>
+<li><p><strong>回归生活</strong><br>过去的一年几乎没怎么操心过家里的事，在公司待的时间比较多，老友相邀总推辞说忙，公司周末有活动，总想着都在成都以后有的是时间聚。但结果就是身体越来越发胖，朋友交流得越来越少。大学时描绘起以后的生活会总说——”我的未来，有房子，不用多大也不用面朝大海，落地窗，窗外有阳光；有个心爱的恋人，我们一起下厨，周末开车去逛逛公园，一年能陪爸妈几次；有工作，有4M宽带，有单反，有书看，有歌听；朋友偶尔奔过来聚一起，打打牌喝喝酒叙叙旧，如此，就很幸福了。“在快节奏的生活中，我被一股神奇的力量拖着拽着忘记了这些简单的想法，希望明年可以做得好一点，不忘初心。</p>
 <p><img src="/images/sketch.png" alt=""></p>
 <center><strong>素描（图片来源于网络）</strong></center>
 
@@ -109,9 +108,8 @@
 <p>至此，明年的计划如下：</p>
 <ul>
 <li>健身，坚持去健身房至少打卡 60 次</li>
-<li>提升开发技能，参与一个 1000 star 以上的开源项目，成为 commiter </li>
-<li>拿到云计算专家级认证</li>
-<li>继续提升英文能力，争取考取雅思 7 分</li>
+<li>提升开发技能，参与一个 1000 star 以上的开源项目，成为 committer </li>
+<li>继续提升英文能力，拿到云计算专家级认证</li>
 <li>学习金融和管理学方面的知识，看书 10 本，产出博客 3 篇</li>
 </ul>
 ]]></content>
@@ -911,9 +909,9 @@ System.out.println(upperName.orElse(&quot;No value found&quot;));
       <category term="Java" scheme="https://www.duyidong.com/categories/Java/"/>
     
     
-      <category term="代码" scheme="https://www.duyidong.com/tags/%E4%BB%A3%E7%A0%81/"/>
-    
       <category term="Java" scheme="https://www.duyidong.com/tags/Java/"/>
+    
+      <category term="代码" scheme="https://www.duyidong.com/tags/%E4%BB%A3%E7%A0%81/"/>
     
   </entry>
   
@@ -1113,9 +1111,9 @@ System.out.println(upperName.orElse(&quot;No value found&quot;));
       <category term="DevOps" scheme="https://www.duyidong.com/categories/DevOps/"/>
     
     
-      <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
-    
       <category term="翻译" scheme="https://www.duyidong.com/tags/%E7%BF%BB%E8%AF%91/"/>
+    
+      <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
     
       <category term="理论框架" scheme="https://www.duyidong.com/tags/%E7%90%86%E8%AE%BA%E6%A1%86%E6%9E%B6/"/>
     
@@ -1649,9 +1647,9 @@ spec:
     
       <category term="小结" scheme="https://www.duyidong.com/tags/%E5%B0%8F%E7%BB%93/"/>
     
-      <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
-    
       <category term="职场" scheme="https://www.duyidong.com/tags/%E8%81%8C%E5%9C%BA/"/>
+    
+      <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
     
       <category term="Platform" scheme="https://www.duyidong.com/tags/Platform/"/>
     
@@ -1763,9 +1761,9 @@ High willingness to travel
       <category term="DevOps" scheme="https://www.duyidong.com/categories/DevOps/"/>
     
     
-      <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
-    
       <category term="职场" scheme="https://www.duyidong.com/tags/%E8%81%8C%E5%9C%BA/"/>
+    
+      <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
     
   </entry>
   
@@ -2037,9 +2035,9 @@ High willingness to travel
       <category term="Cloud &amp; PaaS" scheme="https://www.duyidong.com/categories/Cloud-PaaS/"/>
     
     
-      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
-    
       <category term="Cloud Native" scheme="https://www.duyidong.com/tags/Cloud-Native/"/>
+    
+      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
     
       <category term="翻译" scheme="https://www.duyidong.com/tags/%E7%BF%BB%E8%AF%91/"/>
     
@@ -2184,6 +2182,8 @@ def test_hosts_file(File):
       <category term="DevOps" scheme="https://www.duyidong.com/categories/DevOps/"/>
     
     
+      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
+    
       <category term="Infrastructure as Code" scheme="https://www.duyidong.com/tags/Infrastructure-as-Code/"/>
     
       <category term="ThoughtWorks技术雷达" scheme="https://www.duyidong.com/tags/ThoughtWorks%E6%8A%80%E6%9C%AF%E9%9B%B7%E8%BE%BE/"/>
@@ -2191,8 +2191,6 @@ def test_hosts_file(File):
       <category term="基础设施即代码" scheme="https://www.duyidong.com/tags/%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E5%8D%B3%E4%BB%A3%E7%A0%81/"/>
     
       <category term="持续交付" scheme="https://www.duyidong.com/tags/%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98/"/>
-    
-      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
     
   </entry>
   

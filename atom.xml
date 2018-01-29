@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.duyidong.com/"/>
-  <updated>2018-01-01T15:29:28.000Z</updated>
+  <updated>2018-01-29T07:33:15.000Z</updated>
   <id>https://www.duyidong.com/</id>
   
   <author>
@@ -14,6 +14,104 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>细说HTTPS</title>
+    <link href="https://www.duyidong.com/2018/01/26/about-HTTPS/"/>
+    <id>https://www.duyidong.com/2018/01/26/about-HTTPS/</id>
+    <published>2018-01-26T01:41:27.000Z</published>
+    <updated>2018-01-29T07:33:15.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近客户公司经历了一次大的证书升级，内网许多服务之间的调用出现了证书过期或是不授信的问题。前面我写过两篇文章介绍<a href="https://www.duyidong.com/2016/03/30/HTTP%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3/">HTTP协议</a>以及<a href="https://www.duyidong.com/2016/04/17/%E4%B8%80%E6%AC%A1%E5%AE%8C%E6%95%B4%E7%9A%84HTTP%E4%BA%8B%E5%8A%A1%E6%98%AF%E6%80%8E%E6%A0%B7%E4%B8%80%E4%B8%AA%E8%BF%87%E7%A8%8B%EF%BC%9F/">一次完整的HTTP事务是怎样一个过程</a>，这篇文章主要介绍一个大家日常工作中都在打交道但却不一定很熟悉的协议 —— HTTPS。</p>
+<h1 id="名词澄清"><a href="#名词澄清" class="headerlink" title="名词澄清"></a>名词澄清</h1><p>HTTPS 服务是工作在 SSL/TLS 上 的HTTP。</p>
+<p>首先简单区分一下 HTTPS，SSL ，TLS ，OpenSSL 这四者的关系：</p>
+<ol>
+<li>SSL：（Secure Socket Layer，安全套接字层）是在客户端和服务器之间建立一条SSL安全通道的安全协议；</li>
+<li>TLS：（Transport Layer Security，传输层安全协议），用于两个应用程序之间提供保密性和数据完整性；</li>
+<li>TLS的前身是SSL；</li>
+<li>OpenSSL是TLS/SSL协议的开源实现，提供开发库和命令行程序；</li>
+<li>HTTPS是HTTP的加密版，底层使用的加密协议是TLS。</li>
+</ol>
+<p>结论：SSL/TLS 是协议，OpenSSL是协议的代码实现。</p>
+<h1 id="为什么我们需要-HTTPS"><a href="#为什么我们需要-HTTPS" class="headerlink" title="为什么我们需要 HTTPS"></a>为什么我们需要 HTTPS</h1><p>根据<a href="www.ruanyifeng.com/blog/2014/02/ssl_tls.html">阮一峰的SSL/TLS协议运行机制的概述</a>，HTTP 通信有三大风险：</p>
+<pre><code>（1） 窃听风险（eavesdropping）：第三方可以获知通信内容。
+
+（2） 篡改风险（tampering）：第三方可以修改通信内容。
+
+（3） 冒充风险（pretending）：第三方可以冒充他人身份参与通信。
+</code></pre><p>为了解决这些问题，1994年 NetScape 公司设计了 SSL 协议（Secure Sockets Layer）的1.0版，并在 1996 年得到大规模应用，1999年，互联网标准化组织 ISOC 接替 NetScape 公司，发布了 SSL 的升级版 TLS。HTTPS 在 HTTP 的基础上做到了两点：<strong>加密（Encrypt）</strong>和<strong>认证（Verification）</strong>。</p>
+<h1 id="基本工作原理"><a href="#基本工作原理" class="headerlink" title="基本工作原理"></a>基本工作原理</h1><h2 id="加密"><a href="#加密" class="headerlink" title="加密"></a>加密</h2><p>HTTPS 的基本思路是采用<a href="https://baike.baidu.com/item/%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95" target="_blank" rel="external">非对称加密</a>，服务器用私钥加密信息，客户端使用公钥解密，反之亦然。公钥由服务器提供，在客户端第一次请求时返回给客户端。但是这样做有两个显而易见的问题，一是因为公钥是容易获取的，任何一个客户端只要得到了公钥就可以解密传输的信息，这样做并不安全；二是非对称加密加解密速度要远远慢于对称加密，在某些极端情况下，甚至能比对称加密慢上1000倍。</p>
+<p>正因为此，TLS 采用在客户端和服务器次握手间的三个随机数生成<strong>“对话秘钥”</strong>，采用对称加密加密传输信息，如下图所示：</p>
+<p><img src="/images/SSL_handshake.png" alt=""></p>
+<center><strong>图片来自：<a href="https://blog.cloudflare.com/keyless-ssl-the-nitty-gritty-technical-details/" target="_blank" rel="external">Cloudfare</a></strong></center>
+
+<ol>
+<li>在 TCP 握手完成后，客户端向服务器发送一个请求（ClientHello），携带信息包括支持协议版本（TLS 1.0）、加密方式（RSA）、压缩方法，以及一个客户端生成随机数。</li>
+<li>服务器确认使用的通信协议，如果不支持则关闭加密通信，如果支持则回应客户端请求（ServerHello），发送包括确认加密算法、压缩算法、服务器公钥，以及一个服务器端生成随机数。</li>
+<li>客户端在收到服务器确认连接的响应后，会生成第三个随机数（被称为“pre-master key”），使用上一个请求返回的公钥加密后发送给服务器。（这样做是为了方式握手期间被第三方监听），并提供前面握手的内容的 hash 值表示客户端握手结束，并用于服务器端校验。</li>
+<li>服务器端在收到客户端加密后的随机数后用私钥解密。这个时候，客户端和服务器端都同时拥有了三个在一次会话中生成的完全相同的三个随机数：客户端生成随机数、服务器端生成随机数、Pre-master key。随即客户端和服务器端用这三个数生成同一把<strong>会话密钥</strong>（Session key），用于加密随后通信的信息。介时，服务器端还会向客户端返回一个编码变更通知表示服务器会话结束，并提供一个前面会话的 hash 值用于客户端校验。</li>
+<li>客户端与服务器端开始对称加密通信。</li>
+</ol>
+<h2 id="认证"><a href="#认证" class="headerlink" title="认证"></a>认证</h2><p>可以想象，即使做到了客户端和服务器之间通信的保密性，并不意味着就不会有人来冒充服务器端响应客户端的请求。参照网络七层协议，互联网中的设备通信只能够靠 IP 来标示对方，而因为 IP 不便记忆所以我们有了 DNS（Doman Name Service），域名和 IP 的映射除了靠 DNS 服务器记录之外还会有限去查询本地缓存，如果本地 DNS 映射的缓存被攻击者更改就会造成 DNS 劫持，许多钓鱼网站就是利用这个方式将一个域名指向的 IP 改变为钓鱼网站的服务器 IP，再做一个和官方网站一模一样的网站骗走用户的隐私信息。因此，如何确认客户端现在连接的服务器就是真正的目标服务器就变得十分重要。</p>
+<p>要达到这个效果就要求官方网站必须去一个中心备案，客户端每次在连上服务器开始会话之前先去这个中心查阅一下该网站是不是真的就是浏览器上这个域名对应的网站，验证通过后才建立连接。这个“中心”就是 CA （Certificate Authority 证书授权中心），用于查阅校验的文件就是“证书（Certificate）”。</p>
+<p>这个过程中涉及到两个步骤，一个是证书的签发（Signing），一个是证书的验证（Verification），如下图所示：</p>
+<p><img src="/images/Certificate_Signing_and_Verification.png" alt=""></p>
+<center><strong>图片出自：<a href="https://www.pianyissl.com/support/page/10" target="_blank" rel="external">什么是数字证书的证书链</a></strong></center>
+
+<p>证书的签发：证书签发机构将服务器提供的数据经过一次 [Hash] 用 CA 的秘钥加密，再附到证书中，成为办法给服务器的证书。拿到证书的服务器会在第一次响应服务请求（ServerHello）的时候将证书发送给客户端，客户端拿到这个证书后会去请求证书签发机构，这个时候签发机构就会拿这个证书的 Hash 值和已存的证书 Hash 值对比，如果一致，则认证通过，如果不一致，你就会在流量器里看到你访问的网站不受信的错误提示，提醒用户小心访问。</p>
+<p>除此之外，证书的认证还有一个细节，就是证书链：</p>
+<p><img src="/images/certificate_chain.png" alt=""></p>
+<center><strong>图片出自：<a href="https://www.pianyissl.com/support/page/10" target="_blank" rel="external">什么是数字证书的证书链</a></strong></center>
+
+<p>一个网站的证书通常分为三级：根证书（root），中间证书（intermediate），终端证书（end-user），当用户拿到一个网站的证书，是 End-user，他会先去找这个证书 CA 的证书的颁发者（intermediate）认证 CA 的域名是否授信，intermediate 可能有很多层，最后会认证到 Root，Root 证明 intermediate 是授信的，intermediate 证明 End-user 是授信的，最后再由最后一级 CA 证明这个网站的域名是授信的。</p>
+<p>总上所述，一次完整的 HTTPS 连接的建立，加上证书验证，应该是这样的：</p>
+<p><img src="/images/HTTPS_handshake.png" alt=""></p>
+<p>关于这张图片的相信描述，可以参考：<a href="http://www.cnblogs.com/zhuqil/archive/2012/07/23/2604572.html" target="_blank" rel="external">图解HTTPS</a></p>
+<h1 id="自签名证书"><a href="#自签名证书" class="headerlink" title="自签名证书"></a>自签名证书</h1><p>以上的案例都是在公网，但是很多企业内部出于安全都会有内网 HTTPS 的需求，就涉及到证书自签名和授信。这里有一个完整的<a href="https://yi-love.github.io/blog/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/2017/07/15/https-ca.html" target="_blank" rel="external">教程</a>教你如何搭建一个包含自签名证书的网站，归纳一下大致分为这五步：</p>
+<pre><code>1. 准备 CA 机构所需资质：ca.key (CA机构私钥) -&gt; ca.csr（Cerificate Signing Request， CA机构请求文件） （带机构信息）
+2. CA 机构申请证书： ca.key + ca.csr -&gt; ca.crt（CA 机构证书） 
+3. 服务器准备申请所需资质：server.key -&gt; server.csr （带机构信息）
+4. CA 机构颁发给网站证书：ca.crt + ca.key + v3.ext (附带文件，记录网站有关信息) + server.csr = server.crt 
+5. 客户端安装CA证书：把 ca.crt 添加到 keystore
+</code></pre><h1 id="如何部署和升级"><a href="#如何部署和升级" class="headerlink" title="如何部署和升级"></a>如何部署和升级</h1><p>作为面向终端用户提供服务的服务器，需要两个文件：certificate.crt 和 server.key，certificate.crt 用于向客户端发送证书及公钥，server.key 用以解密 pre-master key。以 Apache 为例，需要在配置文件中加入：（完整配置参照<a href="https://httpd.apache.org/docs/2.4/ssl/ssl_howto.html" target="_blank" rel="external">这里</a>）</p>
+<pre><code>SSLCertificateFile &quot;/path/to/certificate.crt&quot;
+SSLCertificateKeyFile &quot;/path/to/server.key&quot;
+</code></pre><p>对于后端应用，除了提供 HTTPS 服务器的角色往往还会充当客户端的角色，因此就需要把调用服务的证书 CA.crt 加入到自己的授信列表中。以 Java 为例，你需要关注 <strong>KeyStore</strong> 和 <strong>TrustStore</strong>：<br>从文件格式上来看，KeyStore 和 KeyStore 其实是一个东西，只是为了方便管理将其分开；Keystore可以看成一个放 key 的库，key 就是公钥，私钥，数字签名等组成的一个信息，TrustStore 中保存的是一些可信任的证书，主要是 java 在代码中访问某个 https 的时候用于对被访问者进行认证的，以确保其实可信任的。TrustStore 是必须的，如果我们没有显式的指定，那么 java 会默认指定为 $JAVA_HOME/lib/security/cacerts 这个文件。</p>
+<p>如果要指定的话，可以在java的参数中进行指定：</p>
+<pre><code>-Djavax.net.ssl.keyStore=clientKeys   
+-Djavax.net.ssl.keyStorePassword=password   
+-Djavax.net.ssl.trustStore=clientTrust   
+-Djavax.net.ssl.trustStorePassword=password
+</code></pre><p>Springboot 类似，参照<a href="https://howtodoinjava.com/spring/spring-boot/spring-boot-ssl-https-example/" target="_blank" rel="external">Spring Boot SSL [https] Example</a>。</p>
+<p>在实际使用过程中，TrustStore 也可以被导入到 KeyStore 中成为一个文件，不过往往会有两份，一个作为 TrustStore，一个作为 KeyStore。</p>
+<h1 id="关于各式各样的证书格式"><a href="#关于各式各样的证书格式" class="headerlink" title="关于各式各样的证书格式"></a>关于各式各样的证书格式</h1><p>前面我们已经提到 csr（请求文件）、key （私钥文件）、jks（KeyStore文件）、crt（证书文件）几种文件类型，但我们往往还会看到证书有关的 <em>.pem, </em>.crt, <em>.ca-bundle, </em>.cer, <em>.p7b, </em>.p7s 这些文件后缀名，这些文件其实都是一个或多个证书练的压缩格式，例如 p7b 格式的文件可以在 windows 平台下展开看到证书链，并且可以直接安装在 windows 系统中。不同格式的证书包是可以互相转换的，参见：<a href="https://support.ssl.com/Knowledgebase/Article/View/19/0/der-vs-crt-vs-cer-vs-pem-certificates-and-how-to-convert-them" target="_blank" rel="external">DER vs. CRT vs. CER vs. PEM Certificates and How To Convert Them</a></p>
+<blockquote>
+<ul>
+<li>Refer: </li>
+<li><a href="https://yi-love.github.io/blog/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/2017/07/15/https-ca.html" target="_blank" rel="external">https://yi-love.github.io/blog/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/2017/07/15/https-ca.html</a></li>
+<li><a href="http://www.ruanyifeng.com/blog/2014/02/ssl_tls.html" target="_blank" rel="external">http://www.ruanyifeng.com/blog/2014/02/ssl_tls.html</a></li>
+<li><a href="https://www.pianyissl.com/support/page/10" target="_blank" rel="external">https://www.pianyissl.com/support/page/10</a></li>
+<li><a href="https://support.dnsimple.com/articles/what-is-ssl-certificate-chain/" target="_blank" rel="external">https://support.dnsimple.com/articles/what-is-ssl-certificate-chain/</a></li>
+<li><a href="http://blog.csdn.net/chenzanlong123/article/details/11784143" target="_blank" rel="external">http://blog.csdn.net/chenzanlong123/article/details/11784143</a></li>
+<li><a href="https://helpdesk.ssls.com/hc/en-us/articles/204093372-What-are-certificate-formats-and-what-is-the-difference-between-them-" target="_blank" rel="external">https://helpdesk.ssls.com/hc/en-us/articles/204093372-What-are-certificate-formats-and-what-is-the-difference-between-them-</a></li>
+</ul>
+</blockquote>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;最近客户公司经历了一次大的证书升级，内网许多服务之间的调用出现了证书过期或是不授信的问题。前面我写过两篇文章介绍&lt;a href=&quot;https://www.duyidong.com/2016/03/30/HTTP%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A
+    
+    </summary>
+    
+      <category term="学习总结" scheme="https://www.duyidong.com/categories/%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/"/>
+    
+    
+      <category term="HTTPS" scheme="https://www.duyidong.com/tags/HTTPS/"/>
+    
+      <category term="HTTP" scheme="https://www.duyidong.com/tags/HTTP/"/>
+    
+  </entry>
   
   <entry>
     <title>再见 2017， 你好 2018</title>
@@ -2599,81 +2697,6 @@ feedback，开放式协作
       <category term="ThoughtWorks" scheme="https://www.duyidong.com/tags/ThoughtWorks/"/>
     
       <category term="职场" scheme="https://www.duyidong.com/tags/%E8%81%8C%E5%9C%BA/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>AWS助理架构师认证考经</title>
-    <link href="https://www.duyidong.com/2017/04/05/How-to-pass-the-aws-certification/"/>
-    <id>https://www.duyidong.com/2017/04/05/How-to-pass-the-aws-certification/</id>
-    <published>2017-04-05T06:48:45.000Z</published>
-    <updated>2017-05-04T12:25:58.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>上周去参加了AWS助理级架构师的考试并顺利通过，是2017年的第一个小目标也是对云服务知识的一个检验，在此分享一下考试的经过和经验。</p>
-<h1 id="什么是AWS认证"><a href="#什么是AWS认证" class="headerlink" title="什么是AWS认证"></a>什么是AWS认证</h1><p>亚马逊作为云计算领域的领头羊，在云计算领域已经有了十多年的积累，亚马逊的云计算不论是从服务还是性能在全球都是首屈一指的。近年来国内有很多创业公司依托于阿里云，微软云，Ucloud等IaaS, PaaS服务构建了许多SaaS服务，其中不乏客如云之类的成功案例，许多大型企业也将自己的基础设施往云上迁移。近两个月腾讯云和中国电信两次以0.01元中标政府云服务项目更是起到了推波助澜的作用。如此种种，可见云服务在IT届的地位已经越来越高，对于从业者的云计算知识要求也必然会越来越高。那么考取云服务界领头羊亚马逊的认证也会变得越来越有价值。<br>AWS目前仅有助理级和专家级两个级别，2017年还会加入大数据，安全，网络三个认证。<br>就目前有的认证而言，开发者(Developer)认证应该是最好考的，助理方案解决架构师(Solutions Architect)次之，助理级最难的是运维（SysOps）。要取得专家级认证必须先取得助理级认证，关系如图：</p>
-<p><img src="/images/AWS_Certification_Level.png" alt=""></p>
-<p>关于八个认证的难以程度即考取顺序建议如下：</p>
-<p><img src="/images/AWS_Certification_Easy_to_Hard.png" alt=""></p>
-<p>笔者选择先考助理架构师，意在先建立一个比较全面和高视角的认识，再考Developer和Sysops也会比较容易。<br>AWS认证是检测自己云计算领域知识最好的方式，同时也是增加求职筹码的一个不错的选择。</p>
-<h1 id="我的考试经历"><a href="#我的考试经历" class="headerlink" title="我的考试经历"></a>我的考试经历</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>笔者在准备考试前有一些AWS的使用经历，大部分在项目中使用，但服务涉及很窄，基本只限于创建instance，明白不同Subnet意味着不同网段。<br>为公司项目做过AWS的虚拟机方案预算，基本知道Instance Type以及Cost有关的一些东西。<br>从开始准备到正式考试大概两个月，每天投入3-4小时，主要花费在阅读文档和动手练习，另外还买了<a href="https://acloud.guru" target="_blank" rel="external">acloud.guru</a>上的一个课程，价格29美刀，没有购买AWS的练习题。</p>
-<h2 id="考前准备"><a href="#考前准备" class="headerlink" title="考前准备"></a>考前准备</h2><ul>
-<li>参考AWS官方<a href="https://aws.amazon.com/certification/certification-prep/" target="_blank" rel="external">考试介绍</a>定位考试的大致方向</li>
-<li>仔细阅读<a href="https://awstrainingandcertification.s3.amazonaws.com/production/AWS_certified_solutions_architect_associate_blueprint.pdf" target="_blank" rel="external">考试大纲</a>，了解考试设计到的知识点和大纲</li>
-<li>根据AWS的<a href="http://aws.amazon.com/cn/documentation/" target="_blank" rel="external">官方文档</a>梳理了<a href="https://www.duyidong.com/2017/02/28/AWS-Services-Overview/">AWS现有的重要服务</a></li>
-<li>认真过了一遍关于<a href="https://www.duyidong.com/2017/03/15/AWS-EC2/">EC2</a>，<a href="https://www.duyidong.com/2017/03/06/%E6%B5%85%E8%B0%88AWS-IAM/">IAM</a>，<a href="https://www.duyidong.com/2017/03/13/AWS-S3/">S3</a>有关的文档，这几个服务加上VPC和RDS为考察的重点，同时也是AWS的核心服务</li>
-<li>在AWS上做了一些操作练习，主要包括：<ul>
-<li>在AWS上搭建了public &amp; private subnet的<a href="https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Scenario2.html" target="_blank" rel="external">典型网络结构</a></li>
-<li>在AWS上搭建了一个ELB+Autoscaling的高可用的网站</li>
-<li><a href="https://www.duyidong.com/2017/03/07/Deploy-Hexo-to-S3/">将自己的博客迁移到AWS上</a>，并<a href="https://www.duyidong.com/2017/03/20/Enable-HTTPS-and-CDN-with-Cloudfront/">使用Cloudfront做CDN和Route53做DNS解析</a></li>
-</ul>
-</li>
-<li>仔细大量地阅读了<a href="https://aws.amazon.com/faqs/" target="_blank" rel="external">FAQ</a></li>
-<li>看了一下AWS的几个<a href="https://aws.amazon.com/whitepapers/" target="_blank" rel="external">白皮书</a>，包括<a href="https://d0.awsstatic.com/whitepapers/aws-overview.pdf" target="_blank" rel="external">AWS服务概览</a>，<a href="https://d0.awsstatic.com/whitepapers/architecture/AWS_Well-Architected_Framework.pdf" target="_blank" rel="external">关于架构</a>，<a href="https://d0.awsstatic.com/whitepapers/Security/AWS_Security_Best_Practices.pdf" target="_blank" rel="external">安全最佳实践</a>，<a href="https://d0.awsstatic.com/whitepapers/AWS_Cloud_Best_Practices.pdf" target="_blank" rel="external">AWS最佳实践</a>，主要认真理解了<a href="https://www.duyidong.com/2017/03/23/AWS-well-architected-framework/">什么样的架构是一个良好的架构</a></li>
-<li>做了大约两百道练习题，事实在上考试的时候有百分之二十的都是在见过的原题。</li>
-</ul>
-<h2 id="考试"><a href="#考试" class="headerlink" title="考试"></a>考试</h2><p>考试首先要在网上注册预约：<a href="https://www.webassessor.com" target="_blank" rel="external">https://www.webassessor.com</a>，需要visa卡支付，并提供公司名称，地址等信息。<br>考试地点在<a href="https://www.google.com/maps/place/Shangpu+Fortune+Center+Plaza/@30.6525977,104.0673653,17z/data=!3m1!4b1!4m5!3m4!1s0x36efc53df2a6a879:0x5c54ecee2ff20a3c!8m2!3d30.6525977!4d104.069554" target="_blank" rel="external">成都上普财富中心2514鸿景国际教育</a>，锦江宾馆地铁站出站走几步就是，是一家代理考试点，每次同时只有一个人考试，在一个独立的房间，有一位监考员，负责帮你准备考试的环境。考试原则上不允许带手机，使用考点的笔记本电脑，并且是远程连接到美国，所以网络会比较卡顿，经常做题做着做着就白屏了，需要刷新才能继续，有些考验心理素质。<br>考试是80分钟60道题，据说判断是否过关是根据一段时间考试的人的成绩取排名靠前的百分之六十的人作为比较，达到这个标准就算过关，考试完后立马知道分数。根据以往的经验，一般分数在65分以上可以过关。考试分单选和多选，多选题会有提示有几个选项，每道题可以标记“Mark this item for later review”，系统会在答题完成后给出所有待检查的题号以重新作答，还是比较方便的。<br>根据考试经验，得分往往会低于做的时候的感觉期望，由于考试时间并不紧张（笔者在完成答题后还剩半个小时交卷），一定要认真检查，最好知道每个题要考察你什么知识，很多题都是有坑的，如果你能把考察点说出来，这道题多半是没有问题的。<br>考试完后随即你就会在邮箱里收到一封这样的证书：</p>
-<p><img src="/images/AWS_Certification_SAA.jpeg" alt=""></p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>AWS方案解决架构师助理级的考试总的来说难度不大，主要考察的就是在何种需求场景下应该选择AWS的何种服务，考试分为设计一个符合<a href="https://www.duyidong.com/2017/03/23/AWS-well-architected-framework/">最好架构</a>设计原则的系统；工具和开发；安全；以及解决问题四个部分，<strong>设计一个良好的架构</strong>是最重要的也是最能体现云服务意义的，需要好好准备。<strong>工具和开发</strong>考察的是动手操作的能力，一般做够几个实验都没什么问题。<strong>安全</strong>方方面面都有涉及，考察的比较细致，主要是针对不同场景需要使用权限管理，网络管理，服务策略管理等不同方式，配合AWS的<a href="https://d0.awsstatic.com/whitepapers/Security/AWS_Security_Best_Practices.pdf" target="_blank" rel="external">安全最佳实践白皮书</a>问题不大。最后一个<strong>解决问题</strong>在AWS文档中很多部分都是Troubleshooting，比如<a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/TroubleshootingInstancesConnecting.html" target="_blank" rel="external">Troubleshooting Connecting to Your Instance</a>，<a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/troubleshoot.html" target="_blank" rel="external">Troubleshooting IAM</a>，<a href="https://aws.amazon.com/premiumsupport/knowledge-center/elb-connectivity-troubleshooting/" target="_blank" rel="external">Elastic Load Balancing Connectivity Troubleshooting</a>都是可能被考察的内容，需要阅读文档的时候足够仔细。<br>另外，给出一些考试资料供参考：</p>
-<blockquote>
-<ul>
-<li>AWS测试题：<ul>
-<li><a href="https://quizlet.com/152377618/aws-certified-solutions-architect-associate-practice-questions-flash-cards/" target="_blank" rel="external">https://quizlet.com/152377618/aws-certified-solutions-architect-associate-practice-questions-flash-cards/</a></li>
-<li><a href="http://www.aiotestking.com/amazon/category/exam-aws-saa-aws-certified-solutions-architect-associate/" target="_blank" rel="external">http://www.aiotestking.com/amazon/category/exam-aws-saa-aws-certified-solutions-architect-associate/</a></li>
-</ul>
-</li>
-<li>一个关于考试的feedback: <a href="https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-KSDNs4nfg5ikp6yBN9l/exam_feedback_-_20_specific_po" target="_blank" rel="external">https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-KSDNs4nfg5ikp6yBN9l/exam<em>feedback</em>-_20_specific_po</a></li>
-<li>AWS博客：<a href="https://aws.amazon.com/blogs/aws/" target="_blank" rel="external">https://aws.amazon.com/blogs/aws/</a></li>
-<li>两篇同事的博客：<ul>
-<li><a href="http://www.huangbowen.net/blog/2014/10/27/how-to-pass-the-aws-certification/" target="_blank" rel="external">http://www.huangbowen.net/blog/2014/10/27/how-to-pass-the-aws-certification/</a></li>
-<li><a href="http://www.jianshu.com/p/02233ae66b80" target="_blank" rel="external">http://www.jianshu.com/p/02233ae66b80</a></li>
-</ul>
-</li>
-<li>Jayendra的博客：<a href="http://jayendrapatil.com/" target="_blank" rel="external">http://jayendrapatil.com/</a></li>
-<li>Youtube上deep dive的视频：<a href="https://www.youtube.com/results?search_query=aws+deep+dive" target="_blank" rel="external">https://www.youtube.com/results?search_query=aws+deep+dive</a></li>
-<li>AWS官方教学小视频： <a href="https://aws.amazon.com/training/intro_series/" target="_blank" rel="external">https://aws.amazon.com/training/intro_series/</a></li>
-</ul>
-</blockquote>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;上周去参加了AWS助理级架构师的考试并顺利通过，是2017年的第一个小目标也是对云服务知识的一个检验，在此分享一下考试的经过和经验。&lt;/p&gt;
-&lt;h1 id=&quot;什么是AWS认证&quot;&gt;&lt;a href=&quot;#什么是AWS认证&quot; class=&quot;headerlink&quot; title=&quot;什么
-    
-    </summary>
-    
-      <category term="Amazon Web Services" scheme="https://www.duyidong.com/categories/Amazon-Web-Services/"/>
-    
-    
-      <category term="学习" scheme="https://www.duyidong.com/tags/%E5%AD%A6%E4%B9%A0/"/>
-    
-      <category term="AWS" scheme="https://www.duyidong.com/tags/AWS/"/>
-    
-      <category term="云计算认证" scheme="https://www.duyidong.com/tags/%E4%BA%91%E8%AE%A1%E7%AE%97%E8%AE%A4%E8%AF%81/"/>
-    
-      <category term="Certification" scheme="https://www.duyidong.com/tags/Certification/"/>
-    
-      <category term="AWS认证考试" scheme="https://www.duyidong.com/tags/AWS%E8%AE%A4%E8%AF%81%E8%80%83%E8%AF%95/"/>
     
   </entry>
   

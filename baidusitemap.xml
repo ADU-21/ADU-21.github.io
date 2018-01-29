@@ -3,6 +3,28 @@
 
 
     
+  <url>
+    <loc>https://www.duyidong.com/2018/01/26/about-HTTPS/</loc>
+    <lastmod>2018-01-29T07:33:15.000Z</lastmod>
+    <data>
+        <display>
+        <title>细说HTTPS</title>
+        <pubTime>2018-01-26T01:41:27.000Z</pubTime>
+        
+        <tag>HTTPS</tag>
+         
+        <tag>HTTP</tag>
+         
+         
+           
+             
+              <breadCrumb title="学习总结" url="https://www.duyidong.com/categories/%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
     
     
   <url>
@@ -1033,11 +1055,11 @@
         <title>ThoughtWorks第一周学习总结</title>
         <pubTime>2016-05-24T13:44:57.000Z</pubTime>
         
+        <tag>ThoughtWorks</tag>
+         
         <tag>学习</tag>
          
         <tag>小结</tag>
-         
-        <tag>ThoughtWorks</tag>
          
          
            
@@ -1151,9 +1173,9 @@
         
         <tag>AWS</tag>
          
-        <tag>Blog</tag>
-         
         <tag>S3</tag>
+         
+        <tag>Blog</tag>
          
         <tag>Hexo</tag>
          

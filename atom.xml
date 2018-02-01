@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.duyidong.com/"/>
-  <updated>2018-01-29T07:33:15.000Z</updated>
+  <updated>2018-02-01T12:18:35.000Z</updated>
   <id>https://www.duyidong.com/</id>
   
   <author>
@@ -16,11 +16,89 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Java系列（一）——JVM内存</title>
+    <link href="https://www.duyidong.com/2018/01/31/jvm/"/>
+    <id>https://www.duyidong.com/2018/01/31/jvm/</id>
+    <published>2018-01-31T00:57:05.000Z</published>
+    <updated>2018-02-01T12:18:35.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>成都近日气温已逾零下。让我想起在赤峰拍戏的日子，八月凌晨三点，茶水车推出来就有一层冰溜子，18 个人抢 8 件军大衣，有人要去扒箱车，制片大喊：“别动！那是给领导穿的” —— 生活如此不易。如今我更加体会到“平凡的生活也要靠努力去争取”。</p>
+<h1 id="什么是-JVM"><a href="#什么是-JVM" class="headerlink" title="什么是 JVM"></a>什么是 JVM</h1><p>JVM（Java Virtual Machine Java 虚拟机）是一种用于计算设备的规范，基于这套规范，许多团队开发了多种<a href="https://en.wikipedia.org/wiki/List_of_Java_virtual_machines" target="_blank" rel="external">不同的虚拟机实现</a>，目前使用范围最广的是从 Sun 公司开始，到 Oracle 后一直在使用 的 HotSpot 以及 <a href="http://openjdk.java.net/" target="_blank" rel="external">Open JDK</a>，二者一个由 Oracle 公司维护，一个由开源社区维护，使用起来并没有太大差别。</p>
+<pre><code>$java -version
+java version &quot;1.8.0_91&quot;
+Java(TM) SE Runtime Environment (build 1.8.0_91-b14)
+Java HotSpot(TM) 64-Bit Server VM (build 25.91-b14, mixed mode)
+</code></pre><h1 id="名词释义"><a href="#名词释义" class="headerlink" title="名词释义"></a>名词释义</h1><p><strong>JRE</strong>(JavaRuntimeEnvironment，Java运行环境)，包含了 Java API 类库中的 Java SE API 子集和 Java 虚拟机两部分，所有的Java 程序都要在JRE下才能运行。普通用户只需要运行已开发好的java程序，安装JRE即可。</p>
+<p><strong>JDK</strong>(Java Development Kit) 包含了 Java 程序设计语言、 Java 虚拟机、Java API 类库三部分，是支持 Java 程序开发的最小环境，包含了开发者用来来编译、调试java程序用的开发工具包。JDK的工具也是Java程序，也需要JRE才能运行。为了保持JDK的独立性和完整性，在JDK的安装过程中，JRE也是 安装的一部分。所以，在JDK的安装目录下有一个名为jre的目录，用于存放JRE文件。</p>
+<p><strong>JVM</strong> 是JRE的一部分。它是一个虚构出来的计算机，是通过在实际的计算机上仿真模拟各种计算机功能来实现的。JVM有自己完善的硬件架构，如处理器、堆栈、寄存器等，还具有相应的指令系统。Java语言最重要的特点就是跨平台运行。使用JVM就是为了支持与操作系统无关，实现跨平台。</p>
+<p><strong>Java SE</strong>（Standard Edition）Java 标准版，提供完整的 Java  核心 API，我们通常在 Oracle 下载的 JDK 全称就是“Java SE Development Kit”。</p>
+<p><strong>Java EE</strong> （Enterprise Edition）Java 企业版，包含了 Java SE 并增加了附加类库，Java EE是以Java SE为基础的。所以并没有“JVM for Java EE”这么一说，只有“JVM for Java SE”，可以用于Java SE与Java EE。</p>
+<p><img src="/images/Java_Tech.png" alt=""></p>
+<center> <strong>Java 技术体系包含的内容</strong> 图片来自：<a href="https://docs.oracle.com/javase/8/docs/" target="_blank" rel="external">https://docs.oracle.com/javase/8/docs/</a></center>
+
+
+<h1 id="JVM运行时数据区"><a href="#JVM运行时数据区" class="headerlink" title="JVM运行时数据区"></a>JVM运行时数据区</h1><p>根据 <a href="https://files.cnblogs.com/files/zhuYears/Java%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%A7%84%E8%8C%83%EF%BC%88JavaSE7%EF%BC%89.pdf" target="_blank" rel="external">Java 虚拟机规范</a>（<a href="https://docs.oracle.com/javase/specs/jvms/se8/html/index.html" target="_blank" rel="external">最新版</a>）规定，Java 虚拟机所管理的内存将会包括以下几个运行时数据区域，如图所示：</p>
+<p><img src="/images/JVM_architecture.png" alt=""></p>
+<p><strong>程序计数器（Program Counter Register）</strong>: 可以看作是当前线程所执行的字节码的行号指示器，字节码解释器通过改变这个计数器的值来选取下一条需要执行的字节码指令，分支、循环、跳转、异常处理、线程恢复等基础功能都需要依赖这个计数器完成。PC Register 是线程私有的内存，每个线程的计数器是独立存储的，如果线程执行的是一个 Java 方法，这个计数器记录的就是正在执行的虚拟机字节码地址，如果正在执行的是 Native 方法，则计数器为空。<br>PC register 内存区域是 Java 虚拟机规范中唯一一个没有规定任何 OutOfMemoryError 情况的区域。</p>
+<p><strong>Java 虚拟机栈（Java Virtual Machine Stacks ）</strong>有着和线程相同的生命周期，每一个方法从调用到完成，都对应着一个栈帧（Stack Frame）在虚拟机中入栈到出栈的过程，栈帧用于存放局部变量表、操作数栈、动态链接、方法出口等信息。局部变量表存放了编译器克制的各种基本数据类型以及对象引用，其内存空间在编译期间完成分配，当进入一个方法时这个方法需要在帧中分配多少局部变量空间是完全确定的，在方法运行期间不会改变局部变量表的大小。<br>当线程请求的栈深度大于虚拟机允许的深度，将抛出 StackOveflowError；<br>当虚拟机扩展时也无法申请到足够的内存，将抛出 OutOfMemoryError.</p>
+<p><strong>本地方法栈（Native Method Stack）</strong>用于执行 Java 方法以外的本地方法，没有过多限制，由虚拟机自由实现。Sun HotSpot VM 就把 Native Method Stack 和 VM Stack 合二为一。<br>和 JVM Stack 一样，Native Method Stack 也有 OutOfMemoryError 和 StackOverflowError 两个 Error。</p>
+<p><strong>Java 堆（Java Heap）</strong>存放几乎所有的对象实例，也是 GC（Garbage Collection）发生的主要区域，被所有线程共享。因为 GC 的需求，Heap 可以再被细分为新生代和老年代，但是与其储存的内容无关。Java Heap 应该可以处于物理上不连续的内存空间中，只要逻辑上是连续的即可，就像我们的磁盘空间一样。Heap 既可以固定大小也可以动态扩展。<br>如果 Heap 中没有内存完成实例分配，且堆无法再扩展，则会抛出 OutOfMemoryError。</p>
+<p><strong>方法区（Method Area）</strong>用于存放类信息、常量、静态变量等数据，结构上和 Heap 一致，功能上却要加以区分。在 Java8 以前，这块区域对应的是 GC 的“永久代”（Permanent Generation），java8 后被更名为“元空间”（MetaSpace）。<br>当方法区无法满足内存需求时会抛出 OutOfMemoryError 异常。</p>
+<p><strong>运行时常量池（Runtime Constant Pool）</strong>是方法区的一部分，用于存放编译期生成的各种字面量和符号。避免了频繁的创建和销毁对象而影响系统性能，实现了对象的共享，节省了内存空间和运行时间。值得说明的是，运行时常量池具备动态特性，常量不止在编译期可以产生，在运行期间也可以产生。</p>
+<h1 id="对象的创建"><a href="#对象的创建" class="headerlink" title="对象的创建"></a>对象的创建</h1><ol>
+<li>在常量池中检查是否已有该类的符号引用，并检查该类是否已初始化，如果没有则需要加载该类。</li>
+<li>在 Heap 中为对象分配内存：指针碰撞（Bump the Pointer）、空闲列表（Free List），取决于 Java 堆是否规整；除此之外出于虑线程安全的考虑，使用 CAS（Compare and Swap）和失败重试的方式保证操作的原子性。也可以用 TLAB（Thread Local Allocation Buffer），即预先给线程匹配缓冲内存的方式实现。</li>
+<li>内存分配完成后，虚拟机会将该部分内存除了头以外的空间初始化为零，这就是为什么 Java 中的对象可以不赋初值就使用。</li>
+<li>对对象头进行设置，如这个对象是属于哪个类的实例、如何才能找到类的元数组信息、对象哈希码、 GC 分代年龄、锁状态标志等信息。</li>
+<li>执行完 new 之后会接着执行 init 方法，把对象按照程序员的意愿初始化，一个真正可用的对象才算完全被初始化出来。  </li>
+</ol>
+<h1 id="对象的内存布局"><a href="#对象的内存布局" class="headerlink" title="对象的内存布局"></a>对象的内存布局</h1><ul>
+<li><strong>对象头</strong>（Header）<br>  第一部分：用于存储对象自身的运行时数据，成为“Mark Word”，被设计为一个非固定结构的数据结构，它会根据对象的状态复用自己的存储空间。<br>  第二部分：类型指针，用于指向它的类元数据③，虚拟机能通过这个指针确定这个对象是哪个类的实例。（非必须）</li>
+<li><strong>实例数据</strong>（Instance Data）<br>  程序代码中定义的各种类型字段内容。HotSpot 虚拟默认分配策略是等长字段分配到一起，从父类继承来的变量在子类之前，子类变量较窄的值也可能插入到父变量的空隙中。</li>
+<li><strong>对齐填充</strong>（Padding）<br>  占位符（非必须）。填满8字节的整数倍。</li>
+</ul>
+<h2 id="关于锁"><a href="#关于锁" class="headerlink" title="关于锁"></a>关于锁</h2><p>独占锁是一种<strong>悲观锁</strong>，synchronized就是一种独占锁，它假设最坏的情况，并且只有在确保其它线程不会造成干扰的情况下执行，会导致其它所有需要锁的线程挂起，等待持有锁的线程释放锁。而另一个更加有效的锁就是<strong>乐观锁</strong>。所谓乐观锁就是，每次不加锁而是假设没有冲突而去完成某项操作，如果因为冲突失败就重试，直到成功为止。CAS是项乐观锁技术，当多个线程尝试使用CAS同时更新同一个变量时，只有其中一个线程能更新变量的值，而其它线程都失败，失败的线程并不会被挂起，而是被告知这次竞争中失败，并可以再次尝试。</p>
+<h1 id="对象定位"><a href="#对象定位" class="headerlink" title="对象定位"></a>对象定位</h1><p>Java 对象的使用是通过 Stack 的 reference 数据来操作的，通常的实现方式有两种：使用句柄 和 直接指针。</p>
+<ul>
+<li>句柄访问：Java 堆中将分配一块句柄池，用于 Map 句柄地址和对象实例以及类型数据的指针，这种方式 Reference 里保存的信息就是句柄地址。</li>
+<li>指针访问：Reference 中储存的是 Java 堆中对象的地址，这个对象中就要考虑如何放置类型数据相关的信息，这部分信息在方法区里。</li>
+</ul>
+<p>句柄访问的好处在于可以灵活应对对象被移动的情况而不需要改变 Stack 里的 Reference，缺点是维护多一个表增大了时间上的开销，所以 Sun HotSpot 使用直接指针的方式进行对象访问。</p>
+<blockquote>
+<ul>
+<li><strong>References：</strong></li>
+<li><a href="https://www.jianshu.com/p/18fbb32f17b6" target="_blank" rel="external"> JVM类型与模式[java -version]</a></li>
+<li><a href="https://www.jianshu.com/p/28639d7a00fe" target="_blank" rel="external">https://www.jianshu.com/p/28639d7a00fe</a></li>
+<li><a href="https://www.zhihu.com/question/29265430" target="_blank" rel="external">https://www.zhihu.com/question/29265430</a></li>
+<li><a href="https://yq.aliyun.com/articles/52426" target="_blank" rel="external">阿里云栖社区：Jvm原理剖析与调优之内存结构</a></li>
+<li><a href="https://blog.brucefeng.info/post/jvm-architecture" target="_blank" rel="external">JVM结构</a></li>
+<li><a href="https://www.jianshu.com/p/c7f47de2ee80" target="_blank" rel="external">https://www.jianshu.com/p/c7f47de2ee80</a></li>
+<li><a href="http://blog.csdn.net/aesop_wubo/article/details/7537960" target="_blank" rel="external">JAVA并发编程学习笔记之CAS操作</a></li>
+<li><a href="http://www.cnblogs.com/Mainz/p/3546347.html" target="_blank" rel="external">非阻塞同步算法与CAS(Compare and Swap) 无锁算法</a></li>
+<li><a href="http://www.importnew.com/20472.html" target="_blank" rel="external">乐观锁的一种实现方式——CAS</a></li>
+<li><a href="http://blog.csdn.net/zqz_zqz/article/details/70233767" target="_blank" rel="external">java 中的锁 – 偏向锁、轻量级锁、自旋锁、重量级锁*</a></li>
+</ul>
+</blockquote>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;成都近日气温已逾零下。让我想起在赤峰拍戏的日子，八月凌晨三点，茶水车推出来就有一层冰溜子，18 个人抢 8 件军大衣，有人要去扒箱车，制片大喊：“别动！那是给领导穿的” —— 生活如此不易。如今我更加体会到“平凡的生活也要靠努力去争取”。&lt;/p&gt;
+&lt;h1 id=&quot;什么是-J
+    
+    </summary>
+    
+    
+      <category term="Java" scheme="https://www.duyidong.com/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
     <title>细说HTTPS</title>
     <link href="https://www.duyidong.com/2018/01/26/about-HTTPS/"/>
     <id>https://www.duyidong.com/2018/01/26/about-HTTPS/</id>
     <published>2018-01-26T01:41:27.000Z</published>
-    <updated>2018-01-29T07:33:15.000Z</updated>
+    <updated>2018-02-01T11:24:53.000Z</updated>
     
     <content type="html"><![CDATA[<p>最近客户公司经历了一次大的证书升级，内网许多服务之间的调用出现了证书过期或是不授信的问题。前面我写过两篇文章介绍<a href="https://www.duyidong.com/2016/03/30/HTTP%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3/">HTTP协议</a>以及<a href="https://www.duyidong.com/2016/04/17/%E4%B8%80%E6%AC%A1%E5%AE%8C%E6%95%B4%E7%9A%84HTTP%E4%BA%8B%E5%8A%A1%E6%98%AF%E6%80%8E%E6%A0%B7%E4%B8%80%E4%B8%AA%E8%BF%87%E7%A8%8B%EF%BC%9F/">一次完整的HTTP事务是怎样一个过程</a>，这篇文章主要介绍一个大家日常工作中都在打交道但却不一定很熟悉的协议 —— HTTPS。</p>
 <h1 id="名词澄清"><a href="#名词澄清" class="headerlink" title="名词澄清"></a>名词澄清</h1><p>HTTPS 服务是工作在 SSL/TLS 上 的HTTP。</p>
@@ -32,7 +110,7 @@
 <li>OpenSSL是TLS/SSL协议的开源实现，提供开发库和命令行程序；</li>
 <li>HTTPS是HTTP的加密版，底层使用的加密协议是TLS。</li>
 </ol>
-<p>结论：SSL/TLS 是协议，OpenSSL是协议的代码实现。</p>
+<p>结论：SSL/TLS 是协议，OpenSSL是协议的代码实现。Sun HotSpot 的 jdk 中提供了一个叫 keytool 的工具，有和 openssl 差不多的功能。</p>
 <h1 id="为什么我们需要-HTTPS"><a href="#为什么我们需要-HTTPS" class="headerlink" title="为什么我们需要 HTTPS"></a>为什么我们需要 HTTPS</h1><p>根据<a href="www.ruanyifeng.com/blog/2014/02/ssl_tls.html">阮一峰的SSL/TLS协议运行机制的概述</a>，HTTP 通信有三大风险：</p>
 <pre><code>（1） 窃听风险（eavesdropping）：第三方可以获知通信内容。
 
@@ -67,7 +145,7 @@
 <p>总上所述，一次完整的 HTTPS 连接的建立，加上证书验证，应该是这样的：</p>
 <p><img src="/images/HTTPS_handshake.png" alt=""></p>
 <p>关于这张图片的相信描述，可以参考：<a href="http://www.cnblogs.com/zhuqil/archive/2012/07/23/2604572.html" target="_blank" rel="external">图解HTTPS</a></p>
-<h1 id="自签名证书"><a href="#自签名证书" class="headerlink" title="自签名证书"></a>自签名证书</h1><p>以上的案例都是在公网，但是很多企业内部出于安全都会有内网 HTTPS 的需求，就涉及到证书自签名和授信。这里有一个完整的<a href="https://yi-love.github.io/blog/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/2017/07/15/https-ca.html" target="_blank" rel="external">教程</a>教你如何搭建一个包含自签名证书的网站，归纳一下大致分为这五步：</p>
+<h1 id="自签证书"><a href="#自签证书" class="headerlink" title="自签证书"></a>自签证书</h1><p>根证书没有上层机构再为其本身作数字签名，所以都是<strong>自签证书</strong>，操作系统以及浏览器会预先安装可被信任的根证书，这代表用户授权了应用软件代为审核哪些根证书机构属于可靠，很多企业内部出于安全都会有内网 HTTPS 的需求，就涉及到证书自签名和授信。这里有一个完整的<a href="https://yi-love.github.io/blog/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/2017/07/15/https-ca.html" target="_blank" rel="external">教程</a>教你如何搭建一个包含自签名证书的网站，归纳一下大致分为这五步：</p>
 <pre><code>1. 准备 CA 机构所需资质：ca.key (CA机构私钥) -&gt; ca.csr（Cerificate Signing Request， CA机构请求文件） （带机构信息）
 2. CA 机构申请证书： ca.key + ca.csr -&gt; ca.crt（CA 机构证书） 
 3. 服务器准备申请所需资质：server.key -&gt; server.csr （带机构信息）
@@ -87,7 +165,7 @@ SSLCertificateKeyFile &quot;/path/to/server.key&quot;
 <h1 id="关于各式各样的证书格式"><a href="#关于各式各样的证书格式" class="headerlink" title="关于各式各样的证书格式"></a>关于各式各样的证书格式</h1><p>前面我们已经提到 csr（请求文件）、key （私钥文件）、jks（KeyStore文件）、crt（证书文件）几种文件类型，但我们往往还会看到证书有关的 <em>.pem, </em>.crt, <em>.ca-bundle, </em>.cer, <em>.p7b, </em>.p7s 这些文件后缀名，这些文件其实都是一个或多个证书练的压缩格式，例如 p7b 格式的文件可以在 windows 平台下展开看到证书链，并且可以直接安装在 windows 系统中。不同格式的证书包是可以互相转换的，参见：<a href="https://support.ssl.com/Knowledgebase/Article/View/19/0/der-vs-crt-vs-cer-vs-pem-certificates-and-how-to-convert-them" target="_blank" rel="external">DER vs. CRT vs. CER vs. PEM Certificates and How To Convert Them</a></p>
 <blockquote>
 <ul>
-<li>Refer: </li>
+<li>Reference: </li>
 <li><a href="https://yi-love.github.io/blog/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/2017/07/15/https-ca.html" target="_blank" rel="external">https://yi-love.github.io/blog/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/2017/07/15/https-ca.html</a></li>
 <li><a href="http://www.ruanyifeng.com/blog/2014/02/ssl_tls.html" target="_blank" rel="external">http://www.ruanyifeng.com/blog/2014/02/ssl_tls.html</a></li>
 <li><a href="https://www.pianyissl.com/support/page/10" target="_blank" rel="external">https://www.pianyissl.com/support/page/10</a></li>
@@ -2289,414 +2367,6 @@ def test_hosts_file(File):
       <category term="基础设施即代码" scheme="https://www.duyidong.com/tags/%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E5%8D%B3%E4%BB%A3%E7%A0%81/"/>
     
       <category term="持续交付" scheme="https://www.duyidong.com/tags/%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>离骚</title>
-    <link href="https://www.duyidong.com/2017/04/12/leave-TW/"/>
-    <id>https://www.duyidong.com/2017/04/12/leave-TW/</id>
-    <published>2017-04-11T16:01:40.000Z</published>
-    <updated>2017-09-15T10:52:13.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>最近在公司的离职群里出现了一个调查问卷，我觉得很有意思，引发了我对ThoughtWorks的一些思考，顺手贴在这里。</p>
-<p>另，骚窝为ThoughtWorks音译，所以从骚窝离职的人被称为离骚。</p>
-<pre><code>【骚人一】在骚窝4年多，2015年4月离开
-
-
-离开骚窝后，有什么让你兴奋？
-
-至少在一开始，创业让我兴奋；做一个自己的产品让我兴奋；
-
-现在的工作和生活方式，与在骚窝最大的不同是什么？
-
-用自己喜欢的技术让我兴奋。
-
-你认为骚窝对你最大的改变是什么？
-
-认识了一大帮牛人，体验到最好的开发方式，开拓了视野。
-
-你最怀念骚窝哪一点儿？
-
-骚！引领技术风骚！
-
-你想对骚窝或者骚窝的某个人说几句话吗？
-
-好多熟人都走了，现在回公司，有点陌生了。所以不知道说啥。
-</code></pre><pre><code>【骚人二】在骚窝3年多，2009年底离开
-
-
-离开骚窝后，有什么让你兴奋？
-
-孩子的成长。
-
-现在的工作和生活方式，与在骚窝最大的不同是什么？
-
-出差。
-
-你认为骚窝对你最大的改变是什么？
-
-敏捷方法及时间管理观念（time box，迭代等）
-
-你最怀念骚窝哪一点儿？
-
-温馨的工作分氛围
-
-你想对骚窝或者骚窝的某个人说几句话吗？
-
-所有在TW一起工作过的同事：谢谢你们，依然怀念和你们在一起的时光。
-</code></pre><pre><code>【骚人三】在骚窝3个月，2015年底离开
-
-
-离开骚窝后，有什么让你兴奋？
-
-重新聚焦自身优势
-
-现在的工作和生活方式，与在骚窝最大的不同是什么？
-
-没那么活跃了，也规律了
-
-你认为骚窝对你最大的改变是什么？
-
-不大。
-
-你最怀念骚窝哪一点儿？
-
-骨子里的自由和文艺。
-</code></pre><pre><code>【骚人四】在骚窝5年，2016年7月离开
-
-
-离开骚窝后，有什么让你兴奋？
-
-全心做自己公司的产品，而不是作为vendor。
-
-现在的工作和生活方式，与在骚窝最大的不同是什么？
-
-公司几乎不用微信群沟通（工作上的和工作外的）。
-
-你认为骚窝对你最大的改变是什么？
-
-不断提升自己，接受反馈，提供反馈。
-
-你最怀念骚窝哪一点儿？
-
-一帮人在想办法提升工作效率。
-
-你想对骚窝或者骚窝的某个人说几句话吗？
-
-ThoughtWorks 一直是高标准。怀恋这个程序员的天堂。
-</code></pre><pre><code>【骚人五】在骚窝1年，2016年10月离开
-
-
-离开骚窝后，有什么让你兴奋？
-
-待遇更高了，可以去产品公司了。
-
-现在的工作和生活方式，与在骚窝最大的不同是什么？
-
-在腾讯天天出差。
-
-你认为骚窝对你最大的改变是什么？
-
-对敏捷了解更深，更敢说，企业文化无比认同。
-
-你最怀念骚窝哪一点儿？
-
-扁平化，没心机，简单，单纯，企业文化。
-</code></pre><pre><code>【骚人七】在骚窝5年，2013年离开
-
-
-离开骚窝后，有什么让你兴奋？
-
-有自己的团队了。
-
-现在的工作和生活方式，与在骚窝最大的不同是什么？
-
-执行多了，讨论少了。
-
-你认为骚窝对你最大的改变是什么？
-
-批判性思维，闭环的方法论。
-
-你最怀念骚窝哪一点儿？
-
-人聪明，沟通不费劲。
-
-你想对骚窝或者骚窝的某个人说几句话吗？
-
-一时竟然想不起该说啥...
-</code></pre><pre><code>【骚人八】在骚窝4年，2014年离开
-
-
-离开骚窝后，有什么让你兴奋？
-
-移民了。
-
-现在的工作和生活方式，与在骚窝最大的不同是什么？
-
-毕竟是还了个国家，生活方式截然不同。
-
-你认为骚窝对你最大的改变是什么？
-
-ThoughtWorks给我了太多人生的第一次。
-
-第一次做开源项目，第一次做公开演讲，第一次做售前，第一次做咨询，第一次被人骂代码写得差，第一次把项目做失败……如果没有ThoughtWorks这个平台，可能我依然在过着庸庸碌碌的日子，抱怨现实的压力但又不去设计自己的未来。
-
-这里很累、辛苦、费脑子，在ThoughtWorks注定了要迎接一个又一个挑战，而且很多都是突如其来的。比如在你开会的时候销售总监把你拉出来说过几天有个项目要上，你去一下。
-
-这里有很多很优秀的人，而且更重要的是，他们完全不吝啬将自己的经验、经历、思考问题的过程拿出来跟人分享。当看到他们的邮件他们的博客，我就有种感觉，这些人的存在完全就是为了在你前行的路上亮起一盏灯光，甚至供你仰望的。但这种感觉很好。当你困惑的时候有人诉说，当你懈怠的时候知道其他人都在干什么。
-
-在出差的过程中你会跟同事们结下深厚的友谊，一起准备session，总结回顾，规划项目前景，解决疑难……一切的一切，在过往的工作经历中都是体会不到的。
-
-有一天我选择了走自己的路，但是我前些日子面试的时候，面试官是ThoughtWorks墨尔本办公室之前的Mobile Tech Lead，我问他跟我结对编程过后的感受，他说，“感觉很舒服，很自在，就像回到了ThoughtWorks一样”。那一刻我深刻的感觉到了四年间ThoughtWorks在我身上留下的烙印。
-
-你最怀念骚窝哪一点儿？
-
-人。
-</code></pre><pre><code>【骚人九】在骚窝4年,2016年离开
-
-
-离开骚窝后，有什么让你兴奋？
-
-投入到建设国家健康医疗大数据平台的试点工程中
-
-你现在的工作和生活方式，与在骚窝最大的不同是什么?
-
-周围可用的人才太少，或者可塑之才太少
-
-你认为骚窝对你最大的改变是什么？
-
-开放的理念，社会公正的实践，当然也有自己技术上的提高
-
-你最怀念骚窝哪一点儿？
-
-随便抓个人都能打硬仗
-
-你想对骚窝或者骚窝的某个人说几句话吗?
-
-加油
-</code></pre><pre><code>【骚人十】在骚窝3年,3年前离开
-
-离开骚窝后，有什么让你兴奋？
-
-干事终有有头有尾了。
-
-你现在的工作和生活方式，与在骚窝最大的不同是什么?
-
-专注，可以专注于一个产品，围着这个产品方方面面都做。
-
-全功能，技术不再是唯一的关注点，市场，运营，业务，营收，广告，管理团队，修网络，搭VPN，交办公室租金，给新来的小朋友买电脑，和打扫卫生的阿姨唠嗑......
-
-你认为骚窝对你最大的改变是什么？
-
-开阔了视野，给了一种可能
-
-你最怀念骚窝哪一点儿？
-
-人，还是那帮人，虽然大部分都离职了
-
-你想对骚窝或者骚窝的某个人说几句话吗?
-
-喵同学，你还在等什么
-</code></pre><pre><code>【骚人十一】在骚窝两年半,一零年一月离开
-
-
-离开骚窝后，有什么让你兴奋？
-
-拿到了全额奖学金去美国读书了。当学生的感觉和在骚窝差不多，一样兴奋😊 毕业后去了谷歌
-
-你现在的工作和生活方式，与在骚窝最大的不同是什么?
-
-我现在在谷歌总部的搜索架构组，需要是做大规模的并发系统的开发和优化。这里软件过程比较少。需求都是自己提的。少了些思想的碰撞。当然赚的多了些😄
-
-你认为骚窝对你最大的改变是什么？
-
-接触到不同的客户锻炼到自己的同理心了。了解到了每个人看问题的不同角度。当然明白了软件开发的流程。现在我还在用这些方式来组织我带领的技术小组的开发工作。
-
-你最怀念骚窝哪一点儿？
-
-结对编程😄很喜欢和不同的人工作。学到很多知识、结识了很对朋友
-
-你想对骚窝或者骚窝的某个人说几句话吗?
-
-当时走得很匆忙，没能和大家打好招呼。后来的这些年很想念大家。希望有机会能再见。
-</code></pre><pre><code>【骚人十四】在骚窝4年半,2013.05离开
-
-离开骚窝后，有什么让你兴奋？
-
-业余生活丰富起来，聚会多起来。好奇怪，很多人说国外好寂寞。
-
-你现在的工作和生活方式，与在骚窝最大的不同是什么?
-
-工作：各种不靠谱程序员，各种号称扁平是管理的老板。
-
-生活变化不大。
-
-你认为骚窝对你最大的改变是什么？
-
-在职场人和人可以这样高效自组织协作。
-
-你最怀念骚窝哪一点儿？
-
-feedback，开放式协作
-
-你想对骚窝或者骚窝的某个人说几句话吗?
-
-你仍然是我爱的最深的那家前公司。你最初的梦想是很多人至今的梦想，在我们心里你永远祝福你不忘初心。
-</code></pre><pre><code>【骚人十五】在骚窝一年半,2016年离开
-
-是否得到了当初离开时想要追求的东西？
-
-是
-
-离开骚窝后，有什么让你兴奋？
-
-周围同事平均水平更高了，不用和客户撕扯了，可以专心做东西
-
-你现在的工作和生活方式，与在骚窝最大的不同是什么?
-
-不用每天各种会和敏捷形式化了
-
-你认为骚窝对你最大的改变是什么？
-
-敏捷开发更适合交付项目
-
-你最怀念骚窝哪一点儿？
-
-压力小，交付项目做完就不用操心维护和业务了，不用oncall
-
-你想对骚窝或者骚窝的某个人说几句话吗?
-
-谢谢大家的帮忙^_^美帝血汗工厂的微服务做的一点也不好^_^
-</code></pre><pre><code>【骚人十六】在骚窝俩年多,2013年底离开
-
-是否得到了当初离开时想要追求的东西？
-
-离开时没有什么新的追求
-
-离开骚窝后，有什么让你兴奋？
-
-做不同的事情，尝试不同的岗位
-
-你现在的工作和生活方式，与在骚窝最大的不同是什么?
-
-自由
-
-你认为骚窝对你最大的改变是什么？
-
-觉得牛人还是很多的，上学的时候觉得牛人太少
-
-你最怀念骚窝哪一点儿？
-
-年轻的朋友们
-</code></pre><pre><code>【骚人十七】在骚窝1.3,2015离开
-
-是否得到了当初离开时想要追求的东西？
-
-差不多
-
-离开骚窝后，有什么让你兴奋？
-
-能将自己所学的项目管理方法，学以致用，以证明自己哪些是用的，哪些是错的。
-
-你现在的工作和生活方式，与在骚窝最大的不同是什么?
-
-生活方式没有变，工作变了，要学会适应非全功能团队的协作方式（可以是中国传统的协作方式）
-
-你认为骚窝对你最大的改变是什么？
-
-思维方式变了。也变得更包容了。眼界变得开拓了。
-
-你最怀念骚窝哪一点儿？
-
-在TW待过两个团队，和他们一起工作时的氛围。也就是和他们一起工作太开心了。
-
-你想对骚窝或者骚窝的某个人说几句话吗?
-
-胡凯，感谢你抽时间回复我邮件，帮助我成长。还有，你是对的，我真的又离职了，产品终归是别人的，我没有能“做自己的产品”。
-
-我知道了，除非自己做老板，不可能完全做自己的产品。
-</code></pre><pre><code>【骚人十八】在骚窝1年,2016-10离开
-
-是否得到了当初离开时想要追求的东西？
-
-追求的东西一直都在变化，随着年龄的增长追求的内容也不同，离开以后发现了更多需要自己去熟悉的内容，不仅仅局限在dev范围内部。有得也有失。
-
-离开骚窝后，有什么让你兴奋？
-
-可以全身心的工作到自己的产品中，在离骚每个项目做完以后，就会有另一个项目等着你，之前做过的项目到底是否成功，用户量有多大，并没有多少反馈。项目的结束给我带来的成就感远远小于自己做一个产品上线以后，看到不断有用户注册时的激动。
-
-你现在的工作和生活方式，与在骚窝最大的不同是什么?
-
-不用天天在客户现场应对各种问题和challenge.
-
-你认为骚窝对你最大的改变是什么？
-
-对技术栈的重新定义，对客户的认识以及业务知识
-
-你最怀念骚窝哪一点儿？
-
-自由的工作方式，自己想做点什么事情没有任何阻拦。
-
-你想对骚窝或者骚窝的某个人说几句话吗?
-
-对Dev说，技术不是最终的追求，这个世界是业务起主导作用的世界，没有业务驱动技术很难有实施性的发挥。当技术和业务发生冲突的时候，临时的避让或者妥协是很好的解决方案。没有清晰的对错分界线，也没有技术水平高低的判断条件。当产品满足业务需求，当客户欣然接受，这就是最好的交付结果。远比用各种fashion的技术栈来得实在。
-
-对业务说，业务是主导一切的根源，发现业务和挖掘业务也许是未来发展的新标向。在骚窝做业务的同学们应当发挥比dev更重要的作用，你们是技术实现的基石，也是客户的向导。
-
-对UX说，你们的水平可以说是目前竞争对手中做得最好的团队，一个产品的设计在默写程度上可以左右项目的认可度，提高产品的Level。当客户第一眼看到产品的时候，他们看的不是你用了reactjs还是vuejs，也不是业务需求是否满足。而是产品的外观是否吸引用户。提高设计能力和水平是骚窝继续往下发展的重要法宝。
-
-对PM说，在如此竞争激烈的市场下，每个团队都可以快速开发MVP并投入市场。敏锐的发现市场需求和控制项目进度是制胜的法宝，让客户把他们的成败压在咱们的交付产品或咨询上是把拉近客户的必要手段，我们不一定一直处在乙方的位置，真要是到了一定程度，说不定谁是乙方谁是甲方。提高我们在客户面前的话语权，深度挖掘积累某个行业、领域的知识是我们项目往下走的方向。
-</code></pre><pre><code>【骚人十九】在骚窝6年多,2013离开
-
-是否得到了当初离开时想要追求的东西？
-
-还行
-
-离开骚窝后，有什么让你兴奋？
-
-踏踏实实做产品
-
-你现在的工作和生活方式，与在骚窝最大的不同是什么?
-
-工作上更注重流程了，也更注重每个决策的长期影响
-
-生活上没有国内那么丰富，但得到了环境上的回报
-
-你认为骚窝对你最大的改变是什么？
-
-锻炼了思维方式，从其他角度看软件开发
-
-你最怀念骚窝哪一点儿？
-
-丰富的思维碰撞
-
-你想对骚窝或者骚窝的某个人说几句话吗?
-
-希望每个骚窝人不忘初心，成为思想工作者，通过软件成为更好的自己
-</code></pre><p>从以上调查中可以大致可以分析得出以下信息：</p>
-<ul>
-<li>前TWer们大部分是比较认可TW的企业文化的，认为这里有一帮聪明且主动性强的同事，以及宽松自由的工作环境，想做就做的干劲，同时也有会议太多，沟通花费过高等弊病</li>
-<li>离职后的人一部分人创业，一部分人移民，一部分在国内大公司发展</li>
-<li>在TW时往往只能受雇于人做一些产品开发，这常常成为TWer离职的原因——没有自己的产品</li>
-</ul>
-<p>在以上发言中，七号，十一号，十八号，给我的印象最为深刻。<br>曾经有人告诉我：入职第一天就为离职做好准备的员工是好员工。因为这样的员工往往会保持高度的警惕且持续学习，随时辞职随时都能找到更好待遇的工作的目标，保证了员工提供给公司是高于自己待遇的价值。<br>所以企业最看重的，是价值；职场上最重要的，应该是人。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;最近在公司的离职群里出现了一个调查问卷，我觉得很有意思，引发了我对ThoughtWorks的一些思考，顺手贴在这里。&lt;/p&gt;
-&lt;p&gt;另，骚窝为ThoughtWorks音译，所以从骚窝离职的人被称为离骚。&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;【骚人一】在骚窝4年多，2015年4月离
-    
-    </summary>
-    
-      <category term="ThoughtWorks" scheme="https://www.duyidong.com/categories/ThoughtWorks/"/>
-    
-    
-      <category term="ThoughtWorks" scheme="https://www.duyidong.com/tags/ThoughtWorks/"/>
-    
-      <category term="职场" scheme="https://www.duyidong.com/tags/%E8%81%8C%E5%9C%BA/"/>
     
   </entry>
   

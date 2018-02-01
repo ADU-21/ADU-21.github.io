@@ -5,7 +5,7 @@
     
   <url>
     <loc>https://www.duyidong.com/2018/01/31/jvm/</loc>
-    <lastmod>2018-02-01T12:24:19.000Z</lastmod>
+    <lastmod>2018-02-01T12:27:10.000Z</lastmod>
     <data>
         <display>
         <title>Java系列（一）——JVM内存</title>
@@ -15,6 +15,9 @@
          
          
            
+             
+              <breadCrumb title="Java" url="https://www.duyidong.com/categories/Java/"/>
+          
         </display>
     </data>
     </url>
@@ -408,9 +411,9 @@
         
         <tag>小结</tag>
          
-        <tag>DevOps</tag>
-         
         <tag>职场</tag>
+         
+        <tag>DevOps</tag>
          
         <tag>Platform</tag>
          
@@ -464,11 +467,11 @@
         
         <tag>AWS</tag>
          
+        <tag>Cloud</tag>
+         
         <tag>Cloud Native</tag>
          
         <tag>架构</tag>
-         
-        <tag>Cloud</tag>
          
          
            
@@ -488,9 +491,9 @@
         <title>云原生应用 (Cloud Native Application)</title>
         <pubTime>2017-05-03T03:04:03.000Z</pubTime>
         
-        <tag>Cloud Native</tag>
-         
         <tag>Cloud</tag>
+         
+        <tag>Cloud Native</tag>
          
         <tag>翻译</tag>
          
@@ -692,9 +695,9 @@
         <title>DevOps 技能树</title>
         <pubTime>2017-05-18T08:30:47.000Z</pubTime>
         
-        <tag>DevOps</tag>
-         
         <tag>职场</tag>
+         
+        <tag>DevOps</tag>
          
          
            
@@ -782,8 +785,6 @@
         <title>基础设施代码测试</title>
         <pubTime>2017-04-13T05:41:29.000Z</pubTime>
         
-        <tag>Cloud</tag>
-         
         <tag>Infrastructure as Code</tag>
          
         <tag>ThoughtWorks技术雷达</tag>
@@ -791,6 +792,8 @@
         <tag>基础设施即代码</tag>
          
         <tag>持续交付</tag>
+         
+        <tag>Cloud</tag>
          
          
            

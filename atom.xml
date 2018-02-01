@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.duyidong.com/"/>
-  <updated>2018-02-01T12:24:19.000Z</updated>
+  <updated>2018-02-01T12:27:10.000Z</updated>
   <id>https://www.duyidong.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="https://www.duyidong.com/2018/01/31/jvm/"/>
     <id>https://www.duyidong.com/2018/01/31/jvm/</id>
     <published>2018-01-31T00:57:05.000Z</published>
-    <updated>2018-02-01T12:24:19.000Z</updated>
+    <updated>2018-02-01T12:27:10.000Z</updated>
     
     <content type="html"><![CDATA[<p>成都近日气温已逾零下。让我想起在赤峰拍戏的日子，八月凌晨三点，茶水车结出一道冰溜子，18 个人抢 8 件军大衣，有人要去扒箱车，制片大喊：“别动！那是给领导穿的” —— 生活如此不易。如今我更加体会到“平凡的生活也要靠努力去争取”。</p>
 <h1 id="什么是-JVM"><a href="#什么是-JVM" class="headerlink" title="什么是 JVM"></a>什么是 JVM</h1><p>JVM（Java Virtual Machine Java 虚拟机）是一种用于计算设备的规范，基于这套规范，许多团队开发了多种<a href="https://en.wikipedia.org/wiki/List_of_Java_virtual_machines" target="_blank" rel="external">不同的虚拟机实现</a>，目前使用范围最广的是从 Sun 公司开始，到 Oracle 后一直在使用 的 HotSpot 以及 <a href="http://openjdk.java.net/" target="_blank" rel="external">Open JDK</a>，二者一个由 Oracle 公司维护，一个由开源社区维护，使用起来并没有太大差别。</p>
@@ -87,6 +87,8 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.91-b14, mixed mode)
 &lt;h1 id=&quot;什么是-JVM&quot;
     
     </summary>
+    
+      <category term="Java" scheme="https://www.duyidong.com/categories/Java/"/>
     
     
       <category term="Java" scheme="https://www.duyidong.com/tags/Java/"/>
@@ -1823,9 +1825,9 @@ spec:
     
       <category term="小结" scheme="https://www.duyidong.com/tags/%E5%B0%8F%E7%BB%93/"/>
     
-      <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
-    
       <category term="职场" scheme="https://www.duyidong.com/tags/%E8%81%8C%E5%9C%BA/"/>
+    
+      <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
     
       <category term="Platform" scheme="https://www.duyidong.com/tags/Platform/"/>
     
@@ -1937,9 +1939,9 @@ High willingness to travel
       <category term="DevOps" scheme="https://www.duyidong.com/categories/DevOps/"/>
     
     
-      <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
-    
       <category term="职场" scheme="https://www.duyidong.com/tags/%E8%81%8C%E5%9C%BA/"/>
+    
+      <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
     
   </entry>
   
@@ -2211,9 +2213,9 @@ High willingness to travel
       <category term="Cloud &amp; PaaS" scheme="https://www.duyidong.com/categories/Cloud-PaaS/"/>
     
     
-      <category term="Cloud Native" scheme="https://www.duyidong.com/tags/Cloud-Native/"/>
-    
       <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
+    
+      <category term="Cloud Native" scheme="https://www.duyidong.com/tags/Cloud-Native/"/>
     
       <category term="翻译" scheme="https://www.duyidong.com/tags/%E7%BF%BB%E8%AF%91/"/>
     
@@ -2358,8 +2360,6 @@ def test_hosts_file(File):
       <category term="DevOps" scheme="https://www.duyidong.com/categories/DevOps/"/>
     
     
-      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
-    
       <category term="Infrastructure as Code" scheme="https://www.duyidong.com/tags/Infrastructure-as-Code/"/>
     
       <category term="ThoughtWorks技术雷达" scheme="https://www.duyidong.com/tags/ThoughtWorks%E6%8A%80%E6%9C%AF%E9%9B%B7%E8%BE%BE/"/>
@@ -2367,6 +2367,8 @@ def test_hosts_file(File):
       <category term="基础设施即代码" scheme="https://www.duyidong.com/tags/%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E5%8D%B3%E4%BB%A3%E7%A0%81/"/>
     
       <category term="持续交付" scheme="https://www.duyidong.com/tags/%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98/"/>
+    
+      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
     
   </entry>
   

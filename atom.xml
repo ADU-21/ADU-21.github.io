@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.duyidong.com/"/>
-  <updated>2018-02-01T12:27:10.000Z</updated>
+  <updated>2018-02-02T01:12:21.000Z</updated>
   <id>https://www.duyidong.com/</id>
   
   <author>
@@ -16,11 +16,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Java系列（一）——JVM内存</title>
+    <title>Java系列（一）——JVM内存分配</title>
     <link href="https://www.duyidong.com/2018/01/31/jvm/"/>
     <id>https://www.duyidong.com/2018/01/31/jvm/</id>
     <published>2018-01-31T00:57:05.000Z</published>
-    <updated>2018-02-01T12:27:10.000Z</updated>
+    <updated>2018-02-02T01:12:21.000Z</updated>
     
     <content type="html"><![CDATA[<p>成都近日气温已逾零下。让我想起在赤峰拍戏的日子，八月凌晨三点，茶水车结出一道冰溜子，18 个人抢 8 件军大衣，有人要去扒箱车，制片大喊：“别动！那是给领导穿的” —— 生活如此不易。如今我更加体会到“平凡的生活也要靠努力去争取”。</p>
 <h1 id="什么是-JVM"><a href="#什么是-JVM" class="headerlink" title="什么是 JVM"></a>什么是 JVM</h1><p>JVM（Java Virtual Machine Java 虚拟机）是一种用于计算设备的规范，基于这套规范，许多团队开发了多种<a href="https://en.wikipedia.org/wiki/List_of_Java_virtual_machines" target="_blank" rel="external">不同的虚拟机实现</a>，目前使用范围最广的是从 Sun 公司开始，到 Oracle 后一直在使用 的 HotSpot 以及 <a href="http://openjdk.java.net/" target="_blank" rel="external">Open JDK</a>，二者一个由 Oracle 公司维护，一个由开源社区维护，使用起来并没有太大差别。</p>
@@ -100,7 +100,7 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.91-b14, mixed mode)
     <link href="https://www.duyidong.com/2018/01/26/about-HTTPS/"/>
     <id>https://www.duyidong.com/2018/01/26/about-HTTPS/</id>
     <published>2018-01-26T01:41:27.000Z</published>
-    <updated>2018-02-01T11:24:53.000Z</updated>
+    <updated>2018-02-02T01:12:26.000Z</updated>
     
     <content type="html"><![CDATA[<p>最近客户公司经历了一次大的证书升级，内网许多服务之间的调用出现了证书过期或是不授信的问题。前面我写过两篇文章介绍<a href="https://www.duyidong.com/2016/03/30/HTTP%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3/">HTTP协议</a>以及<a href="https://www.duyidong.com/2016/04/17/%E4%B8%80%E6%AC%A1%E5%AE%8C%E6%95%B4%E7%9A%84HTTP%E4%BA%8B%E5%8A%A1%E6%98%AF%E6%80%8E%E6%A0%B7%E4%B8%80%E4%B8%AA%E8%BF%87%E7%A8%8B%EF%BC%9F/">一次完整的HTTP事务是怎样一个过程</a>，这篇文章主要介绍一个大家日常工作中都在打交道但却不一定很熟悉的协议 —— HTTPS。</p>
 <h1 id="名词澄清"><a href="#名词澄清" class="headerlink" title="名词澄清"></a>名词澄清</h1><p>HTTPS 服务是工作在 SSL/TLS 上 的HTTP。</p>
@@ -734,9 +734,9 @@ ansible-playbook -i inventory/aws/hosts \
     
       <category term="ThoughtWorks" scheme="https://www.duyidong.com/tags/ThoughtWorks/"/>
     
-      <category term="面试" scheme="https://www.duyidong.com/tags/%E9%9D%A2%E8%AF%95/"/>
-    
       <category term="职场" scheme="https://www.duyidong.com/tags/%E8%81%8C%E5%9C%BA/"/>
+    
+      <category term="面试" scheme="https://www.duyidong.com/tags/%E9%9D%A2%E8%AF%95/"/>
     
   </entry>
   
@@ -2213,9 +2213,9 @@ High willingness to travel
       <category term="Cloud &amp; PaaS" scheme="https://www.duyidong.com/categories/Cloud-PaaS/"/>
     
     
-      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
-    
       <category term="Cloud Native" scheme="https://www.duyidong.com/tags/Cloud-Native/"/>
+    
+      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
     
       <category term="翻译" scheme="https://www.duyidong.com/tags/%E7%BF%BB%E8%AF%91/"/>
     
@@ -2360,6 +2360,8 @@ def test_hosts_file(File):
       <category term="DevOps" scheme="https://www.duyidong.com/categories/DevOps/"/>
     
     
+      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
+    
       <category term="Infrastructure as Code" scheme="https://www.duyidong.com/tags/Infrastructure-as-Code/"/>
     
       <category term="ThoughtWorks技术雷达" scheme="https://www.duyidong.com/tags/ThoughtWorks%E6%8A%80%E6%9C%AF%E9%9B%B7%E8%BE%BE/"/>
@@ -2367,8 +2369,6 @@ def test_hosts_file(File):
       <category term="基础设施即代码" scheme="https://www.duyidong.com/tags/%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E5%8D%B3%E4%BB%A3%E7%A0%81/"/>
     
       <category term="持续交付" scheme="https://www.duyidong.com/tags/%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98/"/>
-    
-      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
     
   </entry>
   

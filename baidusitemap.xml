@@ -4,6 +4,59 @@
 
     
   <url>
+    <loc>https://www.duyidong.com/2018/01/31/jvm/</loc>
+    <lastmod>2018-02-09T11:31:52.000Z</lastmod>
+    <data>
+        <display>
+        <title>Java系列（一）——JVM内存分配</title>
+        <pubTime>2018-01-31T00:57:05.000Z</pubTime>
+        
+        <tag>学习</tag>
+         
+        <tag>小结</tag>
+         
+        <tag>Java</tag>
+         
+        <tag>JVM</tag>
+         
+         
+           
+             
+              <breadCrumb title="Java" url="https://www.duyidong.com/categories/Java/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2018/02/09/jvm-gc/</loc>
+    <lastmod>2018-02-09T11:31:34.000Z</lastmod>
+    <data>
+        <display>
+        <title>Java系列（二）——JVM内存回收</title>
+        <pubTime>2018-02-09T15:15:15.000Z</pubTime>
+        
+        <tag>学习</tag>
+         
+        <tag>小结</tag>
+         
+        <tag>Java</tag>
+         
+        <tag>JVM</tag>
+         
+         
+           
+             
+              <breadCrumb title="Java" url="https://www.duyidong.com/categories/Java/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+    
+  <url>
     <loc>https://www.duyidong.com/2018/01/26/about-HTTPS/</loc>
     <lastmod>2018-02-02T01:12:26.000Z</lastmod>
     <data>
@@ -24,27 +77,6 @@
     </data>
     </url>
 
-    
-  <url>
-    <loc>https://www.duyidong.com/2018/01/31/jvm/</loc>
-    <lastmod>2018-02-02T01:12:21.000Z</lastmod>
-    <data>
-        <display>
-        <title>Java系列（一）——JVM内存分配</title>
-        <pubTime>2018-01-31T00:57:05.000Z</pubTime>
-        
-        <tag>Java</tag>
-         
-         
-           
-             
-              <breadCrumb title="Java" url="https://www.duyidong.com/categories/Java/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
     
     
   <url>
@@ -337,9 +369,9 @@
         
         <tag>ThoughtWorks</tag>
          
-        <tag>职场</tag>
-         
         <tag>面试</tag>
+         
+        <tag>职场</tag>
          
          
            
@@ -1075,11 +1107,11 @@
         <title>ThoughtWorks第一周学习总结</title>
         <pubTime>2016-05-24T13:44:57.000Z</pubTime>
         
+        <tag>ThoughtWorks</tag>
+         
         <tag>学习</tag>
          
         <tag>小结</tag>
-         
-        <tag>ThoughtWorks</tag>
          
          
            

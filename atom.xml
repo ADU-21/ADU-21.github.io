@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.duyidong.com/"/>
-  <updated>2018-02-02T01:12:21.000Z</updated>
+  <updated>2018-02-09T11:31:34.000Z</updated>
   <id>https://www.duyidong.com/</id>
   
   <author>
@@ -16,11 +16,191 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Java系列（二）——JVM内存回收</title>
+    <link href="https://www.duyidong.com/2018/02/09/jvm-gc/"/>
+    <id>https://www.duyidong.com/2018/02/09/jvm-gc/</id>
+    <published>2018-02-09T15:15:15.000Z</published>
+    <updated>2018-02-09T11:31:34.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>GC（Garbage Collection 垃圾回收）使得Java程序员在编写程序的时候不再需要考虑内存管理。由于有个垃圾回收机制，Java中的对象不再有“作用域”的概念，只有对象的引用才有“作用域”。垃圾回收可以有效的防止内存泄露，有效的使用空闲的内存。</p>
+<h1 id="哪些内存需要回收"><a href="#哪些内存需要回收" class="headerlink" title="哪些内存需要回收"></a>哪些内存需要回收</h1><p>上文<a href="https://www.duyidong.com/2018/01/31/jvm/">JVM内存分配</a>介绍了 JVM 运行时内存分配的各个部分，其中程序计数器、虚拟机栈、本地方法区都是和线程同生共死的，其内存的分配和回收都随着栈帧的进入和退出有序进行，不需要过多考虑回收问题。而 <strong>Java 堆</strong>和<strong>方法区</strong>因为其存放对象和类都是要在运行时才能确认大小，而创建的动作频繁且随机，因此这两部分区域是 GC 关注的主要区域。</p>
+<h1 id="什么时候回收"><a href="#什么时候回收" class="headerlink" title="什么时候回收"></a>什么时候回收</h1><h2 id="Java-堆里的对象实例"><a href="#Java-堆里的对象实例" class="headerlink" title="Java 堆里的对象实例"></a>Java 堆里的对象实例</h2><p>Java 堆里存放着 JVM 中几乎所有的对象实例，判断 Stack 中哪些内存可以被回收，首先就得看哪些对象实例已经“死去”，即不可能再被使用。我们先来看两个简单的实现方式：<strong>引用计数算法</strong>发和<strong>可达性分析算法</strong>。</p>
+<h3 id="引用计数算法（Reference-Counting-Collector）"><a href="#引用计数算法（Reference-Counting-Collector）" class="headerlink" title="引用计数算法（Reference Counting Collector）"></a>引用计数算法（Reference Counting Collector）</h3><p>这是在 Python 里被使用的 GC 算法，也是 GC 早期中的早期策略，其实现就是给每一个对象添加一个应用计数器，没有一个地方引用它就加1，当应用失效时就减1，当计数器为0时则说明这个对象不再被使用。这种实现方式简单高效，却有一个比较大的问题导致主流 Java 虚拟机都没有采纳这种方式，就是它无法解决<u>循环引用</u>的问题。例子可见：<a href="http://blog.csdn.net/sunmenggmail/article/details/8172273" target="_blank" rel="external">java垃圾回收之循环引用</a>。</p>
+<h3 id="可达性分析算法（Reachability-Analysis）"><a href="#可达性分析算法（Reachability-Analysis）" class="headerlink" title="可达性分析算法（Reachability Analysis）"></a>可达性分析算法（Reachability Analysis）</h3><p>这种算法是真正被主流商用语言采纳的 GC 算法，其思路是通过通过一系列称为“GC Roots”的对象作为起始点，从这些节点向下搜索，搜索走过的路径称为引用链（Reference Chain），成为一个树状结构，当所有根节点（GC root）到某个对象都不可达时，则说明这个对象是不可用的。</p>
+<p>有以下几种对象可以被作为 GC Roots:</p>
+<pre><code>- Java Stack 中引用的对象。
+
+- 方法区中类静态属性引用的对象。
+
+- 方法区中常量引用的对象。
+
+- 本地方法中 Native 方法引用的对象。
+</code></pre><p>值得注意的是，这些不可达对象并不是会立即被清理掉，而是会被进行一次标记，如果该对象覆写了 finalize() 方法且还没有被调用过，则会被放到一个叫 F-Queue 的队列中，这个 finalize 方法原本是用于手动释放非 Java 内存的，但是 JVM 并不一定会执行它；如果在 finalize 方法中对象与引用链上的任一对象发生引用，这个对象就会“起死回生”，在第二次 GC 标记 F-Queue 中对象的时候被移除回收集合。finalize 方法最多只会被执行一次，不确定性大，所以不推荐使用。</p>
+<h4 id="关于引用"><a href="#关于引用" class="headerlink" title="关于引用"></a>关于引用</h4><p>可达性分析算法中对引用的划分仅限于“引用”和“未引用”，而事实上在程序运行中还有一类“暂时没被引用”的对象，这部分对象我们希望在内存充裕的情况下保留，在内存紧张的时候再将其抛弃。因此在 JDK1.2 后，Java 将引用的概念扩充至强引用（Strong Reference）、软引用（Weak Reference）、弱引用（Weak Reference）和虚引用（Phantom Reference），分别用来描述有用（类似 Object obj = new Object()）、有用但非必须（OOM 前回收）、非必须引用（下一次 GC 回收），以及不影响对象生命周期的引用（用于系统回收通知）。</p>
+<h4 id="如何找到根节点"><a href="#如何找到根节点" class="headerlink" title="如何找到根节点"></a>如何找到根节点</h4><p>由于遍历 GC Roots 节点要求“一致性”，所以 GC 发生的时候需要暂停 Java 执行线程（Sun 称之为”Stop the world”），为了缩短 Stop the world 的时间，遍历根节点时间需要尽可能短，所以 HotSpot 使用了 OopMap 的数据结构来达到这个目的，当程序运行到安全点（Safepoint）的时候，线程的一些状态可以被确定，比如记录OopMap的状态，从而确定GC Root的信息，使JVM可以安全的进行 GC 操作。</p>
+<p>safepoint指的特定位置主要有:</p>
+<pre><code>- 循环的末尾 (防止大循环的时候一直不进入safepoint，而其他线程在等待它进入safepoint)
+
+- 方法返回前
+
+- 调用方法的call之后
+
+- 抛出异常的位置
+</code></pre><p>安全点存在的意义是为了保证程序不用运行很长时间就可以满足一次 GC 的条件，而如果一些进程休眠或阻塞，则可能长时间无法进入 Safepoint，于是就有了安全区（ Safe region），安全区域是指在一段区域内，对象引用关系等不会发生变化，在此区域内任意位置开始 GC 都是安全的；线程运行时，首先标记自己进入了安全区，然后在这段区域内，如果线程发生了阻塞、休眠等操作，JVM 发起 GC 时将忽略这些处于安全区的线程。当线程再次被唤醒时，首先他会检查是否完成了 GC Roots枚举(或这个GC过程)，然后选择是否继续执行，否则将继续等待 GC 的完成。</p>
+<h2 id="方法区里的类"><a href="#方法区里的类" class="headerlink" title="方法区里的类"></a>方法区里的类</h2><p>方法区（Method Area）对应 Java7 以前的持久代（Permanent generation），已经在 Java8中被移除，取而代之的是使用本地内存的 MetaSpace，其 GC 频率也大幅降低，只有当 MetaSpace 内存达到“MaxMetaspaceSize”值的时候才会触发一次该区域的 GC。根据 JVM 规范，满足以下三个条件的类将被定义为“可以被搜集”：</p>
+<pre><code>- 该类的所有实例都已经被回收。
+
+- 加载该类的 ClassLoader 已经被回收。
+
+- 该类对应的 java.lang.Class 对象没有在任何地方被引用，无法在任何地方通过反射访问该类的方法。
+</code></pre><p>当然，被标记“可以回收”的类还要视 JVM 的参数（-Xnoclassgc）决定是否被回收。</p>
+<h1 id="如何回收"><a href="#如何回收" class="headerlink" title="如何回收"></a>如何回收</h1><h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><p>在 Hotspot JVM 里，Java 堆采用分代收集（Generational Collection），在了解分代收集之前先来看几种简单的算法：</p>
+<ul>
+<li><strong>标记-清除算法（Mark-Sweep）</strong>：分为“标记”和“清除”两个阶段，将需要清除的内存标记后随即清除，因为绝大部分的对象都只存在很短的时间就需要被收回，这种算法显得很低效；而且会产生大量不连续的存储空间。</li>
+<li><strong>复制算法（Copying）</strong>：按 8:1 的比例划分出一块 Eden 空间和两块 Survivor 空间（S0 和 S1），回收时将 Eden 和 S0 里的内存直接 Copy 到 S1 中，如果 S1 中没有足够的空间，这些对象将通过分配担保（Handle Promotion）机制进入老年代。这种算法的缺点是对对象存活率较高的老年代并不适用。</li>
+<li><strong>标记-整理算法（Mark-Compact）</strong>：与标记清除类似，但标记后并不是直接对可回收对象进行清理，而是先让所有存活对象移向一端，然后直接清理掉端边界以外的内存。</li>
+</ul>
+<p>在 Java 中，堆被划分成两个不同的区域：新生代 ( Young )、老年代 ( Old )。新生代 ( Young ) 又被划分为三个区域：Eden、From Survivor、To Survivor。</p>
+<p>如图所示，默认情况下新生代和老年占用空间比例为1：2，新生代中Eden:S0:S1=8:1:1，无论什么时候，总是有一块 Survivor 区域是空闲着的，原因后面会讲到。</p>
+<p><img src="/images/JVM_heap.png" alt=""></p>
+<center>图片来自：<a href="https://www.slideshare.net/rgrebski/on-heap-cache-vs-offheap-cache-53098109" target="_blank" rel="external">https://www.slideshare.net/rgrebski/on-heap-cache-vs-offheap-cache-53098109</a></center>
+
+<h2 id="Java-Heap-GC——分代收集"><a href="#Java-Heap-GC——分代收集" class="headerlink" title="Java Heap GC——分代收集"></a>Java Heap GC——分代收集</h2><p>Java 中的堆也是 GC 收集垃圾的主要区域。GC 分为两种：Minor GC、Full GC ( 或称为 Major GC )。</p>
+<h3 id="Minor-GC"><a href="#Minor-GC" class="headerlink" title="Minor GC"></a>Minor GC</h3><p>Minor GC 是发生在新生代中的垃圾收集动作，因为 Java 对象大多都具有朝生夕灭的特性，所以 Minor GC 非常频繁，一般回收速度也比较快。</p>
+<p>新对象在 Eden + S0 中诞生，一旦 Eden 区将满，JVM 会因为申请不到内存触发一次 Minor GC，在经过一次 Minor GC 后，如果对象还存活，并且能够被另外一块 Survivor 区域所容纳，则使用复制算法将这些仍然存活的对象复制到 S1 区域，然后清理 Edent 和 S0，并将 S0 和 S1 互换，以便执行下一次 GC。年轻代的中的对象每经历一次 Minor GC，对象的年龄会 +1，默认情况下对象年龄达到15（可以通过参数 -XX:MaxTenuringThreshold 来设定），则会被分配到老年代。<br>但这也不是一定的，对于一些较大的对象 ( 即需要分配一块较大的连续内存空间 ) 则是直接进入到老年代。</p>
+<h3 id="Full-GC"><a href="#Full-GC" class="headerlink" title="Full GC"></a>Full GC</h3><p>Full GC 是发生在老年代的垃圾收集动作，常常伴随至少一次的 Minor GC，速度一般比 Minor GC 慢 10 倍以上。 </p>
+<p>较大型的对象会直接进入老年代，另外在年轻代中生存的时间很长的可达对象也会进入Old代，老年代的对象是不容易死掉的，也就意味着 Full GC 发生的次数不会有 Minor GC 那么频繁，并且做一次 Full GC 要比进行一次 Minor GC 的时间更长。</p>
+<p>另外，标记-清除算法收集垃圾的时候会产生许多的内存碎片 ( 即不连续的内存空间 )，此后需要为较大的对象分配内存空间时，若无法找到足够的连续的内存空间，就会提前触发一次 GC 的收集动作。</p>
+<h2 id="JVM-参数选项"><a href="#JVM-参数选项" class="headerlink" title="JVM 参数选项"></a>JVM 参数选项</h2><p>jvm 可配置的参数选项可以参考 Oracle 官方网站给出的相关信息：<a href="http://www.oracle.com/technetwork/java/javase/tech/vmoptions-jsp-140102.html" target="_blank" rel="external">http://www.oracle.com/technetwork/java/javase/tech/vmoptions-jsp-140102.html</a></p>
+<p>下面只列举其中的几个常用和容易掌握的配置选项：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-Xms</td>
+<td>初始堆大小。如：-Xms256m</td>
+</tr>
+<tr>
+<td>-Xmx</td>
+<td>最大堆大小。如：-Xmx512m</td>
+</tr>
+<tr>
+<td>-Xmn</td>
+<td>新生代大小。通常为 Xmx 的 1/3 或 1/4。新生代 = Eden + 2 个 Survivor 空间。实际可用空间为 = Eden + 1 个 Survivor，即 90%</td>
+</tr>
+<tr>
+<td>-Xss</td>
+<td>JDK1.5+ 每个线程堆栈大小为 1M，一般来说如果栈不是很深的话， 1M 是绝对够用了的。</td>
+</tr>
+<tr>
+<td>-XX:NewRatio</td>
+<td>新生代与老年代的比例，如 –XX:NewRatio=2，则新生代占整个堆空间的1/3，老年代占2/3</td>
+</tr>
+<tr>
+<td>-XX:SurvivorRatio</td>
+<td>新生代中 Eden 与 Survivor 的比值。默认值为 8。即 Eden 占新生代空间的 8/10，另外两个 Survivor 各占 1/10</td>
+</tr>
+<tr>
+<td>-XX:PermSize</td>
+<td>永久代(方法区)的初始大小</td>
+</tr>
+<tr>
+<td>-XX:MaxPermSize</td>
+<td>永久代(方法区)的最大值</td>
+</tr>
+<tr>
+<td>-XX:+PrintGCDetails</td>
+<td>打印 GC 信息</td>
+</tr>
+<tr>
+<td>-XX:+HeapDumpOnOutOfMemoryError</td>
+<td>让虚拟机在发生内存溢出时 Dump 出当前的内存堆转储快照，以便分析用</td>
+</tr>
+</tbody>
+</table>
+<h2 id="垃圾收集器"><a href="#垃圾收集器" class="headerlink" title="垃圾收集器"></a>垃圾收集器</h2><p>垃圾收集器是收集算法的具体实现。不同厂商开发的虚拟机有不同的实现方法， HotSpot 包含的七种收集器如图所示：（连线表示可搭配使用）</p>
+<p><img src="/images/Hotspot_JVM_GC_collector.png" alt=""></p>
+<center><strong>图片来自：<a href="http://qsxuan.com/articles/1053.html" target="_blank" rel="external">xuan’s blog</a></strong></center>
+
+<h3 id="Serial-收集器"><a href="#Serial-收集器" class="headerlink" title="Serial 收集器"></a>Serial 收集器</h3><p>实现了用于新生代 GC 的复制算法，古老的单线程收集器，必须停掉所有其他工作线程才能进行，优点是相比其他收集器的单线程简单高效，比较适用于运行于 Client 模式下，需要收集内存比较小，停顿也不会很大的虚拟机。</p>
+<h3 id="ParNew-收集器"><a href="#ParNew-收集器" class="headerlink" title="ParNew 收集器"></a>ParNew 收集器</h3><p>Serial 收集器的多线程版，其<strong>并行</strong>的特性使得它在 CPU 数量大于 2 的时候会拥有比单线程更好 GC 性能，同时 ParNew 也是除 Serial 以外唯一能和 CMS 收集器（HotSpot 虚拟机中第一款真正意义的<strong>并发</strong>收集器）配合工作的收集器，因此 ParNew 是许多运行在 Server 模式下虚拟机中首选的新生代收集器。</p>
+<pre><code>名词解释：
+
+- 并发(Parallel)：多条 GC 线程并行工作，但此时用户线程仍处于等待状态。
+
+- 并发(Concurrent)：用户线程和 GC 线程同时执行(但不一定是并行的，可能会交替执行)，而 GC 程序运行与另一个 CPU 上。
+</code></pre><h3 id="Parallel-Scavenge-收集器"><a href="#Parallel-Scavenge-收集器" class="headerlink" title="Parallel Scavenge 收集器"></a>Parallel Scavenge 收集器</h3><p>又一个实现复制算法的新生代多线程收集器， 也被称为“吞吐量优先”收集器。吞吐量是反应的是程序对 CPU 的使用效率，单位时间内 GC 时间越长，吞吐量约低。一般来说 GC 造成的停顿时间越短 GC 频率就会越高，从而使吞吐量下降，但带来的好处是停顿无感，这种策略适用于客户端这种需要和用户直接交互的程序；而高吞吐量的配置是服务器端后台运算所需要的。Parallel Scavenge 收集器提供 -XX:MaxGCPauseMillis 来设置停顿时间，-XX:GCTimeRatio 直接设置吞吐量百分比（运行代码时间/(运行代码时间+单位时间内GC时间)），除此之外还有一个 -XX:+UseAdaptiveSizePolicy 来提供 GC 自适应调整（<a href="https://docs.oracle.com/javase/8/docs/technotes/guides/vm/gc-ergonomics.html" target="_blank" rel="external">GC Ergonomics</a>）以提供最合适的停顿时间或者最大吞吐量，可以用这种方式搭配前两个参数使用。</p>
+<h3 id="Serial-Old-收集器"><a href="#Serial-Old-收集器" class="headerlink" title="Serial Old 收集器"></a>Serial Old 收集器</h3><p>用于老年代的单线程收集器，实现了“标记-整理”算法，是 Serial 的老年版，主要用于 Client 端的虚拟机。</p>
+<h3 id="Parallel-Old-收集器"><a href="#Parallel-Old-收集器" class="headerlink" title="Parallel Old 收集器"></a>Parallel Old 收集器</h3><p>用于老年代的多线程收集器，同样实现“标记-整理”算法，是 Parallel Scavenge 的老年版，和 Parallel Scavenge 搭配用于对吞吐量和 CPU 资源敏感的场景非常适用。</p>
+<h3 id="CMS-收集器"><a href="#CMS-收集器" class="headerlink" title="CMS 收集器"></a>CMS 收集器</h3><p>CMS（Concurrent Mark Sweep）是一种以获取最短 GC 停顿时间为目标的收集器，在重视网站响应时间的 Java Web 中使用广泛，实现的是“标记-清除”算法，分为以下几个步骤：</p>
+<ul>
+<li><strong>初始标记（CMS initial mark）</strong>：标记 GC Roots 能直接关联到的对象，速度很快，需要 STW。</li>
+<li><strong>并发标记（CMS concurrent mark）</strong>：进行 Root Tracing 过程，期间用户进程仍在运行。</li>
+<li><strong>重新标记（CMS remark）</strong>：修正并发标记期间变动的标记对象，需要 STW，时间略长于初始标记但远短于并发标记。</li>
+<li><strong>并发清除（CMS concurrent sweep）</strong>:并发执行，不需要 STW。</li>
+</ul>
+<p>CMS 的优点是并发处理、低停顿，缺点是 CPU 数量少的时候性价比不高，且因为无法处理并发清除期间产生的垃圾导致必须要在老年代真正满之前进行 GC。除此之外，CMS 仍然是一款优秀的收集器。</p>
+<h3 id="G1-收集器"><a href="#G1-收集器" class="headerlink" title="G1 收集器*"></a>G1 收集器*</h3><p>G1 是未来要替换掉 CMS 成为 JVM 主流收集器的方案，已经被 Java8 设定为默认收集器，其实现思路是将整个 Java 堆划分为多个大小相等的独立区域（Region），将新生代老年代打乱后分配到不同的 Region，各个 Region 单独 GC 从而避免整个 Heap 的扫描，再对 Region GC 价值排序，维护一个优先列表以达到 GC 最高效率。</p>
+<p><img src="/images/G1GC.png" alt=""></p>
+<center><strong>图片来自：<a href="https://blog.idrsolutions.com/2017/05/g1gc-java-9-garbage-collector-explained-5-minutes/" target="_blank" rel="external">G1GC – Java 9 Garbage Collector explained in 5 minutes</a></strong></center>
+
+<p>G1 收集器运作大概分为以下几个步骤：</p>
+<ul>
+<li><strong>初始标记（Initial Marking，STW）</strong>：和 CMS 的初始标记一样，不过除了标记 GC Roots 直接关联的对象之外还会修改 next TAMS（Next Top at Mark Start）的值以求下一个阶段用户新建对象能够被放在正确的 Region。</li>
+<li><strong>并发标记（Concurrent Marking）</strong>：和 CMS 相同，从GC Root开始对heap中的对象标记，标记线程与应用程序线程并行执行，并且收集各个Region的存活对象信息。</li>
+<li><strong>最终标记（Final Marking，STW）</strong>：标记那些在并发标记阶段发生变化的对象，将被回收。</li>
+<li><strong>筛选回收（Live Data Counting and Evacuation）</strong>：清除空Region（没有存活对象的），加入到free list。</li>
+</ul>
+<p>在 G1 收集器中有一个至关重要的数据结构用于处理 Region 之间对象引用的问题，叫做 Remembered Set，简称 RSet，是一种典型的空间换时间的做法，每个 Region 有自己 RSet，记录了谁引用了我的对象，GC 发生时会先检索 RSet，确保不对全栈扫描也不会有遗漏。</p>
+<p><img src="/images/G1_Collector.png" alt=""></p>
+<center><strong>G1 收集器运行示意图 - 图片来自网络</strong></center>
+
+
+
+<blockquote>
+<ul>
+<li>References:</li>
+<li><a href="http://blog.csdn.net/iter_zc/article/details/41847887" target="_blank" rel="external">聊聊JVM（六）理解JVM的safepoint</a></li>
+<li><a href="http://www.blogjava.net/fancydeepin/archive/2013/09/29/jvm_heep.html" target="_blank" rel="external">Java 堆内存</a></li>
+<li><a href="https://mritd.me/2016/03/24/HotSpot-%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%9A%84%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0/" target="_blank" rel="external">HotSpot 虚拟机的算法实现</a></li>
+<li><a href="https://yq.aliyun.com/articles/52426" target="_blank" rel="external">Jvm原理剖析与调优之内存结构</a></li>
+<li><a href="http://www.infoq.com/cn/articles/jdk7-garbage-first-collector" target="_blank" rel="external">解析JDK 7的Garbage-First收集器</a></li>
+<li><a href="https://tech.meituan.com/g1.html" target="_blank" rel="external">Java Hotspot G1 GC的一些关键技术*</a></li>
+</ul>
+</blockquote>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;GC（Garbage Collection 垃圾回收）使得Java程序员在编写程序的时候不再需要考虑内存管理。由于有个垃圾回收机制，Java中的对象不再有“作用域”的概念，只有对象的引用才有“作用域”。垃圾回收可以有效的防止内存泄露，有效的使用空闲的内存。&lt;/p&gt;
+&lt;h1 
+    
+    </summary>
+    
+      <category term="Java" scheme="https://www.duyidong.com/categories/Java/"/>
+    
+    
+      <category term="学习" scheme="https://www.duyidong.com/tags/%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="小结" scheme="https://www.duyidong.com/tags/%E5%B0%8F%E7%BB%93/"/>
+    
+      <category term="Java" scheme="https://www.duyidong.com/tags/Java/"/>
+    
+      <category term="JVM" scheme="https://www.duyidong.com/tags/JVM/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Java系列（一）——JVM内存分配</title>
     <link href="https://www.duyidong.com/2018/01/31/jvm/"/>
     <id>https://www.duyidong.com/2018/01/31/jvm/</id>
     <published>2018-01-31T00:57:05.000Z</published>
-    <updated>2018-02-02T01:12:21.000Z</updated>
+    <updated>2018-02-09T11:31:52.000Z</updated>
     
     <content type="html"><![CDATA[<p>成都近日气温已逾零下。让我想起在赤峰拍戏的日子，八月凌晨三点，茶水车结出一道冰溜子，18 个人抢 8 件军大衣，有人要去扒箱车，制片大喊：“别动！那是给领导穿的” —— 生活如此不易。如今我更加体会到“平凡的生活也要靠努力去争取”。</p>
 <h1 id="什么是-JVM"><a href="#什么是-JVM" class="headerlink" title="什么是 JVM"></a>什么是 JVM</h1><p>JVM（Java Virtual Machine Java 虚拟机）是一种用于计算设备的规范，基于这套规范，许多团队开发了多种<a href="https://en.wikipedia.org/wiki/List_of_Java_virtual_machines" target="_blank" rel="external">不同的虚拟机实现</a>，目前使用范围最广的是从 Sun 公司开始，到 Oracle 后一直在使用 的 HotSpot 以及 <a href="http://openjdk.java.net/" target="_blank" rel="external">Open JDK</a>，二者一个由 Oracle 公司维护，一个由开源社区维护，使用起来并没有太大差别。</p>
@@ -39,12 +219,22 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.91-b14, mixed mode)
 
 <h1 id="JVM运行时数据区"><a href="#JVM运行时数据区" class="headerlink" title="JVM运行时数据区"></a>JVM运行时数据区</h1><p>根据 <a href="https://files.cnblogs.com/files/zhuYears/Java%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%A7%84%E8%8C%83%EF%BC%88JavaSE7%EF%BC%89.pdf" target="_blank" rel="external">Java 虚拟机规范</a>（<a href="https://docs.oracle.com/javase/specs/jvms/se8/html/index.html" target="_blank" rel="external">最新版</a>）规定，Java 虚拟机所管理的内存将会包括以下几个运行时数据区域，如图所示：</p>
 <p><img src="/images/JVM_architecture.png" alt=""></p>
-<p><strong>程序计数器（Program Counter Register）</strong>: 可以看作是当前线程所执行的字节码的行号指示器，字节码解释器通过改变这个计数器的值来选取下一条需要执行的字节码指令，分支、循环、跳转、异常处理、线程恢复等基础功能都需要依赖这个计数器完成。PC Register 是线程私有的内存，每个线程的计数器是独立存储的，如果线程执行的是一个 Java 方法，这个计数器记录的就是正在执行的虚拟机字节码地址，如果正在执行的是 Native 方法，则计数器为空。<br>PC register 内存区域是 Java 虚拟机规范中唯一一个没有规定任何 OutOfMemoryError 情况的区域。</p>
-<p><strong>Java 虚拟机栈（Java Virtual Machine Stacks ）</strong>有着和线程相同的生命周期，每一个方法从调用到完成，都对应着一个栈帧（Stack Frame）在虚拟机中入栈到出栈的过程，栈帧用于存放局部变量表、操作数栈、动态链接、方法出口等信息。局部变量表存放了编译器克制的各种基本数据类型以及对象引用，其内存空间在编译期间完成分配，当进入一个方法时这个方法需要在帧中分配多少局部变量空间是完全确定的，在方法运行期间不会改变局部变量表的大小。<br>当线程请求的栈深度大于虚拟机允许的深度，将抛出 StackOveflowError；<br>当虚拟机扩展时也无法申请到足够的内存，将抛出 OutOfMemoryError.</p>
+<p><strong>程序计数器（Program Counter Register）</strong>: 可以看作是当前线程所执行的字节码的行号指示器，字节码解释器通过改变这个计数器的值来选取下一条需要执行的字节码指令，分支、循环、跳转、异常处理、线程恢复等基础功能都需要依赖这个计数器完成。PC Register 是线程私有的内存，每个线程的计数器是独立存储的，如果线程执行的是一个 Java 方法，这个计数器记录的就是正在执行的虚拟机字节码地址，方便线程在 CPU 中切换后能够恢复在切换之前的程序执行位置，并且不能互相被干扰。如果正在执行的是 Native 方法，则计数器为空。</p>
+<p>由于程序计数器中存储的数据所占空间的大小不会随程序的执行而发生改变，因此，对于程序计数器是不会发生内存溢出现象(OutOfMemory)的。</p>
+<p><strong>Java 虚拟机栈（Java Virtual Machine Stacks ）</strong>是Java方法执行的内存模型，有着和线程相同的生命周期，每一个方法从调用到完成，都对应着一个栈帧（Stack Frame）在虚拟机中入栈到出栈的过程，栈帧用于局部变量表(Local Variables)、操作数栈(Operand Stack)、指向当前方法所属的类的运行时常量池的引用(Reference to runtime constant pool)、方法返回地址(ReturnAddress)和一些额外的附加信息。</p>
+<ul>
+<li>局部变量表是用来存储方法中的局部变量（包括在方法中声明的非静态变量以及函数形参）。对于基本数据类型的变量，则直接存储它的值，对于引用类型的变量，则存的是指向对象的引用。局部变量表的大小在编译器就可以确定其大小了，因此在程序执行期间局部变量表的大小是不会改变的。</li>
+<li>操作数栈也常被称为操作栈。和局部变量区一样，操作数栈也是被组织成一个以字长为单位的数组。但是和前者不同的是，它不是通过索引来访问，而是通过标准的栈操作—压栈和出栈—来访问的。比如，如果某个指令把一个值压入到操作数栈中，稍后另一个指令就可以弹出这个值来使用。虚拟机在操作数栈中存储数据的方式和在局部变量区中是一样的：如int、long、float、double、reference和returnType的存储。对于byte、short以及char类型的值在压入到操作数栈之前，也会被转换为int。程序中的所有计算过程都是在借助于操作数栈来完成的。</li>
+<li>指向运行时常量池的引用，因为在方法执行的过程中有可能需要用到类中的常量，所以必须要有一个引用指向运行时常量。</li>
+<li>方法返回地址，当一个方法执行完毕之后，要返回之前调用它的地方，因此在栈帧中必须保存一个方法返回地址。</li>
+</ul>
+<p>由于每个线程正在执行的方法可能不同，因此每个线程都会有一个自己的Java栈，互不干扰。</p>
+<p>当线程请求的栈深度大于虚拟机允许的深度，将抛出 StackOveflowError；<br>当虚拟机扩展时也无法申请到足够的内存，将抛出 OutOfMemoryError.</p>
 <p><strong>本地方法栈（Native Method Stack）</strong>用于执行 Java 方法以外的本地方法，没有过多限制，由虚拟机自由实现。Sun HotSpot VM 就把 Native Method Stack 和 VM Stack 合二为一。<br>和 JVM Stack 一样，Native Method Stack 也有 OutOfMemoryError 和 StackOverflowError 两个 Error。</p>
-<p><strong>Java 堆（Java Heap）</strong>存放几乎所有的对象实例，也是 GC（Garbage Collection）发生的主要区域，被所有线程共享。因为 GC 的需求，Heap 可以再被细分为新生代和老年代，但是与其储存的内容无关。Java Heap 应该可以处于物理上不连续的内存空间中，只要逻辑上是连续的即可，就像我们的磁盘空间一样。Heap 既可以固定大小也可以动态扩展。<br>如果 Heap 中没有内存完成实例分配，且堆无法再扩展，则会抛出 OutOfMemoryError。</p>
-<p><strong>方法区（Method Area）</strong>用于存放类信息、常量、静态变量等数据，结构上和 Heap 一致，功能上却要加以区分。在 Java8 以前，这块区域对应的是 GC 的“永久代”（Permanent Generation），java8 后被更名为“元空间”（MetaSpace）。<br>当方法区无法满足内存需求时会抛出 OutOfMemoryError 异常。</p>
-<p><strong>运行时常量池（Runtime Constant Pool）</strong>是方法区的一部分，用于存放编译期生成的各种字面量和符号。避免了频繁的创建和销毁对象而影响系统性能，实现了对象的共享，节省了内存空间和运行时间。值得说明的是，运行时常量池具备动态特性，常量不止在编译期可以产生，在运行期间也可以产生。</p>
+<p><strong>Java 堆（Java Heap）</strong>存放几乎所有的对象实例，也是 GC（Garbage Collection）发生的主要区域，被所有线程共享。因为 GC 的需求，Heap 可以再被细分为新生代和老年代（这一部分在<a href="/2018/02/09/jvm-gc/">Java系列（二）——JVM内存回收</a>中有涉及），但是与其储存的内容无关。Java Heap 应该可以处于物理上不连续的内存空间中，只要逻辑上是连续的即可，就像我们的磁盘空间一样。Heap 既可以固定大小也可以动态扩展。在 JVM 中只有一个堆。<br>如果 Heap 中没有内存完成实例分配，且堆无法再扩展，则会抛出 OutOfMemoryError。</p>
+<p><strong>方法区（Method Area）</strong>用于存放类信息、常量、静态变量等数据，结构上和 Heap 一致，功能上却要加以区分。在 Java8 以前，这块区域对应的是 GC 的“永久代”（Permanent Generation），java8 后被更名为“元空间”（MetaSpace）。</p>
+<p>在Class文件中除了类的字段、方法、接口等描述信息外，还有一项信息是常量池，用来存储编译期间生成的字面量和符号引用。当方法区无法满足内存需求时会抛出 OutOfMemoryError 异常。</p>
+<p><strong>运行时常量池（Runtime Constant Pool）</strong>是方法区的一部分，用于存放编译期生成的各种字面量和符号。避免了频繁的创建和销毁对象而影响系统性能，实现了对象的共享，节省了内存空间和运行时间。值得说明的是，运行时常量池具备动态特性，常量不止在编译期可以产生，在运行期间也可以产生，比如String的intern方法。</p>
 <h1 id="对象的创建"><a href="#对象的创建" class="headerlink" title="对象的创建"></a>对象的创建</h1><ol>
 <li>在常量池中检查是否已有该类的符号引用，并检查该类是否已初始化，如果没有则需要加载该类。</li>
 <li>在 Heap 中为对象分配内存：指针碰撞（Bump the Pointer）、空闲列表（Free List），取决于 Java 堆是否规整；除此之外出于虑线程安全的考虑，使用 CAS（Compare and Swap）和失败重试的方式保证操作的原子性。也可以用 TLAB（Thread Local Allocation Buffer），即预先给线程匹配缓冲内存的方式实现。</li>
@@ -77,6 +267,7 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.91-b14, mixed mode)
 <li><a href="http://www.cnblogs.com/Mainz/p/3546347.html" target="_blank" rel="external">非阻塞同步算法与CAS(Compare and Swap) 无锁算法</a></li>
 <li><a href="http://www.importnew.com/20472.html" target="_blank" rel="external">乐观锁的一种实现方式——CAS</a></li>
 <li><a href="http://blog.csdn.net/zqz_zqz/article/details/70233767" target="_blank" rel="external">java 中的锁 – 偏向锁、轻量级锁、自旋锁、重量级锁*</a></li>
+<li><a href="https://yq.aliyun.com/articles/280800" target="_blank" rel="external">玩转JVM虚拟机：JVM内存结构</a></li>
 </ul>
 </blockquote>
 ]]></content>
@@ -91,7 +282,13 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.91-b14, mixed mode)
       <category term="Java" scheme="https://www.duyidong.com/categories/Java/"/>
     
     
+      <category term="学习" scheme="https://www.duyidong.com/tags/%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="小结" scheme="https://www.duyidong.com/tags/%E5%B0%8F%E7%BB%93/"/>
+    
       <category term="Java" scheme="https://www.duyidong.com/tags/Java/"/>
+    
+      <category term="JVM" scheme="https://www.duyidong.com/tags/JVM/"/>
     
   </entry>
   
@@ -734,9 +931,9 @@ ansible-playbook -i inventory/aws/hosts \
     
       <category term="ThoughtWorks" scheme="https://www.duyidong.com/tags/ThoughtWorks/"/>
     
-      <category term="职场" scheme="https://www.duyidong.com/tags/%E8%81%8C%E5%9C%BA/"/>
-    
       <category term="面试" scheme="https://www.duyidong.com/tags/%E9%9D%A2%E8%AF%95/"/>
+    
+      <category term="职场" scheme="https://www.duyidong.com/tags/%E8%81%8C%E5%9C%BA/"/>
     
   </entry>
   
@@ -2218,157 +2415,6 @@ High willingness to travel
       <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
     
       <category term="翻译" scheme="https://www.duyidong.com/tags/%E7%BF%BB%E8%AF%91/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>基础设施代码测试</title>
-    <link href="https://www.duyidong.com/2017/04/13/Infrastructure-as-Code-Testing/"/>
-    <id>https://www.duyidong.com/2017/04/13/Infrastructure-as-Code-Testing/</id>
-    <published>2017-04-13T05:41:29.000Z</published>
-    <updated>2017-05-05T07:23:01.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>在DevOps的文化中有一个已经被广泛认可的概念叫做<a href="https://martinfowler.com/bliki/InfrastructureAsCode.html" target="_blank" rel="external">基础设施及代码</a>，意在将基础设施以配置文件的方式纳入版本管理以达到更灵活且便于管理的目的，从而更加适应基础设施频繁变更需求。</p>
-<p>虽说此举俨然已将<a href="https://www.duyidong.com/2016/05/19/CI-CD/">CI/CD</a>（持续集成和持续交付）概念应用在了基础设施代码上，然而在应用产品的<a href="https://www.duyidong.com/tags/%E9%83%A8%E7%BD%B2%E4%B8%8E%E5%8F%91%E5%B8%83/">持续部署与发布</a>实施过程中，基础设施变更仍然是一件令人<em>胆战心惊</em>的事，原因很简单——没有<strong>反馈及时</strong>且<strong>覆盖充分</strong>的测试。</p>
-<p>随着基础设施即代码的不断推广，这一痛点变得越来越明显，最近一期<a href="https://assets.thoughtworks.com/assets/technology-radar-vol-16-cn.pdf" target="_blank" rel="external">ThoughtWorks技术雷达</a>中列出了两个工具<strong>Molecule</strong>和<strong>Testinfra</strong>一个是用于测试Ansible Role(如果还不知道Ansible是什么请移步我的另一篇博客：<a href="https://www.duyidong.com/2016/06/15/Ansible%E5%AD%A6%E4%B9%A0%E5%B0%8F%E8%AE%B0/">Ansible学习小计</a>)，一个用于测试基础设施，下面我就来试用一下这两个工具。</p>
-<h2 id="Testinfra介绍"><a href="#Testinfra介绍" class="headerlink" title="Testinfra介绍"></a>Testinfra介绍</h2><p><a href="https://github.com/philpep/testinfra" target="_blank" rel="external">Testinfra</a>是由Python社区贡献的基础设施实际状态自动化测试工具，其目标是成为<a href="http://serverspec.org/" target="_blank" rel="external">Serverspec</a>在Python中的等价物，并且作为<strong>Pytest</strong>测试引擎的插件来使用。</p>
-<p>官方文档：<a href="http://testinfra.readthedocs.io/en/latest/index.html" target="_blank" rel="external">http://testinfra.readthedocs.io/en/latest/index.html</a></p>
-<h3 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h3><p>环境准备：</p>
-<pre><code>$ pip install testinfra      # 安装Testinfra
-$ pip install paramiko       # Python的SSH支持以执行远程测试
-$ pip install pytest-xdist   # 添加多线程支持
-</code></pre><p>来感受下Testinfra的写法:</p>
-<pre><code class="python">def test_passwd_file(File):         # 定义文件检查
-    passwd = File(&quot;/etc/passwd&quot;)    # 定义文件
-    assert passwd.contains(&quot;root&quot;)  # 文件是否包含关键字”root“
-    assert passwd.user == &quot;root&quot;    # 文件owner是否为root
-    assert passwd.group == &quot;root&quot;   # 文件所属组是否为root
-    assert passwd.mode == 0644      # 检查文件权限
-
-
-def test_nginx_is_installed(Package):
-    nginx = Package(&quot;nginx&quot;)
-    assert nginx.is_installed       # nginx是否安装
-    assert nginx.version.startswith(&quot;1.10&quot;) # 检查nginx版本
-
-
-def test_nginx_running_and_enabled(Service):
-    nginx = Service(&quot;nginx&quot;)
-    assert nginx.is_running         # 检查nginx是否已启动
-    assert nginx.is_enabled         # nginx是否配置开机自启
-</code></pre>
-<p>基本和Python的单元测试一模一样，下面来看运行结果：</p>
-<pre><code>$ testinfra -v test_myinfra.py
-</code></pre><p><img src="/images/Testinfra_local_success.png" alt=""></p>
-<p>报错也是PyTest的尿性：</p>
-<p><img src="/images/Testinfra_local_fail.png" alt=""></p>
-<h3 id="远程测试虚拟机"><a href="#远程测试虚拟机" class="headerlink" title="远程测试虚拟机"></a>远程测试虚拟机</h3><p>通过配置ssh并在启动时加入如下参数：</p>
-<pre><code># -n 为指定并发数 --connection为指定链接方式
-$ testinfra -n 1 -v --host=&quot;hostname&quot; --connection=ssh test_myinfra.py
-</code></pre><p>感觉执行方式和Ansible有些相似，以下为执行结果：</p>
-<p><img src="/images/Testinfra_remote_success.png" alt=""></p>
-<p>耗时6s，中规中矩吧。</p>
-<h3 id="其他功能"><a href="#其他功能" class="headerlink" title="其他功能"></a>其他功能</h3><p>除了SSH协议链接Testinfra还支持paramiko，docker，salt，kubectl等连接方式，对于Docker的测试，无外乎也是在起起来的容器上使用<code>docker exec</code>的方法对基础设施即环境配置进行验证。</p>
-<p>另外Testinfra支持自定义module的形式保证测试方法的灵活性，同时Testinfra可以再PyTest之外用于调用SSH连接从而进行测试，形如：</p>
-<pre><code>&gt;&gt;&gt; import testinfra
-&gt;&gt;&gt; conn = testinfra.get_backend(&quot;paramiko://root@server:2222&quot;, sudo=True)
-&gt;&gt;&gt; conn.File(&quot;/etc/shadow&quot;).mode == 0640
-True
-</code></pre><h3 id="Testinfra评价"><a href="#Testinfra评价" class="headerlink" title="Testinfra评价"></a>Testinfra评价</h3><p>在基础设施代码的测试金字塔中，Testinfra提供了以单台服务器为单位的基础设施测试，从而确保了代码有一个正确的运行环境；然而这种层面的测试即使不使用测试工具也很容易进行，与云环境紧密相关的基础设施对测试的需求应该是对架构的整体描述而不是局限于一个计算单元，这一点上，Testinfra还没有显现出它对测试金字塔高层级测试的功力。</p>
-<h4 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h4><ul>
-<li>基本涵盖了应用所需环境测试的内容，且可灵活扩展。</li>
-<li>可读性好，学习成本低.</li>
-<li>环境依赖简单，能够与项目完美结合。</li>
-</ul>
-<h4 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h4><ul>
-<li>测试未能覆盖到IaaS层的测试，仅能够在操作系统之上进行测试。对于云环境的基础设施还包括网络，负载均衡，数据库等等资源，这些都不能照顾到。</li>
-<li>测试覆盖率虽然有所提升，但反馈不够及时。在开发和Debug过程中最痛苦的应该是每次使用新代码创建基础设施都要等很久才能得到反馈，这个问题并没有得到解决。</li>
-<li>报错信息不够友好，个人认为基础设施的测试应该不能等同于代码层面的测试，所以PyTest的报错方式并不能让用户一眼就看到是哪方面出了错误；往远了说，要根据这个报错信息Trigger一个行为也很难做到。</li>
-</ul>
-<h2 id="Molecule介绍"><a href="#Molecule介绍" class="headerlink" title="Molecule介绍"></a>Molecule介绍</h2><p><a href="https://github.com/metacloud/molecule" target="_blank" rel="external">MOLECULE</a>旨在帮助开发和测试Ansible的Role。通过在虚拟机或容器上为正在运行的Ansible Role的测试构<br>建脚手架，我们无需再手工创建这些测试环境。Molecule利用Vagrant，Docker和OpenStack来管理虚拟机或容器，并支持Serverspec、Testinfra或Goss来运行测试。在sequence facility model中的默认步骤包括：虚拟机管理，Ansible语法静态检查，幂等性测试和收敛性测试。</p>
-<p>话不多说，我们来看看这个工具究竟能解决什么样的问题吧。</p>
-<h3 id="版本支持"><a href="#版本支持" class="headerlink" title="版本支持"></a>版本支持</h3><p>目前Molecule支持的Ansible版本为<code>2.1.4.0</code>和<code>2.2.1.0</code>，好吧，这一点，虽然项目上还在用<code>1.7.2</code>（一直担心<em>Breake change</em>所以没有升上去），但我觉得大部分公司应该使用的是<code>2.2</code>以上的版本，这一点我没有异议。</p>
-<h3 id="Quick-Start-1"><a href="#Quick-Start-1" class="headerlink" title="Quick Start"></a>Quick Start</h3><p>环境准备</p>
-<pre><code>$ yum install ansible -y      # 为了避免踩坑不使用pip的ansible
-$ pip install docker          # 安装python的docker支持
-$ pip install molecule        # 主角登场
-</code></pre><p>运行</p>
-<pre><code>$ molecule init --role foo --driver docker
-$ cd foo
-$ molecule test
-</code></pre><p>运行结果：</p>
-<p><img src="/images/Molecule_Test_Success.png" alt=""></p>
-<p>第一次运行速度比较慢，因为运行Ansible需要到Docker镜像仓库拉取一个Ubuntu的镜像，可以从Log里看出，整个测试过程包含如下步骤：</p>
-<ul>
-<li>从基础镜像（Ubuntu）创建一个测试需要的镜像（docker image）</li>
-<li>从镜像启动一个测试运行需要的容器（docker container）</li>
-<li>开始测试，运行playbook</li>
-<li>使用Testinfra判断准备环境是否正确</li>
-<li>测试完毕，停止并删除容器</li>
-</ul>
-<p>整个过程容器的创建和销毁并没有占用很多时间，和跑一个Ansible时间相差不多。</p>
-<h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><p>Molecule的配置文件采用的yml，可以在项目下也可以放到<code>~/.config/molecule/config.yml</code>作为默认配置，示例如下：</p>
-<pre><code>---
-dependency:
-  name: galaxy         # Molecule使用Ansible Galaxy拉取Role
-driver:
-  name: docker         # 使用Docker引擎跑测试
-docker:
-  containers:          # 容器配置
-    - name: foo
-      image: ubuntu
-      image_version: latest
-      ansible_groups:  # 目标机器组
-        - group1
-verifier:
-  name: testinfra      # 验证最终执行结果
-</code></pre><p>其中Driver除了Docker还支持OpenStack及Vagrant，Verifier除了Testinfra还可选Serverspec及Goss。</p>
-<h3 id="测试方法"><a href="#测试方法" class="headerlink" title="测试方法"></a>测试方法</h3><p>关于测试内容的定义，看一下<code>test/test_default.py</code>文件：</p>
-<pre><code>import testinfra.utils.ansible_runner
-
-testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
-    &#39;.molecule/ansible_inventory&#39;).get_hosts(&#39;all&#39;)
-
-
-def test_hosts_file(File):
-    f = File(&#39;/etc/hosts&#39;)
-
-    assert f.exists
-    assert f.user == &#39;root&#39;
-    assert f.group == &#39;root&#39;
-</code></pre><p>简单看来就是利用Testinfra看了下/etc/hosts是否存在，所属用户和所属组是否为root</p>
-<h3 id="Molecule评价"><a href="#Molecule评价" class="headerlink" title="Molecule评价"></a>Molecule评价</h3><p>与其说Molecule是一个新的Ansible测试工具不如说是一种组合docker，Testinfra和Ansible的测试方法，换总说法它并不是一个集成在Ansible之中的更细粒度的测试方法，而是高于Ansible的更适合于放在Pipeline中作为测试Ansible运行最终结果的一个工具集，其效果大致和运行<code>docker run XXX ansible</code>之后再运行<code>Testinfra -v</code>两行shell命令是一样的</p>
-<h4 id="优点-1"><a href="#优点-1" class="headerlink" title="优点"></a>优点</h4><ul>
-<li>开始关注自动化配置脚本的测试，不失为一种尝试</li>
-<li>使用Docker作为引擎，速度还可以</li>
-<li>能够提升更改Ansible脚本后的构建信心</li>
-</ul>
-<h4 id="缺点-1"><a href="#缺点-1" class="headerlink" title="缺点"></a>缺点</h4><ul>
-<li>仍然要运行完Playbook才能看到结果，并没有解决<strong>反馈不及时</strong>的痛点</li>
-<li>不支持细粒度的测试，且对一个playbook使用不同参数构建不同环境的应用场景也没有很好的支持</li>
-<li>不管是使用Docker还是Vagrant，都增加了<em>空间</em>的消耗，且增加了<em>知识成本</em></li>
-</ul>
-<h2 id="综上所述"><a href="#综上所述" class="headerlink" title="综上所述"></a>综上所述</h2><p>随着DevOps的普及，已经有人开始关注基础设施代码测试这一块的工作，但这些测试工具还在初级阶段，反馈不能及时，增加覆盖面的成本也还较高，且不能很好地与云环境结合。<br>由于在软件开发中基础设施对业务价值的贡献并不明显，提升Ops技能与其说能过帮助公司挣钱不如说是帮公司省钱；而且在大部分项目中基础设施变更并没有那么频繁，紧急的问题通常还是由Ops（或者是被称为DevOps的一个角色）手动来解决，这种现象在国内公司尤其明显。大家对DevOps的认识还没有达到不一致，DevOps中的测试也还没有被定义清楚，基础设施代码的测试，还有很长的路要走。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;在DevOps的文化中有一个已经被广泛认可的概念叫做&lt;a href=&quot;https://martinfowler.com/bliki/InfrastructureAsCode.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;基础设施及代码&lt;/a&gt;，意
-    
-    </summary>
-    
-      <category term="DevOps" scheme="https://www.duyidong.com/categories/DevOps/"/>
-    
-    
-      <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
-    
-      <category term="Infrastructure as Code" scheme="https://www.duyidong.com/tags/Infrastructure-as-Code/"/>
-    
-      <category term="ThoughtWorks技术雷达" scheme="https://www.duyidong.com/tags/ThoughtWorks%E6%8A%80%E6%9C%AF%E9%9B%B7%E8%BE%BE/"/>
-    
-      <category term="基础设施即代码" scheme="https://www.duyidong.com/tags/%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E5%8D%B3%E4%BB%A3%E7%A0%81/"/>
-    
-      <category term="持续交付" scheme="https://www.duyidong.com/tags/%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98/"/>
     
   </entry>
   

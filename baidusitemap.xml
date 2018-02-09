@@ -4,8 +4,30 @@
 
     
   <url>
+    <loc>https://www.duyidong.com/2018/01/26/about-HTTPS/</loc>
+    <lastmod>2018-02-09T14:45:23.000Z</lastmod>
+    <data>
+        <display>
+        <title>细说HTTPS</title>
+        <pubTime>2018-01-26T01:41:27.000Z</pubTime>
+        
+        <tag>HTTPS</tag>
+         
+        <tag>HTTP</tag>
+         
+         
+           
+             
+              <breadCrumb title="学习总结" url="https://www.duyidong.com/categories/%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://www.duyidong.com/2018/02/09/jvm-gc/</loc>
-    <lastmod>2018-02-09T11:36:29.000Z</lastmod>
+    <lastmod>2018-02-09T14:45:06.000Z</lastmod>
     <data>
         <display>
         <title>Java系列（二）——JVM内存回收</title>
@@ -31,7 +53,7 @@
     
   <url>
     <loc>https://www.duyidong.com/2018/01/31/jvm/</loc>
-    <lastmod>2018-02-09T11:31:52.000Z</lastmod>
+    <lastmod>2018-02-09T14:39:16.000Z</lastmod>
     <data>
         <display>
         <title>Java系列（一）——JVM内存分配</title>
@@ -55,28 +77,6 @@
     </url>
 
     
-    
-  <url>
-    <loc>https://www.duyidong.com/2018/01/26/about-HTTPS/</loc>
-    <lastmod>2018-02-02T01:12:26.000Z</lastmod>
-    <data>
-        <display>
-        <title>细说HTTPS</title>
-        <pubTime>2018-01-26T01:41:27.000Z</pubTime>
-        
-        <tag>HTTPS</tag>
-         
-        <tag>HTTP</tag>
-         
-         
-           
-             
-              <breadCrumb title="学习总结" url="https://www.duyidong.com/categories/%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/"/>
-          
-        </display>
-    </data>
-    </url>
-
     
     
   <url>
@@ -997,11 +997,11 @@
         
         <tag>学习</tag>
          
-        <tag>小计</tag>
-         
         <tag>Linux</tag>
          
         <tag>Shell</tag>
+         
+        <tag>小计</tag>
          
          
            

@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.duyidong.com/"/>
-  <updated>2018-02-09T11:36:29.000Z</updated>
+  <updated>2018-02-09T14:45:06.000Z</updated>
   <id>https://www.duyidong.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="https://www.duyidong.com/2018/02/09/jvm-gc/"/>
     <id>https://www.duyidong.com/2018/02/09/jvm-gc/</id>
     <published>2018-02-09T15:15:15.000Z</published>
-    <updated>2018-02-09T11:36:29.000Z</updated>
+    <updated>2018-02-09T14:45:06.000Z</updated>
     
     <content type="html"><![CDATA[<p>GC（Garbage Collection 垃圾回收）使得Java程序员在编写程序的时候不再需要考虑内存管理。由于有个垃圾回收机制，Java中的对象不再有“作用域”的概念，只有对象的引用才有“作用域”。垃圾回收可以有效的防止内存泄露，有效的使用空闲的内存。</p>
 <h1 id="哪些内存需要回收"><a href="#哪些内存需要回收" class="headerlink" title="哪些内存需要回收"></a>哪些内存需要回收</h1><p>上文<a href="https://www.duyidong.com/2018/01/31/jvm/">JVM内存分配</a>介绍了 JVM 运行时内存分配的各个部分，其中程序计数器、虚拟机栈、本地方法区都是和线程同生共死的，其内存的分配和回收都随着栈帧的进入和退出有序进行，不需要过多考虑回收问题。而 <strong>Java 堆</strong>和<strong>方法区</strong>因为其存放对象和类都是要在运行时才能确认大小，而创建的动作频繁且随机，因此这两部分区域是 GC 关注的主要区域。</p>
@@ -134,7 +134,7 @@
 - 并发(Parallel)：多条 GC 线程并行工作，但此时用户线程仍处于等待状态。
 
 - 并发(Concurrent)：用户线程和 GC 线程同时执行(但不一定是并行的，可能会交替执行)，而 GC 程序运行与另一个 CPU 上。
-</code></pre><h3 id="Parallel-Scavenge-收集器"><a href="#Parallel-Scavenge-收集器" class="headerlink" title="Parallel Scavenge 收集器"></a>Parallel Scavenge 收集器</h3><p>又一个实现复制算法的新生代多线程收集器， 也被称为“吞吐量优先”收集器。吞吐量是反应的是程序对 CPU 的使用效率，单位时间内 GC 时间越长，吞吐量约低。一般来说 GC 造成的停顿时间越短 GC 频率就会越高，从而使吞吐量下降，但带来的好处是停顿无感，这种策略适用于客户端这种需要和用户直接交互的程序；而高吞吐量的配置是服务器端后台运算所需要的。Parallel Scavenge 收集器提供 -XX:MaxGCPauseMillis 来设置停顿时间，-XX:GCTimeRatio 直接设置吞吐量百分比（运行代码时间/(运行代码时间+单位时间内GC时间)），除此之外还有一个 -XX:+UseAdaptiveSizePolicy 来提供 GC 自适应调整（<a href="https://docs.oracle.com/javase/8/docs/technotes/guides/vm/gc-ergonomics.html" target="_blank" rel="external">GC Ergonomics</a>）以提供最合适的停顿时间或者最大吞吐量，可以用这种方式搭配前两个参数使用。</p>
+</code></pre><h3 id="Parallel-Scavenge-收集器"><a href="#Parallel-Scavenge-收集器" class="headerlink" title="Parallel Scavenge 收集器"></a>Parallel Scavenge 收集器</h3><p>又一个实现复制算法的新生代多线程收集器， 也被称为“吞吐量优先”收集器。吞吐量是反应的是程序对 CPU 的使用效率，单位时间内 GC 时间越长，吞吐量约低。一般来说 GC 造成的停顿时间越短 GC 频率就会越高，从而使吞吐量下降，但带来的好处是停顿无感，这种策略适用于客户端这种需要和用户直接交互的程序；而高吞吐量的配置是服务器端后台运算所需要的。Parallel Scavenge 收集器提供 -XX:MaxGCPauseMillis 来设置停顿时间，-XX:GCTimeRatio 直接设置吞吐量百分比（运行代码时间/(运行代码时间+单位时间内GC时间)），除此之外还有一个 -XX:+UseAdaptiveSizePolicy 来提供 GC 自适应调整（<a href="https://docs.oracle.com/javase/8/docs/technotes/guides/vm/gc-ergonomics.html" target="_blank" rel="external">GC Ergonomics</a>）以提供最合适的停顿时间或者最大吞吐量，可以用这种方式搭配前两个参数使用。</p>
 <h3 id="Serial-Old-收集器"><a href="#Serial-Old-收集器" class="headerlink" title="Serial Old 收集器"></a>Serial Old 收集器</h3><p>用于老年代的单线程收集器，实现了“标记-整理”算法，是 Serial 的老年版，主要用于 Client 端的虚拟机。</p>
 <h3 id="Parallel-Old-收集器"><a href="#Parallel-Old-收集器" class="headerlink" title="Parallel Old 收集器"></a>Parallel Old 收集器</h3><p>用于老年代的多线程收集器，同样实现“标记-整理”算法，是 Parallel Scavenge 的老年版，和 Parallel Scavenge 搭配用于对吞吐量和 CPU 资源敏感的场景非常适用。</p>
 <h3 id="CMS-收集器"><a href="#CMS-收集器" class="headerlink" title="CMS 收集器"></a>CMS 收集器</h3><p>CMS（Concurrent Mark Sweep）是一种以获取最短 GC 停顿时间为目标的收集器，在重视网站响应时间的 Java Web 中使用广泛，实现的是“标记-清除”算法，分为以下几个步骤：</p>
@@ -199,7 +199,7 @@
     <link href="https://www.duyidong.com/2018/01/31/jvm/"/>
     <id>https://www.duyidong.com/2018/01/31/jvm/</id>
     <published>2018-01-31T00:57:05.000Z</published>
-    <updated>2018-02-09T11:31:52.000Z</updated>
+    <updated>2018-02-09T14:39:16.000Z</updated>
     
     <content type="html"><![CDATA[<p>成都近日气温已逾零下。让我想起在赤峰拍戏的日子，八月凌晨三点，茶水车结出一道冰溜子，18 个人抢 8 件军大衣，有人要去扒箱车，制片大喊：“别动！那是给领导穿的” —— 生活如此不易。如今我更加体会到“平凡的生活也要靠努力去争取”。</p>
 <h1 id="什么是-JVM"><a href="#什么是-JVM" class="headerlink" title="什么是 JVM"></a>什么是 JVM</h1><p>JVM（Java Virtual Machine Java 虚拟机）是一种用于计算设备的规范，基于这套规范，许多团队开发了多种<a href="https://en.wikipedia.org/wiki/List_of_Java_virtual_machines" target="_blank" rel="external">不同的虚拟机实现</a>，目前使用范围最广的是从 Sun 公司开始，到 Oracle 后一直在使用 的 HotSpot 以及 <a href="http://openjdk.java.net/" target="_blank" rel="external">Open JDK</a>，二者一个由 Oracle 公司维护，一个由开源社区维护，使用起来并没有太大差别。</p>
@@ -296,7 +296,7 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.91-b14, mixed mode)
     <link href="https://www.duyidong.com/2018/01/26/about-HTTPS/"/>
     <id>https://www.duyidong.com/2018/01/26/about-HTTPS/</id>
     <published>2018-01-26T01:41:27.000Z</published>
-    <updated>2018-02-02T01:12:26.000Z</updated>
+    <updated>2018-02-09T14:45:23.000Z</updated>
     
     <content type="html"><![CDATA[<p>最近客户公司经历了一次大的证书升级，内网许多服务之间的调用出现了证书过期或是不授信的问题。前面我写过两篇文章介绍<a href="https://www.duyidong.com/2016/03/30/HTTP%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3/">HTTP协议</a>以及<a href="https://www.duyidong.com/2016/04/17/%E4%B8%80%E6%AC%A1%E5%AE%8C%E6%95%B4%E7%9A%84HTTP%E4%BA%8B%E5%8A%A1%E6%98%AF%E6%80%8E%E6%A0%B7%E4%B8%80%E4%B8%AA%E8%BF%87%E7%A8%8B%EF%BC%9F/">一次完整的HTTP事务是怎样一个过程</a>，这篇文章主要介绍一个大家日常工作中都在打交道但却不一定很熟悉的协议 —— HTTPS。</p>
 <h1 id="名词澄清"><a href="#名词澄清" class="headerlink" title="名词澄清"></a>名词澄清</h1><p>HTTPS 服务是工作在 SSL/TLS 上 的HTTP。</p>
@@ -328,7 +328,7 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.91-b14, mixed mode)
 <li>服务器端在收到客户端加密后的随机数后用私钥解密。这个时候，客户端和服务器端都同时拥有了三个在一次会话中生成的完全相同的三个随机数：客户端生成随机数、服务器端生成随机数、Pre-master key。随即客户端和服务器端用这三个数生成同一把<strong>会话密钥</strong>（Session key），用于加密随后通信的信息。介时，服务器端还会向客户端返回一个编码变更通知表示服务器会话结束，并提供一个前面会话的 hash 值用于客户端校验。</li>
 <li>客户端与服务器端开始对称加密通信。</li>
 </ol>
-<h2 id="认证"><a href="#认证" class="headerlink" title="认证"></a>认证</h2><p>可以想象，即使做到了客户端和服务器之间通信的保密性，并不意味着就不会有人来冒充服务器端响应客户端的请求。参照网络七层协议，互联网中的设备通信只能够靠 IP 来标示对方，而因为 IP 不便记忆所以我们有了 DNS（Doman Name Service），域名和 IP 的映射除了靠 DNS 服务器记录之外还会有限去查询本地缓存，如果本地 DNS 映射的缓存被攻击者更改就会造成 DNS 劫持，许多钓鱼网站就是利用这个方式将一个域名指向的 IP 改变为钓鱼网站的服务器 IP，再做一个和官方网站一模一样的网站骗走用户的隐私信息。因此，如何确认客户端现在连接的服务器就是真正的目标服务器就变得十分重要。</p>
+<h2 id="认证"><a href="#认证" class="headerlink" title="认证"></a>认证</h2><p>可以想象，即使做到了客户端和服务器之间通信的保密性，并不意味着就不会有人来冒充服务器端响应客户端的请求。参照网络七层协议，互联网中的设备通信只能够靠 IP 来标示对方，而因为 IP 不便记忆所以我们有了 DNS（Doman Name Service），域名和 IP 的映射除了靠 DNS 服务器记录之外还会有限去查询本地缓存，如果本地 DNS 映射的缓存被攻击者更改就会造成 DNS 劫持，许多钓鱼网站就是利用这个方式将一个域名指向的 IP 改变为钓鱼网站的服务器 IP，再做一个和官方网站一模一样的网站骗走用户的隐私信息。因此，如何确认客户端现在连接的服务器就是真正的目标服务器就变得十分重要。</p>
 <p>要达到这个效果就要求官方网站必须去一个中心备案，客户端每次在连上服务器开始会话之前先去这个中心查阅一下该网站是不是真的就是浏览器上这个域名对应的网站，验证通过后才建立连接。这个“中心”就是 CA （Certificate Authority 证书授权中心），用于查阅校验的文件就是“证书（Certificate）”。</p>
 <p>这个过程中涉及到两个步骤，一个是证书的签发（Signing），一个是证书的验证（Verification），如下图所示：</p>
 <p><img src="/images/Certificate_Signing_and_Verification.png" alt=""></p>

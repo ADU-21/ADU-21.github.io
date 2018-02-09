@@ -4,12 +4,12 @@
 
     
   <url>
-    <loc>https://www.duyidong.com/2018/01/31/jvm/</loc>
-    <lastmod>2018-02-09T11:31:52.000Z</lastmod>
+    <loc>https://www.duyidong.com/2018/02/09/jvm-gc/</loc>
+    <lastmod>2018-02-09T11:36:29.000Z</lastmod>
     <data>
         <display>
-        <title>Java系列（一）——JVM内存分配</title>
-        <pubTime>2018-01-31T00:57:05.000Z</pubTime>
+        <title>Java系列（二）——JVM内存回收</title>
+        <pubTime>2018-02-09T15:15:15.000Z</pubTime>
         
         <tag>学习</tag>
          
@@ -30,12 +30,12 @@
 
     
   <url>
-    <loc>https://www.duyidong.com/2018/02/09/jvm-gc/</loc>
-    <lastmod>2018-02-09T11:31:34.000Z</lastmod>
+    <loc>https://www.duyidong.com/2018/01/31/jvm/</loc>
+    <lastmod>2018-02-09T11:31:52.000Z</lastmod>
     <data>
         <display>
-        <title>Java系列（二）——JVM内存回收</title>
-        <pubTime>2018-02-09T15:15:15.000Z</pubTime>
+        <title>Java系列（一）——JVM内存分配</title>
+        <pubTime>2018-01-31T00:57:05.000Z</pubTime>
         
         <tag>学习</tag>
          

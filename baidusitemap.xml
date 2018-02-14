@@ -4,6 +4,30 @@
 
     
   <url>
+    <loc>https://www.duyidong.com/2018/02/15/UML-and-SOLID/</loc>
+    <lastmod>2018-02-14T08:38:41.000Z</lastmod>
+    <data>
+        <display>
+        <title>Java系列（五）——UML类图和面向对象五大原则</title>
+        <pubTime>2018-02-15T02:50:33.000Z</pubTime>
+        
+        <tag>学习</tag>
+         
+        <tag>小结</tag>
+         
+        <tag>面向对象</tag>
+         
+         
+           
+             
+              <breadCrumb title="Java" url="https://www.duyidong.com/categories/Java/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://www.duyidong.com/2018/02/13/jvm-class-load-and-excute/</loc>
     <lastmod>2018-02-13T09:55:37.000Z</lastmod>
     <data>
@@ -495,13 +519,13 @@
         <title>DevOps 团队交付了什么？</title>
         <pubTime>2017-06-08T08:38:47.000Z</pubTime>
         
-        <tag>小结</tag>
+        <tag>DevOps</tag>
          
         <tag>职场</tag>
          
-        <tag>DevOps</tag>
-         
         <tag>Platform</tag>
+         
+        <tag>小结</tag>
          
         <tag>工作</tag>
          
@@ -781,9 +805,9 @@
         <title>DevOps 技能树</title>
         <pubTime>2017-05-18T08:30:47.000Z</pubTime>
         
-        <tag>职场</tag>
-         
         <tag>DevOps</tag>
+         
+        <tag>职场</tag>
          
          
            

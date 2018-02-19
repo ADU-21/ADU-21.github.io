@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.duyidong.com/about/index.html</loc>
+    
+    <lastmod>2018-02-19T02:40:40.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://www.duyidong.com/2018/02/15/UML-and-SOLID/</loc>
     
-    <lastmod>2018-02-14T08:38:41.000Z</lastmod>
+    <lastmod>2018-02-14T08:41:36.000Z</lastmod>
     
   </url>
   
@@ -19,13 +26,6 @@
     <loc>https://www.duyidong.com/2018/02/11/java-class-file-structure/</loc>
     
     <lastmod>2018-02-13T03:02:12.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://www.duyidong.com/about/index.html</loc>
-    
-    <lastmod>2018-02-12T14:21:06.000Z</lastmod>
     
   </url>
   

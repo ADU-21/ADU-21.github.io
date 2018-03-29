@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.duyidong.com/"/>
-  <updated>2018-02-27T01:27:05.000Z</updated>
+  <updated>2018-03-29T13:10:19.000Z</updated>
   <id>https://www.duyidong.com/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>英文时态详解</title>
+    <link href="https://www.duyidong.com/2018/03/28/English-16-tense/"/>
+    <id>https://www.duyidong.com/2018/03/28/English-16-tense/</id>
+    <published>2018-03-28T15:16:37.000Z</published>
+    <updated>2018-03-29T13:10:19.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>来 ThoughtWorks 两年了，英文使用也两年了，日常和工作中的交流几乎是没有问题，但是在说和写的时候总还觉得不地道，要么太啰嗦，要么说着说着逻辑就乱了，有时甚至感觉说英文像是在堆砌单词。最近补了一下英文语法，发现用错时态是我日常交流中最容易犯的错误，特此组织成文，方便日后查阅。</p><h1 id="时态的定义"><a href="#时态的定义" class="headerlink" title="时态的定义"></a>时态的定义</h1><p>我们已经知道复杂句由简单句构成，简单句有<strong>主系表</strong>、<strong>主谓</strong>、<strong>主谓宾</strong>、<strong>主谓宾宾补</strong>、<strong>主谓宾宾</strong>（授予）五大基本句型。大部分情况下，名词（主语、宾语）由<strong>定语</strong>修饰限定，动词（谓语）由<strong>状语</strong>修饰补充，就构成了日常使用的大部分简单的句子。在简单句的构成上英文和中文并没有太大差别，只是英文句式结构更严谨，表达的内容也不会有太大差异。而之所以英文和中文的学习有很大的差别，时态是一个重要的原因。</p><blockquote><p> 时态就是表示一个动作发生的<strong>时间</strong>和所处的<strong>状态</strong>。</p></blockquote><p>中文的动词侧重表意，也就是描绘动作本身，因此一个动词不管在何种语境下都是同样的说法同样的写法，因为他的含义是一样的；而英文中加入了时态的概念，在动词出现的时候就包含了关于这个动作“时间”和“状态”的信息，这也是为什么说英文描述比中文准确的原因，也是我们培养英语语感必须要迈过的一步。</p><ul><li><p>“时”就是这个动作发生的“时间”。英语中把时间分为三类：<code>过去</code>、<code>现在</code>和<code>将来</code>。</p></li><li><p>“态”就是这个动作在某个时刻的“状态”。动词共有四类状态，分别为：<code>一般式</code>、<code>进行式</code>、<code>完成式</code>和<code>进行完成式</code>。</p></li></ul><p>把这三个时间四种状态分别作为横轴和纵轴就形成了十二类时态的表格：（<strong>过去将来</strong>这个时间比较抽象，放到最后单独讲）</p><table><thead><tr><th style="text-align:center"></th><th style="text-align:center">过去</th><th style="text-align:center">现在</th><th style="text-align:center">将来</th></tr></thead><tbody><tr><td style="text-align:center">一般式</td><td style="text-align:center">一般过去式<br> did</td><td style="text-align:center">一般现在式<br>do</td><td style="text-align:center">一般过去式<br>will do</td></tr><tr><td style="text-align:center">进行式</td><td style="text-align:center">过去进行式<br>was/were doing</td><td style="text-align:center">现在进行式<br>am/is/are doing</td><td style="text-align:center">将来进行式<br>will be doing</td></tr><tr><td style="text-align:center">完成式</td><td style="text-align:center">过去完成式<br>had done</td><td style="text-align:center">现在完成式<br>have/has done</td><td style="text-align:center">将来完成式<br>will have done</td></tr><tr><td style="text-align:center">完成进行式</td><td style="text-align:center">过去完成进行式<br>had been done</td><td style="text-align:center">现在完成进行式<br>have/has been done</td><td style="text-align:center">将来完成进行式<br>will have been done</td></tr></tbody></table><p>只看表格里的中文名词可能比较难以理解，下面我们把每个时态带入具体场景进行理解：</p><h2 id="一般式"><a href="#一般式" class="headerlink" title="一般式"></a>一般式</h2><p>强调动作本身，即<strong>只强调动作发生的时间，不强调动作的状态</strong>；也就是说说这句话的人只关心这件事发生在过去现在还是将来，而不关心这件事有没有完成。</p><ul><li><p>一般过去式： <code>sb. did sth.</code></p><ul><li><p>表示过去的动作：I <u>got up</u> late this morning.</p></li><li><p>表示过去的事实：Colubus <u>discovered</u> America in 1742.</p></li></ul></li><li><p>一般现在式：<code>sb. do sth.</code></p><ul><li><p>表示事物现在的情况或状态，最典型的就是主系表结构，例如：I <u>am</u> a developer.</p></li><li><p>表示经常性、习惯性动作，常伴随时间副词修饰：I never/often/always <u>do</u> sth.</p></li><li><p>表示客观真理、格言，如： Time <u>filies</u>.</p></li></ul></li><li><p>一般将来式：<code>sb. will do sth.</code> 表示将来的动作、状态或是倾向。</p><ul><li><p>Will 表示意愿时，主语是人；表预测时，主语是物：I <u>will do</u> this card tomorrow. This part of the code <u>will become</u> difficult to maintain.</p></li><li><p>Be going to + 动词原形，多表计划，主语多为人：I<u>‘m going to</u> have lunch.</p></li><li><p>Be about to + 动词原形，表示即将： He <u>is about to</u> leave for a meeting.</p></li></ul></li></ul><p>对于一般现在式和一般将来式一般不容易犯错误，而容忽略的往往是一般过去式，因为汉语中习惯在动词末加“了”字补充说明这个动作已经发生，而英文则是要在这个动词出现的同时就带出“已经发生”的信息，因此容易被忽略。像说“I breake the pipeline.” ，break 是一个瞬间动词，因此说这句话的时候必然流水线已经红了，就应该用过去式“I <u>broke</u> the pipeline”。</p><h2 id="进行式"><a href="#进行式" class="headerlink" title="进行式"></a>进行式</h2><p>强调动作过程，表示正在做某事。</p><ul><li><p>过去进行式：<code>sb. was doing sth.</code></p><ul><li>表示过去正在做某事：I <u>was pairing</u> with Eli when Luke call me.</li></ul></li><li><p>现在进行式：<code>sb. be doing sth.</code></p><ul><li><p>表示现在正在发生的动作：It<u>’s raining</u> heavily now.</p></li><li><p>表示即将发生的动作，通常表示“位移”短暂动词 come, go, arrive, leave, start, begin, return, die, take，此时 be 动词译为“即将”：We <u>are going to</u> lunch soon.</p></li><li><p>主系表的一般态和进行态区别：主系表句型在口语中常表一般现在时，但如果强调此时的状态，可以用现在进行时。you are very rude! -&gt; you <u>are being</u> very rude! 你现在的行为粗鲁，而不是你这个人。</p></li></ul></li><li><p>将来进行式：<code>sb. will be doing sth.</code></p><ul><li>表示将来某时正在做的事情，强调对动作本身的描写，也是一般态的生动模式。例如：They <u>will be arriving</u> here tomorrow. 如果使用 arrive here 也可以，只是没有那么生动。</li></ul></li></ul><p>进行式容易忽略的一点是<strong>进行式只针对延续性动词</strong>，任何一个进行态的句子都可以改成一般态，但是一般态却必须是延续动词才能改成进行态。比如“结婚”和“开始”就是瞬间动词，中文中常有“他们正在结婚”，“比赛正在开始”的说法，而英文却不能用“They were marrying last week.” 只能说“They <u>married</u> last week.”，或者把“结婚”换成“结婚仪式”，成为延续性动词，用“They <u>are having</u> a wedding ceremony” 来表达正在进行婚礼。</p><h2 id="完成式"><a href="#完成式" class="headerlink" title="完成式"></a>完成式</h2><p>强调动作结果，在表意中时间被弱化，因此很容易忽略时态中的“时”。</p><ul><li><p>过去完成式：<code>sb. had did sth.</code></p><ul><li>表示截止到过去某时位置所完成的动作或经验的总结。过去完成时不能单独存在，要与另一使用一般过去时的句子或者表示过去的副词短语连用。had 译为“已经”或”曾经“：I <u>had opened</u> this feature toggle before last release.</li></ul></li><li><p>现在完成式：<code>sb. have/has did sth.</code></p><ul><li><p>表示到现在为止已经完成的动作（发生时间不明确）：DICE Team <u>has completed</u> the AMI upgrade.</p></li><li><p>如果是延续性动词，表示持续到现在的动作或状态：（be 动词是可延续的）Cloud hosting team <u>has been doing</u> SSL upgrade for two weeks.</p></li><li><p>现在完成时常用时间副词：</p><pre><code>- 自从... since + 时间点- 有若干时间之久… for + 时间段- 到目前为止... so far/up to now- 最近... recently/lately- 一次/两次/几次/多次... once/twice/a few times/many times- 过去若干年/月/日以来... over/during/for + the last/past + 数字 + years/months/days</code></pre></li></ul></li><li><p>未来完成式：<code>sb. will have did sth.</code></p><ul><li>表示到将来某时为止所做完成或仍然继续的动作或经验等。常与介词 by 构成时间状语连用，表示“到…的时候”，表示对将来这个时间点之前的一个或一系列动作的总结：By the end of this iteration, we <u>will have finished</u> work on the new brand.</li></ul></li></ul><p>这是一个充满“have/has”的句式，写邮件的时候很容易忽略三单，例如 Kira <u>has done</u> it  before. 另外，就如开头说的，完成式强调的是结果的状态，因此时间会被弱化，因此要注意根据完成时间在现在时间的前后选择<code>had</code>、<code>have/has</code>、或是<code>will have</code>。</p><h2 id="完成进行式"><a href="#完成进行式" class="headerlink" title="完成进行式"></a>完成进行式</h2><p>同时强调动作的结果和过程，是完成式的延续态，也就是说同样只适用于延续动词，且让这个延续的动作显得更生动，例如：I have work for this account for two years -&gt; I have been working for this account for two years. 两句话意思完全相同，但是第二句更加形象生动。</p><ul><li><p>过去完成进行式：<code>sb. had been doing sth.</code></p><ul><li>表达一直继续到过去某时，而当时仍然在继续的动作。过去完成进行时的句中必须有表示过去的时间状语：We <u>had been tracing</u> that bug for 8 hours before another team solved it.</li></ul></li><li><p>现在完成进行式：<code>sb. have/has been doing sth.</code></p><ul><li>表示一直继续到现在，且可能继续下去的动作。通常和表示时间段的副词连用，如 for, since, all morning…   Kelly <u>has been working</u> on this card for 28 days.</li></ul></li><li><p>将来完成进行式：<code>sb. will have been doing sth.</code> 一直持续到将来某时，且可能继续下去的动作多用于叙述性故事中，或间接引语中：He told me that by the end of this year he <u>would have been working</u> at ThoughtWorks for 5 years.</p></li></ul><p>这个也算是很常用的时态，尤其是表示”这个东西我做了一段时间了，现在也仍在做的时候，要用现在完成进行式，同样注意第三人称单数。</p><hr><h2 id="过去将来时"><a href="#过去将来时" class="headerlink" title="过去将来时"></a>过去将来时</h2><p>除了以上提到的十二中时态，还有一个稍微特殊的时间叫做<strong>“过去将来”</strong>，指的是“站在过去看将来”，其用法与将来时只有一个差别，就是把“will”换成“would”：</p><ul><li><p>一般过去式：<code>sb. would do sth.</code></p><ul><li>站在某个过去的时间点看将会发生的动作：He told me he <u>would do</u> it as quick as possible.</li></ul></li><li><p>过去将来进行式：<code>sb. would be doing sth.</code></p><ul><li>站在某个过去的时间点，从这个时间点看一个之后的时间点（或时间段）正在发生的动作：He knew that I <u>would be living</u> in Melburne next month.</li></ul></li><li><p>过去将来完成式：<code>sb. would have done sth.</code></p><ul><li>站在某个过去的时间点，对一个之后的时间点已经发生了的动作做总结：WaterStrong said he <u>would have left</u> for Sydney by the end of next month.</li></ul></li><li><p>过去将来完成进行式：<code>sb. would have been doing sth.</code></p><ul><li>站在过去的某个时间点，对一个之后的时间点正在发生的动作做总结：I knew by July Jimmy <u>would have been working</u> there for 3 years.</li></ul></li></ul><p>在读书的时候会比较多出现这个时态，类比将来式的使用即可。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;来 ThoughtWorks 两年了，英文使用也两年了，日常和工作中的交流几乎是没有问题，但是在说和写的时候总还觉得不地道，要么太啰嗦，要么说着说着逻辑就乱了，有时甚至感觉说英文像是在堆砌单词。最近补了一下英文语法，发现用错时态是我日常交流中最容易犯的错误，特此组织成文，方
+      
+    
+    </summary>
+    
+      <category term="English" scheme="https://www.duyidong.com/categories/English/"/>
+    
+    
+      <category term="学习" scheme="https://www.duyidong.com/tags/%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="英文" scheme="https://www.duyidong.com/tags/%E8%8B%B1%E6%96%87/"/>
+    
+  </entry>
   
   <entry>
     <title>在 AWS 流水线中使用 CodeDeploy</title>
@@ -128,11 +155,11 @@
       <category term="Java" scheme="https://www.duyidong.com/categories/Java/"/>
     
     
+      <category term="Java" scheme="https://www.duyidong.com/tags/Java/"/>
+    
       <category term="学习" scheme="https://www.duyidong.com/tags/%E5%AD%A6%E4%B9%A0/"/>
     
       <category term="小结" scheme="https://www.duyidong.com/tags/%E5%B0%8F%E7%BB%93/"/>
-    
-      <category term="Java" scheme="https://www.duyidong.com/tags/Java/"/>
     
       <category term="JVM" scheme="https://www.duyidong.com/tags/JVM/"/>
     
@@ -161,11 +188,11 @@
       <category term="Java" scheme="https://www.duyidong.com/categories/Java/"/>
     
     
+      <category term="Java" scheme="https://www.duyidong.com/tags/Java/"/>
+    
       <category term="学习" scheme="https://www.duyidong.com/tags/%E5%AD%A6%E4%B9%A0/"/>
     
       <category term="小结" scheme="https://www.duyidong.com/tags/%E5%B0%8F%E7%BB%93/"/>
-    
-      <category term="Java" scheme="https://www.duyidong.com/tags/Java/"/>
     
       <category term="Class" scheme="https://www.duyidong.com/tags/Class/"/>
     
@@ -193,11 +220,11 @@
       <category term="Java" scheme="https://www.duyidong.com/categories/Java/"/>
     
     
+      <category term="Java" scheme="https://www.duyidong.com/tags/Java/"/>
+    
       <category term="学习" scheme="https://www.duyidong.com/tags/%E5%AD%A6%E4%B9%A0/"/>
     
       <category term="小结" scheme="https://www.duyidong.com/tags/%E5%B0%8F%E7%BB%93/"/>
-    
-      <category term="Java" scheme="https://www.duyidong.com/tags/Java/"/>
     
       <category term="JVM" scheme="https://www.duyidong.com/tags/JVM/"/>
     
@@ -225,11 +252,11 @@
       <category term="Java" scheme="https://www.duyidong.com/categories/Java/"/>
     
     
+      <category term="Java" scheme="https://www.duyidong.com/tags/Java/"/>
+    
       <category term="学习" scheme="https://www.duyidong.com/tags/%E5%AD%A6%E4%B9%A0/"/>
     
       <category term="小结" scheme="https://www.duyidong.com/tags/%E5%B0%8F%E7%BB%93/"/>
-    
-      <category term="Java" scheme="https://www.duyidong.com/tags/Java/"/>
     
       <category term="JVM" scheme="https://www.duyidong.com/tags/JVM/"/>
     
@@ -581,40 +608,6 @@
       
         &lt;p&gt;Openshift 是一个基于 Kubernetes 和 Docker 的 PaaS 平台。&lt;/p&gt;
 &lt;h1 id=&quot;Openshift-概念补充&quot;&gt;&lt;a href=&quot;#Openshift-概念补充&quot; class=&quot;headerlink&quot; title=&quot;Openshift 
-      
-    
-    </summary>
-    
-      <category term="Cloud &amp; PaaS" scheme="https://www.duyidong.com/categories/Cloud-PaaS/"/>
-    
-    
-      <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
-    
-      <category term="PaaS" scheme="https://www.duyidong.com/tags/PaaS/"/>
-    
-      <category term="Openshift" scheme="https://www.duyidong.com/tags/Openshift/"/>
-    
-      <category term="Kubernetes" scheme="https://www.duyidong.com/tags/Kubernetes/"/>
-    
-      <category term="平台即服务" scheme="https://www.duyidong.com/tags/%E5%B9%B3%E5%8F%B0%E5%8D%B3%E6%9C%8D%E5%8A%A1/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>PaaS 平台（二） -- Kubernetes 介绍</title>
-    <link href="https://www.duyidong.com/2017/06/15/kubernetes-infrastructure/"/>
-    <id>https://www.duyidong.com/2017/06/15/kubernetes-infrastructure/</id>
-    <published>2017-06-15T01:38:41.000Z</published>
-    <updated>2017-10-29T03:50:19.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>Kubernetes 的很多概念和架构“代表了谷歌过去十余年设计、构建和管理大规模容器集群经验”。</p><h1 id="Kubernetes-概念引入"><a href="#Kubernetes-概念引入" class="headerlink" title="Kubernetes 概念引入"></a>Kubernetes 概念引入</h1><p>Kubernetes 基于容器引入了许多重要的概念，了解这些概念有助于认知 Kubernetes 是如何工作的。<br>以下介绍均为 Kubernetes 中被定义的资源，Kubernetes 架构按照 Restful 架构设计，即遵循：</p><ul><li>网络上的所有事物都被抽象为资源</li><li>每个资源对应一个唯一的资源标识符</li><li>通过通用的连接器接口对资源进行操作</li><li>对资源的各种操作不会改变资源标识符</li><li>所有操作都是无状态的</li><li>REST是基于HTTP的</li></ul><p>PS：REST之所以可以提高系统的可伸缩性，就是因为他要求所有的操作都是无状态的。</p><h2 id="Pod"><a href="#Pod" class="headerlink" title="Pod"></a>Pod</h2><p><img src="/images/kubernetes_pod.png" alt=""></p><h3 id="名词释义"><a href="#名词释义" class="headerlink" title="名词释义"></a>名词释义</h3><p>Pod 意为豆荚，内涵多个共享网络和存储的容器，作为被Replication Controller, Label, Service操作的逻辑对象，是Kubernetes里能被创建、调度和管理的最小部署单元。可以想象成一个用于装 Container 的篮子：</p><ul><li>一个 Pod 里能装多少资源取决于篮子的大小</li><li>Label 是贴在篮子上的</li><li>IP 分配给篮子而不是容器，篮子里的所有容器共享这个 IP</li><li>哪怕只有一个容器，Kubernetes仍然会给它分配一个 Pod，Pod里的Container数量也可以为零</li><li>Pod 的运行状态：Pending、Running、Succeeded、Failed</li></ul><p>Pod中的容器共享了IP及其对应的namespace, Volume；从 Linux 的 namespace 的角度看，Pod 里的容器还共享了 PID, IPC(信号量、消息队列、共享内存)，UTS(主机名与域名) namespace<br>Pod 是为了解决“如何合理使用容器支撑企业级复杂应用”的问题而诞生的，Kubernetes 的设计理念是为了支持绝大多数应用的原生形态，而不是大谈特谈“轻应用”和“十二要素应用”；Pod 对于 Kubernetes 来说最有用的价值就是“原子化调度”，即在为一个 Pod 选择目的宿主机时，Kubernetes 会先考量这个机器是否能放下整个 Pod，而避免出现本应该部署在一起的容器因为资源不足无法满足“超亲密关系”的尴尬。<br>Pod 里面包含一个网络容器先于其他所有容器创建，拥有该 Pod 的 namespace。<br>用户可以使用 <code>rsh</code> 命令登录到一个 Pod 里，原理是在 Pod 里创建了一个 bash Container。</p><h3 id="Pod-是如何被定义的"><a href="#Pod-是如何被定义的" class="headerlink" title="Pod 是如何被定义的"></a>Pod 是如何被定义的</h3><p>我们来看 Openshift 的一个 template 是如何描述一个 Pod 对象的：</p><pre><code class="yaml"># Kuberntes 是按照 Restful 标准设计，所以你能在每个资源对象中看到 API VersionapiVersion: v1      # 申明一个 Pod 类型                      kind: Pod                                 metadata:  # 具有严格命名规范的注释，包含版本号，资源url，团队名等  annotations: { ... }  # 每个 Pod 需绑定一个或多个 Tag，方便 Replication Controller 和 Service 对 Pod 进行调度和管理  labels:                                     deployment: docker-registry-1    deploymentconfig: docker-registry    docker-registry: default  generateName: docker-registry-1-       spec:  # 下面是对 Pod 中 Container 的定义，Containers 为一个列表，可以配置不同类型的多个 Contianer  containers:    # Container 中被注入的环境变量                              - env:                                     - name: OPENSHIFT_CA_DATA      value: ...    - name: OPENSHIFT_CERT_DATA      value: ...    - name: OPENSHIFT_INSECURE      value: &quot;false&quot;    - name: OPENSHIFT_KEY_DATA      value: ...    - name: OPENSHIFT_MASTER      value: https://master.example.com:8443    # Container 由哪个 image 启动    image: openshift/origin-docker-registry:v0.6.2     imagePullPolicy: IfNotPresent    name: registry    ports:    # 决定了 Pod 暴露出来的端口                                  - containerPort: 5000      protocol: TCP    resources: {}    securityContext: { ... }          # 决定了将被挂载到 Pod 里的外部存储设备挂载到 Container 的哪一个路径          volumeMounts:                           - mountPath: /registry      name: registry-storage    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount      name: default-token-br6yz      readOnly: true  dnsPolicy: ClusterFirst  imagePullSecrets:  - name: default-dockercfg-at06w  restartPolicy: Always  serviceAccount: default                 # 将外部存储设备挂在到 Pod 中，此处为一个临时存储，和一个加密存储  volumes:                                - emptyDir: {}    name: registry-storage  - name: default-token-br6yz    secret:      secretName: default-token-br6yz</code></pre><h3 id="关于-Volume"><a href="#关于-Volume" class="headerlink" title="关于 Volume"></a>关于 Volume</h3><p>Volume 是 Pod 中能被多个容器访问的共享目录，生命周期和 Pod 相同，如果有数据持久化考虑，如数据库的数据 Volume，通常需要调用云基础设施的持久化存储服务，如 AWS 的 EBS，EFS 等。</p><ul><li>EmptyDir: 在 Pod 被分配到 Node 时创建，初始内容为空，Pod 被移除时 EmptyDir 中的数据也会永久删除；常用于临时共享目录</li><li>hostPath: 在 Pod 上挂载宿主机上的文件或目录；使用时要注意 Pod 会在不同 Node 上漂移的问题，可以用在比如 Redis 集群的数据卷</li><li>NFS</li><li>EBS 创建一个 EBS Volume，直接挂载到 Pod 里</li><li>gitRepo: 挂载一个空目录，并下载一个 git repository</li><li>…</li></ul><h3 id="关于-Label-和-Label-Selector"><a href="#关于-Label-和-Label-Selector" class="headerlink" title="关于 Label 和 Label Selector"></a>关于 Label 和 Label Selector</h3><p><img src="/images/kubernetes_label.png" alt=""></p><p><strong>Label：</strong>Replication Controller 和 Service 通过 Label 对 Pod 进行选择和调度，Kubernetes 引入 Label 主要是为了面向用户，包含对象功能性和特征性描述的 Label 比对象名和 UUID 更加用户友好和有意义，而且使用户可以以一种松耦合的方式实现自身组织结构到系统对象之间的映射，无需客户端存储这些映射关系。</p><p><strong>Label Selector：</strong>是 Kubernetes 核心的分组机制，用于让客户端识别一组有共同特征或属性的 Kubernetes 对象，这一特性促进了扁平化、多维度的服务组织和部署架构，这对集群管理（譬如配置和部署）和应用的自我检查分析（日志监控预警分析）非常有用。Label Selector 除了严格匹配还支持类似于 SQL WHERE 语句的查询。</p><h2 id="Replication-Controller"><a href="#Replication-Controller" class="headerlink" title="Replication Controller"></a>Replication Controller</h2><p><img src="/images/kubernetes_rc.png" alt=""></p><h3 id="名词释义-1"><a href="#名词释义-1" class="headerlink" title="名词释义"></a>名词释义</h3><p>Replication Controller 的作用是决定一个Pod在运行时同时有多少个副本，类似于 AWS 的 Auto Scaling Group，方法是在每一个 Pod 外挂了一个控制器进程，与 Pod 相互独立，避免造成性能瓶颈或挂掉影响 Pod。<br>Replication Controller 是 Kubernetes 为了解决“如何构造完全同质的 Pod 副本”的问题而引入的资源对象。其配置文件由三部分组成：一个用于创建 Pod 的 template，一个期望的副本数，和一个用于选择被控制的 Pod 集合的 Label Selector。Replication Controller 会不断地监测控制的 Pod 集合数量并与期望的副本数量进行比较，根据实际情况进行创建和删除 Pod 操作。<br>功能：弹性伸缩，灰度发布（需要两个 Replication Controller ）。</p><h3 id="Replication-Controller-是如何被定义的"><a href="#Replication-Controller-是如何被定义的" class="headerlink" title="Replication Controller 是如何被定义的"></a>Replication Controller 是如何被定义的</h3><p>同样我们来看一个 Replication Controller 的配置文件：</p><pre><code class="yaml">apiVersion: v1kind: ReplicationControllermetadata:  name: frontend-1spec:  # 描述这个 rc 中期望的同质 Container 的数量  replicas: 1    # Label Selecter 用于匹配期望的 Pod，以及给新创建的 Pod 打上标签  selector:        name: frontend  # 模板，用于定义 Pod  template:        metadata:      labels:          name: frontend     spec:      containers:      - image: openshift/hello-openshift        name: helloworld        ports:        - containerPort: 8080          protocol: TCP      restartPolicy: Always</code></pre><h2 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h2><p><img src="/images/kubernetes_service.png" alt=""></p><h3 id="名词释义-2"><a href="#名词释义-2" class="headerlink" title="名词释义"></a>名词释义</h3><p>由于重新调度等原因，Pod 在 Kubernetes 里的 IP 并不是固定的，因此需要一个代理来确保需要使用 Pod 的应用不需要知道 Pod 的真实 IP 地址，同时 Service 还为多个 Pod 副本提供负载均衡，可以类比 AWS 中的 ELB。<br>Service 由两部分构成，一个与 Service 生命周期相同的 IP 地址，和一个 Label selector；另外还需要配置转发端口 ，Service 对象创建后系统会创建一个同名 Endpoints 对象用于保存匹配 Label selector 后端 Pod 的 IP 地址和端口。<br>Service 可以置空 Label selector 用于代理非 Pod，或得不到 Label 资源的（遗留）系统。方法：通过在 Service 里定义端口转发，再在 Endpoints 中自定义IP和端口。<br>Service 提供外部访问服务有三种形式，利用 Kubernetest 集群 IP 池（由 Administrator 配置）；利用宿主机（Node）的 IP 和端口；利用 LoadBalancer(如 AWS 的 ELB)。<br>另外，Service 是支持黏滞会话的。</p><h3 id="Service-是如何被定义的"><a href="#Service-是如何被定义的" class="headerlink" title="Service 是如何被定义的"></a>Service 是如何被定义的</h3><p>来看一个 Service 的配置文件：</p><pre><code class="yaml">apiVersion: v1kind: Servicemetadata:  name: docker-registry      spec:  # Label Selector  selector:                      docker-registry: default  # Endpoint，可以用于代理内部/外部资源（需使用 ”ExternalIPs“）  portalIP: 172.30.136.123     ports:  - nodePort: 0    port: 5000                   protocol: TCP    targetPort: 5000</code></pre><h3 id="Service-Proxy"><a href="#Service-Proxy" class="headerlink" title="Service Proxy"></a>Service Proxy</h3><p>Service Proxy（Kube-proxy）负责在 Service 建立的时候在宿主机上随机监听端口并建立 Iptable 规则进行转发，同时 Kube-proxy 还会实时监测 Kubernetes 的 Master 节点上的 etcd 中 Service 和 Endpoints 对象的增加和删除信息，从而保证和后端 Pod 的 IP 和端口变化保持一致更新。<br>Service discovering：环境变量（ Pod 创建时被注入所有可用 Service 环境变量形如 XXX_SERVICE_HOST=10.0.0.1）或通过 DNS（skyDNS服务器），调用 Kubernetes 的 WatchAPI, 不间断地监测新 Service 的创建并未每个 Service 新建一个 DNS 记录，在整个集群范围可用，在同 namespace 下的 Service 通过二级域名(Myservice)访问该 Service, 不同 namespace 下则可通过 my service.mynamespace 的方式访问到。DNS 的方式因为存在 TTL 导致服务 DNS 记录更新不及时而存在争议。<br>对于一部分要求外网可访问的 Service，可以通过 createExternalLoadBalancer=true（利用IaaS平台）或者维护一个 PublicIPs 池，利用 Kube-proxy 转发的方式实现。</p><h3 id="健康检查"><a href="#健康检查" class="headerlink" title="健康检查"></a>健康检查</h3><p>既然 Service 可以路由，必然也有对 Pod 进行健康检查的功能：</p><ul><li>进程级别由 Kubelete 通过 Docker daemon 获取所有 Docker 进程的运行状态，如果某容器进程未正常运行则重启。</li><li>应用级别由Kubelete在容器内执行活性探针（liveness probe），支持 HTTP get, Container exec, TCP Socket 三种检查方式，默认情况确认失败会删除 Pod, 另外还有一个可选项是 readiness probe，即仅移除 Endpoint，这样保留Pod可以用于错误重现。</li></ul><h2 id="Pod-RC-Service"><a href="#Pod-RC-Service" class="headerlink" title="Pod + RC + Service"></a>Pod + RC + Service</h2><p>上面提到的 Pod，Replication Controller，Service 三种资源构成了 Kubernetes 集群中最常见的一种应用架构，如下图所示。</p><p><img src="/images/pod_rc_service.png" alt=""></p><p>这个架构是不是很熟悉？没错，他和 AWS 里 Instance + Autoscaling Group + ELB 的架构是样的，如果你你对 AWS 的服务熟悉的话，可以据此来理解应用在 Kubernetes 里的架构：</p><ul><li><strong>Pods</strong> - Instances</li><li><strong>Replication Controllers</strong> - Auto Scaling</li><li><strong>Services</strong> - Elastic Load Balancing</li><li>Nodes - Availability Zone</li></ul><h1 id="Kubernetes-架构"><a href="#Kubernetes-架构" class="headerlink" title="Kubernetes 架构"></a>Kubernetes 架构</h1><p>Kubernetes 的架构如下图所示，对于学习 Openshift 这部分内容仅作兴趣了解即可，PaaS 平台的存在就是为了屏蔽掉这些底层细节。</p><p><img src="/images/kubernetes_infrastruacture.png" alt=""></p><h2 id="APIServer"><a href="#APIServer" class="headerlink" title="APIServer:"></a>APIServer:</h2><p>运行在 Master 节点，对外作为系统管理指令的统一入口，任何对资源进行的增删改查都要交给 APIServer 处理后才能提交给 etcd。（etcd 是一个键值对数据库，是 APIServer 的唯一持久化节点）</p><p>API Server 分为只读端口（Kubernetes-ro service, port:7080）和读写端口(Kubernetes service port:6443)，基于 etcd 实现了一整套 RESTful API 用于操作存储在 etcd 中的 Kubernetes 对象实例，APIServer 借助一个被称为 registry 的实体来完成对etcd的所有操作。</p><h2 id="Scheduler"><a href="#Scheduler" class="headerlink" title="Scheduler"></a>Scheduler</h2><p>根据特定的调度算法将 pod 调度到指定的 Node(早期也被叫做minion） 上，也叫绑定。<br>工作节点描述方式：期望状态（由 Json 描述），当前状态，包括：HostIP，Node Phase（Pending, Running, Terminated）, Node Condition(NodeReady)，由 controller manager 下属的 node controller 循环检查 Node 中的 minion 进程获得。</p><p>调度算法：Predicates（能不能-端口是否冲突、资源是否够用、Volume 是否有冲突、NodeSelector 是否选中（label selector的一种）、HostName 指定 Node）; Priorities（资源占用比小、Pod数量少、平等对待每个 Node (默认情况不使用)）</p><h2 id="Controller-manager"><a href="#Controller-manager" class="headerlink" title="Controller manager"></a>Controller manager</h2><p>运行在 master 上的一个基于 Pod API 的独立服务，重点实现了 service endpoint 的动态更新，管理 kubernetes 集群中的各种控制器（replication controller, node controller,..），用于确保资源保持在预期状态。</p><ul><li><strong>Replication controller:</strong>每五秒执行一次检查，将返回的健康pod数量和描述文件中定义的数量做个 diff，再根据结果调用 APIServer 执行新建或删除</li><li><strong>Service endpoint controller:</strong> 每十秒执行一次检查，遍历集群中所有 namespace 下 service 对象，取到 service 的 label selector 获取 service 对应的后端 Pod 对象列表，将 Pod 和 Service 的详细信息以 Pod 为单位封装成一个个 Endpoint 对象，这就是实际的 Endpoint 对象；用于和 APIService 在 etcd 中检索到的 Endpoint 期望状态进行比较, 在根据 etcd 中的期望调用 APIServer 创建或销毁资源。</li><li><strong>Node controller:</strong> 判断是否工作在 IaaS 上，是则直接掉 IaaS API 获取所有可工作节点；定期向 APIServer 注册以此工作节点；每隔五秒 pull 一次 Node 中 kubelet 发送过来的工作节点运行状态，retry 超过30秒无响应设置 node 状态为 Unknow，然后，调用 APIServer 更新 etcd 中的节点信息，如果时间超过 PodTvictionTimeout，则在 etcd 中删除所有 Pod 对象。</li><li><strong>Resource quota controller:</strong> 用于追踪集群资源配额的实际使用量，期望值由管理员静态设置。</li></ul><h2 id="Kubelet"><a href="#Kubelet" class="headerlink" title="Kubelet"></a>Kubelet</h2><p>Kubelet 是运行在 Kubernetes 集群中子节点上的进程，负责管理和维护 Node 上的所有容器。Kubelete 利用 Dokcer cAdvisor 进程用于监控 Node 的状态并将数据汇报给 master。<br>垃圾回收： 容器回收（goroutine 每一分钟调用 Docker 客户端过滤出停止且超过 MinAge 的容器以 Pod 为单位放到 EvictUnit 中，判断宿主机允许回收，则删除）。<br>镜像回收（每五分钟遍历一次，筛选出最长时间没有被使用且大于指定时间的 Image 删除）<br>同步工作节点。</p><h2 id="Kube-proxy"><a href="#Kube-proxy" class="headerlink" title="Kube-proxy"></a>Kube-proxy</h2><p>Kube-proxy 既支持 HTTP，也支持 TCP 和 UDP 连接，默认情况下提供 Round Robin 算法将客户端流量复杂均衡到 Service 对应的一组后端 Pod，最重要的是 Kube-proxy 还支持 Session Affinity(Session Sticky，会话黏滞)。而服务发现上，Kube-proxy 使用 etcd 的 Watch 机制，监控集群 Service 和 Endpoint 对象数据的动态变化，并且维护一个从 Service 到 Endpoint 的映射关系，从而保证了后端 Pod 的 IP 变化不会对访问者造成影响。</p><h2 id="核心组件协作流程"><a href="#核心组件协作流程" class="headerlink" title="核心组件协作流程"></a>核心组件协作流程</h2><p>费心巴力在网上找了描述准确的图但是他每个对象都少了最后一个字母，更正如下，从左到右：<br>Kubectl        APIServer                 etcd        Scheduler              Kubelet             Docker</p><p><img src="/images/kubernetes_create_pod.png" alt=""></p><center><strong>创建Pod示意图</strong></center><blockquote><ul><li>参考资料：</li><li>《Dokcer 容器与容器云》浙江大学 SEL 实验室著</li><li>《Kubernetes权威指南》龚正，吴治辉，王伟 等著</li><li><a href="https://www.slideshare.net/imesh/revolutionizing-wso2-paas-with-kubernetes-app-factory" target="_blank" rel="noopener">https://www.slideshare.net/imesh/revolutionizing-wso2-paas-with-kubernetes-app-factory</a></li><li><a href="https://docs.openshift.org/latest/architecture/core_concepts/index.html" target="_blank" rel="noopener">https://docs.openshift.org/latest/architecture/core_concepts/index.html</a></li><li><a href="https://kubernetesbyexample.com/" target="_blank" rel="noopener">https://kubernetesbyexample.com/</a></li><li><a href="https://kubernetes.io/docs/concepts/" target="_blank" rel="noopener">https://kubernetes.io/docs/concepts/</a></li></ul></blockquote>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;Kubernetes 的很多概念和架构“代表了谷歌过去十余年设计、构建和管理大规模容器集群经验”。&lt;/p&gt;
-&lt;h1 id=&quot;Kubernetes-概念引入&quot;&gt;&lt;a href=&quot;#Kubernetes-概念引入&quot; class=&quot;headerlink&quot; title=&quot;Kuber
       
     
     </summary>

@@ -4,6 +4,28 @@
 
     
   <url>
+    <loc>https://www.duyidong.com/2018/04/05/english-passive-voice/</loc>
+    <lastmod>2018-04-05T05:39:35.000Z</lastmod>
+    <data>
+        <display>
+        <title>被动语态与常用句式</title>
+        <pubTime>2018-04-05T13:38:54.000Z</pubTime>
+        
+        <tag>学习</tag>
+         
+        <tag>英文</tag>
+         
+         
+           
+             
+              <breadCrumb title="English" url="https://www.duyidong.com/categories/English/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://www.duyidong.com/2018/03/28/English-16-tense/</loc>
     <lastmod>2018-03-31T15:36:09.000Z</lastmod>
     <data>
@@ -35,9 +57,9 @@
         
         <tag>小计</tag>
          
-        <tag>工具</tag>
-         
         <tag>AWS</tag>
+         
+        <tag>工具</tag>
          
         <tag>Cloud</tag>
          
@@ -105,11 +127,11 @@
         <title>Java系列（三）——类文件结构</title>
         <pubTime>2018-02-11T07:23:44.000Z</pubTime>
         
+        <tag>Java</tag>
+         
         <tag>学习</tag>
          
         <tag>小结</tag>
-         
-        <tag>Java</tag>
          
         <tag>Class</tag>
          
@@ -222,11 +244,11 @@
         <title>Java系列（四）——类的加载与执行</title>
         <pubTime>2018-02-13T13:03:40.000Z</pubTime>
         
+        <tag>Java</tag>
+         
         <tag>学习</tag>
          
         <tag>小结</tag>
-         
-        <tag>Java</tag>
          
         <tag>JVM</tag>
          
@@ -272,11 +294,11 @@
         <title>Java系列（二）——JVM内存回收</title>
         <pubTime>2018-02-09T15:15:15.000Z</pubTime>
         
+        <tag>Java</tag>
+         
         <tag>学习</tag>
          
         <tag>小结</tag>
-         
-        <tag>Java</tag>
          
         <tag>JVM</tag>
          
@@ -298,11 +320,11 @@
         <title>Java系列（一）——JVM内存分配</title>
         <pubTime>2018-01-31T00:57:05.000Z</pubTime>
         
+        <tag>Java</tag>
+         
         <tag>学习</tag>
          
         <tag>小结</tag>
-         
-        <tag>Java</tag>
          
         <tag>JVM</tag>
          
@@ -543,9 +565,9 @@
         
         <tag>ThoughtWorks</tag>
          
-        <tag>职场</tag>
-         
         <tag>面试</tag>
+         
+        <tag>职场</tag>
          
          
            
@@ -1257,11 +1279,11 @@
         <title>ThoughtWorks第一周学习总结</title>
         <pubTime>2016-05-24T13:44:57.000Z</pubTime>
         
+        <tag>ThoughtWorks</tag>
+         
         <tag>学习</tag>
          
         <tag>小结</tag>
-         
-        <tag>ThoughtWorks</tag>
          
          
            

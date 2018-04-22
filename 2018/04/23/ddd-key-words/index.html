@@ -1,0 +1,222 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="杜屹东的博客"><meta name="keywords" content="云, AWS, Cloud, DevOps, 持续交付, 敏捷, Python"><title>领域驱动设计（DDD）实践 | 杜屹东的博客</title><link rel="stylesheet" type="text/css" href="//fonts.css.network/css?family=Source+Code+Pro"><link rel="stylesheet" type="text/css" href="/css/style.css?v=2.0.0"><link rel="stylesheet" type="text/css" href="/css/highlight.css?v=2.0.0"><link rel="Shortcut Icon" href="/favicon.ico"><link rel="bookmark" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">领域驱动设计（DDD）实践</h1><a id="logo" href="/.">杜屹东的博客</a><p class="description">学无止境</p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div><div id="search-form"><div id="result-mask" class="hide"></div><label><input id="search-key" type="text" autocomplete="off" placeholder="搜索..."></label><div id="result-wrap" class="hide"><div id="search-result"></div></div><div class="hide"><template id="search-tpl"><div class="item"><a href="/{path}" title="{title}"><div class="title">{title}</div><div class="time">{date}</div><div class="tags">{tags}</div></a></div></template></div></div></div><div id="layout" class="layout-g"><div class="layout-l"><div class="content_container"><div class="post"><h1 class="post-title">领域驱动设计（DDD）实践</h1><div class="post-meta"><span class="date">Apr 23, 2018</span><span class="category"><a href="/categories/学习总结/">学习总结</a></span><span><i id="busuanzi_container_page_pv"><i id="busuanzi_value_page_pv"></i><i> Hits</i></i></span><a href="/2018/04/23/ddd-key-words/#comments" class="comment-count"><i data-disqus-identifier="2018/04/23/ddd-key-words/" class="disqus-comment-count"></i> 留言</a></div><div class="post-content"><p>DDD（Domain Driven Design, 领域驱动设计）是一套原则、约束和方法。广义上的 DDD 是为了解决解决跨部门间语言沟通问题，在业务、产品、开发之间建立领域通用语言（Ubiquitous Language）以提高沟通效率。落地到开发团队，DDD 可以指导我们进行架构设计、团队划分、拆分微服务、乃至代码层面的设计。主要解决系统无法随业务演变而演变的问题。</p>
+<p>DDD 的战术设计体现：</p>
+<pre><code class="java">// Bad
+List&lt;Item&gt; items = order.getItems();
+items.remove(item);
+
+// Good
+order.removeItem(item);
+</code></pre>
+<h1 id="为什么要-DDD"><a href="#为什么要-DDD" class="headerlink" title="为什么要 DDD"></a>为什么要 DDD</h1><p>传统的设计模式中，不管是 <a href="http://www.ruanyifeng.com/blog/2015/02/mvcmvp_mvvm.html" target="_blank" rel="noopener">MVC，MVP，还是 MVVM</a> 本质上都是数据驱动的。核心上基于<code>M</code>推送消息，<code>V</code>或<code>P</code>来订阅 这个模型。使用者需要维护的不再是 UI 树，而是抽象的数据。(通过数据，可以随时构建出新的 UI 树) ，这种设计在短时间内可以灵活地应对 UI 的变化，但是对于更为复杂的业务变化（比如数据结构的变化），就需要在各个模块都进行修改，修改的内容分散、影响面广、风险大，长此以往，原本架构清晰的系统随着迭代的不断演化，业务逻辑变得越来越复杂，我们的系统也越来越冗杂。模块彼此关联，谁都很难说清模块的具体功能意图是啥。修改一个功能时，往往光回溯该功能需要的修改点就需要很长时间，更别提修改带来的不可预知的影响面。</p>
+<p><img src="https://tech.meituan.com/img/ddd-in-practice/%E6%9C%8D%E5%8A%A1%E8%80%A6%E5%90%88.svg" alt=""></p>
+<center><strong>一个常见的系统耦合病例（图片来自：<a href="https://tech.meituan.com/DDD%20in%20practice.html" target="_blank" rel="noopener">领域驱动设计在互联网业务开发中的实践</a>）</strong></center>
+
+<p>之所以产生这种现象，归根到底在于随着业务的变化系统架构变得不清晰，划分出来的模块内聚度低、高耦合。理想情况下，如果我们的代码逻辑按照业务结构来组织，代码架构就可以随着业务的变化变化，这样代码就会变得易于维护；由于要去阅读代码的人首先需要具备领域知识，代码又是对业务的直接呈现，代码的可读性也会极大提高。</p>
+<p>任何一种理念的落地都不是一蹴而就的，我下面从战术设计和代码实践的角度，围绕一个案例探讨一下 DDD 的几个核心概念。</p>
+<h1 id="六边形架构（Hexagonal-Architecture）"><a href="#六边形架构（Hexagonal-Architecture）" class="headerlink" title="六边形架构（Hexagonal Architecture）"></a>六边形架构（Hexagonal Architecture）</h1><p>六边形架构（Hexagonal Architecture），又称为<strong>端口和适配器</strong>风格，最早由<a href="http://alistair.cockburn.us/Hexagonal+architecture" target="_blank" rel="noopener">Alistair Cockburn</a>提出。在DDD社区得到了发展和推广，之所以是六变形是为了突显这是个扁平的架构，每个边界的权重是相等的。</p>
+<p>我们知道，经典分层架构分为三层（展现层、应用层、数据访问层），而对于六边形架构，可以分成另外的三层：</p>
+<ul>
+<li><strong>领域层</strong>（Domain Layer）：最里面，纯粹的核心业务逻辑，一般不包含任何技术实现或引用。</li>
+<li><strong>端口层</strong>（Ports Layer）：领域层之外，负责接收与用例相关的所有请求，这些请求负责在领域层中协调工作。端口层在端口内部作为领域层的边界，在端口外部则扮演了外部实体的角色。</li>
+<li><strong>适配器层</strong>（Adapters Layer）：端口层之外，负责以某种格式接收输入、及产生输出。比如，对于 HTTP 用户请求，适配器会将转换为对领域层的调用，并将领域层传回的响应进行封送，通过 HTTP 传回调用客户端。在适配器层不存在领域逻辑，它的唯一职责就是在外部世界与领域层之间进行技术性的转换。适配器能够与端口的某个协议相关联并使用该端口，多个适配器可以使用同一个端口，在切换到某种新的用户界面时，可以让新界面与老界面同时使用相同的端口。</li>
+</ul>
+<p>这样做的好处是将使业务边界更加清晰，从而获得更好的扩展性，除此之外，<strong>业务复杂度和技术复杂度分离</strong>，是 DDD 的重要基础，核心的领域层可以专注在业务逻辑而不用理会技术依赖，外部接口在被消费者调用的时候也不用去关心业务内部是如何实现。</p>
+<p><img src="https://image.slidesharecdn.com/javadev-hexagonalarchitectureforjavaapplications-150202062634-conversion-gate01/95/hexagonal-architecture-for-java-applications-10-638.jpg?cb=1423245064" alt=""></p>
+<center><strong>图片来自：<a href="https://www.slideshare.net/fabricioepa/hexagonal-architecture-for-java-applications" target="_blank" rel="noopener">Hexagonal architecture for java applications</a></strong></center>
+
+<p>正如上文提到，六边形架构的出现早于 DDD，要实现 DDD 也不是非要采用六边形架构，只是这种架构正好契合了 DDD 所需的条件，从六边形架构出发，可以更容易理解 DDD 的思想。如上图所示， Adapter 所在的绿色线框表示<strong>限界上下文</strong>，中间橙色的六边形表就是<strong>应用服务</strong>，标记出核心领域模型对外暴露的功能和方法。Application 所在的核心就是<strong>领域模型</strong>，包含<strong>领域对象</strong>和<strong>领域服务</strong>，其中领域对象又分为<strong>实体对象</strong>和<strong>值对象</strong>，值对象中的一个特定对象就是<strong>聚合根</strong>，聚合根就是这个领域的核心。</p>
+<p>落实到代码层面，也可以用分层架构来理解，DDD 架构从上到下可以分为四层：</p>
+<ul>
+<li><p><strong>用户界面层（或表示层）</strong><br>负责向用户显示信息和解释用户指令，这里指的用户可以是另一个系统，不一定是使用用户界面的人。</p>
+</li>
+<li><p><strong>应用层</strong><br>定义软件要完成的任务，并且指挥表达领域概念的对象来解决问题。应用层要尽量简单，不包含业务规则或者知识，而只为下一层中的领域对象协调任务，分配工作，使他们相互协作，他没有反应业务情况的状态，但是却可以具有另一种状态，为用户或程序显示某个任务的进度。</p>
+</li>
+<li><p><strong>领域层（或模型层）</strong><br>负责表达业务概念，业务状态信息以及业务规则。尽管保存业务状态的技术细节是由基础设施层实现的，但是反应业务情况的状态是由本层控制并且使用的。<strong>领域层是业务软件的核心。</strong></p>
+</li>
+<li><p><strong>基础设施层</strong><br>为上面两层提供通用的技术能力：为应用层传递消息，为领域层提供持久化机制，等等。</p>
+</li>
+</ul>
+<p><img src="https://tech.meituan.com/img/ddd-in-practice/DDD-%E5%88%86%E5%B1%82.svg" alt=""></p>
+<center><strong>图片来源：<a href="https://tech.meituan.com/DDD%20in%20practice.html" target="_blank" rel="noopener">美团点评技术团队</a></strong></center>
+
+<h1 id="限界上下文（Bounded-Context）"><a href="#限界上下文（Bounded-Context）" class="headerlink" title="限界上下文（Bounded Context）"></a>限界上下文（Bounded Context）</h1><p>限界上下文大部分情况下被划入战略设计的范畴，可以用于指导拆分代码库、部署单元、微服务甚至团队。</p>
+<p>限界的意思是划定边界，边界内部的领域逻辑应该有尽可能少的交集；上下文的意思就是语境，即特定的对象在特定的语境下的模型是不同的，例如轮胎这个对象在修理汽车这个上下文中，其模型只需要包含品牌、型号两种属性，而在出售汽车轮胎的上下文中的模型还应该包含制造厂商、价格的属性。</p>
+<p><strong>边界通过限界上下文来确定，这在领域驱动设计中具有非凡的意义。</strong>对应于通用语言，限界上下文是语言的边界，对于领域模型，限界上下文是模型的边界，二者对应于问题空间（Problem Space）的界定。对于系统的架构，限界上下文还确定了应用边界和技术边界，进而帮助我们确定整个系统及各个限界上下文的解决方案。可以说，限界上下文是连接问题空间与解决方案空间的重要桥梁。</p>
+<h1 id="应用服务（Application-Service）"><a href="#应用服务（Application-Service）" class="headerlink" title="应用服务（Application Service）"></a>应用服务（Application Service）</h1><p>应用服务是用来<strong>表达用例和用户故事（User Story)</strong>的主要手段。</p>
+<p>应用层通过应用服务接口来暴露系统的全部功能。在应用服务的实现中，它负责<strong>编排和转发</strong>，它将要实现的功能委托给一个或多个领域对象、领域服务、和资源库来实现，它本身只负责处理业务用例的执行顺序以及结果的拼装。</p>
+<p>应用层相对来说是较“薄”的一层，除了定义应用服务之外，在该层我们可以进行安全认证，权限校验，持久化事务控制，或者向其他系统发生基于事件的消息通知。</p>
+<p>应用层作为展现层与领域层的桥梁。展现层使用VO（视图模型）进行界面展示，与应用层通过DTO（数据传输对象）进行数据交互，从而达到展现层与DO（领域对象）解耦的目的。一个应用服务应该包含以下功能和特点：</p>
+<ul>
+<li>处理基本数据类型</li>
+<li>向外暴露业务能力</li>
+<li>不包含业务逻辑</li>
+<li>对应业务用例（非CRUD）</li>
+<li>组织协调</li>
+<li>事务边界</li>
+<li>日志</li>
+<li>一层而非一个对象</li>
+</ul>
+<p>一个理想的 Service 应该包含四个动作：<code>get</code>、<code>update</code>、<code>save</code>，举个例子，用户初始化密码的一个事件：</p>
+<pre><code class="java">    public void initialPassword(SetPasswordCommand command) {
+        User user = userRepository.findByUuid(command.getUuid()).orElseThrow(UserNotExistException::new); // 获得 User
+        user.setPassWord(command.getPassword());                                      // 更新 User
+        logger.info(&quot;Set password with uuid[{}]&quot;, command.getUuid());                 // 日志
+        userRepository.save(user);                                                    // 持久化 User
+    }
+</code></pre>
+<p>除了对领域对象的操作，ApplicationService 还会承担解构技术数据为业务数据（划分领域边界）、日志（反应业务状态）的功能。</p>
+<p>有时候业务逻辑的处理会比较复杂，以创建用户为例，最好使用构造函数处理，但如果面临比较复杂的场景，比如还需要对用户输入的信息进行验证，就可以使用一个工厂类来创建我的领域对象，这个时候这个工厂类就是一个领域服务，所有核心业务逻辑都应该在领域服务中，而不要在 ApplicationService 层：</p>
+<pre><code class="java">    public String register(RegistrationCommand command) {
+        User user = registerService.createUser(command.getOwnerEmail(), command.getPolicyNumber());                                                           // 调用 RegisterService 执行创建 User 的动作，业务相关验证也在 RegisterService 里面
+        logger.info(&quot;Create user with email [{}]&quot;, command.getOwnerEmail());          // 日志
+        return user.getUuid();                                                        // 返回业务需要的 ID
+    }
+</code></pre>
+<h1 id="领域模型（Domain-Model）"><a href="#领域模型（Domain-Model）" class="headerlink" title="领域模型（Domain Model）"></a>领域模型（Domain Model）</h1><p>领域模型是业务代码所在区域，也是服务的核心所在，领域模型分为领域对象和领域服务两大类，领域对象用于存储状态，领域服务用于改变领域对象的状态。</p>
+<h2 id="领域服务（Domain-Service）"><a href="#领域服务（Domain-Service）" class="headerlink" title="领域服务（Domain Service）"></a>领域服务（Domain Service）</h2><p>领域层就是较“胖”的一层，因为它实现了全部业务逻辑并且通过各种校验手段保证业务正确性。而什么是业务逻辑呢？业务流程、业务策略、业务规则、完整性约束等。</p>
+<blockquote>
+<p>当领域中的某个操作过程或转换过程不是实体或值对象的职责时，我们便应该将该操作放在一个单独的接口中，即领域服务。请确保该服务和通用语言时一致的；并且保证它是无状态的。</p>
+</blockquote>
+<h3 id="领域服务无状态怎么理解？"><a href="#领域服务无状态怎么理解？" class="headerlink" title="领域服务无状态怎么理解？"></a>领域服务无状态怎么理解？</h3><p>领域服务是用来协调领域对象完成某个操作，用来处理业务逻辑的，它本身是一个行为，所以是无状态的。状态由领域对象（具有状态和行为）保存。</p>
+<h3 id="什么时候使用领域服务？"><a href="#什么时候使用领域服务？" class="headerlink" title="什么时候使用领域服务？"></a>什么时候使用领域服务？</h3><p><strong>领域对象是具有状态和行为的。</strong>那就是说我们也可以在实体或值对象来处理业务逻辑。那我们该如何取舍呢？<br>一般来说，在下面的几种情况下，我们可以使用领域服务：</p>
+<ul>
+<li>执行一个显著的业务操作过程</li>
+<li>对领域对象进行转换</li>
+<li>以多个领域对象为输入，返回一个值对象。</li>
+</ul>
+<p>以用户登录为例，登录是一个显著的业务操作过程，因此把它作为一个领域服务，登录需要验证邮箱是否存在，如果存在则进行密码验证，这些属于核心业务逻辑，不应该暴露在ApplicationService 里面，所以 Application Service 里的 login 方法是这样：</p>
+<pre><code class="java">    public boolean login(UserLoginCommand command) {
+        boolean loginSuccess = loginService.login(command.getEmail(), command.getPassword());
+        logger.info(&quot;User login with email [{}]&quot;, command.getEmail());
+        return loginSuccess;
+    }
+</code></pre>
+<p>而表达业务含义的核心代码在领域服务 LoginService 里面：</p>
+<pre><code class="java">@Service
+public class LoginService {
+
+    @Autowired
+    UserRepository userRepository;
+
+    public boolean login(String email, String password) {
+        User user = userRepository.findByEmail(email).orElseThrow(UserNotExistException::new);
+        Boolean loginSuccess = user.isPassWordCorrect(password);
+        if(loginSuccess) user.online();
+        return loginSuccess
+    }
+}
+</code></pre>
+<p>可以看到领域服务并没有保存登录有关的状态，而是在 User 里记录了 Online，领域服务中也可以调用领域对象的方法完成一些验证、状态更新的操作。</p>
+<p>需要注意的是，领域服务不用特别关心实现细节，只用写业务代码，以创建 Policy 的 PolicyFactoryService 的 createPolicy 为例：</p>
+<pre><code class="java">    public HomePolicy createPolicy(CreateHomePolicyCommand command) {
+        HomePolicy homePolicy = homePolicyMapper.map(command, HomePolicy.class);
+        if (!homePolicyQuotationRepository.existsByQuoteId(homePolicy.getQuoteId()))
+            throw new InvalidQuotationException();
+        homePolicyRepository.save(homePolicy);
+        return homePolicy;
+    }
+</code></pre>
+<p>homePolicy.map 是一个技术动作，就不宜出现在领域服务中，这里用构造方法代替会更好，map 这类数据类型转换的动作可以放到 ApplicationService 中。</p>
+<h2 id="领域对象（Domain-Object）"><a href="#领域对象（Domain-Object）" class="headerlink" title="领域对象（Domain Object）"></a>领域对象（Domain Object）</h2><p>领域对象有分为<strong>实体对象</strong>和<strong>值对象</strong>，<strong>实体对象</strong>是具有生命周期，有唯一标示，可以通过 ID 判断相等性，有增删改查操作，可记录状态的一些对象，比如 Policy，User。如下是一个”贫血的领域对象“，之所以说它是领域对象是因为它有唯一标示，之所以它贫血是因为它没有业务动作。</p>
+<pre><code class="java">@Getter
+@Setter
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+@Table(name = &quot;POLICY&quot;)
+public class Policy {
+    @Id
+    private String policyNumber = UUID.randomUUID().toString();
+    private LocalDate startDate;
+    private String quoteId;
+    @Embedded
+    @AttributeOverrides(value = {
+            @AttributeOverride(name = &quot;id&quot;, column = @Column(name = &quot;policy_holder_id&quot;)),
+            @AttributeOverride(name = &quot;name&quot;, column = @Column(name = &quot;policy_holder_name&quot;)),
+            @AttributeOverride(name = &quot;email&quot;, column = @Column(name = &quot;policy_holder_email&quot;)),
+            @AttributeOverride(name = &quot;birthDay&quot;, column = @Column(name = &quot;policy_holder_birthday&quot;))
+    })
+    private PolicyHolder policyHolder;
+}
+</code></pre>
+<p>由于 Policy 只需要被创建，所以它并不包含改变自身状态的方法，但所有业务上对 Policy 会有的操作都已经包含在了这个领域对象中，所以它还是一个<strong>聚合根</strong>。</p>
+<p><strong>值对象</strong>是指起描述作用，无唯一标识，只能通过属性判断是否相等，即时创建，用完即回收的不可变对象，例如 Policy 的子属性 PolicyHolder：</p>
+<pre><code class="java">@Getter
+@Setter
+@Embeddable
+public class PolicyHolder {
+    private String id;
+    private String name;
+    private String email;
+    private LocalDate birthDay;
+}
+</code></pre>
+<p>它只是作为 Policy 的一个成员类，不能有自己的动作，所有对 PolicyHolder 的操作必须通过<strong>聚合根</strong> Policy 来进行，对于一个 Policy 而言，要换 PolicyHolder 的话要重新实例化一个 PolicyHolder，所以这个地方他只是个值对象，他的持久化依赖于聚合根 Policy。</p>
+<pre><code class="java">// Bad
+PolicyHolder oldHolder = Policy.getHolder();
+oldHolder.update(newHolder);
+
+// Good
+Policy.updateHolder(newHolder);
+</code></pre>
+<p>现在你应该很清楚文章开头那里例子了吧，第二种实现屏蔽了 Policy 里的结构细节，我只需要知道我更新了 Holder 就可以，至于如何更新的并不需要关心。</p>
+<h2 id="聚合根（Aggregate-Root）"><a href="#聚合根（Aggregate-Root）" class="headerlink" title="聚合根（Aggregate Root）"></a>聚合根（Aggregate Root）</h2><p>在领域对象的部分已经谈到了聚合根，聚合根属于实体对象，它是领域对象中一个高度内聚的核心对象。<strong>一个领域内的数据一致性由聚合根保证，聚合根之间的数据一致性就要通过最终一致性来完成。</strong></p>
+<p>聚合根可以被应用服务直接调用，如在 initialPassword 方法中调用</p>
+<pre><code class="java">user.setPassWord(command.getPassword());
+</code></pre>
+<p>或者领域对象的构造方法。</p>
+<p>聚合根也可以在领域服务里被调用，如在 <code>LoginServer</code>里调用</p>
+<pre><code class="java">user.isPassWordCorrect(password);
+</code></pre>
+<h1 id="资源库（Repository）"><a href="#资源库（Repository）" class="headerlink" title="资源库（Repository）"></a>资源库（Repository）</h1><p>理想情况下一个实体对象的生命周期开始于一个 Factory，终止于 Repository 。</p>
+<p>资源库是生命周期的结束，它封装了基础设施以提供查询和持久化聚合的操作。这样能够让我们始终聚焦于模型，而把对象的存储和访问都委托给资源库来完成。需要注意的是，资源库并不是数据库的封装，而是领域层与基础设施之间的桥梁。DDD关心的是领域内的模型，而并非是数据库的操作。理想的资源库对客户（领域服务和应用服务）隐藏了内部的工作细节，委托基础设施层来干那些脏活，到关系型数据库、NOSQL、甚至内存里读取和存储数据。因此资源库有以下两个特性：</p>
+<ul>
+<li>可插拔性</li>
+<li>聚合根的集合</li>
+</ul>
+<p>仓储的要点并不是使代码更容易测试，也不是为了便于切换底层的持久化存储方式。当然，在某种程度上，这也的确是仓储所带来的利好。<strong>仓储的要点是保持你的领域模型和技术持久化框架的独立性，这样你的领域模型可以隔离来自底层持久化技术的影响</strong>。如果没有仓储这一层，你的持久化基础设施可能会泄露到领域模型中，并影响领域模型完整性和最终一致性。</p>
+<p><img src="/images/ddd_layer_architecture.png" alt=""></p>
+<center><strong>图：DDD 分层架构</strong></center>
+
+<p>如图所示，应用服务层不必关心技术层返回使用何种标准，只作为领域模型对外暴露接口的服务。在领域模型中有领域服务、聚合根两种模块，业务操作通过领域服务改变聚合根状态实现，状态持久化通过资源库调用底层数据库实现，同样，资源库的调用者也不需要担心持久化的技术细节，需要何种数据库、如何进行存储，都交给 Repository 的内部实现来做。图中的箭头表示的是“领域事件”。</p>
+<h1 id="领域事件（Domain-Event）"><a href="#领域事件（Domain-Event）" class="headerlink" title="领域事件（Domain Event）"></a>领域事件（Domain Event）</h1><blockquote>
+<p>用例-应用服务-聚合根-事务</p>
+</blockquote>
+<p>领域事件应该对应到聚合根上的一个操作，承担了<strong>记录业务活动</strong>、<strong>解耦限界上下文</strong>、<strong>保证最终一致性</strong>三个重要的责任；可以由应用服务或者资源库发布。他有两个重要的特性：<strong>幂等性</strong>和<strong>原子性</strong>：</p>
+<ul>
+<li><strong>幂等性</strong>：消费方接受多条 event 和接受一条是结果是一样的。这是由于以 MQ 为例，为了保证最终一致性往往会重复发送同一个事件，这个时候接受方就要进行处理，保证不会出现错误或是冗余的数据。</li>
+<li><strong>原子性</strong>：虽然在不同聚合根之间我们采用了基于领域事件的最终一致性，但是在业务操作和事件发布之间我们依然需要采用强一致性，也即这两者的发生应该是原子的，要么全部成功，要么全部失败，否则最终一致性根本无从谈起。</li>
+</ul>
+<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>DDD 是一种思想，采用 DDD 并不是要一次全盘接受他的所有实践，好的实践需要加以时间打磨，适合业务和团队的才是最好的。</p>
+<p>文中提到的代码，完整版在这里：<a href="https://github.com/ADU-21/ddd_demo" target="_blank" rel="noopener">https://github.com/ADU-21/ddd_demo</a></p>
+<blockquote>
+<ul>
+<li><strong>References:</strong></li>
+<li><a href="https://www.cnblogs.com/netfocus/archive/2011/10/10/2204949.html" target="_blank" rel="noopener">https://www.cnblogs.com/netfocus/archive/2011/10/10/2204949.html</a></li>
+<li><a href="https://tech.meituan.com/DDD%20in%20practice.html" target="_blank" rel="noopener">https://tech.meituan.com/DDD%20in%20practice.html</a></li>
+<li><a href="https://insights.thoughtworks.cn/from-sandwich-to-hexagon/" target="_blank" rel="noopener">https://insights.thoughtworks.cn/from-sandwich-to-hexagon/</a></li>
+<li><a href="http://www.cnblogs.com/xishuai/p/iddd-soa-rest-and-hexagonal-architecture.html" target="_blank" rel="noopener">http://www.cnblogs.com/xishuai/p/iddd-soa-rest-and-hexagonal-architecture.html</a></li>
+<li><a href="http://www.cnblogs.com/sheng-jie/p/7097129.html" target="_blank" rel="noopener">http://www.cnblogs.com/sheng-jie/p/7097129.html</a></li>
+<li><a href="http://qinghua.github.io/ddd/" target="_blank" rel="noopener">http://qinghua.github.io/ddd/</a></li>
+</ul>
+</blockquote>
+</div><div class="tags"><a href="/tags/Java/">Java</a><a href="/tags/架构/">架构</a><a href="/tags/DDD/">DDD</a><a href="/tags/设计/">设计</a></div><div class="post-share"></div><div class="post-nav"><a href="/2018/04/05/english-passive-voice/" class="next">被动语态与常用句式</a></div><div id="comments"><div id="disqus_thread"></div></div></div></div></div><div class="layout-r"><div id="sidebar"><div class="search-pla"></div><div id="toc" class="widget"><div class="widget-title"><i class="fa fa-fei">文章目录</i></div><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#为什么要-DDD"><span class="toc-text">为什么要 DDD</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#六边形架构（Hexagonal-Architecture）"><span class="toc-text">六边形架构（Hexagonal Architecture）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#限界上下文（Bounded-Context）"><span class="toc-text">限界上下文（Bounded Context）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#应用服务（Application-Service）"><span class="toc-text">应用服务（Application Service）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#领域模型（Domain-Model）"><span class="toc-text">领域模型（Domain Model）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#领域服务（Domain-Service）"><span class="toc-text">领域服务（Domain Service）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#领域服务无状态怎么理解？"><span class="toc-text">领域服务无状态怎么理解？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#什么时候使用领域服务？"><span class="toc-text">什么时候使用领域服务？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#领域对象（Domain-Object）"><span class="toc-text">领域对象（Domain Object）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#聚合根（Aggregate-Root）"><span class="toc-text">聚合根（Aggregate Root）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#资源库（Repository）"><span class="toc-text">资源库（Repository）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#领域事件（Domain-Event）"><span class="toc-text">领域事件（Domain Event）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#后记"><span class="toc-text">后记</span></a></li></ol></div><div class="widget"><div class="widget-title"><i class="fa fa-xie"> 最新文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/04/23/ddd-key-words/">领域驱动设计（DDD）实践</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/05/english-passive-voice/">被动语态与常用句式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/28/English-16-tense/">英文时态详解</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/26/aws-codedeploy/">在 AWS 流水线中使用 CodeDeploy</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/25/kcptun-shadowsocks/">使用 Kcptun 加速 Shadowsocks</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/15/UML-and-SOLID/">Java系列（五）——UML类图和面向对象五大原则</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/13/jvm-class-load-and-excute/">Java系列（四）——类的加载与执行</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/11/java-class-file-structure/">Java系列（三）——类文件结构</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/09/jvm-gc/">Java系列（二）——JVM内存回收</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/31/jvm/">Java系列（一）——JVM内存分配</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-gui"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Amazon-Web-Services/">Amazon Web Services</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Cloud-PaaS/">Cloud & PaaS</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/DevOps/">DevOps</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/English/">English</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ThoughtWorks/">ThoughtWorks</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/学习总结/">学习总结</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/工具/">工具</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/我的博客/">我的博客</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/持续交付/">持续交付</a><span class="category-list-count">4</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-biao"> 标签</i></div><div class="tagcloud"><a href="/tags/Platform/" style="font-size: 15px;">Platform</a> <a href="/tags/Java/" style="font-size: 15px;">Java</a> <a href="/tags/ThoughtWorks/" style="font-size: 15px;">ThoughtWorks</a> <a href="/tags/面试/" style="font-size: 15px;">面试</a> <a href="/tags/学习/" style="font-size: 15px;">学习</a> <a href="/tags/小计/" style="font-size: 15px;">小计</a> <a href="/tags/小结/" style="font-size: 15px;">小结</a> <a href="/tags/大事记/" style="font-size: 15px;">大事记</a> <a href="/tags/AWS/" style="font-size: 15px;">AWS</a> <a href="/tags/Serverless/" style="font-size: 15px;">Serverless</a> <a href="/tags/无服务器架构/" style="font-size: 15px;">无服务器架构</a> <a href="/tags/Lambda/" style="font-size: 15px;">Lambda</a> <a href="/tags/vim/" style="font-size: 15px;">vim</a> <a href="/tags/工具/" style="font-size: 15px;">工具</a> <a href="/tags/云计算/" style="font-size: 15px;">云计算</a> <a href="/tags/亚马逊认证与权限/" style="font-size: 15px;">亚马逊认证与权限</a> <a href="/tags/Security/" style="font-size: 15px;">Security</a> <a href="/tags/IAM/" style="font-size: 15px;">IAM</a> <a href="/tags/S3/" style="font-size: 15px;">S3</a> <a href="/tags/Blog/" style="font-size: 15px;">Blog</a> <a href="/tags/Hexo/" style="font-size: 15px;">Hexo</a> <a href="/tags/对象存储服务/" style="font-size: 15px;">对象存储服务</a> <a href="/tags/EC2/" style="font-size: 15px;">EC2</a> <a href="/tags/HTTPS/" style="font-size: 15px;">HTTPS</a> <a href="/tags/CDN/" style="font-size: 15px;">CDN</a> <a href="/tags/Cloudfront/" style="font-size: 15px;">Cloudfront</a> <a href="/tags/Route53/" style="font-size: 15px;">Route53</a> <a href="/tags/博客上云/" style="font-size: 15px;">博客上云</a> <a href="/tags/Cloud-Native/" style="font-size: 15px;">Cloud Native</a> <a href="/tags/架构/" style="font-size: 15px;">架构</a> <a href="/tags/Cloud/" style="font-size: 15px;">Cloud</a> <a href="/tags/云计算认证/" style="font-size: 15px;">云计算认证</a> <a href="/tags/Certification/" style="font-size: 15px;">Certification</a> <a href="/tags/AWS认证考试/" style="font-size: 15px;">AWS认证考试</a> <a href="/tags/职场/" style="font-size: 15px;">职场</a> <a href="/tags/Infrastructure-as-Code/" style="font-size: 15px;">Infrastructure as Code</a> <a href="/tags/ThoughtWorks技术雷达/" style="font-size: 15px;">ThoughtWorks技术雷达</a> <a href="/tags/基础设施即代码/" style="font-size: 15px;">基础设施即代码</a> <a href="/tags/持续交付/" style="font-size: 15px;">持续交付</a> <a href="/tags/翻译/" style="font-size: 15px;">翻译</a> <a href="/tags/文档规范/" style="font-size: 15px;">文档规范</a> <a href="/tags/DevOps/" style="font-size: 15px;">DevOps</a> <a href="/tags/代码/" style="font-size: 15px;">代码</a> <a href="/tags/工作/" style="font-size: 15px;">工作</a> <a href="/tags/PaaS/" style="font-size: 15px;">PaaS</a> <a href="/tags/Openshift/" style="font-size: 15px;">Openshift</a> <a href="/tags/Kubernetes/" style="font-size: 15px;">Kubernetes</a> <a href="/tags/平台即服务/" style="font-size: 15px;">平台即服务</a> <a href="/tags/reveal-js/" style="font-size: 15px;">reveal js</a> <a href="/tags/在线幻灯片/" style="font-size: 15px;">在线幻灯片</a> <a href="/tags/理论框架/" style="font-size: 15px;">理论框架</a> <a href="/tags/敏捷/" style="font-size: 15px;">敏捷</a> <a href="/tags/DevOps文化/" style="font-size: 15px;">DevOps文化</a> <a href="/tags/CALMS/" style="font-size: 15px;">CALMS</a> <a href="/tags/git/" style="font-size: 15px;">git</a> <a href="/tags/coding/" style="font-size: 15px;">coding</a> <a href="/tags/持续集成/" style="font-size: 15px;">持续集成</a> <a href="/tags/主干开发/" style="font-size: 15px;">主干开发</a> <a href="/tags/TBD/" style="font-size: 15px;">TBD</a> <a href="/tags/云服务/" style="font-size: 15px;">云服务</a> <a href="/tags/代理/" style="font-size: 15px;">代理</a> <a href="/tags/爬虫/" style="font-size: 15px;">爬虫</a> <a href="/tags/其他/" style="font-size: 15px;">其他</a> <a href="/tags/HTTP/" style="font-size: 15px;">HTTP</a> <a href="/tags/JVM/" style="font-size: 15px;">JVM</a> <a href="/tags/Class/" style="font-size: 15px;">Class</a> <a href="/tags/面向对象/" style="font-size: 15px;">面向对象</a> <a href="/tags/Shadowsocks/" style="font-size: 15px;">Shadowsocks</a> <a href="/tags/Pipeline/" style="font-size: 15px;">Pipeline</a> <a href="/tags/英文/" style="font-size: 15px;">英文</a> <a href="/tags/DDD/" style="font-size: 15px;">DDD</a> <a href="/tags/设计/" style="font-size: 15px;">设计</a> <a href="/tags/Ansible/" style="font-size: 15px;">Ansible</a> <a href="/tags/自动化运维/" style="font-size: 15px;">自动化运维</a> <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/Shell/" style="font-size: 15px;">Shell</a> <a href="/tags/Agile/" style="font-size: 15px;">Agile</a> <a href="/tags/Python/" style="font-size: 15px;">Python</a> <a href="/tags/数据库/" style="font-size: 15px;">数据库</a> <a href="/tags/DataBase/" style="font-size: 15px;">DataBase</a> <a href="/tags/TDD/" style="font-size: 15px;">TDD</a> <a href="/tags/版本管理/" style="font-size: 15px;">版本管理</a> <a href="/tags/凤凰式服务/" style="font-size: 15px;">凤凰式服务</a> <a href="/tags/雪花服务器/" style="font-size: 15px;">雪花服务器</a> <a href="/tags/部署与发布/" style="font-size: 15px;">部署与发布</a> <a href="/tags/持续部署/" style="font-size: 15px;">持续部署</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-archive"> 归档</i></div><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">十一月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">十月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">八月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">七月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">五月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">五月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-you"> 友情链接</i></div><ul></ul><a href="https://blog.waterstrong.me/" title="Waterstrong" target="_blank">Waterstrong</a><ul></ul><a href="http://www.huangbowen.net" title="黄博文：我是一个程序员" target="_blank">黄博文：我是一个程序员</a><ul></ul><a href="http://www.april1985.com/" title="he.sicong" target="_blank">he.sicong</a></div></div></div></div><a id="totop" href="#top"></a><div id="footer"><div class="footer-info"><p><a href="/baidusitemap.xml">网站地图</a> |  <a href="/atom.xml">订阅</a> |  <a href="/about/">关于</a></p><p>本站总访问量：<i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>次</p><p><span> Copyright &copy;<a href="/." rel="nofollow">杜屹东.</a></span><span> Theme by<a rel="nofollow" target="_blank" href="https://github.com/chaooo/hexo-theme-BlueLake"> BlueLake.</a></span><span> Count by<a href="http://busuanzi.ibruce.info/"> busuanzi.</a></span><span> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a></span></p></div></div></div><script src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js" async></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create','UA-80279850-1','auto');ga('send','pageview');
+</script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?c2bba36c0e13cdda70e309bd24cbb844";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+  })();
+</script><script type="text/javascript" src="/js/search.json.js?v=2.0.0"></script><script type="text/javascript" src="/js/toctotop.js?v=2.0.0" async></script><script>var disqus_shortname = 'www-duyidong-com';
+var disqus_identifier = '2018/04/23/ddd-key-words/';
+var disqus_title = '领域驱动设计（DDD）实践';
+var disqus_url = 'https://www.duyidong.com/2018/04/23/ddd-key-words/';
+(function() {
+  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//www-duyidong-com.disqus.com/count.js" async></script><script type="text/javascript" src="//www-duyidong-com.disqus.com/recent_comments_widget.js?num_items=5&amp;hide_avatars=1&amp;avatar_size=32&amp;excerpt_length=20&amp;hide_mods=1"></script></body></html>

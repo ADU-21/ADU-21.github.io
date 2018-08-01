@@ -4,18 +4,70 @@
 
     
   <url>
+    <loc>https://www.duyidong.com/2018/07/28/Let-s-talk-DevOps-job-titles/</loc>
+    <lastmod>2018-07-30T06:57:22.000Z</lastmod>
+    <data>
+        <display>
+        <title>再谈 DevOps</title>
+        <pubTime>2018-07-27T14:19:31.000Z</pubTime>
+        
+        <tag>翻译</tag>
+         
+        <tag>DevOps</tag>
+         
+        <tag>Platform</tag>
+         
+         
+           
+             
+              <breadCrumb title="DevOps" url="https://www.duyidong.com/categories/DevOps/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2017/06/08/work-in-blackops/</loc>
+    <lastmod>2018-06-25T13:27:23.000Z</lastmod>
+    <data>
+        <display>
+        <title>DevOps 团队交付了什么？</title>
+        <pubTime>2017-06-08T06:38:47.000Z</pubTime>
+        
+        <tag>小结</tag>
+         
+        <tag>职场</tag>
+         
+        <tag>DevOps</tag>
+         
+        <tag>Platform</tag>
+         
+        <tag>工作</tag>
+         
+         
+           
+             
+              <breadCrumb title="DevOps" url="https://www.duyidong.com/categories/DevOps/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://www.duyidong.com/2018/04/23/ddd-key-words/</loc>
     <lastmod>2018-04-23T04:50:48.000Z</lastmod>
     <data>
         <display>
         <title>领域驱动设计（DDD）实践</title>
-        <pubTime>2018-04-23T11:49:36.000Z</pubTime>
+        <pubTime>2018-04-23T09:49:36.000Z</pubTime>
         
         <tag>Java</tag>
          
-        <tag>架构</tag>
-         
         <tag>DDD</tag>
+         
+        <tag>架构</tag>
          
         <tag>设计</tag>
          
@@ -35,7 +87,7 @@
     <data>
         <display>
         <title>被动语态与常用句式</title>
-        <pubTime>2018-04-05T13:38:54.000Z</pubTime>
+        <pubTime>2018-04-05T11:38:54.000Z</pubTime>
         
         <tag>学习</tag>
          
@@ -57,7 +109,7 @@
     <data>
         <display>
         <title>英文时态详解</title>
-        <pubTime>2018-03-28T15:16:37.000Z</pubTime>
+        <pubTime>2018-03-28T12:16:37.000Z</pubTime>
         
         <tag>学习</tag>
          
@@ -79,7 +131,7 @@
     <data>
         <display>
         <title>在 AWS 流水线中使用 CodeDeploy</title>
-        <pubTime>2018-02-26T14:24:39.000Z</pubTime>
+        <pubTime>2018-02-26T11:24:39.000Z</pubTime>
         
         <tag>小计</tag>
          
@@ -107,7 +159,7 @@
     <data>
         <display>
         <title>如何在 Linode 上搭建加强版 Shadowsocks</title>
-        <pubTime>2017-11-03T02:04:05.000Z</pubTime>
+        <pubTime>2017-11-02T23:04:05.000Z</pubTime>
         
         <tag>云服务</tag>
          
@@ -129,7 +181,7 @@
     <data>
         <display>
         <title>使用 Kcptun 加速 Shadowsocks</title>
-        <pubTime>2018-02-25T13:40:32.000Z</pubTime>
+        <pubTime>2018-02-25T10:40:32.000Z</pubTime>
         
         <tag>代理</tag>
          
@@ -151,7 +203,7 @@
     <data>
         <display>
         <title>Java系列（三）——类文件结构</title>
-        <pubTime>2018-02-11T07:23:44.000Z</pubTime>
+        <pubTime>2018-02-11T04:23:44.000Z</pubTime>
         
         <tag>Java</tag>
          
@@ -178,7 +230,7 @@
     <data>
         <display>
         <title>Java 8 新特性</title>
-        <pubTime>2017-08-30T02:42:34.000Z</pubTime>
+        <pubTime>2017-08-30T00:42:34.000Z</pubTime>
         
         <tag>Java</tag>
          
@@ -200,7 +252,7 @@
     <data>
         <display>
         <title>云原生应用 (Cloud Native Application)</title>
-        <pubTime>2017-05-03T03:04:03.000Z</pubTime>
+        <pubTime>2017-05-03T01:04:03.000Z</pubTime>
         
         <tag>Cloud Native</tag>
          
@@ -224,7 +276,7 @@
     <data>
         <display>
         <title>再见 2017， 你好 2018</title>
-        <pubTime>2017-12-28T08:30:29.000Z</pubTime>
+        <pubTime>2017-12-28T05:30:29.000Z</pubTime>
         
         <tag>大事记</tag>
          
@@ -244,7 +296,7 @@
     <data>
         <display>
         <title>Java系列（五）——UML类图和面向对象五大原则</title>
-        <pubTime>2018-02-15T02:50:33.000Z</pubTime>
+        <pubTime>2018-02-14T23:50:33.000Z</pubTime>
         
         <tag>学习</tag>
          
@@ -268,7 +320,7 @@
     <data>
         <display>
         <title>Java系列（四）——类的加载与执行</title>
-        <pubTime>2018-02-13T13:03:40.000Z</pubTime>
+        <pubTime>2018-02-13T10:03:40.000Z</pubTime>
         
         <tag>Java</tag>
          
@@ -296,7 +348,7 @@
     <data>
         <display>
         <title>细说HTTPS</title>
-        <pubTime>2018-01-26T01:41:27.000Z</pubTime>
+        <pubTime>2018-01-25T22:41:27.000Z</pubTime>
         
         <tag>HTTPS</tag>
          
@@ -318,7 +370,7 @@
     <data>
         <display>
         <title>Java系列（二）——JVM内存回收</title>
-        <pubTime>2018-02-09T15:15:15.000Z</pubTime>
+        <pubTime>2018-02-09T12:15:15.000Z</pubTime>
         
         <tag>Java</tag>
          
@@ -344,7 +396,7 @@
     <data>
         <display>
         <title>Java系列（一）——JVM内存分配</title>
-        <pubTime>2018-01-31T00:57:05.000Z</pubTime>
+        <pubTime>2018-01-30T21:57:05.000Z</pubTime>
         
         <tag>Java</tag>
          
@@ -371,7 +423,7 @@
     <data>
         <display>
         <title>单元测试</title>
-        <pubTime>2016-04-13T12:25:47.000Z</pubTime>
+        <pubTime>2016-04-13T10:25:47.000Z</pubTime>
         
         <tag>Python</tag>
          
@@ -393,7 +445,7 @@
     <data>
         <display>
         <title>关于爬虫你不得不知道的几个库</title>
-        <pubTime>2016-04-02T02:21:33.000Z</pubTime>
+        <pubTime>2016-04-01T23:21:33.000Z</pubTime>
         
         <tag>爬虫</tag>
          
@@ -415,7 +467,7 @@
     <data>
         <display>
         <title>Python函数调用小技巧</title>
-        <pubTime>2016-04-02T01:54:08.000Z</pubTime>
+        <pubTime>2016-04-01T22:54:08.000Z</pubTime>
         
         <tag>Python</tag>
          
@@ -435,7 +487,7 @@
     <data>
         <display>
         <title>推荐几个学习Python还不错的网站</title>
-        <pubTime>2016-03-29T13:16:04.000Z</pubTime>
+        <pubTime>2016-03-29T10:16:04.000Z</pubTime>
         
         <tag>学习</tag>
          
@@ -457,7 +509,7 @@
     <data>
         <display>
         <title>Python代码优化小技巧</title>
-        <pubTime>2016-03-29T12:26:33.000Z</pubTime>
+        <pubTime>2016-03-29T09:26:33.000Z</pubTime>
         
         <tag>代码</tag>
          
@@ -479,7 +531,7 @@
     <data>
         <display>
         <title>老马博客的里的图片</title>
-        <pubTime>2017-11-05T07:23:28.000Z</pubTime>
+        <pubTime>2017-11-05T04:23:28.000Z</pubTime>
         
         <tag>爬虫</tag>
          
@@ -501,7 +553,7 @@
     <data>
         <display>
         <title>分支模型与主干开发</title>
-        <pubTime>2017-10-29T07:47:20.000Z</pubTime>
+        <pubTime>2017-10-29T04:47:20.000Z</pubTime>
         
         <tag>git</tag>
          
@@ -529,7 +581,7 @@
     <data>
         <display>
         <title>PaaS 平台（二） -- Kubernetes 介绍</title>
-        <pubTime>2017-06-15T01:38:41.000Z</pubTime>
+        <pubTime>2017-06-14T23:38:41.000Z</pubTime>
         
         <tag>DevOps</tag>
          
@@ -557,7 +609,7 @@
     <data>
         <display>
         <title>Openshift 多节点部署</title>
-        <pubTime>2017-09-23T14:10:00.000Z</pubTime>
+        <pubTime>2017-09-23T12:10:00.000Z</pubTime>
         
         <tag>AWS</tag>
          
@@ -587,7 +639,7 @@
     <data>
         <display>
         <title>ThoughtWorks 技术面试</title>
-        <pubTime>2017-09-19T06:12:33.000Z</pubTime>
+        <pubTime>2017-09-19T04:12:33.000Z</pubTime>
         
         <tag>ThoughtWorks</tag>
          
@@ -611,7 +663,7 @@
     <data>
         <display>
         <title>PaaS 平台（三）-- Openshift 使用</title>
-        <pubTime>2017-06-15T10:27:41.000Z</pubTime>
+        <pubTime>2017-06-15T08:27:41.000Z</pubTime>
         
         <tag>DevOps</tag>
          
@@ -639,7 +691,7 @@
     <data>
         <display>
         <title>离骚</title>
-        <pubTime>2017-04-11T16:01:40.000Z</pubTime>
+        <pubTime>2017-04-11T14:01:40.000Z</pubTime>
         
         <tag>ThoughtWorks</tag>
          
@@ -656,40 +708,12 @@
 
     
   <url>
-    <loc>https://www.duyidong.com/2017/06/08/work-in-blackops/</loc>
-    <lastmod>2017-09-15T10:51:24.000Z</lastmod>
-    <data>
-        <display>
-        <title>DevOps 团队交付了什么？</title>
-        <pubTime>2017-06-08T08:38:47.000Z</pubTime>
-        
-        <tag>小结</tag>
-         
-        <tag>职场</tag>
-         
-        <tag>DevOps</tag>
-         
-        <tag>Platform</tag>
-         
-        <tag>工作</tag>
-         
-         
-           
-             
-              <breadCrumb title="DevOps" url="https://www.duyidong.com/categories/DevOps/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://www.duyidong.com/2017/06/14/kubernetes-and-openshift/</loc>
     <lastmod>2017-09-15T10:45:58.000Z</lastmod>
     <data>
         <display>
         <title>PaaS 平台（一） -- Openshift 介绍</title>
-        <pubTime>2017-06-14T13:53:00.000Z</pubTime>
+        <pubTime>2017-06-14T11:53:00.000Z</pubTime>
         
         <tag>DevOps</tag>
          
@@ -717,7 +741,7 @@
     <data>
         <display>
         <title>AWS认为，什么样的架构是一个良好的架构</title>
-        <pubTime>2017-03-23T14:01:23.000Z</pubTime>
+        <pubTime>2017-03-23T11:01:23.000Z</pubTime>
         
         <tag>AWS</tag>
          
@@ -743,7 +767,7 @@
     <data>
         <display>
         <title>使用AWS解锁HTTPS和CDN</title>
-        <pubTime>2017-03-20T12:23:37.000Z</pubTime>
+        <pubTime>2017-03-20T09:23:37.000Z</pubTime>
         
         <tag>AWS</tag>
          
@@ -775,7 +799,7 @@
     <data>
         <display>
         <title>DevOps 从理论到实践</title>
-        <pubTime>2017-07-14T10:35:34.000Z</pubTime>
+        <pubTime>2017-07-14T08:35:34.000Z</pubTime>
         
         <tag>持续交付</tag>
          
@@ -803,7 +827,7 @@
     <data>
         <display>
         <title>DevOps的三种方式</title>
-        <pubTime>2017-07-12T14:50:38.000Z</pubTime>
+        <pubTime>2017-07-12T12:50:38.000Z</pubTime>
         
         <tag>翻译</tag>
          
@@ -827,7 +851,7 @@
     <data>
         <display>
         <title>AWS认证与权限管理IAM</title>
-        <pubTime>2017-03-06T12:41:50.000Z</pubTime>
+        <pubTime>2017-03-06T09:41:50.000Z</pubTime>
         
         <tag>AWS</tag>
          
@@ -853,7 +877,7 @@
     <data>
         <display>
         <title>AWS对象存储服务S3</title>
-        <pubTime>2017-03-13T01:45:12.000Z</pubTime>
+        <pubTime>2017-03-12T22:45:12.000Z</pubTime>
         
         <tag>AWS</tag>
          
@@ -877,7 +901,7 @@
     <data>
         <display>
         <title>如何制作在线幻灯片</title>
-        <pubTime>2017-06-20T08:20:33.000Z</pubTime>
+        <pubTime>2017-06-20T06:20:33.000Z</pubTime>
         
         <tag>工具</tag>
          
@@ -901,7 +925,7 @@
     <data>
         <display>
         <title>敏捷开发</title>
-        <pubTime>2016-04-19T06:41:46.000Z</pubTime>
+        <pubTime>2016-04-19T04:41:46.000Z</pubTime>
         
         <tag>敏捷</tag>
          
@@ -923,7 +947,7 @@
     <data>
         <display>
         <title>DevOps 技能树</title>
-        <pubTime>2017-05-18T08:30:47.000Z</pubTime>
+        <pubTime>2017-05-18T06:30:47.000Z</pubTime>
         
         <tag>职场</tag>
          
@@ -945,7 +969,7 @@
     <data>
         <display>
         <title>部署和发布策略的演进</title>
-        <pubTime>2016-10-24T06:30:20.000Z</pubTime>
+        <pubTime>2016-10-24T03:30:20.000Z</pubTime>
         
         <tag>持续交付</tag>
          
@@ -971,7 +995,7 @@
     <data>
         <display>
         <title>Amazon Web Server 服务概览</title>
-        <pubTime>2017-02-28T06:55:01.000Z</pubTime>
+        <pubTime>2017-02-28T03:55:01.000Z</pubTime>
         
         <tag>AWS</tag>
          
@@ -993,7 +1017,7 @@
     <data>
         <display>
         <title>中文文档写作规范</title>
-        <pubTime>2017-05-13T02:16:18.000Z</pubTime>
+        <pubTime>2017-05-13T00:16:18.000Z</pubTime>
         
         <tag>文档规范</tag>
          
@@ -1013,7 +1037,7 @@
     <data>
         <display>
         <title>基础设施代码测试</title>
-        <pubTime>2017-04-13T05:41:29.000Z</pubTime>
+        <pubTime>2017-04-13T03:41:29.000Z</pubTime>
         
         <tag>Cloud</tag>
          
@@ -1041,7 +1065,7 @@
     <data>
         <display>
         <title>Ansible学习小记</title>
-        <pubTime>2016-06-15T12:30:46.000Z</pubTime>
+        <pubTime>2016-06-15T10:30:46.000Z</pubTime>
         
         <tag>工具</tag>
          
@@ -1069,7 +1093,7 @@
     <data>
         <display>
         <title>Redis、Memcache、MongoDB性能总结</title>
-        <pubTime>2016-04-03T13:03:55.000Z</pubTime>
+        <pubTime>2016-04-03T11:03:55.000Z</pubTime>
         
         <tag>DataBase</tag>
          
@@ -1089,7 +1113,7 @@
     <data>
         <display>
         <title>程序员工具（windows）</title>
-        <pubTime>2016-03-24T13:31:48.000Z</pubTime>
+        <pubTime>2016-03-24T10:31:48.000Z</pubTime>
         
         <tag>工具</tag>
          
@@ -1109,7 +1133,7 @@
     <data>
         <display>
         <title>程序员工具（mac）</title>
-        <pubTime>2016-03-24T14:26:14.000Z</pubTime>
+        <pubTime>2016-03-24T11:26:14.000Z</pubTime>
         
         <tag>工具</tag>
          
@@ -1129,7 +1153,7 @@
     <data>
         <display>
         <title>一次完整的HTTP事务是怎样一个过程</title>
-        <pubTime>2016-04-17T03:35:37.000Z</pubTime>
+        <pubTime>2016-04-17T01:35:37.000Z</pubTime>
         
         <tag>HTTP</tag>
          
@@ -1149,7 +1173,7 @@
     <data>
         <display>
         <title>RDBMS和NOSQL的技术差别</title>
-        <pubTime>2016-04-20T02:01:24.000Z</pubTime>
+        <pubTime>2016-04-20T00:01:24.000Z</pubTime>
         
         <tag>数据库</tag>
          
@@ -1169,7 +1193,7 @@
     <data>
         <display>
         <title>CI/CD</title>
-        <pubTime>2016-05-19T12:04:35.000Z</pubTime>
+        <pubTime>2016-05-19T10:04:35.000Z</pubTime>
         
         <tag>DevOps</tag>
          
@@ -1191,7 +1215,7 @@
     <data>
         <display>
         <title>Bash学习小计</title>
-        <pubTime>2016-08-05T00:09:15.000Z</pubTime>
+        <pubTime>2016-08-04T22:09:15.000Z</pubTime>
         
         <tag>学习</tag>
          
@@ -1217,7 +1241,7 @@
     <data>
         <display>
         <title>雪花服务器</title>
-        <pubTime>2016-11-04T07:29:52.000Z</pubTime>
+        <pubTime>2016-11-04T04:29:52.000Z</pubTime>
         
         <tag>翻译</tag>
          
@@ -1239,7 +1263,7 @@
     <data>
         <display>
         <title>凤凰式服务</title>
-        <pubTime>2016-11-02T09:06:13.000Z</pubTime>
+        <pubTime>2016-11-02T06:06:13.000Z</pubTime>
         
         <tag>翻译</tag>
          
@@ -1261,7 +1285,7 @@
     <data>
         <display>
         <title>程序员入门之git</title>
-        <pubTime>2016-05-29T02:49:08.000Z</pubTime>
+        <pubTime>2016-05-29T00:49:08.000Z</pubTime>
         
         <tag>工具</tag>
          
@@ -1283,7 +1307,7 @@
     <data>
         <display>
         <title>一句话介绍DevOps是做什么的</title>
-        <pubTime>2016-11-11T01:42:58.000Z</pubTime>
+        <pubTime>2016-11-10T22:42:58.000Z</pubTime>
         
         <tag>DevOps</tag>
          
@@ -1303,7 +1327,7 @@
     <data>
         <display>
         <title>ThoughtWorks第一周学习总结</title>
-        <pubTime>2016-05-24T13:44:57.000Z</pubTime>
+        <pubTime>2016-05-24T11:44:57.000Z</pubTime>
         
         <tag>ThoughtWorks</tag>
          
@@ -1327,7 +1351,7 @@
     <data>
         <display>
         <title>HTTP协议详解</title>
-        <pubTime>2016-03-30T13:02:31.000Z</pubTime>
+        <pubTime>2016-03-30T10:02:31.000Z</pubTime>
         
         <tag>HTTP</tag>
          
@@ -1347,7 +1371,7 @@
     <data>
         <display>
         <title>AWS之CloudFormation</title>
-        <pubTime>2016-08-02T13:36:04.000Z</pubTime>
+        <pubTime>2016-08-02T11:36:04.000Z</pubTime>
         
         <tag>AWS</tag>
          
@@ -1371,7 +1395,7 @@
     <data>
         <display>
         <title>AWS EC2是什么</title>
-        <pubTime>2016-09-28T06:53:34.000Z</pubTime>
+        <pubTime>2016-09-28T04:53:34.000Z</pubTime>
         
         <tag>AWS</tag>
          
@@ -1391,7 +1415,7 @@
     <data>
         <display>
         <title>AWS助理架构师认证考经</title>
-        <pubTime>2017-04-05T06:48:45.000Z</pubTime>
+        <pubTime>2017-04-05T04:48:45.000Z</pubTime>
         
         <tag>学习</tag>
          
@@ -1419,7 +1443,7 @@
     <data>
         <display>
         <title>将Hexo博客发布到S3</title>
-        <pubTime>2017-03-07T09:42:34.000Z</pubTime>
+        <pubTime>2017-03-07T06:42:34.000Z</pubTime>
         
         <tag>AWS</tag>
          
@@ -1445,7 +1469,7 @@
     <data>
         <display>
         <title>vim学习小计</title>
-        <pubTime>2017-02-24T07:41:09.000Z</pubTime>
+        <pubTime>2017-02-24T04:41:09.000Z</pubTime>
         
         <tag>vim</tag>
          
@@ -1493,7 +1517,7 @@
     <data>
         <display>
         <title>2016 野蛮生长的一年</title>
-        <pubTime>2017-01-16T08:35:41.000Z</pubTime>
+        <pubTime>2017-01-16T05:35:41.000Z</pubTime>
         
         <tag>大事记</tag>
          
@@ -1513,7 +1537,7 @@
     <data>
         <display>
         <title>2016六月学习小结</title>
-        <pubTime>2016-07-07T13:46:15.000Z</pubTime>
+        <pubTime>2016-07-07T11:46:15.000Z</pubTime>
         
         <tag>学习</tag>
          
@@ -1535,7 +1559,7 @@
     <data>
         <display>
         <title>2016八月学习小计</title>
-        <pubTime>2016-09-01T11:27:38.000Z</pubTime>
+        <pubTime>2016-09-01T09:27:38.000Z</pubTime>
         
         <tag>学习</tag>
          
@@ -1557,7 +1581,7 @@
     <data>
         <display>
         <title>AWS虚拟机EC2</title>
-        <pubTime>2017-03-15T12:02:03.000Z</pubTime>
+        <pubTime>2017-03-15T09:02:03.000Z</pubTime>
         
         <tag>AWS</tag>
          

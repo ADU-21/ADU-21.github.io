@@ -4,6 +4,26 @@
 
     
   <url>
+    <loc>https://www.duyidong.com/2018/08/07/influences/</loc>
+    <lastmod>2018-08-08T13:28:28.000Z</lastmod>
+    <data>
+        <display>
+        <title>变化和存在</title>
+        <pubTime>2018-08-07T04:26:35.000Z</pubTime>
+        
+        <tag>闲言碎语</tag>
+         
+         
+           
+             
+              <breadCrumb title="我的博客" url="https://www.duyidong.com/categories/%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://www.duyidong.com/2018/07/28/Let-s-talk-DevOps-job-titles/</loc>
     <lastmod>2018-07-30T06:57:22.000Z</lastmod>
     <data>
@@ -135,9 +155,9 @@
         
         <tag>小计</tag>
          
-        <tag>AWS</tag>
-         
         <tag>工具</tag>
+         
+        <tag>AWS</tag>
          
         <tag>Cloud</tag>
          

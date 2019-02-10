@@ -5,7 +5,7 @@
     
   <url>
     <loc>https://www.duyidong.com/2019/02/09/end-of-2018-start-of-2019/</loc>
-    <lastmod>2019-02-09T12:58:48.325Z</lastmod>
+    <lastmod>2019-02-10T13:42:36.882Z</lastmod>
     <data>
         <display>
         <title>新年伊始</title>
@@ -45,6 +45,7 @@
     </url>
 
     
+    
   <url>
     <loc>https://www.duyidong.com/2016/10/24/%E9%83%A8%E7%BD%B2%E5%92%8C%E5%8F%91%E5%B8%83%E7%AD%96%E7%95%A5%E7%9A%84%E6%BC%94%E8%BF%9B/</loc>
     <lastmod>2019-01-12T09:44:14.951Z</lastmod>
@@ -56,31 +57,6 @@
         <tag>DevOps</tag>
          
         <tag>CICD</tag>
-         
-         
-           
-             
-              <breadCrumb title="DevOps" url="https://www.duyidong.com/categories/DevOps/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-    
-  <url>
-    <loc>https://www.duyidong.com/2016/11/02/%E7%BF%BB%E8%AF%91-%E5%87%A4%E5%87%B0%E5%BC%8F%E6%9C%8D%E5%8A%A1/</loc>
-    <lastmod>2019-01-12T09:44:14.950Z</lastmod>
-    <data>
-        <display>
-        <title>凤凰式服务</title>
-        <pubTime>2016-11-02T09:06:13.000Z</pubTime>
-        
-        <tag>翻译</tag>
-         
-        <tag>DevOps</tag>
-         
-        <tag>凤凰式服务</tag>
          
          
            
@@ -105,6 +81,30 @@
         <tag>DevOps</tag>
          
         <tag>雪花服务器</tag>
+         
+         
+           
+             
+              <breadCrumb title="DevOps" url="https://www.duyidong.com/categories/DevOps/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2016/11/02/%E7%BF%BB%E8%AF%91-%E5%87%A4%E5%87%B0%E5%BC%8F%E6%9C%8D%E5%8A%A1/</loc>
+    <lastmod>2019-01-12T09:44:14.950Z</lastmod>
+    <data>
+        <display>
+        <title>凤凰式服务</title>
+        <pubTime>2016-11-02T09:06:13.000Z</pubTime>
+        
+        <tag>翻译</tag>
+         
+        <tag>DevOps</tag>
+         
+        <tag>凤凰式服务</tag>
          
          
            
@@ -163,6 +163,30 @@
 
     
   <url>
+    <loc>https://www.duyidong.com/2018/10/24/from-thoughtworks-to-alibaba/</loc>
+    <lastmod>2019-01-12T09:44:14.948Z</lastmod>
+    <data>
+        <display>
+        <title>从 ThoughtWorks 到阿里巴巴</title>
+        <pubTime>2018-10-24T06:26:35.000Z</pubTime>
+        
+        <tag>ThoughtWorks</tag>
+         
+        <tag>大事记</tag>
+         
+        <tag>阿里巴巴</tag>
+         
+         
+           
+             
+              <breadCrumb title="ThoughtWorks" url="https://www.duyidong.com/categories/ThoughtWorks/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://www.duyidong.com/2019/01/08/aws-certification-share/</loc>
     <lastmod>2019-01-12T09:44:14.948Z</lastmod>
     <data>
@@ -192,9 +216,9 @@
         <title>领域驱动设计（DDD）实践</title>
         <pubTime>2018-04-23T11:49:36.000Z</pubTime>
         
-        <tag>Java</tag>
-         
         <tag>DDD</tag>
+         
+        <tag>Java</tag>
          
         <tag>架构</tag>
          
@@ -204,56 +228,6 @@
            
              
               <breadCrumb title="Java" url="https://www.duyidong.com/categories/Java/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://www.duyidong.com/2018/10/24/from-thoughtworks-to-alibaba/</loc>
-    <lastmod>2019-01-12T09:44:14.948Z</lastmod>
-    <data>
-        <display>
-        <title>从 ThoughtWorks 到阿里巴巴</title>
-        <pubTime>2018-10-24T06:26:35.000Z</pubTime>
-        
-        <tag>ThoughtWorks</tag>
-         
-        <tag>大事记</tag>
-         
-        <tag>阿里巴巴</tag>
-         
-         
-           
-             
-              <breadCrumb title="ThoughtWorks" url="https://www.duyidong.com/categories/ThoughtWorks/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://www.duyidong.com/2017/03/23/AWS-well-architected-framework/</loc>
-    <lastmod>2019-01-12T09:44:14.947Z</lastmod>
-    <data>
-        <display>
-        <title>AWS认为，什么样的架构是一个良好的架构</title>
-        <pubTime>2017-03-23T14:01:23.000Z</pubTime>
-        
-        <tag>AWS</tag>
-         
-        <tag>Cloud Native</tag>
-         
-        <tag>架构</tag>
-         
-        <tag>Cloud</tag>
-         
-         
-           
-             
-              <breadCrumb title="Amazon Web Services" url="https://www.duyidong.com/categories/Amazon-Web-Services/"/>
           
         </display>
     </data>
@@ -289,20 +263,20 @@
 
     
   <url>
-    <loc>https://www.duyidong.com/2017/02/23/Lambda%E5%88%9D%E4%BD%93%E9%AA%8C/</loc>
-    <lastmod>2019-01-12T09:44:14.946Z</lastmod>
+    <loc>https://www.duyidong.com/2017/03/23/AWS-well-architected-framework/</loc>
+    <lastmod>2019-01-12T09:44:14.947Z</lastmod>
     <data>
         <display>
-        <title>Lambda初体验</title>
-        <pubTime>2017-02-23T10:23:00.000Z</pubTime>
+        <title>AWS认为，什么样的架构是一个良好的架构</title>
+        <pubTime>2017-03-23T14:01:23.000Z</pubTime>
         
         <tag>AWS</tag>
          
-        <tag>Serverless</tag>
+        <tag>Cloud Native</tag>
          
-        <tag>无服务器架构</tag>
+        <tag>架构</tag>
          
-        <tag>Lambda</tag>
+        <tag>Cloud</tag>
          
          
            
@@ -335,6 +309,32 @@
         <tag>Route53</tag>
          
         <tag>博客上云</tag>
+         
+         
+           
+             
+              <breadCrumb title="Amazon Web Services" url="https://www.duyidong.com/categories/Amazon-Web-Services/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2017/02/23/Lambda%E5%88%9D%E4%BD%93%E9%AA%8C/</loc>
+    <lastmod>2019-01-12T09:44:14.946Z</lastmod>
+    <data>
+        <display>
+        <title>Lambda初体验</title>
+        <pubTime>2017-02-23T10:23:00.000Z</pubTime>
+        
+        <tag>AWS</tag>
+         
+        <tag>Serverless</tag>
+         
+        <tag>无服务器架构</tag>
+         
+        <tag>Lambda</tag>
          
          
            
@@ -608,9 +608,9 @@
         
         <tag>小计</tag>
          
-        <tag>工具</tag>
-         
         <tag>AWS</tag>
+         
+        <tag>工具</tag>
          
         <tag>Cloud</tag>
          

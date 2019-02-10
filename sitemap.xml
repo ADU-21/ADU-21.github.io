@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.duyidong.com/2017/11/03/how-to-setup-ss-on-linode/</loc>
+    
+    <lastmod>2019-02-10T15:30:54.981Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://www.duyidong.com/2019/02/09/end-of-2018-start-of-2019/</loc>
     
     <lastmod>2019-02-10T13:42:36.882Z</lastmod>
@@ -58,13 +65,6 @@
   </url>
   
   <url>
-    <loc>https://www.duyidong.com/2018/10/24/from-thoughtworks-to-alibaba/</loc>
-    
-    <lastmod>2019-01-12T09:44:14.948Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://www.duyidong.com/2019/01/08/aws-certification-share/</loc>
     
     <lastmod>2019-01-12T09:44:14.948Z</lastmod>
@@ -79,14 +79,21 @@
   </url>
   
   <url>
-    <loc>https://www.duyidong.com/2017/10/29/trunk-base-development/</loc>
+    <loc>https://www.duyidong.com/2018/10/24/from-thoughtworks-to-alibaba/</loc>
+    
+    <lastmod>2019-01-12T09:44:14.948Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.duyidong.com/2017/03/23/AWS-well-architected-framework/</loc>
     
     <lastmod>2019-01-12T09:44:14.947Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://www.duyidong.com/2017/03/23/AWS-well-architected-framework/</loc>
+    <loc>https://www.duyidong.com/2017/10/29/trunk-base-development/</loc>
     
     <lastmod>2019-01-12T09:44:14.947Z</lastmod>
     
@@ -110,13 +117,6 @@
     <loc>https://www.duyidong.com/2017/03/07/Deploy-Hexo-to-S3/</loc>
     
     <lastmod>2019-01-12T09:44:14.946Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://www.duyidong.com/2017/11/03/how-to-setup-ss-on-linode/</loc>
-    
-    <lastmod>2019-01-12T09:44:05.804Z</lastmod>
     
   </url>
   

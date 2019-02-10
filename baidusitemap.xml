@@ -4,6 +4,28 @@
 
     
   <url>
+    <loc>https://www.duyidong.com/2017/11/03/how-to-setup-ss-on-linode/</loc>
+    <lastmod>2019-02-10T15:30:54.981Z</lastmod>
+    <data>
+        <display>
+        <title>如何在 Linode 上搭建加强版 Shadowsocks</title>
+        <pubTime>2017-11-03T02:04:05.000Z</pubTime>
+        
+        <tag>云服务</tag>
+         
+        <tag>代理</tag>
+         
+         
+           
+             
+              <breadCrumb title="工具" url="https://www.duyidong.com/categories/%E5%B7%A5%E5%85%B7/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://www.duyidong.com/2019/02/09/end-of-2018-start-of-2019/</loc>
     <lastmod>2019-02-10T13:42:36.882Z</lastmod>
     <data>
@@ -163,30 +185,6 @@
 
     
   <url>
-    <loc>https://www.duyidong.com/2018/10/24/from-thoughtworks-to-alibaba/</loc>
-    <lastmod>2019-01-12T09:44:14.948Z</lastmod>
-    <data>
-        <display>
-        <title>从 ThoughtWorks 到阿里巴巴</title>
-        <pubTime>2018-10-24T06:26:35.000Z</pubTime>
-        
-        <tag>ThoughtWorks</tag>
-         
-        <tag>大事记</tag>
-         
-        <tag>阿里巴巴</tag>
-         
-         
-           
-             
-              <breadCrumb title="ThoughtWorks" url="https://www.duyidong.com/categories/ThoughtWorks/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://www.duyidong.com/2019/01/08/aws-certification-share/</loc>
     <lastmod>2019-01-12T09:44:14.948Z</lastmod>
     <data>
@@ -216,9 +214,9 @@
         <title>领域驱动设计（DDD）实践</title>
         <pubTime>2018-04-23T11:49:36.000Z</pubTime>
         
-        <tag>DDD</tag>
-         
         <tag>Java</tag>
+         
+        <tag>DDD</tag>
          
         <tag>架构</tag>
          
@@ -228,6 +226,56 @@
            
              
               <breadCrumb title="Java" url="https://www.duyidong.com/categories/Java/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2018/10/24/from-thoughtworks-to-alibaba/</loc>
+    <lastmod>2019-01-12T09:44:14.948Z</lastmod>
+    <data>
+        <display>
+        <title>从 ThoughtWorks 到阿里巴巴</title>
+        <pubTime>2018-10-24T06:26:35.000Z</pubTime>
+        
+        <tag>ThoughtWorks</tag>
+         
+        <tag>大事记</tag>
+         
+        <tag>阿里巴巴</tag>
+         
+         
+           
+             
+              <breadCrumb title="ThoughtWorks" url="https://www.duyidong.com/categories/ThoughtWorks/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2017/03/23/AWS-well-architected-framework/</loc>
+    <lastmod>2019-01-12T09:44:14.947Z</lastmod>
+    <data>
+        <display>
+        <title>AWS认为，什么样的架构是一个良好的架构</title>
+        <pubTime>2017-03-23T14:01:23.000Z</pubTime>
+        
+        <tag>AWS</tag>
+         
+        <tag>Cloud Native</tag>
+         
+        <tag>架构</tag>
+         
+        <tag>Cloud</tag>
+         
+         
+           
+             
+              <breadCrumb title="Amazon Web Services" url="https://www.duyidong.com/categories/Amazon-Web-Services/"/>
           
         </display>
     </data>
@@ -256,32 +304,6 @@
            
              
               <breadCrumb title="DevOps" url="https://www.duyidong.com/categories/DevOps/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://www.duyidong.com/2017/03/23/AWS-well-architected-framework/</loc>
-    <lastmod>2019-01-12T09:44:14.947Z</lastmod>
-    <data>
-        <display>
-        <title>AWS认为，什么样的架构是一个良好的架构</title>
-        <pubTime>2017-03-23T14:01:23.000Z</pubTime>
-        
-        <tag>AWS</tag>
-         
-        <tag>Cloud Native</tag>
-         
-        <tag>架构</tag>
-         
-        <tag>Cloud</tag>
-         
-         
-           
-             
-              <breadCrumb title="Amazon Web Services" url="https://www.duyidong.com/categories/Amazon-Web-Services/"/>
           
         </display>
     </data>
@@ -366,28 +388,6 @@
            
              
               <breadCrumb title="Amazon Web Services" url="https://www.duyidong.com/categories/Amazon-Web-Services/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://www.duyidong.com/2017/11/03/how-to-setup-ss-on-linode/</loc>
-    <lastmod>2019-01-12T09:44:05.804Z</lastmod>
-    <data>
-        <display>
-        <title>如何在 Linode 上搭建加强版 Shadowsocks</title>
-        <pubTime>2017-11-03T02:04:05.000Z</pubTime>
-        
-        <tag>云服务</tag>
-         
-        <tag>代理</tag>
-         
-         
-           
-             
-              <breadCrumb title="工具" url="https://www.duyidong.com/categories/%E5%B7%A5%E5%85%B7/"/>
           
         </display>
     </data>

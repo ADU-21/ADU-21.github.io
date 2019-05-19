@@ -46,6 +46,36 @@
   </entry>
   
   <entry>
+    <title>Spring boot 注解</title>
+    <link href="https://www.duyidong.com/2019/04/28/springboot-annotation/"/>
+    <id>https://www.duyidong.com/2019/04/28/springboot-annotation/</id>
+    <published>2019-04-28T10:07:07.000Z</published>
+    <updated>2019-05-19T10:26:48.721Z</updated>
+    
+    <content type="html"><![CDATA[<p>Springboot 相比于 Spring 的强大之处在于用注解解决了很多 Spring 的设计中需要配置来解决的问题，极大地提高了开发体验。这篇文章主要解释 Springboot 是如何使用注解实现依赖注入的。</p><h2 id="Java-注解"><a href="#Java-注解" class="headerlink" title="Java 注解"></a>Java 注解</h2><p>在讲解 Springboot 注解之前先来看看 Java 的注解，每当你创建描述符性质的类或者接口时,一旦其中包含重复性的工作，就可以考虑使用注解来简化与自动化该过程。</p><p>Java 注解又称 Java 标注，是 Java 语言 5.0 版本开始支持加入源代码的特殊语法元数据。注解本身并不承载功能，而是绑定在 Java 成员上的一些元数据，可以在特定的时候（编译检查、运行）时被获取和处理。</p><p>Java 最开始提供了 4 种元注解，直到 jdk1.8 增加到 7 种，专门负责新注解的创建工作。</p><p><strong>元注解（作用在其他注解的注解）</strong></p><ul><li><code>@Target</code> - 标记这个注解应该是哪种 Java 成员。</li><li><code>@Retention</code> - 标识这个注解怎么保存，是只在代码中，还是编入class文件中，或者是在运行时可以通过反射访问。</li><li><code>@Documented</code> - 标记这些注解是否包含在用户文档中。</li><li><code>@Inherited</code> - 标记这个注解是继承于哪个注解类(默认 注解并没有继承于任何子类)</li><li><code>@SafeVarargs</code> - Java 7 开始支持，忽略任何使用参数为泛型变量的方法或构造函数调用产生的警告。</li><li><code>@FunctionalInterface</code> - Java 8 开始支持，标识一个匿名函数或函数式接口。</li><li><code>@Repeatable</code> - Java 8 开始支持，标识某注解可以在同一个声明上使用多次。</li></ul><p>我们来看一个最常见的注解<code>@Override</code>的源码：</p><pre><code class="java">@Retention(RetentionPolicy.RUNTIME)@Target(ElementType.METHOD)public @interface Before {}</code></pre><p><code>@interface</code> 是 Java 注解申明的关键字，它的元注解翻译过来就是“可以用于 Java 方法，并保留至运行时，且不出现在用户文档中”。</p><p>更多使用元注解自定义注解可以参考我写的一个小 demo: <a href="https://github.com/ADU-21/java-annotation" target="_blank" rel="noopener">https://github.com/ADU-21/java-annotation</a>，这里就不展开赘述了。</p><h1 id="Spring-boot-注解"><a href="#Spring-boot-注解" class="headerlink" title="Spring boot 注解"></a>Spring boot 注解</h1><p>相比于 Java，Springboot 为我们提供更多的注解，用于依赖注入的有·<code>@Autowired</code>、<code>@Resource</code>、<code>@Qualifier</code>、<code>@Service</code>、<code>@Controller</code>、<code>@Repository</code>、<code>@Component</code>。</p><p>上面有提到注解本身只是元数据而不实现功能。那 Springboot 从一个类被标记上注解到被注入到 Ioc 容器中都发生了什么？这就要从 Springboot 的启动流程说起。</p><h3 id="Springboot-启动流程"><a href="#Springboot-启动流程" class="headerlink" title="Springboot 启动流程"></a>Springboot 启动流程</h3><p>springboot 启动流程大图，可以参考：<a href="https://www.processon.com/view/link/59812124e4b0de2518b32b6e" target="_blank" rel="noopener">https://www.processon.com/view/link/59812124e4b0de2518b32b6e</a></p><p><strong>首先</strong>，很熟悉的是，SpringBoot为我们提供了一个注解，@SpringBootApplication, 打开注解的源码我们可以看到，主要由以下几个注解组成：</p><ul><li><p><strong>@SpringBootConfiguration</strong></p><p><code>@SpringBootConfiguration</code>注解是由<code>@Configuration</code>来注解的，因此也就表示Application类本身就是一个 Bean。虽然<code>@SpringBootConfiguration</code>注释中说该注解一个应用中只能用一次，但是配置多个也不会报错，只是建议在一个应用中只用一次，并且该注解也可以与<code>@Configuration</code>互换。</p></li><li><p><strong>@EnableAutoConfiguration</strong></p><p><code>@EnableAutoConfiguration</code>用于开启自动配置的。通过这个注解我们就能使用很多默认的配置来进行程序的开发，这个注解集成了<code>@EnableAutoConfiguration</code>注解，这个注解就是 auto-configuration 的核心，源码如下：</p><p><img src="/images/EnableAutoConfiguration.png" alt=""></p><p><strong>1</strong>.  其中最核心的就是<code>@Import(EnableAutoConfigurationImportSelector.class)</code>。 <code>@Import</code>注解的作用就是导入其他的配置。</p><p><strong>2</strong>.  在 Spring 容器启动的时候会利用<code>ConfigurationClassPostProcessor</code>进行解析，这个类实现了<code>BeanDefinitionRegistryPostProcessor</code>，在容器启动的时候会调用其方法对扫描路径下的<code>@Configuration</code>注解进行扫描和解析。</p><p><strong>3</strong>.  在解析<code>@Configuration</code>的时候会去解析<code>@Import</code>注解，其中<code>EnableAutoConfigurationImportSelector</code>类是<code>AutoConfigurationImportSelector</code>的子类，<code>AutoConfigurationImportSelector</code>中会进行当前根路径下的 jar 包下的 META-INF/spring.factories 文件的扫描和读取。并且将其中涉及到的 Bean 配合<code>@Conditional</code>注解添加到 Spring 容器中。</p><p>整体的调用链如下：</p><p><img src="/images/spring-auto-configuration.png" alt=""></p></li><li><p><strong>@ComponentScan</strong></p><p>这是Springboot 注入的重点，<code>@ComponentScan</code>注解的功能与 Spring 在 xml 文件配置的的功能是一样的，而上面也提到 Application 类放在源码的根目录下，其实就是与这个注解有关。<code>@ComponentScan</code>在没有指明basePackages 属性的时候，默认会扫描该注解所在的类的包及其子包下的所有<code>@Component</code>注解过的类，包括<code>@Controller</code>，<code>@Service</code>，<code>@Configuration</code>这些注解。这也就是为什么我们不用做任何配置，就可以将Springboot 应用中的类扫描为 Bean。</p><p>调用栈可以参考下图：</p><p><img src="/images/component-scan-stack.png" alt=""></p><p>具体实现的方法为：<code>ConfigurationClassParser.doProcessConfigurationClass</code>:</p><p><img src="/images/ConfigurationClassParser-doProcessConfigurationClass.png" alt=""></p></li></ul><h3 id="Spring-Bean-加载"><a href="#Spring-Bean-加载" class="headerlink" title="Spring Bean 加载"></a>Spring Bean 加载</h3><p>取到所有带 <code>@Component</code> 注解的类之后就是创建实例了，再来看调用栈：</p><p><img src="/images/springboot-newInstance.png" alt=""></p><p>对应前面大图里工厂模式一块：</p><p><img src="/images/spring-boot-start-map.png" alt=""></p><p>事实上 Springboot 源码中在 context refresh 里有包含了绝大多数我们关心的和 bean 有关的处理：</p><p><img src="/images/spring-context-refresh.png" alt=""></p><h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="http://www.cnblogs.com/ITtangtang/p/3974531.html" target="_blank" rel="noopener">http://www.cnblogs.com/ITtangtang/p/3974531.html</a></p><p><a href="https://zh.wikipedia.org/wiki/Java%E6%B3%A8%E8%A7%A3" target="_blank" rel="noopener">https://zh.wikipedia.org/wiki/Java%E6%B3%A8%E8%A7%A3</a></p><p><a href="https://segmentfault.com/a/1190000012887776" target="_blank" rel="noopener">https://segmentfault.com/a/1190000012887776</a></p><p><a href="http://www.cnblogs.com/xrq730/p/6285358.html" target="_blank" rel="noopener">http://www.cnblogs.com/xrq730/p/6285358.html</a></p><p><a href="https://www.jianshu.com/p/414d3e2f04e9" target="_blank" rel="noopener">https://www.jianshu.com/p/414d3e2f04e9</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;Springboot 相比于 Spring 的强大之处在于用注解解决了很多 Spring 的设计中需要配置来解决的问题，极大地提高了开发体验。这篇文章主要解释 Springboot 是如何使用注解实现依赖注入的。&lt;/p&gt;
+&lt;h2 id=&quot;Java-注解&quot;&gt;&lt;a href=&quot;
+      
+    
+    </summary>
+    
+      <category term="Java" scheme="https://www.duyidong.com/categories/Java/"/>
+    
+    
+      <category term="Java" scheme="https://www.duyidong.com/tags/Java/"/>
+    
+      <category term="Spring" scheme="https://www.duyidong.com/tags/Spring/"/>
+    
+      <category term="Springboot" scheme="https://www.duyidong.com/tags/Springboot/"/>
+    
+  </entry>
+  
+  <entry>
     <title>新年伊始</title>
     <link href="https://www.duyidong.com/2019/02/09/end-of-2018-start-of-2019/"/>
     <id>https://www.duyidong.com/2019/02/09/end-of-2018-start-of-2019/</id>
@@ -160,9 +190,9 @@
       <category term="DevOps" scheme="https://www.duyidong.com/categories/DevOps/"/>
     
     
-      <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
-    
       <category term="翻译" scheme="https://www.duyidong.com/tags/%E7%BF%BB%E8%AF%91/"/>
+    
+      <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
     
       <category term="Platform" scheme="https://www.duyidong.com/tags/Platform/"/>
     
@@ -189,9 +219,9 @@
       <category term="Java" scheme="https://www.duyidong.com/categories/Java/"/>
     
     
-      <category term="Java" scheme="https://www.duyidong.com/tags/Java/"/>
-    
       <category term="DDD" scheme="https://www.duyidong.com/tags/DDD/"/>
+    
+      <category term="Java" scheme="https://www.duyidong.com/tags/Java/"/>
     
       <category term="架构" scheme="https://www.duyidong.com/tags/%E6%9E%B6%E6%9E%84/"/>
     
@@ -278,9 +308,9 @@
     
       <category term="小计" scheme="https://www.duyidong.com/tags/%E5%B0%8F%E8%AE%A1/"/>
     
-      <category term="工具" scheme="https://www.duyidong.com/tags/%E5%B7%A5%E5%85%B7/"/>
-    
       <category term="AWS" scheme="https://www.duyidong.com/tags/AWS/"/>
+    
+      <category term="工具" scheme="https://www.duyidong.com/tags/%E5%B7%A5%E5%85%B7/"/>
     
       <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
     
@@ -556,34 +586,6 @@
       <category term="爬虫" scheme="https://www.duyidong.com/tags/%E7%88%AC%E8%99%AB/"/>
     
       <category term="其他" scheme="https://www.duyidong.com/tags/%E5%85%B6%E4%BB%96/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>如何在 Linode 上搭建加强版 Shadowsocks</title>
-    <link href="https://www.duyidong.com/2017/11/03/how-to-setup-ss-on-linode/"/>
-    <id>https://www.duyidong.com/2017/11/03/how-to-setup-ss-on-linode/</id>
-    <published>2017-11-03T02:04:05.000Z</published>
-    <updated>2019-02-24T14:58:08.412Z</updated>
-    
-    <content type="html"><![CDATA[<p> 本文介绍如何在 Linode 上搭建 Shadowsocks，并开启 TCP BBR 拥塞算法达到稳定代理的目的。</p><h1 id="为什么选用-Linode"><a href="#为什么选用-Linode" class="headerlink" title="为什么选用 Linode"></a>为什么选用 Linode</h1><ul><li><strong>便宜</strong> 一台最小的 Linode 服务器(单CPU/1G内存/20G硬盘/1TB流量) 只需 5$ 一月，1TB 的流量只要不被攻击基本可以放心使用而不用操心流量超的问题。</li><li><strong>方便</strong> 相比于 AWS, Linode 的服务器资源申请和维护很简单，不需要你具备太多的平台知识，从这个角度来说定制化的反面就是易用性。付费也很简单，一台机器就是一台机器的钱，没有很多隐藏收费的地方。除此之外，机器重启公网 IP 也不会变，不需要像 AWS 一样还需要绑定 EIP。你可能会担心这台服务器 IP 被封，Linode 有服务器 clone 功能可以很快克隆一台一模一样的服务器（with different public ip）。</li><li><strong>速度</strong> 亲测按照本文配置的 ss 外网下载速度可达 4MB/s，Youtube 1080p 可以说是无压力了。</li></ul><h1 id="注册-申请服务器"><a href="#注册-申请服务器" class="headerlink" title="注册/申请服务器"></a>注册/申请服务器</h1><h2 id="注册账号"><a href="#注册账号" class="headerlink" title="注册账号"></a>注册账号</h2><p>申请注册，邀请码：<a href="https://www.linode.com/?r=1edbed5f98d2e15d9866e174f7d6653dbe63a0bf" target="_blank" rel="noopener">https://www.linode.com/?r=1edbed5f98d2e15d9866e174f7d6653dbe63a0bf</a></p><p>你需要准备一张支持美元的信用卡，并在注册时预先扣费 5$，接下来注册邮箱会收到一封确认邮件，确认后还有等一段时间的人工 Review, 大概半小时后账号就可用了。</p><h2 id="申请服务器"><a href="#申请服务器" class="headerlink" title="申请服务器"></a>申请服务器</h2><ul><li><strong>Add a Linode</strong> 创建服务器</li><li><strong>Select an instance type</strong> 因为这里只做流量转发，所以选最小的类型:1024</li><li><strong>Location</strong> 服务器位置选新加坡或日本（注意服务器位置并不等于 IP 地区）</li><li>点击 <strong>Add This Linode</strong></li></ul><p><img src="/images/linode_create_instance.jpg" alt=""></p><h2 id="配置操作系统镜像"><a href="#配置操作系统镜像" class="headerlink" title="配置操作系统镜像"></a>配置操作系统镜像</h2><ul><li>回到 Linodes 界面，点选 <strong>Deploy Images</strong></li><li>选择交换分区大小保持默认，应用操作系统镜像 <strong>Ubuntu 17.04</strong>，输入密码（服务器被创建）</li><li>Boot 服务器</li></ul><p>接下来可以再 Linodes 界面看到服务器的公网 IP，可以通过 ssh 登录服务器了。</p><pre><code>ssh root@&lt;public-ip&gt;</code></pre><h2 id="禁用密码登录（可选）"><a href="#禁用密码登录（可选）" class="headerlink" title="禁用密码登录（可选）"></a>禁用密码登录（可选）</h2><p>密码可以被猜测到，所以为了安全性通常会禁用密码登录而改用秘钥对登录。</p><p>首先将本地的公钥放到 Linode 服务器上：</p><pre><code>ssh-copy-id root@&lt;public-ip&gt;</code></pre><p>然后禁用服务器上的密码登录，方法是编辑 Linode 服务器上的 <code>/etc/ssh/sshd_config</code>文件，设置<code>PasswordAuthentication no</code>，再重启 sshd <code>service sshd restart</code></p><h1 id="搭建-Shadowsocks"><a href="#搭建-Shadowsocks" class="headerlink" title="搭建 Shadowsocks"></a>搭建 Shadowsocks</h1><h2 id="安装-pip"><a href="#安装-pip" class="headerlink" title="安装 pip"></a>安装 pip</h2><p>登录到服务器上，依次执行以下命令：</p><pre><code>apt update -y           # apt 更新apt install python3-pip # 安装 pip3</code></pre><h2 id="安装并开启-shadowsocks"><a href="#安装并开启-shadowsocks" class="headerlink" title="安装并开启 shadowsocks"></a>安装并开启 shadowsocks</h2><pre><code>pip3 install shadowsocks              # 安装 Shadowsocksssserver -p 8388 -k PassWord -d start # 启动 Shadowsocks, 8388是代理端口，PassWord为连接口令，-d 表示后台启动，看到 Started 即表示启动成功</code></pre><h2 id="Trouble-shooting"><a href="#Trouble-shooting" class="headerlink" title="Trouble shooting"></a>Trouble shooting</h2><h3 id="apt-update-很慢"><a href="#apt-update-很慢" class="headerlink" title="apt update 很慢"></a>apt update 很慢</h3><p>如果遇到 <code>apt update</code> 特别慢或者出现 ipv6 地址无法解析，可以参照<a href="http://www.wuce.org/disable-linode-ipv6-solve-google-error/" target="_blank" rel="noopener">这篇博客</a> 禁用 IPV6。</p><p>再不行就把 <code>/etc/apt/sources.list</code> 里的<code>http://security.ubuntu.com/ubuntu</code>源（最后三行）给注释掉</p><h1 id="安装客户端"><a href="#安装客户端" class="headerlink" title="安装客户端"></a>安装客户端</h1><h2 id="系统配置"><a href="#系统配置" class="headerlink" title="系统配置"></a>系统配置</h2><ul><li>Mac客户端： <a href="https://s3.amazonaws.com/duyidong-archive/software/GoAgentX.zip" target="_blank" rel="noopener"><strong>goAgentX</strong></a> ，解压后放到 <code>Application</code> 目录里，启动。</li><li>Windows: <a href="https://github.com/shadowsocks/shadowsocks-windows/releases/download/4.0.6/Shadowsocks-4.0.6.zip" target="_blank" rel="noopener"><strong>Shadowsocks-4.0.6.zip</strong></a>, 解压后运行。</li></ul><p>配置：</p><p><img src="/images/goagentx-config.jpg" alt=""></p><p>Windows 和 Mac 的客户端的配置是一样的，原理是把本机从代理端口出去的流量全部转发到 Shadowsocks 服务器，配置五个参数：</p><ul><li>本地端口：本地代理端口</li><li>服务器地址：Linode 服务器公网 IP</li><li>端口：启动 Shadowsocks server 时的端口</li><li>密码：启动 Shadowsocks server 时的密码</li><li>加密方式：默认为 <code>aes-256-cfb</code></li></ul><p>启动，看到 <code>server listening at port xxx…</code> 就表示启动成功了。</p><p>goAgentX 有两种可选项目，一种是全局代理（Global Proxy Model），一种是局部代理（Stand alone Model）。全局代理是将服务器出去的流量全部转发到代理服务器，局部代理是需要将本机流量先转发到代理端口才能启用代理。一般建议配置局部代理，这样操控性更强。</p><h2 id="Chrome-配置"><a href="#Chrome-配置" class="headerlink" title="Chrome 配置"></a>Chrome 配置</h2><p>使用插件<a href="https://chrome.google.com/webstore/search/SwitchyOmega" target="_blank" rel="noopener"><strong>SwitchyOmega</strong></a>，</p><ul><li>添加默认代理： SOCKS5/localhost/&lt;代理端口&gt;</li><li>配置转发规则（如图所示），<a href="https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt" target="_blank" rel="noopener">https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt</a> 是一个自动更新的 GFW 白名单，文本里用<code>非</code>语句表示白名单里的站点可不通过代理访问，这样就避免了代理访问国内网站速度变慢的问题。</li></ul><p><img src="/images/SwitchOmega_configure.png" alt=""></p><p>使用方法，在插件的下拉菜单中选择<code>auto switch</code>，访问 Google，测试通过。</p><h2 id="Shell-配置"><a href="#Shell-配置" class="headerlink" title="Shell 配置"></a>Shell 配置</h2><p>使用环境变量可以将 Shell 的所有流量转发到代理端口，需要始终生效可以将以下命令加入 <code>.xshrc</code>:</p><pre><code>export ALL_PROXY=socks5://127.0.0.1:&lt;代理端口&gt;</code></pre><p><code>curl -I www.google.com</code> 测试通过。但是这种方式需要程序支持 proxy 才行，要想让所有流量都走代理，推荐一款<strong>命令行代理配置神器：<a href="https://github.com/rofl0r/proxychains-ng" target="_blank" rel="noopener">proxychains</a></strong>，只要在命令行前跟上这个命令，它会劫持本机出去的所有流量转发到 proxy 服务器，不管发送请求的程序支不支持 proxy。安装方式（以 Mac 为例）：</p><ul><li><p>开启 Root</p><p>OS X 10.11 后 Root 就是阉割版，最常遇到的问题就是<code>/usr/bin</code>目录下的文件没有更改权限，要获得真正的 Root 权限需要重启 Mac，在启动时按住 <code>⌘R</code>，在左上角菜单栏找到<strong>终端</strong>，打开，并执行<code>csrutil disable</code>，返回 Success…，再 <code>Reboot</code>，再打开命令行执行<code>sudo</code>就有了真正的 Root。</p></li><li><p>接下来安装 proxychains：</p><pre><code class="bash">git clone https://github.com/rofl0r/proxychains-ng.git ./configure --prefix=/usr --sysconfdir=/etcmakesudo make installsudo make install-config</code></pre><p>最后一步会看到生成一个 proxychains 的配置文件<code>/etc/proxychains.conf</code>，编辑它，将最后一行替换为<code>socks5  127.0.0.1 &lt;代理端口&gt;</code>，保存退出。</p></li><li><p>使用的时候在命令行前加上 <code>proxychains4</code>，形如：<code>proxychains4 curl -I https://www.google.com</code>，则流量都将会被转发到 proxy 服务器上。值得注意的是，这个工具<strong>只支持 TCP 协议，而 UDP/ICMP 不支持</strong>，常用场景也就是 <code>Ping</code> 是不能用的。</p></li></ul><h1 id="开启-TCP-BBR-增强版"><a href="#开启-TCP-BBR-增强版" class="headerlink" title="开启 TCP BBR 增强版"></a>开启 TCP BBR 增强版</h1><p>这部分内容来自<a href="https://moeclub.org/2017/06/06/249/" target="_blank" rel="noopener">Debian/Ubuntu 开启 TCP BBR 拥塞算法</a>，<a href="https://moeclub.org/2017/06/24/278/" target="_blank" rel="noopener">Debian/Ubuntu TCP BBR 改进版/增强版</a>，BBR 算法介绍可以参考<a href="https://www.zhihu.com/question/53559433" target="_blank" rel="noopener">知乎：Linux Kernel 4.9 中的 BBR 算法与之前的 TCP 拥塞控制相比有什么优势？</a>，太长不读版就是通过重复发包来减少流量转发过程中的丢包现象从而使代理服务更加稳定。这个功能需要 Linux 内核支持，具体操作如下：</p><h2 id="修改-Linode-服务器的-Boot-Kernel"><a href="#修改-Linode-服务器的-Boot-Kernel" class="headerlink" title="修改 Linode 服务器的 Boot Kernel"></a>修改 Linode 服务器的 Boot Kernel</h2><p>将 Linode 服务器管理界面中 <strong>Boot Settings</strong> 部分的 <strong>Kernel</strong>设置为 <code>GRUB2</code> </p><p><img src="/images/Linode_kernal_change.png" alt=""></p><h2 id="开启-TCP-BBR"><a href="#开启-TCP-BBR" class="headerlink" title="开启 TCP BBR"></a>开启 TCP BBR</h2><p>在 Linode 服务器上运行：</p><pre><code>wget --no-check-certificate -qO &#39;BBR.sh&#39; &#39;https://moeclub.org/attachment/LinuxShell/BBR.sh&#39; &amp;&amp; chmod a+x BBR.sh &amp;&amp; bash BBR.sh -f  v4.11.9</code></pre><p>期间服务器会重启一次，如果你没有给 ss 配置自动重启则需要手动起一下。</p><h2 id="增强-TCP-BBR-性能"><a href="#增强-TCP-BBR-性能" class="headerlink" title="增强 TCP BBR 性能"></a>增强 TCP BBR 性能</h2><p>在 Linode 服务器上运行：</p><pre><code>wget --no-check-certificate -qO &#39;BBR_POWERED.sh&#39; &#39;https://moeclub.org/attachment/LinuxShell/BBR_POWERED.sh&#39; &amp;&amp; chmod a+x BBR_POWERED.sh &amp;&amp; bash BBR_POWERED.sh -f v4.11.9</code></pre><p>提示 Success 则表示安装成功，Trouble Shooting 可以参考<a href="https://moeclub.org/2017/06/24/278/" target="_blank" rel="noopener">这篇文章</a>，以及<a href="http://www.wuce.org/disable-linode-ipv6-solve-google-error/" target="_blank" rel="noopener">禁用Linode ipv6解决Google提示流量异常</a>。</p><blockquote><p>如果你完成了上面所有操作，那么恭喜你，可以享受畅通无阻的翻墙体验了。</p></blockquote><p>在完成以上操作后，如果你还想进一步提升代理体验，请移步本系列第二篇博文：<a href="/2018/02/25/kcptun-shadowsocks/">使用 Kcptun 加速 Shadowsocks</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt; 本文介绍如何在 Linode 上搭建 Shadowsocks，并开启 TCP BBR 拥塞算法达到稳定代理的目的。&lt;/p&gt;
-&lt;h1 id=&quot;为什么选用-Linode&quot;&gt;&lt;a href=&quot;#为什么选用-Linode&quot; class=&quot;headerlink&quot; title=&quot;为什
-      
-    
-    </summary>
-    
-      <category term="工具" scheme="https://www.duyidong.com/categories/%E5%B7%A5%E5%85%B7/"/>
-    
-    
-      <category term="云服务" scheme="https://www.duyidong.com/tags/%E4%BA%91%E6%9C%8D%E5%8A%A1/"/>
-    
-      <category term="代理" scheme="https://www.duyidong.com/tags/%E4%BB%A3%E7%90%86/"/>
     
   </entry>
   

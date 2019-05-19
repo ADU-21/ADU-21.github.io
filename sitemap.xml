@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.duyidong.com/2019/04/28/springboot-annotation/</loc>
+    
+    <lastmod>2019-05-19T10:26:48.721Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://www.duyidong.com/2019/05/19/build-image-in-container-via-buildkit/</loc>
     
     <lastmod>2019-05-19T04:23:42.301Z</lastmod>
@@ -86,14 +93,14 @@
   </url>
   
   <url>
-    <loc>https://www.duyidong.com/2017/11/03/how-to-setup-ss-on-linode/</loc>
+    <loc>https://www.duyidong.com/2017/10/29/trunk-base-development/</loc>
     
     <lastmod>2019-02-24T14:58:08.412Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://www.duyidong.com/2017/10/29/trunk-base-development/</loc>
+    <loc>https://www.duyidong.com/2017/11/03/how-to-setup-ss-on-linode/</loc>
     
     <lastmod>2019-02-24T14:58:08.412Z</lastmod>
     

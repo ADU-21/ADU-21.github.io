@@ -4,6 +4,30 @@
 
     
   <url>
+    <loc>https://www.duyidong.com/2019/04/28/springboot-annotation/</loc>
+    <lastmod>2019-05-19T10:26:48.721Z</lastmod>
+    <data>
+        <display>
+        <title>Spring boot 注解</title>
+        <pubTime>2019-04-28T10:07:07.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>Spring</tag>
+         
+        <tag>Springboot</tag>
+         
+         
+           
+             
+              <breadCrumb title="Java" url="https://www.duyidong.com/categories/Java/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://www.duyidong.com/2019/05/19/build-image-in-container-via-buildkit/</loc>
     <lastmod>2019-05-19T04:23:42.301Z</lastmod>
     <data>
@@ -58,9 +82,9 @@
         <title>凤凰式服务</title>
         <pubTime>2016-11-02T09:06:13.000Z</pubTime>
         
-        <tag>DevOps</tag>
-         
         <tag>翻译</tag>
+         
+        <tag>DevOps</tag>
          
         <tag>凤凰式服务</tag>
          
@@ -82,9 +106,9 @@
         <title>雪花服务器</title>
         <pubTime>2016-11-04T07:29:52.000Z</pubTime>
         
-        <tag>DevOps</tag>
-         
         <tag>翻译</tag>
+         
+        <tag>DevOps</tag>
          
         <tag>雪花服务器</tag>
          
@@ -240,9 +264,9 @@
         <title>领域驱动设计（DDD）实践</title>
         <pubTime>2018-04-23T11:49:36.000Z</pubTime>
         
-        <tag>Java</tag>
-         
         <tag>DDD</tag>
+         
+        <tag>Java</tag>
          
         <tag>架构</tag>
          
@@ -252,28 +276,6 @@
            
              
               <breadCrumb title="Java" url="https://www.duyidong.com/categories/Java/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://www.duyidong.com/2017/11/03/how-to-setup-ss-on-linode/</loc>
-    <lastmod>2019-02-24T14:58:08.412Z</lastmod>
-    <data>
-        <display>
-        <title>如何在 Linode 上搭建加强版 Shadowsocks</title>
-        <pubTime>2017-11-03T02:04:05.000Z</pubTime>
-        
-        <tag>云服务</tag>
-         
-        <tag>代理</tag>
-         
-         
-           
-             
-              <breadCrumb title="工具" url="https://www.duyidong.com/categories/%E5%B7%A5%E5%85%B7/"/>
           
         </display>
     </data>
@@ -302,6 +304,28 @@
            
              
               <breadCrumb title="DevOps" url="https://www.duyidong.com/categories/DevOps/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2017/11/03/how-to-setup-ss-on-linode/</loc>
+    <lastmod>2019-02-24T14:58:08.412Z</lastmod>
+    <data>
+        <display>
+        <title>如何在 Linode 上搭建加强版 Shadowsocks</title>
+        <pubTime>2017-11-03T02:04:05.000Z</pubTime>
+        
+        <tag>云服务</tag>
+         
+        <tag>代理</tag>
+         
+         
+           
+             
+              <breadCrumb title="工具" url="https://www.duyidong.com/categories/%E5%B7%A5%E5%85%B7/"/>
           
         </display>
     </data>
@@ -556,9 +580,9 @@
         <title>再谈 DevOps</title>
         <pubTime>2018-07-27T16:19:31.000Z</pubTime>
         
-        <tag>DevOps</tag>
-         
         <tag>翻译</tag>
+         
+        <tag>DevOps</tag>
          
         <tag>Platform</tag>
          
@@ -654,9 +678,9 @@
         
         <tag>小计</tag>
          
-        <tag>工具</tag>
-         
         <tag>AWS</tag>
+         
+        <tag>工具</tag>
          
         <tag>Cloud</tag>
          
@@ -1195,9 +1219,9 @@
         <title>DevOps的三种方式</title>
         <pubTime>2017-07-12T14:50:38.000Z</pubTime>
         
-        <tag>DevOps</tag>
-         
         <tag>翻译</tag>
+         
+        <tag>DevOps</tag>
          
         <tag>理论框架</tag>
          
@@ -1219,9 +1243,9 @@
         <title>AWS认证与权限管理IAM</title>
         <pubTime>2017-03-06T12:41:50.000Z</pubTime>
         
-        <tag>亚马逊认证与权限</tag>
-         
         <tag>AWS</tag>
+         
+        <tag>亚马逊认证与权限</tag>
          
         <tag>Security</tag>
          

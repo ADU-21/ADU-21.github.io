@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.duyidong.com/"/>
-  <updated>2019-02-24T14:58:08.415Z</updated>
+  <updated>2019-05-19T04:23:42.301Z</updated>
   <id>https://www.duyidong.com/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>下一代镜像构建工具 Buildkit</title>
+    <link href="https://www.duyidong.com/2019/05/19/build-image-in-container-via-buildkit/"/>
+    <id>https://www.duyidong.com/2019/05/19/build-image-in-container-via-buildkit/</id>
+    <published>2019-05-19T02:39:07.000Z</published>
+    <updated>2019-05-19T04:23:42.301Z</updated>
+    
+    <content type="html"><![CDATA[<p>Buildkit 是 Docker 公司出品的一款更高效、docekrfile 无关、更契合“<a href="https://www.duyidong.com/2017/05/03/Cloud-Native/">云原生应用</a>” 的新一代 Docker 构建工具。</p><h1 id="开源工具已经不能满足-DID-的需求"><a href="#开源工具已经不能满足-DID-的需求" class="headerlink" title="开源工具已经不能满足 DID 的需求"></a>开源工具已经不能满足 DID 的需求</h1><p>云原生的一个特点是一切基础设施都是动态的，除了提供服务的基础设施，CICD 的计算资源也趋向动态创建。很多企业已经有了自己的 k8s 集群作为服务，自然而然开始思考如何把 CICD 搬到 k8s 中，各种 CI 工具的插件应运而生，而容器集群中的构建成为了各种工具的焦点问题。</p><h2 id="DID-Docker-in-docker-的演进"><a href="#DID-Docker-in-docker-的演进" class="headerlink" title="DID (Docker in docker 的演进)"></a>DID (Docker in docker 的演进)</h2><p>最原始的 Docker in docker 是使用 privilege 将宿主机的一切权限共享给用于构建的容器实例，这种方式容器可以获得宿主机的最高权限，有很大风险，很快就被淘汰了。</p><p>目前比较普遍的做法，是把 Docker daemon 的 socket 挂在到用于构建的容器中:</p><pre><code class="bash">docker run -v /var/run/docker.sock:/var/run/docker.sock -it docker</code></pre><p>这种方式已经经历了较长时间的验证，可以满足企业内部使用的大部分场景：</p><ul><li><strong>远程仓库权限：</strong>对于 Docker credential 的隔离可以利用不同容器实例之间 Home directory 不同做到</li><li><strong>缓存：</strong>同一台宿主机上的缓存可以通过同一个 Docker daemon 共享</li><li><strong>本地权限：</strong>由于不同容器实例挂在同一个宿主机的 Docker daemon 进程，所有实例里 docker 命令的权限也是共享的，也就是说不同容器实例可以查看甚至更新、删除到同一个 Docker daemon 下别的容器实例构建产生的镜像。</li></ul><p>本地权限的问题如果是在一个小企业内部以共享账号的方式或许还可以接受，稍微大一点的企业可以通过限制用户输入 Docker 命令，防止注入来规避权限盗用的风险。但目前看来这些方法都还是治标不治本，治本的方案要么是在 Docker daemon 建立一套权限机制，要么让 Docker 里的构建不依赖同一个 Docker daemon。</p><h1 id="Build-without-docker-daemon"><a href="#Build-without-docker-daemon" class="headerlink" title="Build without docker daemon"></a>Build without docker daemon</h1><p>社区中目前有三款工具可以支持无 docker daemon 化的构建： kaniko，img 和 buildkit.</p><ul><li><a href="https://github.com/GoogleContainerTools/kaniko" target="_blank" rel="noopener">Kaniko</a> 是由 Google 开发的在 k8s 上做 docker 构建的命令行工具，使用非常简洁，只需要 build 一个二进制工具即可，支持 dockerfile 构建、push、credentail 文件读取。</li><li><a href="https://github.com/moby/buildkit" target="_blank" rel="noopener">Buildkit</a> 是 docker 公司开发，目前由社区和 docker 公司合理维护的“含着金钥匙出生”的新一代构建工具，拥有良好的扩展性、极大地提高了构建速度，以及更好的安全性，功能上配合 docker 使用还是没问题的，独立使用功能其实有残缺，这个放到后面来讲。</li><li><a href="https://github.com/genuinetools/img" target="_blank" rel="noopener">img</a> 是社区贡献者开发，基于 buildkit 封装的类 docker 化命令行工具，无需 daemon 进程，无需 privilege，可以独立运行的二进制工具，非常小巧易用，而且有着和 buildkit 一样的性能优势。</li></ul><h2 id="社区活跃度"><a href="#社区活跃度" class="headerlink" title="社区活跃度"></a>社区活跃度</h2><p><strong>kaniko &gt; img &gt; buildkit</strong></p><p><img src="/images/kaniko-insights.png" alt=""></p><p><img src="/images/img-insigths.png" alt=""></p><p><img src="/images/buildkit-insights.png" alt=""></p><p>可以看出三个工具中 kaniko 是 star 最多的项目， img 目前是缺少维护的状态，buildkit start 最少但是社区活跃度还比较高。</p><h2 id="kaniko-踩坑"><a href="#kaniko-踩坑" class="headerlink" title="kaniko 踩坑"></a>kaniko 踩坑</h2><p>初步看来 kaniko 似乎是最佳选择，大厂背书，相对活跃的社区和相对多的市场验证。然而我们却发现了当前版本(v0.9.0)的两个不足：</p><ul><li>Dockerfile 支持不全：由于实现方式和 docker 不同，kaniko 并不是完全兼容 dockerfile 的所有语法：例如多阶段构建中 FROM … AS xxx 的语法 xxx 首字母不能大写；from 的镜像系统文件无法在 build 的时候被覆盖而是会报错</li><li>缓存不能共享，kaniko 的缓存只能够利用到基础镜像级别，即事先把镜像放到缓存目录下， kaniko 可以使用这个本地镜像，而构建过程中产生的镜像 layers 则不能复用。docker 多阶段构建会有相当多的 dependency 中间产物，每次构建都去下载这些依赖会极大地降低构建速度从而带来不好的体验</li></ul><p>基于以上两点，kaniko 似乎仍是一个不够成熟的工具，暂时不能投入生产。</p><h2 id="img-踩坑"><a href="#img-踩坑" class="headerlink" title="img 踩坑"></a>img 踩坑</h2><p>了解过 buildkit 的高性能之后，对 img 这样集简洁与性能于一身的工具可谓是满怀期待，而事实却不尽如人意，虽然 kaniko 遇到的 dockerfile  img 都轻松支持了，但是在多阶段镜像构建的时候似乎在并行构建的处理上有些问题，对于复杂的多阶段构建会频繁曝出 IO 异常，怀疑是缺少了 daemon 进程文件锁的功能导致的，只好放弃。</p><h1 id="Buildkit-介绍"><a href="#Buildkit-介绍" class="headerlink" title="Buildkit 介绍"></a>Buildkit 介绍</h1><p>最后来说说本文的主角：<a href="https://github.com/moby/buildkit" target="_blank" rel="noopener">buildkit</a></p><p>Buildkit 是由 Docker 公司开发的<strong>“下一代 docker build 工具”</strong>，2018 年 7 月正式内置于 Docker-ce 18.06.0 的 Docker daemon ，Mac 和 Linux 可以使用环境变量 <code>DOCKER_BUILDKIT=1</code> 开启，同年 10 月发布社区版本。 </p><p>相比于 Docker daemon build，buildkit：</p><ul><li>更<strong>高效</strong>：支持并行的多阶段构建、更好的缓存管理；</li><li>更<strong>安全：</strong>支持 secret mount，无需 root priviliege；</li><li>更<strong>易于扩展</strong>：使用自定义中间语言 LLB，完全兼容 Dockerfile，也可支持第三方语言（目前仅有<a href="https://github.com/tonistiigi/buildkit-pack" target="_blank" rel="noopener">Buildpacks</a>），后台目前可支持 runC 和 containerd 两种 worker。</li></ul><p>目前社区除了 moby/docker-ce 外还在使用 buildkit 的项目有 genuinetools/img, openFaaS Cloud, containerbuilding/cbi。</p><h2 id="与其他构建工具对比"><a href="#与其他构建工具对比" class="headerlink" title="与其他构建工具对比"></a>与其他构建工具对比</h2><p><img src="/images/compare-ioc-build.png" alt=""></p><p>需要补充的一点是 buildkit 是对 Dockerfile 语法完全支持：</p><p><img src="/images/buildkit-full-compatible-dockerfile.png" alt=""></p><center>图片来源：<a href="https://www.youtube.com/watch?v=kkpQ_UZn2uo" target="_blank" rel="noopener">https://www.youtube.com/watch?v=kkpQ_UZn2uo</a></center><h2 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h2><p><strong>buildkitd &amp; buildctl</strong></p><p>后台启动一个buildkitd 守护进程，通过 http 通信的方式执行构建。</p><ul><li><strong>gRPC API: </strong> 使用 Google RPC 协议高效通信</li><li><strong>Go client library：</strong> 基于 Go 的客户端方便调用</li><li><strong>rootless execution:</strong>  buildctl 不需要 root 权限就可以执行</li><li><strong>OpenTracing：</strong> 支持镜像 layer 的逐层溯源</li><li><strong>multi-worker model：</strong>支持多种 worker(runC 和 containerd)，可扩展</li></ul><h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>官方镜像：<a href="https://hub.docker.com/r/moby/buildkit" target="_blank" rel="noopener">https://hub.docker.com/r/moby/buildkit</a></p><pre><code class="bash">docker run --name buildkit -d --privileged -p 1234:1234 moby/buildkit --addr tcp://0.0.0.0:1234export BUILDKIT_HOST=tcp://0.0.0.0:1234docker cp buildkit:/usr/bin/buildctl /usr/local/bin/buildctl build --help</code></pre><p>Mac OS 在 <a href="https://github.com/moby/buildkit/releases" target="_blank" rel="noopener">https://github.com/moby/buildkit/releases</a> 下载 buildctl</p><h2 id="构建"><a href="#构建" class="headerlink" title="构建"></a>构建</h2><pre><code class="bash"># 本地构建buildctl --addr tcp://localhost:1234 build --frontend=dockerfile.v0 --local context=. --local dockerfile=.# 等同于 docker buildbuildctl --addr tcp://localhost:1234 build --frontend=dockerfile.v0 --local context=. --local dockerfile=. --output type=docker,name=myimage | docker load# pushbuildctl build --frontend dockerfile.v0 --local context=. --local dockerfile=. --output type=image,name=docker.io/username/image,push=true</code></pre><h2 id="权限"><a href="#权限" class="headerlink" title="权限"></a>权限</h2><p>使用 docker credentials权限</p><p>可以使用环境变量 DOCKER_CONFIG 指定 credential 读取路径从而达到权限隔离（这方面缺少文档，可以参考源码）：</p><p><a href="https://github.com/moby/buildkit/blob/master/cmd/buildctl/build.go#L157" target="_blank" rel="noopener">https://github.com/moby/buildkit/blob/master/cmd/buildctl/build.go#L157</a></p><p><a href="https://github.com/docker/cli/blob/master/cli/config/config.go#L127" target="_blank" rel="noopener">https://github.com/docker/cli/blob/master/cli/config/config.go#L127</a></p><p><img src="/images/docker-config-credential.jpg" alt=""></p><h2 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h2><p>buildkit 支持 layer 级别缓存，可指定缓存 export/import 路径。</p><p>可以使用 registry 缓存：<a href="https://github.com/moby/buildkit#exportingimporting-build-cache-not-image-itself" target="_blank" rel="noopener">https://github.com/moby/buildkit#exportingimporting-build-cache-not-image-itself</a></p><h1 id="不足"><a href="#不足" class="headerlink" title="不足"></a>不足</h1><h2 id="运行权限"><a href="#运行权限" class="headerlink" title="运行权限"></a>运行权限</h2><p>Buildkitd 运行需要 privilege，这里有一个 <a href="https://github.com/moby/buildkit/issues/252" target="_blank" rel="noopener">issue</a> 解释说是因为 runC 读写宿主机文件系统需要 root 权限</p><h2 id="稳定性测试"><a href="#稳定性测试" class="headerlink" title="稳定性测试"></a>稳定性测试</h2><p>跑了一个晚上的定时脚本，构建的是同一个多阶段镜像，得到的结果不尽如人意：</p><ul><li><p>速度不太稳定，同一个镜像在没有网络依赖的情况下构建速度在 30s-10min 之间摆动</p><p><img src="/images/buildkit-time.png" alt=""></p></li><li><p>buildctl 和同一台宿主机上的 buildkitd 通信不时会出现网络问题，出现概率 10%</p><p><img src="/images/buildkit-error.png" alt=""></p></li></ul><h1 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h1><p>Buildkit 似乎是一个很有前景的产品，只是目前还没有达到生产环境需要的水平。</p><p>我比较看好它的设计，比如内置文件数据库，中心化调度思维，前后端可扩展，权限扩展单元，这些都是云原生时代需要的，只是产品的打磨还需要加以时日，以及市场的砺炼。</p><h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://s3.amazonaws.com/duyidong-archive/pdf/containerdbuildkitbreakout-180628204303.pdf" target="_blank" rel="noopener">https://s3.amazonaws.com/duyidong-archive/pdf/containerdbuildkitbreakout-180628204303.pdf</a></p><p><a href="https://s3.amazonaws.com/duyidong-archive/pdf/Comparing-next-generation-container-image-building-tools.pdf" target="_blank" rel="noopener">https://s3.amazonaws.com/duyidong-archive/pdf/Comparing-next-generation-container-image-building-tools.pdf</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;Buildkit 是 Docker 公司出品的一款更高效、docekrfile 无关、更契合“&lt;a href=&quot;https://www.duyidong.com/2017/05/03/Cloud-Native/&quot;&gt;云原生应用&lt;/a&gt;” 的新一代 Docker 构建工具。&lt;/
+      
+    
+    </summary>
+    
+      <category term="工具" scheme="https://www.duyidong.com/categories/%E5%B7%A5%E5%85%B7/"/>
+    
+    
+      <category term="工具" scheme="https://www.duyidong.com/tags/%E5%B7%A5%E5%85%B7/"/>
+    
+      <category term="容器" scheme="https://www.duyidong.com/tags/%E5%AE%B9%E5%99%A8/"/>
+    
+      <category term="docker" scheme="https://www.duyidong.com/tags/docker/"/>
+    
+  </entry>
   
   <entry>
     <title>新年伊始</title>
@@ -131,9 +160,9 @@
       <category term="DevOps" scheme="https://www.duyidong.com/categories/DevOps/"/>
     
     
-      <category term="翻译" scheme="https://www.duyidong.com/tags/%E7%BF%BB%E8%AF%91/"/>
-    
       <category term="DevOps" scheme="https://www.duyidong.com/tags/DevOps/"/>
+    
+      <category term="翻译" scheme="https://www.duyidong.com/tags/%E7%BF%BB%E8%AF%91/"/>
     
       <category term="Platform" scheme="https://www.duyidong.com/tags/Platform/"/>
     
@@ -249,9 +278,9 @@
     
       <category term="小计" scheme="https://www.duyidong.com/tags/%E5%B0%8F%E8%AE%A1/"/>
     
-      <category term="AWS" scheme="https://www.duyidong.com/tags/AWS/"/>
-    
       <category term="工具" scheme="https://www.duyidong.com/tags/%E5%B7%A5%E5%85%B7/"/>
+    
+      <category term="AWS" scheme="https://www.duyidong.com/tags/AWS/"/>
     
       <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
     
@@ -555,39 +584,6 @@
       <category term="云服务" scheme="https://www.duyidong.com/tags/%E4%BA%91%E6%9C%8D%E5%8A%A1/"/>
     
       <category term="代理" scheme="https://www.duyidong.com/tags/%E4%BB%A3%E7%90%86/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>分支模型与主干开发</title>
-    <link href="https://www.duyidong.com/2017/10/29/trunk-base-development/"/>
-    <id>https://www.duyidong.com/2017/10/29/trunk-base-development/</id>
-    <published>2017-10-29T07:47:20.000Z</published>
-    <updated>2019-02-24T14:58:08.412Z</updated>
-    
-    <content type="html"><![CDATA[<p>最近我和我的所在的团队在翻译一个网站： <a href="https://trunkbaseddevelopment.com/" target="_blank" rel="noopener">https://trunkbaseddevelopment.com/</a>主干开发。本文结合笔者的开发经验，谈一谈项目中用到过的分支模型与使用场景，对主干开发做一个简单的介绍。</p><h1 id="Gitflow"><a href="#Gitflow" class="headerlink" title="Gitflow"></a>Gitflow</h1><p>Gitflow 最早应该是出现在一篇名叫<a href="http://nvie.com/posts/a-successful-git-branching-model/" target="_blank" rel="noopener">A successful Git branching model</a>的文章中，阮一峰的<a href="http://www.ruanyifeng.com/blog/2015/12/git-workflow.html" target="_blank" rel="noopener">Git 工作流程</a>做了更便于理解的阐述。正如问中提到，Gitflow 偏向控制管理，比较多地使用分支，试用 GitFlow 的项目基本上工作流会是这个样子:</p><p><img src="/images/gitflow_branches.png" alt=""></p><center>图片出自:<a href="https://yaowenjie.github.io/devops/thinking-in-two-kinds-of-ci-cd-strategies-and-git-branch-models" target="_blank" rel="noopener">关于两种CI/CD策略以及git分支模型的思考</a></center><p>Master 分支用于发布，Develop 分支用于存放待发布（不稳定）的版本。在迭代计划里，Epic 会被先划分为一个个 Feature，一个 Feature 表示一个完整的功能，这个feature 会被拆成一个个更小的 Story（卡），如果 Feature 小的话也可以是一个 Feature 对应一个 Story，一个 Story 从被创建出来到最终上线会经历以下过程：</p><ul><li>Dev 领卡，从 Develop 分支创建一个 Feature 分支。</li><li>在 Feature 分支进行开发并通过本地测试（单元测试和部分集成测试）。</li><li>从 Feature 分支发起一个 Pull-Request 到 Develop 分支。</li><li>相关人员进行 Code Review，并将 Feature 分支合并到 Develop 分支。</li><li>写卡 Dev 删除 Feature 分支，并将卡挪到 Test，交给 QA 测试。</li><li>QA 在 Develop 分支测试完成，把卡挪到 Ready for release。</li><li>等待 Realease Master 将该 Feature 从 Devlop 分支 Merge 到 Master。</li><li>QA 在 Master 分支进行测试。</li><li>测试通过后进行发布，并在Master 分支打上 Release Tag。</li></ul><p>可以看出流程是颇为复杂的。不过在一个团队成员流动相对较小，大家对 Gitflow 都比较熟悉的情况下，实施过程倒是没有遇到任何问题。而且可以感觉得到，这样的分支模型下的发布非常有计划性，Dev 之间的开发冲突也比较少（得益于 Feature 划分合理）。但在时间长了以后，问题还是逐一暴露出来，主要有以下几个：</p><ul><li><strong>重复测试</strong>，一个功能从开发到上线至少要经历三次内容重合度很高的测试：本地，Develop 分支合并，Master 分支合并；如果有 Fix bug，Merge 回 Master 还要多测一次，每一次都可能有意外的结果，而且 Develop 分支的测试和 Master 分支的测试内容几乎是一模一样的。</li><li><strong>Release Master 的存在</strong>，在一个目标为持续发布的敏捷团队里 Release Master 的存在是不合理的，Release Master 需要在上线前的一段时间一直盯着 Pipeline（持续交付流水线），这不但意味着一个劳动力的缺失，并且一个人要想掌握一次发布的左右更改细节和影响也是几乎不可能的，所以到后来每次上线前 Release Master 都要组织一次 Release Meeting，所有开发在一起讨论这次 Release 的 Feature，非常浪费时间。</li><li><strong>并没有做到持续交付</strong>，在 Gitflow 得分支模型下，发布是非常有计划的，一个 Feature 必须要经过以上这么多步骤才能到达生产环境，在时间上平均一个 Feature 都要等待 两周时间才能长线，这样的等待并非是需求上的“按计划发布”，而是从技术上就造成了发布瓶颈，显然难以达到持续交付的要求的。</li></ul><h1 id="Github-Flow"><a href="#Github-Flow" class="headerlink" title="Github Flow"></a>Github Flow</h1><p>相比 Gitflow，Github Flow 就要简单很多，介绍可以参考<a href="https://guides.github.com/introduction/flow/" target="_blank" rel="noopener">Github 官方文档</a>，同样在<a href="http://www.ruanyifeng.com/blog/2015/12/git-workflow.html" target="_blank" rel="noopener">这篇文章</a>中也可以看到中文版。在项目上使用 Github Flow 基本上分支会变成这个样子：</p><p><img src="/images/githubflow_branches.png" alt=""></p><p>所有 Story 直接提交到 Feature 分支，再从 Feature 分支发 Pull-Request 到主分支（Master 或 Develop），Pull-Request 是为了方便 Code Review，相比于 Gitflow，这种方式因为省去了一些分支而降低了复杂度，同时也更复合持续集成的思想，以一张故事卡为集成的最小单位，相对来说集成的周期短，反馈的速度也快，能够及早的遇到问题，从而及早的解决问题。</p><p>Github flow 的另一个好处在于，可以处理跨团队协作问题。当时的项目是一个多团队共享的基础设施代码库，大部分团队需要同样的功能，就从主库 Fork 一份代码，一旦产品团队产生定制化的需求，就可以在自己的代码库里更改，并向主库发一个 Pull-Request，如果主库的维护团队认为这是一个有通用价值的更改，则会接受合并到主库中。这种方式就既保证了分布式团队拥有代码和主库的同步，又让各团队都可以向主库贡献代码，非常适合多个独立团队工作在一个代码库的情形。</p><p><img src="https://git-scm.com/figures/18333fig0502-tn.png" alt=""></p><center>图片来源：<a href="https://ruby-china.org/topics/29263" target="_blank" rel="noopener">GIT 之我见</a></center><h1 id="Trunk-Based-Development"><a href="#Trunk-Based-Development" class="headerlink" title="Trunk Based Development"></a>Trunk Based Development</h1><p>顺着持续集成的思想，如果我们把上一种分支模型做得再极致一点，我们不要 Feature 分支，或者把 Feature 分支只留在本地；不需要使用 Pull-Request 而是直接 Push 到远程 Master 分支，我们就做到了 Trunk based Development。（关于从 GitFlow 到 TBD 的论述，TW 同事尚齐在洞见上有一篇<a href="http://insights.thoughtworkers.org/gitflow-consider-harmful/" target="_blank" rel="noopener">Gitflow有害论</a>值得一读，另外想要了解得更细致可以去到<a href="https://trunkbaseddevelopment.com/" target="_blank" rel="noopener">官网</a>（<a href="https://cn.trunkbaseddevelopment.com/" target="_blank" rel="noopener">中文版</a>），里面详细列举了各种实践和反模式。）本文主要就项目上落地过程中遇到的一些问题做个简要的说明。</p><p>使用主干开发后，我们的代码库原则上就只能有一个 Master 分支了，所有新功能的提交也都提交到 Master 分支上，没有了分支的代码隔离，测试和解决冲突都变得简单，持续集成也变得稳定了许多，问题也接踵而至，主要有以下三个：</p><ul><li>如何避免发布的时候引入未完成的 Feature </li><li>如何进行线上 Bug Fix</li><li>如何重构</li></ul><p><img src="http://paulhammant.com/images/what_is_trunk.jpg" alt=""></p><center>图片来自:<a href="https://paulhammant.com/2013/04/05/what-is-trunk-based-development/" target="_blank" rel="noopener">What is Trunk-Based Development?</a></center><h2 id="如何避免发布引入未完成-Feature"><a href="#如何避免发布引入未完成-Feature" class="headerlink" title="如何避免发布引入未完成 Feature"></a>如何避免发布引入未完成 Feature</h2><p>答案是： <a href="https://martinfowler.com/articles/feature-toggles.html" target="_blank" rel="noopener">Feature Toggle</a>。</p><p>既然代码要随时保持可发布，而我们又需要只有一份代码来支持持续集成，在代码库里加一个特性开关来随时打开和关闭新特性是最容易想到的也是最容易被质疑的解决方案。</p><p>Feature Toggle 是有成本的，不管是在加 Toggle 的时候的代码设计，还是在移除 Toggle 时的人力成本和风险，都是需要和它带来的价值进行衡量的。事实上，在我们做一个前端的大特性变更的时候，我们确实没有因为没办法 Toggle 而采用了一个独立的 Feature 分支，我们认为即使为了这个分支单独做一套 Pipeline，也比在前端的各种样式间添加移除 Toggle 来得简单。但同时，团队商议决定在每次提交前都要先将 Master 分支 Merge 到 Feature 分支，以此避免分支隔离久以后合并时的痛苦。</p><h2 id="如何进行线上-Bug-Fix"><a href="#如何进行线上-Bug-Fix" class="headerlink" title="如何进行线上 Bug Fix"></a>如何进行线上 Bug Fix</h2><p>在发布时打上 Release Tag，一旦发现这个版本有问题，如果这个时候Master分支上没有其他提交，可以直接在 Master 分支上 Hot Fix，如果 Master 分支已经有了提交就要做以下三件事：</p><ul><li>从 Release Tag 创建发布分支。</li><li>在 Master 上做 Fix Bug 提交。</li><li>将 Fix Bug 提交 Cherry Pick 到 Release 分支。</li><li>在Release 分支再做一次发布。</li></ul><p>线上 Fix 通常都比较紧急。看完这个略显繁琐 Bug Fix 流程，你可能会问为什么不在 Release 分支直接 Fix，再合并到 Master 分支？</p><p>这样做确实比较符合直觉，但事实是，如果在 Release 分支做 Fix，很可能会忘了 Merge 回 Master，试想深夜两点你做完 Bug Fix 眼看终于上线成功，这时的第一反应就是“终于可以下班了。什么，Merge 回 Master？ 明天再来吧“ 等到第二天你早已把这个事忘得一干二净。而问题要等到下一次上线才会被暴露出来，一旦发现，而这个时候上一次 Release 的人又不在，无疑增加了很多工作量。</p><h2 id="如何重构"><a href="#如何重构" class="headerlink" title="如何重构"></a>如何重构</h2><p>这里指的是比较大规模的重构，无法在一次提交完成，TBD 要求每一次提交都是一个可上线的版本，所以这同时还意味着这个重构无法再一个上线周期内完成。</p><p>这种情况，需要在代码设计中增加一个抽象层，保证在重构过程中先不动原来的代码，也不破坏既有功能，类似于蓝绿部署中的负载均衡器的作用，这样的流程就是：</p><p><img src="/images/TBD_Abstraction_layer.png" alt=""></p><ul><li>在将要被重构的代码逻辑附近引入抽象层然后提交，对所有人可见。如果有需要可以是多个提交，这些提交都不能破坏 build，然后依次 push 到共享代码库。</li></ul><ul><li>为将要被引入的代码写抽象层的第二次实现，然后提交。但在主干上由于关闭状态所以其他开发人员暂时不依赖于它。如果需要的话，这可能像上面那样需要多次提交。第一步的抽象层也可能偶然被调整，但必须遵循同样的原则：不能破坏build。</li><li>切换使用重构后的代码，然后 Push。</li><li>删除原有的旧实现（被重构代码）</li><li>删除抽象层</li></ul><p>这个流程和汽车换轮胎有那么点类似，新旧轮胎代表重构前后代码，抽象层就好比千斤顶。</p><p><img src="https://cn.trunkbaseddevelopment.com/branch-by-abstraction/cars.png" alt=""></p><center>图片来自: <a href="https://cn.trunkbaseddevelopment.com/branch-by-abstraction/" target="_blank" rel="noopener">主干开发：抽象分支</a></center><h1 id="一点感受"><a href="#一点感受" class="headerlink" title="一点感受"></a>一点感受</h1><p>TBD 还因为被 Google，亚马逊这样的公司采用而闻名，可以参照阮一峰的另篇文章：<a href="http://www.ruanyifeng.com/blog/2016/07/google-monolithic-source-repository.html" target="_blank" rel="noopener">谷歌的代码管理</a>，但并不因此意味着 TBD 就适用于所有场景。即使是是 CICD 已经被广泛接受，也不能称持续交付为软件开发的银弹。技术用的对不对，还是要看上下文。</p><p>最后附上 Truk Based Development 的中文网站（还在翻译中）：<a href="https://cn.trunkbaseddevelopment.com/" target="_blank" rel="noopener">https://cn.trunkbaseddevelopment.com/</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;最近我和我的所在的团队在翻译一个网站： &lt;a href=&quot;https://trunkbaseddevelopment.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://trunkbaseddevelopment.com/&lt;/a&gt;主干开
-      
-    
-    </summary>
-    
-      <category term="DevOps" scheme="https://www.duyidong.com/categories/DevOps/"/>
-    
-    
-      <category term="git" scheme="https://www.duyidong.com/tags/git/"/>
-    
-      <category term="coding" scheme="https://www.duyidong.com/tags/coding/"/>
-    
-      <category term="持续集成" scheme="https://www.duyidong.com/tags/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/"/>
-    
-      <category term="主干开发" scheme="https://www.duyidong.com/tags/%E4%B8%BB%E5%B9%B2%E5%BC%80%E5%8F%91/"/>
-    
-      <category term="TBD" scheme="https://www.duyidong.com/tags/TBD/"/>
     
   </entry>
   

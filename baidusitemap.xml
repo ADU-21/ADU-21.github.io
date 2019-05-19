@@ -3,6 +3,30 @@
 
 
     
+  <url>
+    <loc>https://www.duyidong.com/2019/05/19/build-image-in-container-via-buildkit/</loc>
+    <lastmod>2019-05-19T04:23:42.301Z</lastmod>
+    <data>
+        <display>
+        <title>下一代镜像构建工具 Buildkit</title>
+        <pubTime>2019-05-19T02:39:07.000Z</pubTime>
+        
+        <tag>工具</tag>
+         
+        <tag>容器</tag>
+         
+        <tag>docker</tag>
+         
+         
+           
+             
+              <breadCrumb title="工具" url="https://www.duyidong.com/categories/%E5%B7%A5%E5%85%B7/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
     
   <url>
     <loc>https://www.duyidong.com/2016/10/24/%E9%83%A8%E7%BD%B2%E5%92%8C%E5%8F%91%E5%B8%83%E7%AD%96%E7%95%A5%E7%9A%84%E6%BC%94%E8%BF%9B/</loc>
@@ -27,18 +51,18 @@
 
     
   <url>
-    <loc>https://www.duyidong.com/2016/11/04/%E7%BF%BB%E8%AF%91-%E9%9B%AA%E8%8A%B1%E6%9C%8D%E5%8A%A1%E5%99%A8/</loc>
+    <loc>https://www.duyidong.com/2016/11/02/%E7%BF%BB%E8%AF%91-%E5%87%A4%E5%87%B0%E5%BC%8F%E6%9C%8D%E5%8A%A1/</loc>
     <lastmod>2019-02-24T14:58:08.418Z</lastmod>
     <data>
         <display>
-        <title>雪花服务器</title>
-        <pubTime>2016-11-04T07:29:52.000Z</pubTime>
+        <title>凤凰式服务</title>
+        <pubTime>2016-11-02T09:06:13.000Z</pubTime>
         
-        <tag>翻译</tag>
-         
         <tag>DevOps</tag>
          
-        <tag>雪花服务器</tag>
+        <tag>翻译</tag>
+         
+        <tag>凤凰式服务</tag>
          
          
            
@@ -51,18 +75,18 @@
 
     
   <url>
-    <loc>https://www.duyidong.com/2016/11/02/%E7%BF%BB%E8%AF%91-%E5%87%A4%E5%87%B0%E5%BC%8F%E6%9C%8D%E5%8A%A1/</loc>
+    <loc>https://www.duyidong.com/2016/11/04/%E7%BF%BB%E8%AF%91-%E9%9B%AA%E8%8A%B1%E6%9C%8D%E5%8A%A1%E5%99%A8/</loc>
     <lastmod>2019-02-24T14:58:08.418Z</lastmod>
     <data>
         <display>
-        <title>凤凰式服务</title>
-        <pubTime>2016-11-02T09:06:13.000Z</pubTime>
+        <title>雪花服务器</title>
+        <pubTime>2016-11-04T07:29:52.000Z</pubTime>
         
-        <tag>翻译</tag>
-         
         <tag>DevOps</tag>
          
-        <tag>凤凰式服务</tag>
+        <tag>翻译</tag>
+         
+        <tag>雪花服务器</tag>
          
          
            
@@ -121,26 +145,6 @@
 
     
   <url>
-    <loc>https://www.duyidong.com/2019/02/09/end-of-2018-start-of-2019/</loc>
-    <lastmod>2019-02-24T14:58:08.415Z</lastmod>
-    <data>
-        <display>
-        <title>新年伊始</title>
-        <pubTime>2019-02-09T08:50:01.000Z</pubTime>
-        
-        <tag>大事记</tag>
-         
-         
-           
-             
-              <breadCrumb title="学习总结" url="https://www.duyidong.com/categories/%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://www.duyidong.com/2016/05/19/CI-CD/</loc>
     <lastmod>2019-02-24T14:58:08.415Z</lastmod>
     <data>
@@ -156,6 +160,26 @@
            
              
               <breadCrumb title="DevOps" url="https://www.duyidong.com/categories/DevOps/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2019/02/09/end-of-2018-start-of-2019/</loc>
+    <lastmod>2019-02-24T14:58:08.415Z</lastmod>
+    <data>
+        <display>
+        <title>新年伊始</title>
+        <pubTime>2019-02-09T08:50:01.000Z</pubTime>
+        
+        <tag>大事记</tag>
+         
+         
+           
+             
+              <breadCrumb title="学习总结" url="https://www.duyidong.com/categories/%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/"/>
           
         </display>
     </data>
@@ -235,6 +259,28 @@
 
     
   <url>
+    <loc>https://www.duyidong.com/2017/11/03/how-to-setup-ss-on-linode/</loc>
+    <lastmod>2019-02-24T14:58:08.412Z</lastmod>
+    <data>
+        <display>
+        <title>如何在 Linode 上搭建加强版 Shadowsocks</title>
+        <pubTime>2017-11-03T02:04:05.000Z</pubTime>
+        
+        <tag>云服务</tag>
+         
+        <tag>代理</tag>
+         
+         
+           
+             
+              <breadCrumb title="工具" url="https://www.duyidong.com/categories/%E5%B7%A5%E5%85%B7/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://www.duyidong.com/2017/10/29/trunk-base-development/</loc>
     <lastmod>2019-02-24T14:58:08.412Z</lastmod>
     <data>
@@ -263,21 +309,25 @@
 
     
   <url>
-    <loc>https://www.duyidong.com/2017/11/03/how-to-setup-ss-on-linode/</loc>
-    <lastmod>2019-02-24T14:58:08.412Z</lastmod>
+    <loc>https://www.duyidong.com/2017/03/23/AWS-well-architected-framework/</loc>
+    <lastmod>2019-02-24T14:58:08.411Z</lastmod>
     <data>
         <display>
-        <title>如何在 Linode 上搭建加强版 Shadowsocks</title>
-        <pubTime>2017-11-03T02:04:05.000Z</pubTime>
+        <title>AWS认为，什么样的架构是一个良好的架构</title>
+        <pubTime>2017-03-23T14:01:23.000Z</pubTime>
         
-        <tag>云服务</tag>
+        <tag>AWS</tag>
          
-        <tag>代理</tag>
+        <tag>Cloud Native</tag>
+         
+        <tag>架构</tag>
+         
+        <tag>Cloud</tag>
          
          
            
              
-              <breadCrumb title="工具" url="https://www.duyidong.com/categories/%E5%B7%A5%E5%85%B7/"/>
+              <breadCrumb title="Amazon Web Services" url="https://www.duyidong.com/categories/Amazon-Web-Services/"/>
           
         </display>
     </data>
@@ -305,32 +355,6 @@
         <tag>Route53</tag>
          
         <tag>博客上云</tag>
-         
-         
-           
-             
-              <breadCrumb title="Amazon Web Services" url="https://www.duyidong.com/categories/Amazon-Web-Services/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://www.duyidong.com/2017/03/23/AWS-well-architected-framework/</loc>
-    <lastmod>2019-02-24T14:58:08.411Z</lastmod>
-    <data>
-        <display>
-        <title>AWS认为，什么样的架构是一个良好的架构</title>
-        <pubTime>2017-03-23T14:01:23.000Z</pubTime>
-        
-        <tag>AWS</tag>
-         
-        <tag>Cloud Native</tag>
-         
-        <tag>架构</tag>
-         
-        <tag>Cloud</tag>
          
          
            
@@ -532,9 +556,9 @@
         <title>再谈 DevOps</title>
         <pubTime>2018-07-27T16:19:31.000Z</pubTime>
         
-        <tag>翻译</tag>
-         
         <tag>DevOps</tag>
+         
+        <tag>翻译</tag>
          
         <tag>Platform</tag>
          
@@ -630,9 +654,9 @@
         
         <tag>小计</tag>
          
-        <tag>AWS</tag>
-         
         <tag>工具</tag>
+         
+        <tag>AWS</tag>
          
         <tag>Cloud</tag>
          
@@ -1171,9 +1195,9 @@
         <title>DevOps的三种方式</title>
         <pubTime>2017-07-12T14:50:38.000Z</pubTime>
         
-        <tag>翻译</tag>
-         
         <tag>DevOps</tag>
+         
+        <tag>翻译</tag>
          
         <tag>理论框架</tag>
          
@@ -1195,9 +1219,9 @@
         <title>AWS认证与权限管理IAM</title>
         <pubTime>2017-03-06T12:41:50.000Z</pubTime>
         
-        <tag>AWS</tag>
-         
         <tag>亚马逊认证与权限</tag>
+         
+        <tag>AWS</tag>
          
         <tag>Security</tag>
          

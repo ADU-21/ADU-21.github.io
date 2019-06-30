@@ -4,6 +4,26 @@
 
     
   <url>
+    <loc>https://www.duyidong.com/2019/07/01/spider-man-with-the-society/</loc>
+    <lastmod>2019-06-30T17:35:12.827Z</lastmod>
+    <data>
+        <display>
+        <title>蜘蛛侠电影和这个越来越轻的社会</title>
+        <pubTime>2019-06-30T17:14:15.000Z</pubTime>
+        
+        <tag>闲言碎语</tag>
+         
+         
+           
+             
+              <breadCrumb title="我的博客" url="https://www.duyidong.com/categories/%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://www.duyidong.com/2019/04/28/springboot-annotation/</loc>
     <lastmod>2019-05-19T10:26:48.721Z</lastmod>
     <data>
@@ -75,30 +95,6 @@
 
     
   <url>
-    <loc>https://www.duyidong.com/2016/11/02/%E7%BF%BB%E8%AF%91-%E5%87%A4%E5%87%B0%E5%BC%8F%E6%9C%8D%E5%8A%A1/</loc>
-    <lastmod>2019-02-24T14:58:08.418Z</lastmod>
-    <data>
-        <display>
-        <title>凤凰式服务</title>
-        <pubTime>2016-11-02T09:06:13.000Z</pubTime>
-        
-        <tag>翻译</tag>
-         
-        <tag>DevOps</tag>
-         
-        <tag>凤凰式服务</tag>
-         
-         
-           
-             
-              <breadCrumb title="DevOps" url="https://www.duyidong.com/categories/DevOps/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://www.duyidong.com/2016/11/04/%E7%BF%BB%E8%AF%91-%E9%9B%AA%E8%8A%B1%E6%9C%8D%E5%8A%A1%E5%99%A8/</loc>
     <lastmod>2019-02-24T14:58:08.418Z</lastmod>
     <data>
@@ -111,6 +107,30 @@
         <tag>DevOps</tag>
          
         <tag>雪花服务器</tag>
+         
+         
+           
+             
+              <breadCrumb title="DevOps" url="https://www.duyidong.com/categories/DevOps/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2016/11/02/%E7%BF%BB%E8%AF%91-%E5%87%A4%E5%87%B0%E5%BC%8F%E6%9C%8D%E5%8A%A1/</loc>
+    <lastmod>2019-02-24T14:58:08.418Z</lastmod>
+    <data>
+        <display>
+        <title>凤凰式服务</title>
+        <pubTime>2016-11-02T09:06:13.000Z</pubTime>
+        
+        <tag>翻译</tag>
+         
+        <tag>DevOps</tag>
+         
+        <tag>凤凰式服务</tag>
          
          
            
@@ -169,6 +189,26 @@
 
     
   <url>
+    <loc>https://www.duyidong.com/2019/02/09/end-of-2018-start-of-2019/</loc>
+    <lastmod>2019-02-24T14:58:08.415Z</lastmod>
+    <data>
+        <display>
+        <title>新年伊始</title>
+        <pubTime>2019-02-09T08:50:01.000Z</pubTime>
+        
+        <tag>大事记</tag>
+         
+         
+           
+             
+              <breadCrumb title="学习总结" url="https://www.duyidong.com/categories/%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://www.duyidong.com/2016/05/19/CI-CD/</loc>
     <lastmod>2019-02-24T14:58:08.415Z</lastmod>
     <data>
@@ -184,26 +224,6 @@
            
              
               <breadCrumb title="DevOps" url="https://www.duyidong.com/categories/DevOps/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://www.duyidong.com/2019/02/09/end-of-2018-start-of-2019/</loc>
-    <lastmod>2019-02-24T14:58:08.415Z</lastmod>
-    <data>
-        <display>
-        <title>新年伊始</title>
-        <pubTime>2019-02-09T08:50:01.000Z</pubTime>
-        
-        <tag>大事记</tag>
-         
-         
-           
-             
-              <breadCrumb title="学习总结" url="https://www.duyidong.com/categories/%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/"/>
           
         </display>
     </data>
@@ -264,9 +284,9 @@
         <title>领域驱动设计（DDD）实践</title>
         <pubTime>2018-04-23T11:49:36.000Z</pubTime>
         
-        <tag>DDD</tag>
-         
         <tag>Java</tag>
+         
+        <tag>DDD</tag>
          
         <tag>架构</tag>
          
@@ -678,9 +698,9 @@
         
         <tag>小计</tag>
          
-        <tag>AWS</tag>
-         
         <tag>工具</tag>
+         
+        <tag>AWS</tag>
          
         <tag>Cloud</tag>
          

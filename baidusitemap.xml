@@ -5,7 +5,7 @@
     
   <url>
     <loc>https://www.duyidong.com/2019/07/01/spider-man-with-the-society/</loc>
-    <lastmod>2019-06-30T17:38:46.842Z</lastmod>
+    <lastmod>2019-06-30T23:19:22.895Z</lastmod>
     <data>
         <display>
         <title>蜘蛛侠电影和这个越来越轻的社会</title>
@@ -189,6 +189,26 @@
 
     
   <url>
+    <loc>https://www.duyidong.com/2019/02/09/end-of-2018-start-of-2019/</loc>
+    <lastmod>2019-02-24T14:58:08.415Z</lastmod>
+    <data>
+        <display>
+        <title>新年伊始</title>
+        <pubTime>2019-02-09T08:50:01.000Z</pubTime>
+        
+        <tag>大事记</tag>
+         
+         
+           
+             
+              <breadCrumb title="学习总结" url="https://www.duyidong.com/categories/%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://www.duyidong.com/2016/05/19/CI-CD/</loc>
     <lastmod>2019-02-24T14:58:08.415Z</lastmod>
     <data>
@@ -204,26 +224,6 @@
            
              
               <breadCrumb title="DevOps" url="https://www.duyidong.com/categories/DevOps/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://www.duyidong.com/2019/02/09/end-of-2018-start-of-2019/</loc>
-    <lastmod>2019-02-24T14:58:08.415Z</lastmod>
-    <data>
-        <display>
-        <title>新年伊始</title>
-        <pubTime>2019-02-09T08:50:01.000Z</pubTime>
-        
-        <tag>大事记</tag>
-         
-         
-           
-             
-              <breadCrumb title="学习总结" url="https://www.duyidong.com/categories/%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/"/>
           
         </display>
     </data>
@@ -353,32 +353,6 @@
 
     
   <url>
-    <loc>https://www.duyidong.com/2017/03/23/AWS-well-architected-framework/</loc>
-    <lastmod>2019-02-24T14:58:08.411Z</lastmod>
-    <data>
-        <display>
-        <title>AWS认为，什么样的架构是一个良好的架构</title>
-        <pubTime>2017-03-23T14:01:23.000Z</pubTime>
-        
-        <tag>AWS</tag>
-         
-        <tag>Cloud Native</tag>
-         
-        <tag>架构</tag>
-         
-        <tag>Cloud</tag>
-         
-         
-           
-             
-              <breadCrumb title="Amazon Web Services" url="https://www.duyidong.com/categories/Amazon-Web-Services/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://www.duyidong.com/2017/03/20/Enable-HTTPS-and-CDN-with-Cloudfront/</loc>
     <lastmod>2019-02-24T14:58:08.411Z</lastmod>
     <data>
@@ -399,6 +373,32 @@
         <tag>Route53</tag>
          
         <tag>博客上云</tag>
+         
+         
+           
+             
+              <breadCrumb title="Amazon Web Services" url="https://www.duyidong.com/categories/Amazon-Web-Services/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2017/03/23/AWS-well-architected-framework/</loc>
+    <lastmod>2019-02-24T14:58:08.411Z</lastmod>
+    <data>
+        <display>
+        <title>AWS认为，什么样的架构是一个良好的架构</title>
+        <pubTime>2017-03-23T14:01:23.000Z</pubTime>
+        
+        <tag>AWS</tag>
+         
+        <tag>Cloud Native</tag>
+         
+        <tag>架构</tag>
+         
+        <tag>Cloud</tag>
          
          
            

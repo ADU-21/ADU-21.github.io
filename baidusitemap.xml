@@ -4,21 +4,25 @@
 
     
   <url>
-    <loc>https://www.duyidong.com/2019/09/02/one-three-five-years-in-alibaba/</loc>
-    <lastmod>2019-09-02T14:20:18.003Z</lastmod>
+    <loc>https://www.duyidong.com/2019/12/21/spring-boot-log-trace/</loc>
+    <lastmod>2019-12-22T04:43:17.140Z</lastmod>
     <data>
         <display>
-        <title>一三五年陈和阿里味</title>
-        <pubTime>2019-09-02T14:08:29.000Z</pubTime>
+        <title>Spring boot 全局参数传递和追踪</title>
+        <pubTime>2019-12-21T02:25:01.000Z</pubTime>
         
-        <tag>小计</tag>
+        <tag>Springboot</tag>
          
-        <tag>阿里巴巴</tag>
+        <tag>DMC</tag>
+         
+        <tag>全链路追踪</tag>
+         
+        <tag>微服务</tag>
          
          
            
              
-              <breadCrumb title="阿里巴巴" url="https://www.duyidong.com/categories/%E9%98%BF%E9%87%8C%E5%B7%B4%E5%B7%B4/"/>
+              <breadCrumb title="Java" url="https://www.duyidong.com/categories/Java/"/>
           
         </display>
     </data>
@@ -27,7 +31,7 @@
     
   <url>
     <loc>https://www.duyidong.com/2017/06/08/work-in-blackops/</loc>
-    <lastmod>2019-09-02T14:18:55.942Z</lastmod>
+    <lastmod>2019-09-13T03:29:15.878Z</lastmod>
     <data>
         <display>
         <title>DevOps 团队交付了什么？</title>
@@ -47,6 +51,28 @@
            
              
               <breadCrumb title="DevOps" url="https://www.duyidong.com/categories/DevOps/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2019/09/02/one-three-five-years-in-alibaba/</loc>
+    <lastmod>2019-09-02T14:20:18.003Z</lastmod>
+    <data>
+        <display>
+        <title>一三五年陈和阿里味</title>
+        <pubTime>2019-09-02T14:08:29.000Z</pubTime>
+        
+        <tag>小计</tag>
+         
+        <tag>阿里巴巴</tag>
+         
+         
+           
+             
+              <breadCrumb title="阿里巴巴" url="https://www.duyidong.com/categories/%E9%98%BF%E9%87%8C%E5%B7%B4%E5%B7%B4/"/>
           
         </display>
     </data>
@@ -121,7 +147,6 @@
     </url>
 
     
-    
   <url>
     <loc>https://www.duyidong.com/2016/10/24/%E9%83%A8%E7%BD%B2%E5%92%8C%E5%8F%91%E5%B8%83%E7%AD%96%E7%95%A5%E7%9A%84%E6%BC%94%E8%BF%9B/</loc>
     <lastmod>2019-02-24T14:58:08.419Z</lastmod>
@@ -143,6 +168,7 @@
     </data>
     </url>
 
+    
     
   <url>
     <loc>https://www.duyidong.com/2016/11/04/%E7%BF%BB%E8%AF%91-%E9%9B%AA%E8%8A%B1%E6%9C%8D%E5%8A%A1%E5%99%A8/</loc>
@@ -239,28 +265,6 @@
 
     
   <url>
-    <loc>https://www.duyidong.com/2016/05/19/CI-CD/</loc>
-    <lastmod>2019-02-24T14:58:08.415Z</lastmod>
-    <data>
-        <display>
-        <title>CI/CD</title>
-        <pubTime>2016-05-19T12:04:35.000Z</pubTime>
-        
-        <tag>DevOps</tag>
-         
-        <tag>Agile</tag>
-         
-         
-           
-             
-              <breadCrumb title="DevOps" url="https://www.duyidong.com/categories/DevOps/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://www.duyidong.com/2019/02/09/end-of-2018-start-of-2019/</loc>
     <lastmod>2019-02-24T14:58:08.415Z</lastmod>
     <data>
@@ -281,21 +285,21 @@
 
     
   <url>
-    <loc>https://www.duyidong.com/2019/01/08/aws-certification-share/</loc>
-    <lastmod>2019-02-24T14:58:08.414Z</lastmod>
+    <loc>https://www.duyidong.com/2016/05/19/CI-CD/</loc>
+    <lastmod>2019-02-24T14:58:08.415Z</lastmod>
     <data>
         <display>
-        <title>AWS 认证分享</title>
-        <pubTime>2019-01-08T15:09:40.000Z</pubTime>
+        <title>CI/CD</title>
+        <pubTime>2016-05-19T12:04:35.000Z</pubTime>
         
-        <tag>AWS</tag>
+        <tag>DevOps</tag>
          
-        <tag>云计算认证</tag>
+        <tag>Agile</tag>
          
          
            
              
-              <breadCrumb title="Amazon Web Services" url="https://www.duyidong.com/categories/Amazon-Web-Services/"/>
+              <breadCrumb title="DevOps" url="https://www.duyidong.com/categories/DevOps/"/>
           
         </display>
     </data>
@@ -327,6 +331,28 @@
 
     
   <url>
+    <loc>https://www.duyidong.com/2019/01/08/aws-certification-share/</loc>
+    <lastmod>2019-02-24T14:58:08.414Z</lastmod>
+    <data>
+        <display>
+        <title>AWS 认证分享</title>
+        <pubTime>2019-01-08T15:09:40.000Z</pubTime>
+        
+        <tag>AWS</tag>
+         
+        <tag>云计算认证</tag>
+         
+         
+           
+             
+              <breadCrumb title="Amazon Web Services" url="https://www.duyidong.com/categories/Amazon-Web-Services/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://www.duyidong.com/2018/04/23/ddd-key-words/</loc>
     <lastmod>2019-02-24T14:58:08.413Z</lastmod>
     <data>
@@ -334,9 +360,9 @@
         <title>领域驱动设计（DDD）实践</title>
         <pubTime>2018-04-23T11:49:36.000Z</pubTime>
         
-        <tag>Java</tag>
-         
         <tag>DDD</tag>
+         
+        <tag>Java</tag>
          
         <tag>架构</tag>
          
@@ -403,6 +429,32 @@
 
     
   <url>
+    <loc>https://www.duyidong.com/2017/03/23/AWS-well-architected-framework/</loc>
+    <lastmod>2019-02-24T14:58:08.411Z</lastmod>
+    <data>
+        <display>
+        <title>AWS认为，什么样的架构是一个良好的架构</title>
+        <pubTime>2017-03-23T14:01:23.000Z</pubTime>
+        
+        <tag>AWS</tag>
+         
+        <tag>Cloud Native</tag>
+         
+        <tag>架构</tag>
+         
+        <tag>Cloud</tag>
+         
+         
+           
+             
+              <breadCrumb title="Amazon Web Services" url="https://www.duyidong.com/categories/Amazon-Web-Services/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://www.duyidong.com/2017/03/20/Enable-HTTPS-and-CDN-with-Cloudfront/</loc>
     <lastmod>2019-02-24T14:58:08.411Z</lastmod>
     <data>
@@ -423,32 +475,6 @@
         <tag>Route53</tag>
          
         <tag>博客上云</tag>
-         
-         
-           
-             
-              <breadCrumb title="Amazon Web Services" url="https://www.duyidong.com/categories/Amazon-Web-Services/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://www.duyidong.com/2017/03/23/AWS-well-architected-framework/</loc>
-    <lastmod>2019-02-24T14:58:08.411Z</lastmod>
-    <data>
-        <display>
-        <title>AWS认为，什么样的架构是一个良好的架构</title>
-        <pubTime>2017-03-23T14:01:23.000Z</pubTime>
-        
-        <tag>AWS</tag>
-         
-        <tag>Cloud Native</tag>
-         
-        <tag>架构</tag>
-         
-        <tag>Cloud</tag>
          
          
            
@@ -720,9 +746,9 @@
         
         <tag>小计</tag>
          
-        <tag>AWS</tag>
-         
         <tag>工具</tag>
+         
+        <tag>AWS</tag>
          
         <tag>Cloud</tag>
          

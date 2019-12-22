@@ -86,13 +86,6 @@
   </url>
   
   <url>
-    <loc>https://www.duyidong.com/2016/05/19/CI-CD/</loc>
-    
-    <lastmod>2019-02-24T14:58:08.415Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://www.duyidong.com/2019/02/09/end-of-2018-start-of-2019/</loc>
     
     <lastmod>2019-02-24T14:58:08.415Z</lastmod>
@@ -100,14 +93,21 @@
   </url>
   
   <url>
-    <loc>https://www.duyidong.com/2019/01/08/aws-certification-share/</loc>
+    <loc>https://www.duyidong.com/2016/05/19/CI-CD/</loc>
+    
+    <lastmod>2019-02-24T14:58:08.415Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.duyidong.com/2018/10/24/from-thoughtworks-to-alibaba/</loc>
     
     <lastmod>2019-02-24T14:58:08.414Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://www.duyidong.com/2018/10/24/from-thoughtworks-to-alibaba/</loc>
+    <loc>https://www.duyidong.com/2019/01/08/aws-certification-share/</loc>
     
     <lastmod>2019-02-24T14:58:08.414Z</lastmod>
     
@@ -121,13 +121,6 @@
   </url>
   
   <url>
-    <loc>https://www.duyidong.com/2017/11/03/how-to-setup-ss-on-linode/</loc>
-    
-    <lastmod>2019-02-24T14:58:08.412Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://www.duyidong.com/2017/10/29/trunk-base-development/</loc>
     
     <lastmod>2019-02-24T14:58:08.412Z</lastmod>
@@ -135,14 +128,21 @@
   </url>
   
   <url>
-    <loc>https://www.duyidong.com/2017/03/20/Enable-HTTPS-and-CDN-with-Cloudfront/</loc>
+    <loc>https://www.duyidong.com/2017/11/03/how-to-setup-ss-on-linode/</loc>
+    
+    <lastmod>2019-02-24T14:58:08.412Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.duyidong.com/2017/03/23/AWS-well-architected-framework/</loc>
     
     <lastmod>2019-02-24T14:58:08.411Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://www.duyidong.com/2017/03/23/AWS-well-architected-framework/</loc>
+    <loc>https://www.duyidong.com/2017/03/20/Enable-HTTPS-and-CDN-with-Cloudfront/</loc>
     
     <lastmod>2019-02-24T14:58:08.411Z</lastmod>
     

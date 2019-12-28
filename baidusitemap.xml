@@ -3,6 +3,32 @@
 
 
     
+  <url>
+    <loc>https://www.duyidong.com/2019/10/11/bash-study-2/</loc>
+    <lastmod>2019-12-28T09:44:06.658Z</lastmod>
+    <data>
+        <display>
+        <title>Bash 学习小计（二）</title>
+        <pubTime>2019-10-11T09:40:09.000Z</pubTime>
+        
+        <tag>学习</tag>
+         
+        <tag>小计</tag>
+         
+        <tag>Linux</tag>
+         
+        <tag>Shell</tag>
+         
+         
+           
+             
+              <breadCrumb title="工具" url="https://www.duyidong.com/categories/%E5%B7%A5%E5%85%B7/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
     
   <url>
     <loc>https://www.duyidong.com/2019/12/21/spring-boot-log-trace/</loc>
@@ -171,30 +197,6 @@
 
     
   <url>
-    <loc>https://www.duyidong.com/2016/11/02/%E7%BF%BB%E8%AF%91-%E5%87%A4%E5%87%B0%E5%BC%8F%E6%9C%8D%E5%8A%A1/</loc>
-    <lastmod>2019-02-24T14:58:08.418Z</lastmod>
-    <data>
-        <display>
-        <title>凤凰式服务</title>
-        <pubTime>2016-11-02T09:06:13.000Z</pubTime>
-        
-        <tag>翻译</tag>
-         
-        <tag>DevOps</tag>
-         
-        <tag>凤凰式服务</tag>
-         
-         
-           
-             
-              <breadCrumb title="DevOps" url="https://www.duyidong.com/categories/DevOps/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://www.duyidong.com/2016/11/04/%E7%BF%BB%E8%AF%91-%E9%9B%AA%E8%8A%B1%E6%9C%8D%E5%8A%A1%E5%99%A8/</loc>
     <lastmod>2019-02-24T14:58:08.418Z</lastmod>
     <data>
@@ -207,6 +209,30 @@
         <tag>DevOps</tag>
          
         <tag>雪花服务器</tag>
+         
+         
+           
+             
+              <breadCrumb title="DevOps" url="https://www.duyidong.com/categories/DevOps/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2016/11/02/%E7%BF%BB%E8%AF%91-%E5%87%A4%E5%87%B0%E5%BC%8F%E6%9C%8D%E5%8A%A1/</loc>
+    <lastmod>2019-02-24T14:58:08.418Z</lastmod>
+    <data>
+        <display>
+        <title>凤凰式服务</title>
+        <pubTime>2016-11-02T09:06:13.000Z</pubTime>
+        
+        <tag>翻译</tag>
+         
+        <tag>DevOps</tag>
+         
+        <tag>凤凰式服务</tag>
          
          
            

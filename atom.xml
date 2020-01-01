@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.duyidong.com/"/>
-  <updated>2019-12-22T04:43:17.140Z</updated>
+  <updated>2020-01-01T14:11:32.028Z</updated>
   <id>https://www.duyidong.com/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>这一年我在阿里学到的</title>
+    <link href="https://www.duyidong.com/2020/01/01/2019-learn-from-alibaba/"/>
+    <id>https://www.duyidong.com/2020/01/01/2019-learn-from-alibaba/</id>
+    <published>2020-01-01T11:03:48.000Z</published>
+    <updated>2020-01-01T14:11:32.028Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="/images/2019-commits.jpeg" alt=""></p><p>2019 年在项目中的 commit 记录，一共有 2589 次提交，涉及到 28 个代码库，23 个应用的 344 个需求。</p><a id="more"></a><h1 id="如何和老板沟通"><a href="#如何和老板沟通" class="headerlink" title="如何和老板沟通"></a>如何和老板沟通</h1><p>和老板沟通其实是种向上管理的能力。有前辈云，在阿里最重要的两件事：跟对人，做对事。做对事指的是做到好的项目，跟对人就是跟一个好的老板。很多人离开阿里的时候感叹，被 NB 的公司吸引来，被 SB 老板气走。老板不仅决定你的晋升、绩效和奖金，还是决定你工作是否开心、职业道路上是否有成长的重要因素。</p><ul><li><p>及时和老板表达想法</p><p>在阿里老板这么重要，作为“下级”容易有一种思维就是老板交代给你的事情就只能执行，也不敢说不，也不敢问有没有别的选择。这样的事如果是小任务可能问题不大，但长期如此，对自己是拖累，对任务是风险。比如刚入职的一段时间我被安排到一个数据运营的项目里面，这个任务技术上只是在前端加一些埋点，剩下的大部分时间是和产品、数据的同事讨论如何调整埋点。这个需求不属于我的 KPI，stackholder 主要是产品，但又有许多没什么技术含量的工作要做，主要是操作阿里的各种内部系统做一些配置，这些系统往往缺少文档或者面临更新换代，易用性、稳定性和容错性都不理想，有较高的上手成本，最重要的是在这项工作中我认为自己得不到想要的成长，这个时候就会表现出来任务进展缓慢，对任务缺少 ownership，在晨会上更新状态的时候只能说到埋了一些点的表面，而不能站在任务视角更新整体进度。老板观察到这种状况，只能做两种猜测：一种是这个人能力不行，交给他的事 handle 不了，另一种是他能力是没问题的，只是不喜欢做这个项目。当你和老板之间有足够的信任的时候，老板的猜测可能会倾向于后者，但如果老板多次尝试你都不 say no 又做不好，老板自然会对你失去信心，这是我们不希望得到的结果。而且老板那么忙，为什么要老板去猜呢？自己说出来不是更好吗，老板分配任务的时候并不是定死了你做 A，给他做 B，也是站在一个统筹的角度，尽可能把任务分配给适合的人做，让老板听到你的声音，其实是帮助老板做出最优选择。所以与其含含糊糊地把任务接下来不好好做，不如主动说，提前说，既有利于自己，又规避了项目风险。老板对你的兴趣了解得越多，你也越容易得到适合自己的任务。</p></li><li><p>让老板知道你在忙什么</p><p>一个开发团队的杂事是很多的，老板不可能时时刻刻知道每个人在忙什么，这个时候就需要个人对上级有一个主动的工作内容汇报，包括你在做什么事情，进度如何，风险点在哪。千万不要一个人瞎忙，例如帮助其他团队的同事做联调、或者协助设计的工作，这些职责之外的事情，也要透明出来，老板才不不会觉得你上班是在摸鱼。千万不要等到老板质疑你开发效率低的时候再提，尽早避免误会。阿里内部有个写周报的要求，我觉得是一种有用的方式。</p></li><li><p>主动帮老板做一些脏活累活</p><p>前面两点都是让老板了解你，你也得了解你的老板，站在老板的角度考虑问题永远是利大于弊的。尤其当你的老板是一个技术角色，他的位置很有可能就是你的下一个职业目标。知道你的老板在想什么，解决老板头疼的问题，既有利于提升自己的能力，又有利于提升在老板心中的地位，说的现实些，一个团队的开发大家平时都在写业务，拿什么体现你比别人的工作更有价值？不就是看你为团队多操了哪些心嘛，什么集成测试挂了没人修，代码合并老是冲突是不是该换分支策略了，测试环境部署的时候怎么有宕机时间了，对这些这些看似项目以外的事情关心，恰巧是体现出差距的地方，更不用说老板操心的事情，一定是会让团队发展受阻的，也就是更有价值的事情。</p></li></ul><h1 id="做好并行任务管理"><a href="#做好并行任务管理" class="headerlink" title="做好并行任务管理"></a>做好并行任务管理</h1><p>在日常工作中，迭代任务主要是业务需求，除了处理这些需求之外每天往往还会有一些紧急的 bug fix，领导立马要的、客户新提的、产品认为要赶紧上、运营突然想要调整的的需求，诸如此类的临时任务。这些任务我在排优先级的时候有两个原则：紧急的事情优先于迭代的需求，有外部依赖的事情优先于自己能搞定的事情。</p><ul><li><p>异步工作模式，沟通先行</p><p>作为开发日常工作中很多任务是有第三方依赖的，涉及到其他产品，或者团队，这些依赖方的反馈周期和 push 难易程度肯定要大于团队内协作的情况，因此把他们放在首位，优先解决项目中不确定性大的部分，主要是为了规避项目不能按时交付的风险，同时给其他团队留够时间也是一种 push 的技巧。一个需求我问你要了两天没给我跟两周没给我是不一样的。</p></li><li><p>利用好项目管理工具</p><p>异步任务最难的是任务挂起后一段时间，唤醒的时候还能拿到所有的上下文，这个时候就要有好的项目管理工具支持，看板是一种，可以在任务卡的评论里留下足够详细的进展记录，方便在多任务同步进行的情况下追溯具体任务的细节。</p></li><li><p>做好任务可视化，即时同步相关责任人</p><p>做好可视化，除了让你的老板知道你在忙什么，还能为你争取到一些资源，比如站会时更新状态的时候可能会有团队成员提出之前做过类似的事情，或者给你发篇文档，或者给你个靠谱的接口人，都能极大地提升你的办事效率，扫除项目中的不确定因素。</p></li></ul><p>至于自己能搞定的事情，如果真是有那么着急，即使其他团队的人都走了，正好也没人会打扰到你，这个时候再做，其实是更有效率的。</p><blockquote><p> 凡事有交代，件件有着落，事事有回应。</p><p style="text-align:right">——判断一个人是不是靠谱的三个标准</p></blockquote><h1 id="高效会议"><a href="#高效会议" class="headerlink" title="高效会议"></a>高效会议</h1><p>在阿里的会议主要有周会和项目对齐需求的会议，团队内部的沟通一般吼一声就可以，所以会议大多是面向老板的或是面向其他部门。其实在 <a href="https://www.duyidong.com/2018/10/24/from-thoughtworks-to-alibaba/">ThoughtWorks 的离职总结</a>我有提到过如何做一个好的会议组织者，在这一年的工作中我更多的时候是作为一个参与者。会议的组织者主要是关心会议的目的，会议的议程是什么，哪些是会议主题之外应该私下讨论的，会议到达达成的共识是什么，诸如此类；作为一个参与者，更多的是要关注自己的目的，要和谁确认清楚什么事情，要某位领导点头做某个决定或者不做，带着目的去开会是高效会议最重要的核心。</p><ul><li>开会要准备，会议的背景、有哪些内容是“你”一定要在会上和别人沟通清楚的，有哪些是可以线下再说的。</li><li><p>一切讨论、想法都要有记录。</p></li><li><p>邮件比聊天工具更适合工作。</p></li></ul><h1 id="及早发现问题，快速获得反馈"><a href="#及早发现问题，快速获得反馈" class="headerlink" title="及早发现问题，快速获得反馈"></a>及早发现问题，快速获得反馈</h1><p>返工是最耽误进度的，曾经有过一段不愉快的项目经历，是因为一个产品需求上的一个小变动导致整个技术方案推倒重来，而且因为一开始没有预估好变动的范围采取了基于第一版的实现改造的方式，导致工期比重做一版还长，最终影响到项目交付时间比预期延长了一倍。这些损失和风险其实是可以通过及时、频繁的沟通降低的，协作的核心就是在沟通，宁愿在开始前先花时间沟通清楚业务需求和技术实现，也不要造成返工这种极大的浪费。</p><h1 id="直面客户"><a href="#直面客户" class="headerlink" title="直面客户"></a>直面客户</h1><p>阿里巴巴一以贯之的价值观是“客户第一”。在一个云产品团队，我们的客户主要是用户企业的开发者。以前在 ThoughtWorks 很苦恼的是总是要通过客户企业才能接触到真正的用户，在阿里的苦恼是每天都要接触真正的用户。刚开始答疑的时候，内心是很排斥的，一方面由于用户的技术能力参差不齐，提的问题大多涉及到非产品的问题而是一些通用开发工具如 npm, maven 的使用上的问题，让人很想甩用户一脸“自己 Google”。然而价值观告诉我们这样是不对的，耐着性子跟客户聊下来发现，很多问题源自于用户和我们不在同一个上下文，产品背后的实现对用户而言是一个黑盒，所以提出来的问题很多会让我们觉得很无语，而且随着沟通的深入我还发现，其实用户反馈的问题中，有相当一部分确实是我们的问题，要么是易用性，比如错误提示做得不够好，要么是产品真的有 bug。认真对待客户的问题是一个做产品的团队应有的心态，阿里云作为一个庞大的系统有自己的用户反馈体系，用户的声音经过层层传递到达开发团队是很不容易的，是用户的信任让他的问题走到了我们面前，不要辜负这份信任。</p><h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>最后，Ownership 真的是太重要，可能是职场中最重要的东西。有责任感，交给你一件事做成了，又交给你一件事也做成了，你做的事情会越来越多，越来越有挑战，这个过程就叫成长。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;/images/2019-commits.jpeg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;2019 年在项目中的 commit 记录，一共有 2589 次提交，涉及到 28 个代码库，23 个应用的 344 个需求。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="学习总结" scheme="https://www.duyidong.com/categories/%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/"/>
+    
+    
+      <category term="大事记" scheme="https://www.duyidong.com/tags/%E5%A4%A7%E4%BA%8B%E8%AE%B0/"/>
+    
+  </entry>
   
   <entry>
     <title>Spring boot 全局参数传递和追踪</title>
@@ -101,7 +124,7 @@
     <link href="https://www.duyidong.com/2019/08/18/add-custom-header-via-spring-filter/"/>
     <id>https://www.duyidong.com/2019/08/18/add-custom-header-via-spring-filter/</id>
     <published>2019-08-18T09:55:54.000Z</published>
-    <updated>2019-12-28T10:15:01.251Z</updated>
+    <updated>2019-12-29T04:51:49.580Z</updated>
     
     <content type="html"><![CDATA[<p>本文介绍如何在 Spring 的 Filter 中修改向下传递的 Request 中的 Header。</p><a id="more"></a><h1 id="业务场景"><a href="#业务场景" class="headerlink" title="业务场景"></a>业务场景</h1><p>系统已经有了一套基于 HTTP Header 的鉴权逻辑，现在我们希望在这套逻辑之上做一层扩展用于支持更多的鉴权类型，因此需要在 Interceptor 只上添加一个 Filter 把不同鉴权逻辑的信息转换为原有鉴权逻辑所需要的 Header。</p><h1 id="遇到问题"><a href="#遇到问题" class="headerlink" title="遇到问题"></a>遇到问题</h1><p>Filter 中能够获取到的 <a href="https://docs.oracle.com/javaee/6/api/javax/servlet/http/HttpServletRequest.html" target="_blank" rel="noopener">javax.servlet.http.HttpServletRequest</a> 暴露的接口，除了从其父接口 <a href="https://docs.oracle.com/javaee/6/api/javax/servlet/ServletRequest.html" target="_blank" rel="noopener">javax.servlet.ServletRequest </a> 接口继承的<code>setCharacterEncoding</code>方法和<code>setAttribute</code>方法之外，没有<code>setter</code>方法。因此 HttpServletRequest类型对象是只读的。</p><p>我们只能使用装饰器模式，扩展 HttpServletRequest 的一个实现类 <a href="https://docs.oracle.com/javaee/6/api/javax/servlet/http/HttpServletRequestWrapper.html" target="_blank" rel="noopener">javax.servlet.http.HttpServletRequestWrapper</a>，并使用装饰的对象<code>MutableHttpServletRequest</code>代替原始对象，以下为示例代码：</p><pre><code class="java">import java.util.Collections;import java.util.Enumeration;import java.util.HashMap;import java.util.HashSet;import java.util.Map;import java.util.Set;import javax.servlet.http.HttpServletRequest;import javax.servlet.http.HttpServletRequestWrapper;final class MutableHttpServletRequest extends HttpServletRequestWrapper {    // holds custom header and value mapping    private final Map&lt;String, String&gt; customHeaders;    public MutableHttpServletRequest(HttpServletRequest request){        super(request);        this.customHeaders = new HashMap&lt;String, String&gt;();    }    public void putHeader(String name, String value){        this.customHeaders.put(name, value);    }    public String getHeader(String name) {        // check the custom headers first        String headerValue = customHeaders.get(name);        if (headerValue != null){            return headerValue;        }        // else return from into the original wrapped object        return ((HttpServletRequest) getRequest()).getHeader(name);    }    public Enumeration&lt;String&gt; getHeaderNames() {        // create a set of the custom header names        Set&lt;String&gt; set = new HashSet&lt;String&gt;(customHeaders.keySet());        // now add the headers from the wrapped request object        @SuppressWarnings(&quot;unchecked&quot;)        Enumeration&lt;String&gt; e = ((HttpServletRequest) getRequest()).getHeaderNames();        while (e.hasMoreElements()) {            // add the names of the request headers into the list            String n = e.nextElement();            set.add(n);        }        // create an enumeration from the set and return        return Collections.enumeration(set);    }}</code></pre><p>有了这个装饰对象，就可以在 Filter 中使用 MutableHttpServletRequest 类来拦截传入的HTTP 请求以添加一些自定义 Header，代码如下：</p><pre><code class="java">import java.io.IOException;import javax.servlet.FilterChain;import javax.servlet.FilterConfig;import javax.servlet.ServletException;import javax.servlet.ServletRequest;import javax.servlet.ServletResponse;import javax.servlet.http.HttpServletRequest;import javax.servlet.http.HttpServletResponse;public class SecurityFilter implements javax.servlet.Filter {    @Override    public void destroy() {    }    @Override    public void doFilter(ServletRequest request, ServletResponse response,            FilterChain chain) throws IOException, ServletException {        HttpServletRequest req = (HttpServletRequest) request;        MutableHttpServletRequest mutableRequest = new MutableHttpServletRequest(req);        ...        mutableRequest.putHeader(&quot;x-custom-header&quot;, &quot;custom value&quot;);        chain.doFilter(mutableRequest, response);    }    @Override    public void init(FilterConfig filterConfig) throws ServletException {    }}</code></pre><h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><blockquote><ul><li><a href="https://wilddiary.com/adding-custom-headers-java-httpservletrequest/" target="_blank" rel="noopener">https://wilddiary.com/adding-custom-headers-java-httpservletrequest/</a></li></ul></blockquote>]]></content>
     
@@ -274,9 +297,9 @@
       <category term="ThoughtWorks" scheme="https://www.duyidong.com/categories/ThoughtWorks/"/>
     
     
-      <category term="ThoughtWorks" scheme="https://www.duyidong.com/tags/ThoughtWorks/"/>
-    
       <category term="大事记" scheme="https://www.duyidong.com/tags/%E5%A4%A7%E4%BA%8B%E8%AE%B0/"/>
+    
+      <category term="ThoughtWorks" scheme="https://www.duyidong.com/tags/ThoughtWorks/"/>
     
       <category term="阿里巴巴" scheme="https://www.duyidong.com/tags/%E9%98%BF%E9%87%8C%E5%B7%B4%E5%B7%B4/"/>
     
@@ -351,11 +374,11 @@
       <category term="Java" scheme="https://www.duyidong.com/categories/Java/"/>
     
     
-      <category term="DDD" scheme="https://www.duyidong.com/tags/DDD/"/>
+      <category term="架构" scheme="https://www.duyidong.com/tags/%E6%9E%B6%E6%9E%84/"/>
     
       <category term="Java" scheme="https://www.duyidong.com/tags/Java/"/>
     
-      <category term="架构" scheme="https://www.duyidong.com/tags/%E6%9E%B6%E6%9E%84/"/>
+      <category term="DDD" scheme="https://www.duyidong.com/tags/DDD/"/>
     
       <category term="设计" scheme="https://www.duyidong.com/tags/%E8%AE%BE%E8%AE%A1/"/>
     
@@ -440,9 +463,9 @@
     
       <category term="小计" scheme="https://www.duyidong.com/tags/%E5%B0%8F%E8%AE%A1/"/>
     
-      <category term="AWS" scheme="https://www.duyidong.com/tags/AWS/"/>
-    
       <category term="工具" scheme="https://www.duyidong.com/tags/%E5%B7%A5%E5%85%B7/"/>
+    
+      <category term="AWS" scheme="https://www.duyidong.com/tags/AWS/"/>
     
       <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
     
@@ -528,44 +551,13 @@
       <category term="Java" scheme="https://www.duyidong.com/categories/Java/"/>
     
     
-      <category term="Java" scheme="https://www.duyidong.com/tags/Java/"/>
-    
       <category term="学习" scheme="https://www.duyidong.com/tags/%E5%AD%A6%E4%B9%A0/"/>
     
       <category term="小结" scheme="https://www.duyidong.com/tags/%E5%B0%8F%E7%BB%93/"/>
+    
+      <category term="Java" scheme="https://www.duyidong.com/tags/Java/"/>
     
       <category term="JVM" scheme="https://www.duyidong.com/tags/JVM/"/>
-    
-      <category term="Class" scheme="https://www.duyidong.com/tags/Class/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java系列（三）——类文件结构</title>
-    <link href="https://www.duyidong.com/2018/02/11/java-class-file-structure/"/>
-    <id>https://www.duyidong.com/2018/02/11/java-class-file-structure/</id>
-    <published>2018-02-11T07:23:44.000Z</published>
-    <updated>2018-02-24T15:39:37.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>JVM 的一大成就带来了平台无关性和日益凸显的语言无关性，而字节码（ByteCode）作为语言与平台的“中间代码”，正是构成这种无关性的基石，不同的语言经过各自的编译器编译后形成相同格式的字节码，再被 Java 虚拟机解释为平台相关的机器码并执行，从而实现了一次编写，到处运行（Write Once, Run Anywhere）。</p><p><img src="/images/Jvm_class_loading.png" alt=""></p><center>Java 虚拟机提供的语言无关性，图片来源于网络</center><h1 id="Class-类文件的结构"><a href="#Class-类文件的结构" class="headerlink" title="Class 类文件的结构"></a>Class 类文件的结构</h1><p>Class 文件是一组以 8 位字节为基础单位的二进制流，其本质就是一张表，如下图所示，u1、u2、u4 表示 1 个字节、2 个字节、4 个字节的<strong>无符号数</strong>，无符号数可以用来描述数字、索引引用、数量值或者按照 utf-8 编码构成的字符串值。_info 结尾的表示<strong>表</strong>，用以描述有层次关系的复合结构数据。</p><table><thead><tr><th><strong>类型</strong></th><th><strong>名称</strong></th><th><strong>描述</strong></th></tr></thead><tbody><tr><td>u4</td><td>magic</td><td>魔数，用以标记文件类型，固定值0xCAFEBABE</td></tr><tr><td>u2</td><td>minor_version</td><td>次版本号，向上兼容</td></tr><tr><td>u2</td><td>major_version</td><td>主版本号</td></tr><tr><td>u2</td><td>constant_pool_count</td><td><strong>常量</strong>的个数</td></tr><tr><td>cp_info</td><td>constant_pool</td><td>常量池，数量为（constant_pool_count - 1）</td></tr><tr><td>u2</td><td>access_flags</td><td>访问标识</td></tr><tr><td>u2</td><td>this_class</td><td>当前类索引</td></tr><tr><td>u2</td><td>super_class</td><td>父类索引</td></tr><tr><td>u2</td><td>interfaces_count</td><td>接口的个数</td></tr><tr><td>u2</td><td>interfaces</td><td>具体的接口内容，数量为 interfaces_count</td></tr><tr><td>u2</td><td>fields_count</td><td><strong>字段</strong>的个数</td></tr><tr><td>field_info</td><td>fields</td><td>具体的字段内容，数量为 fields_count</td></tr><tr><td>u2</td><td>methods_count</td><td><strong>方法</strong>的个数</td></tr><tr><td>method_info</td><td>methods</td><td>具体的方法内容，数量为 methods_count</td></tr><tr><td>u2</td><td>attribute_count</td><td><strong>属性</strong>的个数</td></tr><tr><td>attribute_info</td><td>attributes</td><td>具体的属性内容，数量为 attributes_count</td></tr></tbody></table><h2 id="常量池（Constant-pool）"><a href="#常量池（Constant-pool）" class="headerlink" title="常量池（Constant pool）"></a>常量池（Constant pool）</h2><p>常量池是Class文件空间最大的数据项之一，长度不固定，主要包含两类：字面量（Literal）和符号引用（Symbolic References），字面量比较接近 Java 语言层面的常量概念，如文本字符串，声明为 final 的常量值等；符号引用这属于编译原理方面的概念，主要包括下面三类常量：</p><pre><code>- 类和接口全限定名(Full Qualified Name)- 字段的名称和描述符(Descriptor)- 方法的名称和描述符</code></pre><p>Java 是在虚拟机加载 Class 文件的时候进行的动态链接，因此 Class 文件不会保存各个方法字段的最终内存布局信息，关于动态链接部分，将在下一篇文章<a href="/2018/02/13/jvm-class-load-and-excute/">Java系列（四）——类的加载与执行</a>介绍。</p><p>常量池中的每一个数据项都有自己的类型，目前 Java 8一共有以下 14 种表结构数据支持不同的常量类型，具体结构可参见<a href="https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html" target="_blank" rel="noopener">官方文档</a>。</p><table><thead><tr><th><strong>常量池中数据项类型</strong></th><th><strong>类型标志</strong></th><th><strong>类型描述</strong></th></tr></thead><tbody><tr><td>CONSTANT_Utf8_info</td><td>1</td><td>UTF-8编码的Unicode字符串</td></tr><tr><td>CONSTANT_Integer_info</td><td>3</td><td>int类型字面值</td></tr><tr><td>CONSTANT_Float_info</td><td>4</td><td>float类型字面值</td></tr><tr><td>CONSTANT_Long_info</td><td>5</td><td>long类型字面值</td></tr><tr><td>CONSTANT_Double_info</td><td>6</td><td>double类型字面值</td></tr><tr><td>CONSTANT_Class_info</td><td>7</td><td>对一个类或接口的符号引用</td></tr><tr><td>CONSTANT_String_info</td><td>8</td><td>String类型字面值</td></tr><tr><td>CONSTANT_Fieldref_info</td><td>9</td><td>对一个字段的符号引用</td></tr><tr><td>CONSTANT_Methodref_info</td><td>10</td><td>对一个类中声明的方法的符号引用</td></tr><tr><td>CONSTANT_InterfaceMethodref_info</td><td>11</td><td>对一个接口中声明的方法的符号引用</td></tr><tr><td>CONSTANT_NameAndType_info</td><td>12</td><td>对一个字段或方法的部分符号引用</td></tr><tr><td>CONSTANT_MethodHandle_info</td><td>15</td><td>表示方法句柄</td></tr><tr><td>CONSTANT_MethodType_info</td><td>16</td><td>标示方法类型</td></tr><tr><td>CONSTANT_InvokeDynamic_info</td><td>18</td><td>表示一个动态方法调用点</td></tr></tbody></table><p>可以使用 JDK 提供的 javap 工具，<code>javap -verbose ClassName</code>的方式查看 Class 中的常量。</p><h2 id="访问标志（Access-flags）"><a href="#访问标志（Access-flags）" class="headerlink" title="访问标志（Access flags）"></a>访问标志（Access flags）</h2><p>2个字节代表，标示用于识别一些类或者接口层次的访问信息。</p><table><thead><tr><th>标识名</th><th>标识值</th><th>解释</th></tr></thead><tbody><tr><td>ACC_PUBLIC</td><td>0x0001</td><td>声明为public;可以从包外部访问</td></tr><tr><td>ACC_FINAL</td><td>0x0010</td><td>被声明为final;不允许子类修改</td></tr><tr><td>ACC_SUPER</td><td>0x0020</td><td>当被invokespecial指令调用时，将特殊对待父类的方法</td></tr><tr><td>ACC_INTERFACE</td><td>0x0200</td><td>接口标识符</td></tr><tr><td>ACC_ABSTRACT</td><td>0x0400</td><td>声明为abstract;不能被实例化</td></tr><tr><td>ACC_SYNTHETIC</td><td>0x1000</td><td>声明为synthetic;不存在于源代码，由编译器生成</td></tr><tr><td>ACC_ANNOTATION</td><td>0x2000</td><td>声明为注释类型</td></tr><tr><td>ACC_ENUM</td><td>0x4000</td><td>声明为枚举类型</td></tr></tbody></table><h2 id="类索引、父类索引和接口索引"><a href="#类索引、父类索引和接口索引" class="headerlink" title="类索引、父类索引和接口索引"></a>类索引、父类索引和接口索引</h2><p>类索引（this_class）和父类索引（super_class）都是一个 u2 的数据类型，而接口索引（Interfaces）是一组长度为interfaces_count 的 u2 类型的数据集合，它们的值大多存放的是对常量池中 CONSTANT_Class_info 的引用， Class 文件中由这三项数据来确定这个类的继承关系。</p><h2 id="字段表（Field-info）"><a href="#字段表（Field-info）" class="headerlink" title="字段表（Field info）"></a>字段表（Field info）</h2><p>字段表用于描述类或接口中声明的变量，格式如下：</p><pre><code>field_info {    u2             access_flags; //访问标识    u2             name_index;  //名称索引    u2             descriptor_index; //描述符索引    u2             attributes_count; //属性个数    attribute_info attributes[attributes_count];  //属性表的具体内容}</code></pre><p>字段访问标识如下：(表中加粗项是字段独有的)：</p><table><thead><tr><th>标识名</th><th>标识值</th><th>解释</th></tr></thead><tbody><tr><td>ACC_PUBLIC</td><td>0x0001</td><td>声明为 public; 可以从包外部访问</td></tr><tr><td>ACC_PRIVATE</td><td>0x0002</td><td>声明为 private; 只有定义的类可以访问</td></tr><tr><td>ACC_PROTECTED</td><td>0x0004</td><td>声明为 protected;只有子类和相同package的类可访问</td></tr><tr><td>ACC_STATIC</td><td>0x0008</td><td>声明为 static；属于类变量</td></tr><tr><td>ACC_FINAL</td><td>0x0010</td><td>声明为 final; 对象构造后无法直接修改值</td></tr><tr><td><strong>ACC_VOLATILE</strong></td><td>0x0040</td><td>声明为 volatile; 不会被缓存,直接刷新到主屏幕</td></tr><tr><td><strong>ACC_TRANSIENT</strong></td><td>0x0080</td><td>声明为 transient; 不能被序列化</td></tr><tr><td>ACC_SYNTHETIC</td><td>0x1000</td><td>声明为 synthetic; 不存在于源代码，由编译器生成</td></tr><tr><td>ACC_ENUM</td><td>0x4000</td><td>声明为enum</td></tr></tbody></table><p>Java语法中，接口中的字段默认包含ACC_PUBLIC, ACC_STATIC, ACC_FINAL标识。ACC_FINAL，ACC_VOLATILE不能同时选择等规则。紧跟其后的name_index和descriptor_index是对常量池的引用，分别代表着字段的简单名和方法的描述符。</p><h2 id="方法表（Method-info）"><a href="#方法表（Method-info）" class="headerlink" title="方法表（Method info）"></a>方法表（Method info）</h2><p>方法表用于描述类或接口中声明的方法，格式如下：</p><pre><code>method_info {    u2             access_flags; //访问标识    u2             name_index;  //名称索引    u2             descriptor_index;  //描述符索引    u2             attributes_count;  //属性个数    attribute_info attributes[attributes_count]; //属性表的具体内容}</code></pre><p>方法访问标识如下：(表中加粗项是方法独有的)</p><table><thead><tr><th>标识名</th><th>标识值</th><th>解释</th></tr></thead><tbody><tr><td>ACC_PUBLIC</td><td>0x0001</td><td>声明为 public; 可以从包外部访问</td></tr><tr><td>ACC_PRIVATE</td><td>0x0002</td><td>声明为 private; 只有定义的类可以访问</td></tr><tr><td>ACC_PROTECTED</td><td>0x0004</td><td>声明为 protected;只有子类和相同package的类可访问</td></tr><tr><td>ACC_STATIC</td><td>0x0008</td><td>声明为 static；属于类变量</td></tr><tr><td>ACC_FINAL</td><td>0x0010</td><td>声明为 final; 不能被覆写</td></tr><tr><td><strong>ACC_SYNCHRONIZED</strong></td><td>0x0020</td><td>声明为 synchronized; 同步锁包裹</td></tr><tr><td>ACC_BRIDGE</td><td>0x0040</td><td>桥接方法, 由编译器生成</td></tr><tr><td><strong>ACC_VARARGS</strong></td><td>0x0080</td><td>声明为 接收不定长参数</td></tr><tr><td><strong>ACC_NATIVE</strong></td><td>0x0100</td><td>声明为 native; 由非Java语言来实现</td></tr><tr><td><strong>ACC_ABSTRACT</strong></td><td>0x0400</td><td>声明为 abstract; 没有提供实现</td></tr><tr><td><strong>ACC_STRICT</strong></td><td>0x0800</td><td>声明为 strictfp; 浮点模式是FP-strict</td></tr><tr><td>ACC_SYNTHETIC</td><td>0x1000</td><td>声明为 synthetic; 不存在于源代码，由编译器生成</td></tr></tbody></table><ul><li>对于方法里的Java代码，进过编译器编译成字节码指令后，存放在方法属性表集合中“code”的属性内。</li><li>当子类没有覆写父类方法，则方法集合中不会出现父类的方法信息。</li><li>Java语言中重载方法，必须与原方法同名，且特征签名不同。特征签名是指方法中各个参数在常量池的字段符号引用的集合，不包括返回值。当时Class文件格式中，特征签名范围更广，允许方法名和特征签名都相同，但返回值不同的方法，合法地共存子啊同一个Class文件中。</li></ul><h2 id="属性表（Attribute-info）"><a href="#属性表（Attribute-info）" class="headerlink" title="属性表（Attribute info）"></a>属性表（Attribute info）</h2><p>属性表的基本结构，不同类型的属性表以此为基础各不相同：</p><pre><code>attribute_info {    u2 attribute_name_index;    u4 attribute_length;    u1 info[attribute_length];}</code></pre><p>属性表的限制相对宽松，不需要各个属性表有严格的顺序，只有不与已有的属性名重复，任何自定义的编译器都可以向属性表中写入自定义的属性信息，Java虚拟机运行时会忽略掉无法识别的属性。 关于虚拟机规范中预定义的属性，这里不展开讲了，列举几个常用的。</p><table><thead><tr><th>属性名</th><th>使用位置</th><th>解释</th></tr></thead><tbody><tr><td>Code</td><td>方法表</td><td>方法体的内容</td></tr><tr><td>ConstantValue</td><td>字段表</td><td>final关键字定义的常量值</td></tr><tr><td>Deprecated</td><td>类、方法表、字段表</td><td>声明为deprecated</td></tr><tr><td>InnerClasses</td><td>类文件</td><td>内部类的列表</td></tr><tr><td>LineNumberTable</td><td>Code属性</td><td>Java源码的行号与字节码指令的对应关系</td></tr><tr><td>LocalVariableTable</td><td>Code属性</td><td>方法的局部变量描述</td></tr><tr><td>Signature</td><td>类、方法表、字段表</td><td>用于支持泛型的方法签名，由于Java的泛型采用擦除法，避免类型信息被擦除后导致签名混乱，Signature记录相关信息</td></tr></tbody></table><h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>Class 文件格式所具备的平台中立（不依赖于特定硬件及操作系统）、紧凑、稳定和可扩展的特点，是 Java 技术实现平台无关、语言无关两大特性的重要支柱。</p><p>Class 文件是 Java 虚拟机执行引擎的数据入口，也是 Java 体系技术构成之一。了解 Class 文件的结构对后面进一步了解虚拟机执行引擎有重要的意义。</p><blockquote><ul><li>References:</li><li><a href="http://gityuan.com/2015/10/17/jvm-class-instruction/" target="_blank" rel="noopener">http://gityuan.com/2015/10/17/jvm-class-instruction/</a></li><li><a href="https://my.oschina.net/HeliosFly/blog/356517" target="_blank" rel="noopener">https://my.oschina.net/HeliosFly/blog/356517</a></li><li><a href="https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html" target="_blank" rel="noopener">https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html</a></li></ul></blockquote>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;JVM 的一大成就带来了平台无关性和日益凸显的语言无关性，而字节码（ByteCode）作为语言与平台的“中间代码”，正是构成这种无关性的基石，不同的语言经过各自的编译器编译后形成相同格式的字节码，再被 Java 虚拟机解释为平台相关的机器码并执行，从而实现了一次编写，到处运
-      
-    
-    </summary>
-    
-      <category term="Java" scheme="https://www.duyidong.com/categories/Java/"/>
-    
-    
-      <category term="Java" scheme="https://www.duyidong.com/tags/Java/"/>
-    
-      <category term="学习" scheme="https://www.duyidong.com/tags/%E5%AD%A6%E4%B9%A0/"/>
-    
-      <category term="小结" scheme="https://www.duyidong.com/tags/%E5%B0%8F%E7%BB%93/"/>
     
       <category term="Class" scheme="https://www.duyidong.com/tags/Class/"/>
     

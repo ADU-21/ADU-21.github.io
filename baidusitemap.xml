@@ -4,8 +4,56 @@
 
     
   <url>
+    <loc>https://www.duyidong.com/2020/01/01/2019-learn-from-alibaba/</loc>
+    <lastmod>2020-01-01T14:11:32.028Z</lastmod>
+    <data>
+        <display>
+        <title>这一年我在阿里学到的</title>
+        <pubTime>2020-01-01T11:03:48.000Z</pubTime>
+        
+        <tag>大事记</tag>
+         
+         
+           
+             
+              <breadCrumb title="学习总结" url="https://www.duyidong.com/categories/%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2017/06/08/work-in-blackops/</loc>
+    <lastmod>2020-01-01T12:50:02.426Z</lastmod>
+    <data>
+        <display>
+        <title>DevOps 团队交付了什么？</title>
+        <pubTime>2017-06-08T08:38:47.000Z</pubTime>
+        
+        <tag>小结</tag>
+         
+        <tag>职场</tag>
+         
+        <tag>DevOps</tag>
+         
+        <tag>Platform</tag>
+         
+        <tag>工作</tag>
+         
+         
+           
+             
+              <breadCrumb title="DevOps" url="https://www.duyidong.com/categories/DevOps/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://www.duyidong.com/2019/08/18/add-custom-header-via-spring-filter/</loc>
-    <lastmod>2019-12-28T10:15:01.251Z</lastmod>
+    <lastmod>2019-12-29T04:51:49.580Z</lastmod>
     <data>
         <display>
         <title>在 Filter 中给 HttpServletRequest 添加 Header</title>
@@ -74,34 +122,6 @@
            
              
               <breadCrumb title="Java" url="https://www.duyidong.com/categories/Java/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://www.duyidong.com/2017/06/08/work-in-blackops/</loc>
-    <lastmod>2019-09-13T03:29:15.878Z</lastmod>
-    <data>
-        <display>
-        <title>DevOps 团队交付了什么？</title>
-        <pubTime>2017-06-08T08:38:47.000Z</pubTime>
-        
-        <tag>小结</tag>
-         
-        <tag>职场</tag>
-         
-        <tag>DevOps</tag>
-         
-        <tag>Platform</tag>
-         
-        <tag>工作</tag>
-         
-         
-           
-             
-              <breadCrumb title="DevOps" url="https://www.duyidong.com/categories/DevOps/"/>
           
         </display>
     </data>
@@ -221,30 +241,6 @@
 
     
   <url>
-    <loc>https://www.duyidong.com/2016/11/02/%E7%BF%BB%E8%AF%91-%E5%87%A4%E5%87%B0%E5%BC%8F%E6%9C%8D%E5%8A%A1/</loc>
-    <lastmod>2019-02-24T14:58:08.418Z</lastmod>
-    <data>
-        <display>
-        <title>凤凰式服务</title>
-        <pubTime>2016-11-02T09:06:13.000Z</pubTime>
-        
-        <tag>翻译</tag>
-         
-        <tag>DevOps</tag>
-         
-        <tag>凤凰式服务</tag>
-         
-         
-           
-             
-              <breadCrumb title="DevOps" url="https://www.duyidong.com/categories/DevOps/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://www.duyidong.com/2016/11/04/%E7%BF%BB%E8%AF%91-%E9%9B%AA%E8%8A%B1%E6%9C%8D%E5%8A%A1%E5%99%A8/</loc>
     <lastmod>2019-02-24T14:58:08.418Z</lastmod>
     <data>
@@ -257,6 +253,30 @@
         <tag>DevOps</tag>
          
         <tag>雪花服务器</tag>
+         
+         
+           
+             
+              <breadCrumb title="DevOps" url="https://www.duyidong.com/categories/DevOps/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2016/11/02/%E7%BF%BB%E8%AF%91-%E5%87%A4%E5%87%B0%E5%BC%8F%E6%9C%8D%E5%8A%A1/</loc>
+    <lastmod>2019-02-24T14:58:08.418Z</lastmod>
+    <data>
+        <display>
+        <title>凤凰式服务</title>
+        <pubTime>2016-11-02T09:06:13.000Z</pubTime>
+        
+        <tag>翻译</tag>
+         
+        <tag>DevOps</tag>
+         
+        <tag>凤凰式服务</tag>
          
          
            
@@ -298,11 +318,11 @@
         <title>ThoughtWorks第一周学习总结</title>
         <pubTime>2016-05-24T13:44:57.000Z</pubTime>
         
-        <tag>ThoughtWorks</tag>
-         
         <tag>学习</tag>
          
         <tag>小结</tag>
+         
+        <tag>ThoughtWorks</tag>
          
          
            
@@ -364,9 +384,9 @@
         <title>从 ThoughtWorks 到阿里巴巴</title>
         <pubTime>2018-10-24T06:26:35.000Z</pubTime>
         
-        <tag>ThoughtWorks</tag>
-         
         <tag>大事记</tag>
+         
+        <tag>ThoughtWorks</tag>
          
         <tag>阿里巴巴</tag>
          
@@ -410,11 +430,11 @@
         <title>领域驱动设计（DDD）实践</title>
         <pubTime>2018-04-23T11:49:36.000Z</pubTime>
         
-        <tag>DDD</tag>
+        <tag>架构</tag>
          
         <tag>Java</tag>
          
-        <tag>架构</tag>
+        <tag>DDD</tag>
          
         <tag>设计</tag>
          
@@ -422,28 +442,6 @@
            
              
               <breadCrumb title="Java" url="https://www.duyidong.com/categories/Java/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://www.duyidong.com/2017/11/03/how-to-setup-ss-on-linode/</loc>
-    <lastmod>2019-02-24T14:58:08.412Z</lastmod>
-    <data>
-        <display>
-        <title>如何在 Linode 上搭建加强版 Shadowsocks</title>
-        <pubTime>2017-11-03T02:04:05.000Z</pubTime>
-        
-        <tag>云服务</tag>
-         
-        <tag>代理</tag>
-         
-         
-           
-             
-              <breadCrumb title="工具" url="https://www.duyidong.com/categories/%E5%B7%A5%E5%85%B7/"/>
           
         </display>
     </data>
@@ -472,6 +470,28 @@
            
              
               <breadCrumb title="DevOps" url="https://www.duyidong.com/categories/DevOps/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2017/11/03/how-to-setup-ss-on-linode/</loc>
+    <lastmod>2019-02-24T14:58:08.412Z</lastmod>
+    <data>
+        <display>
+        <title>如何在 Linode 上搭建加强版 Shadowsocks</title>
+        <pubTime>2017-11-03T02:04:05.000Z</pubTime>
+        
+        <tag>云服务</tag>
+         
+        <tag>代理</tag>
+         
+         
+           
+             
+              <breadCrumb title="工具" url="https://www.duyidong.com/categories/%E5%B7%A5%E5%85%B7/"/>
           
         </display>
     </data>
@@ -796,9 +816,9 @@
         
         <tag>小计</tag>
          
-        <tag>AWS</tag>
-         
         <tag>工具</tag>
+         
+        <tag>AWS</tag>
          
         <tag>Cloud</tag>
          
@@ -822,11 +842,11 @@
         <title>Java系列（三）——类文件结构</title>
         <pubTime>2018-02-11T07:23:44.000Z</pubTime>
         
-        <tag>Java</tag>
-         
         <tag>学习</tag>
          
         <tag>小结</tag>
+         
+        <tag>Java</tag>
          
         <tag>Class</tag>
          
@@ -938,11 +958,11 @@
         <title>Java系列（四）——类的加载与执行</title>
         <pubTime>2018-02-13T13:03:40.000Z</pubTime>
         
-        <tag>Java</tag>
-         
         <tag>学习</tag>
          
         <tag>小结</tag>
+         
+        <tag>Java</tag>
          
         <tag>JVM</tag>
          
@@ -988,11 +1008,11 @@
         <title>Java系列（二）——JVM内存回收</title>
         <pubTime>2018-02-09T15:15:15.000Z</pubTime>
         
-        <tag>Java</tag>
-         
         <tag>学习</tag>
          
         <tag>小结</tag>
+         
+        <tag>Java</tag>
          
         <tag>JVM</tag>
          
@@ -1014,11 +1034,11 @@
         <title>Java系列（一）——JVM内存分配</title>
         <pubTime>2018-01-31T00:57:05.000Z</pubTime>
         
-        <tag>Java</tag>
-         
         <tag>学习</tag>
          
         <tag>小结</tag>
+         
+        <tag>Java</tag>
          
         <tag>JVM</tag>
          
@@ -1209,9 +1229,9 @@
         
         <tag>ThoughtWorks</tag>
          
-        <tag>面试</tag>
-         
         <tag>职场</tag>
+         
+        <tag>面试</tag>
          
          
            
@@ -1361,9 +1381,9 @@
         <title>AWS认证与权限管理IAM</title>
         <pubTime>2017-03-06T12:41:50.000Z</pubTime>
         
-        <tag>AWS</tag>
-         
         <tag>亚马逊认证与权限</tag>
+         
+        <tag>AWS</tag>
          
         <tag>Security</tag>
          

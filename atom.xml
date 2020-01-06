@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.duyidong.com/"/>
-  <updated>2020-01-01T14:32:50.813Z</updated>
+  <updated>2020-01-01T14:33:55.836Z</updated>
   <id>https://www.duyidong.com/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://www.duyidong.com/2020/01/01/2019-learn-from-alibaba/"/>
     <id>https://www.duyidong.com/2020/01/01/2019-learn-from-alibaba/</id>
     <published>2020-01-01T11:03:48.000Z</published>
-    <updated>2020-01-01T14:32:50.813Z</updated>
+    <updated>2020-01-01T14:33:55.836Z</updated>
     
     <content type="html"><![CDATA[<p><img src="/images/2019-commits.jpeg" alt=""></p><a id="more"></a><p>2019 年在项目中的 commit 记录，一共有 2589 次提交，涉及到 28 个代码库，23 个应用的 344 个需求。</p><h1 id="如何和老板沟通"><a href="#如何和老板沟通" class="headerlink" title="如何和老板沟通"></a>如何和老板沟通</h1><p>和老板沟通其实是种向上管理的能力。有前辈云，在阿里最重要的两件事：跟对人，做对事。做对事指的是做到好的项目，跟对人就是跟一个好的老板。很多人离开阿里的时候感叹，被 NB 的公司吸引来，被 SB 老板气走。老板不仅决定你的晋升、绩效和奖金，还是决定你工作是否开心、职业道路上是否有成长的重要因素。</p><ul><li><p>及时和老板表达想法</p><p>在阿里老板这么重要，颇有官大一级压死人的感觉。作为“下级”容易有一种思维：老板交代的事情只能执行，即使不太想做，咱也不敢说，咱也不敢问。这样的事如果是小任务可能问题不大，但长期如此，对自己是拖累，对任务是风险。比如刚入职的一段时间我被安排到一个数据运营的项目里面，这个任务技术上只是在前端加一些埋点，剩下的大部分时间是和产品、数据的同事讨论如何调整埋点。这个需求不属于我的 KPI，stackholder 主要是产品，但又有许多没什么技术含量的工作要做，主要是操作阿里的各种内部系统做一些配置，这些系统往往缺少文档或者面临更新换代，易用性、稳定性和容错性都不理想，有较高的上手成本，最重要的是在这项工作中我认为自己得不到想要的成长，这个时候就会表现出来任务进展缓慢，对任务缺少 ownership，在晨会上更新状态的时候只能说到埋了一些点的表面，而不能站在任务视角更新整体进度。老板观察到这种状况，只能做两种猜测：一种是这个人能力不行，交给他的事 handle 不了，另一种是他能力是没问题的，只是不喜欢做这个项目。当你和老板之间有足够的信任的时候，老板的猜测可能会倾向于后者，但如果老板多次尝试你都不 say no 又做不好，老板自然会对你失去信心，这是我们不希望得到的结果。而且老板那么忙，为什么要老板去猜呢？自己说出来不是更好吗，老板分配任务的时候并不是定死了你做 A，给他做 B，也是站在一个统筹的角度，尽可能把任务分配给适合的人做，让老板听到你的声音，其实是帮助老板做出最优选择。所以与其含含糊糊地把任务接下来不好好做，不如主动说，提前说，既有利于自己，又规避了项目风险。老板对你的兴趣了解得越多，你也越容易得到适合自己的任务。</p></li><li><p>让老板知道你在忙什么</p><p>一个开发团队的杂事是很多的，老板不可能时时刻刻知道每个人在忙什么，这个时候就需要个人对上级有一个主动的工作内容汇报，包括你在做什么事情，进度如何，风险点在哪。千万不要一个人瞎忙，例如帮助其他团队的同事做联调、或者协助设计的工作，这些职责之外的事情，也要透明出来，老板才不不会觉得你上班是在摸鱼。千万不要等到老板质疑你开发效率低的时候再提，尽早避免误会。阿里内部有个写周报的要求，我觉得是一种有用的方式。</p></li><li><p>主动帮老板做一些脏活累活</p><p>前面两点都是让老板了解你，你也得了解你的老板，站在老板的角度考虑问题永远是利大于弊的。尤其当你的老板是一个技术角色，他的位置很有可能就是你的下一个职业目标。知道你的老板在想什么，解决老板头疼的问题，既有利于提升自己的能力，又有利于提升在老板心中的地位，说的现实些，一个团队的开发大家平时都在写业务，拿什么体现你比别人的工作更有价值？不就是看你为团队多操了哪些心嘛，什么集成测试挂了没人修，代码合并老是冲突是不是该换分支策略了，测试环境部署的时候怎么有宕机时间了，对这些这些看似项目以外的事情关心，恰巧是体现出差距的地方，更不用说老板操心的事情，一定是会让团队发展受阻的，也就是更有价值的事情。</p></li></ul><h1 id="做好并行任务管理"><a href="#做好并行任务管理" class="headerlink" title="做好并行任务管理"></a>做好并行任务管理</h1><p>在日常工作中，迭代任务主要是业务需求，除了处理这些需求之外每天往往还会有一些紧急的 bug fix，领导立马要的、客户新提的、产品认为要赶紧上、运营突然想要调整的的需求，诸如此类的临时任务。这些任务我在排优先级的时候有两个原则：紧急的事情优先于迭代的需求，有外部依赖的事情优先于自己能搞定的事情。</p><ul><li><p>异步工作模式，沟通先行</p><p>作为开发日常工作中很多任务是有第三方依赖的，涉及到其他产品，或者团队，这些依赖方的反馈周期和 push 难易程度肯定要大于团队内协作的情况，因此把他们放在首位，优先解决项目中不确定性大的部分，主要是为了规避项目不能按时交付的风险，同时给其他团队留够时间也是一种 push 的技巧。一个需求我问你要了两天没给我跟两周没给我是不一样的。</p></li><li><p>利用好项目管理工具</p><p>异步任务最难的是任务挂起后一段时间，唤醒的时候还能拿到所有的上下文，这个时候就要有好的项目管理工具支持，看板是一种，可以在任务卡的评论里留下足够详细的进展记录，方便在多任务同步进行的情况下追溯具体任务的细节。</p></li><li><p>做好任务可视化，即时同步相关责任人</p><p>做好可视化，除了让你的老板知道你在忙什么，还能为你争取到一些资源，比如站会时更新状态的时候可能会有团队成员提出之前做过类似的事情，或者给你发篇文档，或者给你个靠谱的接口人，都能极大地提升你的办事效率，扫除项目中的不确定因素。</p></li></ul><p>至于自己能搞定的事情，如果真是有那么着急，即使其他团队的人都走了，正好也没人会打扰到你，这个时候再做，其实是更有效率的。</p><blockquote><p> 凡事有交代，件件有着落，事事有回应。</p><p style="text-align:right">——判断一个人是不是靠谱的三个标准</p></blockquote><h1 id="高效会议"><a href="#高效会议" class="headerlink" title="高效会议"></a>高效会议</h1><p>在阿里的会议主要有周会和项目对齐需求的会议，团队内部的沟通一般吼一声就可以，所以会议大多是面向老板的或是面向其他部门。其实在 <a href="https://www.duyidong.com/2018/10/24/from-thoughtworks-to-alibaba/">ThoughtWorks 的离职总结</a>我有提到过如何做一个好的会议组织者，在这一年的工作中我更多的时候是作为一个参与者。会议的组织者主要是关心会议的目的，会议的议程是什么，哪些是会议主题之外应该私下讨论的，会议到达达成的共识是什么，诸如此类；作为一个参与者，更多的是要关注自己的目的，要和谁确认清楚什么事情，要某位领导点头做某个决定或者不做，带着目的去开会是高效会议最重要的核心。</p><ul><li>开会要准备，会议的背景、有哪些内容是“你”一定要在会上和别人沟通清楚的，有哪些是可以线下再说的。</li><li><p>一切讨论、想法都要有记录。</p></li><li><p>邮件比聊天工具更适合工作。</p></li></ul><h1 id="及早发现问题，快速获得反馈"><a href="#及早发现问题，快速获得反馈" class="headerlink" title="及早发现问题，快速获得反馈"></a>及早发现问题，快速获得反馈</h1><p>返工是最耽误进度的，曾经有过一段不愉快的项目经历，是因为一个产品需求上的一个小变动导致整个技术方案推倒重来，而且因为一开始没有预估好变动的范围采取了基于第一版的实现改造的方式，导致工期比重做一版还长，最终影响到项目交付时间比预期延长了一倍。这些损失和风险其实是可以通过及时、频繁的沟通降低的，协作的核心就是在沟通，宁愿在开始前先花时间沟通清楚业务需求和技术实现，也不要造成返工这种极大的浪费。</p><h1 id="直面客户"><a href="#直面客户" class="headerlink" title="直面客户"></a>直面客户</h1><p>阿里巴巴一以贯之的价值观是“客户第一”。在一个云产品团队，我们的客户主要是用户企业的开发者。以前在 ThoughtWorks 很苦恼的是总是要通过客户企业才能接触到真正的用户，在阿里的苦恼是每天都要接触真正的用户。刚开始答疑的时候，内心是很排斥的，一方面由于用户的技术能力参差不齐，提的问题大多涉及到非产品的问题而是一些通用开发工具如 npm, maven 的使用上的问题，让人很想甩用户一脸“自己 Google”。然而价值观告诉我们这样是不对的，耐着性子跟客户聊下来发现，很多问题源自于用户和我们不在同一个上下文，产品背后的实现对用户而言是一个黑盒，所以提出来的问题很多会让我们觉得很无语，而且随着沟通的深入我还发现，其实用户反馈的问题中，有相当一部分确实是我们的问题，要么是易用性，比如错误提示做得不够好，要么是产品真的有 bug。认真对待客户的问题是一个做产品的团队应有的心态，阿里云作为一个庞大的系统有自己的用户反馈体系，用户的声音经过层层传递到达开发团队是很不容易的，是用户的信任让他的问题走到了我们面前，不要辜负这份信任。</p><h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>最后，Ownership 真的是太重要，可能是职场中最重要的东西。有责任感，交给你一件事做成了，又交给你一件事也做成了，你做的事情会越来越多，越来越有挑战，这个过程就叫成长。</p>]]></content>
     
@@ -63,6 +63,32 @@
       <category term="DMC" scheme="https://www.duyidong.com/tags/DMC/"/>
     
       <category term="全链路追踪" scheme="https://www.duyidong.com/tags/%E5%85%A8%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用 Arthas 分析接口响应时间</title>
+    <link href="https://www.duyidong.com/2019/11/26/arthas-analytics-rt/"/>
+    <id>https://www.duyidong.com/2019/11/26/arthas-analytics-rt/</id>
+    <published>2019-11-26T13:05:48.000Z</published>
+    <updated>2020-01-06T13:44:55.317Z</updated>
+    
+    <content type="html"><![CDATA[<p>Arthas 是阿里巴巴开源的 Java 诊断工具，本文介绍如何使用 Arthas 分析 Java 应用的接口响应时间。</p><a id="more"></a><p>在日常开发中，当我们发现应用的某个接口响应比较慢，这个时候想想要分析一下原因，找到代码中耗时的部分，比较容易想到的是在接口链路的 IO 操作上下游打印时间日志，再根据几个时间点的日志算出耗时长的 IO 操作。</p><p>这种方式没有问题，但是加日志需要发布，既繁琐又低效，这个时候可以引入一些线上 debug  的工具，arthas 就是很好的一种，除了分析耗时，还可以打印调用栈、方法入参及返回，类加载情况，线程池状态，系统参数等等，其实现原理是解析 JVM 在操作系统中的文件，大部分操作是只读的，对服务进程没有侵入性，因此可以放心使用。</p><p>本文以一个 Spring boot 应用为例，分析一个接口的耗时情况。</p><ul><li><p>启动应用</p><pre><code class="bash">git clone https://github.com/ADU-21/hello_springbootcd hello_springboot./gradlew bootRuncurl 127.0.0.1:8080/sayHello    # 得到返回说明启动成功</code></pre></li></ul><ul><li><p>启动 Arthas</p><pre><code class="bash">curl -O https://alibaba.github.io/arthas/arthas-boot.jarjava -jar arthas-boot.jar</code></pre><p>在随后出现的列表中，选择<code>com.example.demo.DemoApplication</code>，这是 Spring boot 启动的进程。看到 arthas 的 loga 说明 attach 成功。</p><p><img src="/images/arthas-start.png" alt=""></p></li></ul><ul><li><p>找到待分析的类，并打印方法调用时间。</p><p>分析接口调用时间，其实就是分析 Controller 类的方法调用时间，使用 <code>sc</code> 命令可以帮助找到待分析的类完整的路径和名称，<code>trace</code> 命令可以分析调用时间，还可以使用 <code>watch</code>命令实时获取方法调用参数和返回参数。</p><pre><code class="bash">sc *Controller  trace com.example.demo.controller.MyController sayHello</code></pre><p>再次请求 <code>sayHello</code> 接口，就能看到实时的接口调用耗时情况：</p><p><img src="/images/arthas-running.png" alt=""></p><p>从调用栈和时间中可以轻易找到耗时较长的调用。</p></li></ul><p><a href="https://alibaba.github.io/arthas/arthas-tutorials?language=cn" target="_blank" rel="noopener">这里</a>有一个官方提供的 Arthas 学习体验教程，提供了一个虚拟的环境用于感受 Arthas 的各种功能，简单好用，推荐一试。</p><h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><blockquote><ul><li><a href="https://alibaba.github.io/arthas/" target="_blank" rel="noopener">https://alibaba.github.io/arthas/</a></li></ul></blockquote>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Arthas 是阿里巴巴开源的 Java 诊断工具，本文介绍如何使用 Arthas 分析 Java 应用的接口响应时间。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="工具" scheme="https://www.duyidong.com/categories/%E5%B7%A5%E5%85%B7/"/>
+    
+    
+      <category term="工具" scheme="https://www.duyidong.com/tags/%E5%B7%A5%E5%85%B7/"/>
+    
+      <category term="JVM" scheme="https://www.duyidong.com/tags/JVM/"/>
+    
+      <category term="分析" scheme="https://www.duyidong.com/tags/%E5%88%86%E6%9E%90/"/>
     
   </entry>
   
@@ -296,9 +322,9 @@
       <category term="ThoughtWorks" scheme="https://www.duyidong.com/categories/ThoughtWorks/"/>
     
     
-      <category term="大事记" scheme="https://www.duyidong.com/tags/%E5%A4%A7%E4%BA%8B%E8%AE%B0/"/>
-    
       <category term="ThoughtWorks" scheme="https://www.duyidong.com/tags/ThoughtWorks/"/>
+    
+      <category term="大事记" scheme="https://www.duyidong.com/tags/%E5%A4%A7%E4%BA%8B%E8%AE%B0/"/>
     
       <category term="阿里巴巴" scheme="https://www.duyidong.com/tags/%E9%98%BF%E9%87%8C%E5%B7%B4%E5%B7%B4/"/>
     
@@ -373,11 +399,11 @@
       <category term="Java" scheme="https://www.duyidong.com/categories/Java/"/>
     
     
-      <category term="架构" scheme="https://www.duyidong.com/tags/%E6%9E%B6%E6%9E%84/"/>
-    
       <category term="Java" scheme="https://www.duyidong.com/tags/Java/"/>
     
       <category term="DDD" scheme="https://www.duyidong.com/tags/DDD/"/>
+    
+      <category term="架构" scheme="https://www.duyidong.com/tags/%E6%9E%B6%E6%9E%84/"/>
     
       <category term="设计" scheme="https://www.duyidong.com/tags/%E8%AE%BE%E8%AE%A1/"/>
     
@@ -526,39 +552,6 @@
       <category term="小结" scheme="https://www.duyidong.com/tags/%E5%B0%8F%E7%BB%93/"/>
     
       <category term="面向对象" scheme="https://www.duyidong.com/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java系列（四）——类的加载与执行</title>
-    <link href="https://www.duyidong.com/2018/02/13/jvm-class-load-and-excute/"/>
-    <id>https://www.duyidong.com/2018/02/13/jvm-class-load-and-excute/</id>
-    <published>2018-02-13T13:03:40.000Z</published>
-    <updated>2018-02-13T09:55:37.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>清楚了 JVM 内存结构、GC、类结构，<a href="/2018/02/11/java-class-file-structure/">上篇文章</a>我们知道了字节码是 JVM 实现无关性的重要设计，这篇文章我们来看一下这些字节码文件是如何被虚拟机加载和执行的。</p><h1 id="虚拟机类加载机制"><a href="#虚拟机类加载机制" class="headerlink" title="虚拟机类加载机制"></a>虚拟机类加载机制</h1><p>Java类从被加载到虚拟机内存中开始，到卸载出内存为止，它的整个生命周期包括：加载（Loading）、验证（Verification）、准备(Preparation)、解析(Resolution)、初始化(Initialization)、使用(Using) 和 卸载(Unloading)七个阶段。其中准备、验证、解析3个部分统称为连接（Linking），如图所示：</p><p><img src="/images/java_class_lifecycle.jpg" alt=""></p><p>下面我们来一步一步的看类是如何被加载的。</p><h2 id="类加载的时机"><a href="#类加载的时机" class="headerlink" title="类加载的时机"></a>类加载的时机</h2><p>虚拟机规范则是严格规定了有且只有 5 种情况必须立即对类进行“初始化”（而加载、验证、准备自然需要在此之前开始）：</p><pre><code>- 遇到 new、 getstatic、 putstatic 或 invokestatic 这 4 条字节码指令时，如果类没有进行过初始化，则需要先触发其初始化。- 使用 java.lang.reflect 包的方法对类进行反射调用的时候，如果类没有进行过初始化，则需要先触发其初始化。- 当初始化一个类的时候，如果发现其父类还没有进行过初始化，则需要先触发其父类的初始化。- 当虚拟机启动时，用户需要指定一个要执行的主类（包含 main() 方法的那个类），虚拟机会先初始化这个主类。- 当使用 JDK1.7 的动态语言支持时，如果一个 java.lang.invoke.MethodHandle 实例最后的解析结果REF_getStatic、 REF_putStatic、 REF_invokeStatic 的方法句柄，并且这个方法句柄所对应的类没有进行过初始化，则需要先触发其初始化。</code></pre><ul><li>通过子类引用父类的静态字段，不会导致子类初始化。是否要触发子类的加载和验证，在虚拟机规范中并未明确规定，这点取决于虚拟机的具体实现。</li><li>通过数组定义来引用类，不会触发此类的初始化。比如SupperClass[] sca = new SupperClass[10];这里不会初始化SupperClass，但是触发了另外一个名为“com.gavin.SuperClass”的类的初始化阶段，它是一个由虚拟机自动生成的，直接继承于Object的子类，创建动作由字节码指令newarray触发。</li><li>常量在编译阶段会存入调用类的常量池中，本质上并没有直接引用到定义常量的类，因此不会触发定义常量类的初始化。比如“private static final CONST=”123””,不会引发此类的初始化。</li><li>当一个类在初始化的时候，要求其父类全部都已经初始化过了，但是一个接口在初始化时，并不要求其父类接口全部完成初始化，只有在真正使用到父接口的时候（如引用接口中定义的常量）才会初始化。</li></ul><h2 id="类加载的过程"><a href="#类加载的过程" class="headerlink" title="类加载的过程"></a>类加载的过程</h2><ul><li><p><strong>加载</strong><br>把存储类的实体从各类介质(文件/网络/数据库/内存中实时生成等)加载到 JVM 内存的方法区中，生成对应对象<code>java.lang.Class</code>。数组类不通过类的加载器创建，而是由虚拟机直接创建，但数组类的元素类型（Element Type）需要类加载器创建。</p></li><li><p><strong>验证</strong><br>为了确保 Class 文件的字节流中包含的信息符合当前虚拟机的要求，，并且不会危害虚拟机的安全，如果验证失败，会抛出 java.lang.VerifyError 异常。验证过程较为复杂，JVM主要验证了class文件格式/java语义限制/java程序逻辑正确性和安全性，其主要技术为<u>静态的字节码分析</u>，所以不能保证100%的可靠。</p></li><li><p><strong>准备</strong><br>为类的<u>静态变量</u>分配内存并初始化为零值，final 则赋真实值，这些变量所使用的内存都将在方法区中进行分配。</p></li><li><p><strong>解析</strong><br>将<u>符号引用</u>（如方法名/变量名/类等等的符号）转化为<u>直接引用</u>（直接指向一块内存区域）的过程,所有符号引用都必须转化为直接引用。</p></li><li><p><strong>初始化</strong><br>在初始化之前，程序已经可以在内存中访问类和它的变量了，这个时候 JVM 会调用类构造器<code>&lt;clinit&gt;()</code>在类被主动引用前，按代码赋初值的计划去给这些变量赋予一个值，它与实例加载时调用的构造器<code>&lt;init&gt;()</code>不同，不需要显示调用父类构造器，而是由虚拟机保证父类<code>&lt;clinit&gt;()</code>已经执行，这也就意味着父类中定义的静态语句优先级要高于子类变量的赋值操作。<br>如果一个类没有静态语句块，也没有对变量的复制操作，编译器可以部位这个类生成<code>&lt;clinit&gt;()</code>方法。<br>接口的<code>&lt;clinit&gt;()</code>是单独执行的，不会受继承和类实现的影响。<br>虚拟机会保证一个类的<code>&lt;clinit&gt;()</code>方法在多线程环境中被加锁、同步，因此如果在一个类的<code>&lt;clinit&gt;()</code>方法中有耗时操作，就会造成多个进程阻塞。</p></li><li><p><strong>使用</strong><br>当初始化完成之后，java 虚拟机就可以根据<code>new</code>或反射的调用执行Class的业务逻辑指令，通过堆中java.lang.Class对象的入口地址，调用方法区的方法逻辑，最后将方法的运算结果通过方法返回地址存放到方法区或堆中。</p></li><li><p><strong>卸载</strong><br>参见<a href="/2018/02/09/jvm-gc/">Java系列（二）——JVM内存回收</a>的<a href="https://www.duyidong.com/2018/02/09/jvm-gc/#%E6%96%B9%E6%B3%95%E5%8C%BA%E9%87%8C%E7%9A%84%E7%B1%BB">什么时候回收-方法区里的类</a>部分。</p></li></ul><h1 id="虚拟机字节码执行引擎"><a href="#虚拟机字节码执行引擎" class="headerlink" title="虚拟机字节码执行引擎"></a>虚拟机字节码执行引擎</h1><p>每当启动一个线程时，JVM 就为它分配一个 Java <strong>栈</strong>，栈是以<strong>栈帧</strong>为单位保存当前线程的运行状态的。栈帧是虚拟机栈的栈元素，每当在调用一个方法时，才为当前方法分配一个帧，然后将该帧压入栈顶，这个帧就成了当前帧，当执行这个方法时，它使用这个帧来存储参数、局部变量，中间计算结果等。线程的切换对应着栈的出栈入栈，线程中的不同方法依次运行对应着帧的出栈和入栈。栈帧的概念结构如图所示：</p><p><img src="/images/jvm_stack_frame.png" alt=""></p><center>图片来源：<a href="https://my.oschina.net/jiangmitiao/blog/483824" target="_blank" rel="noopener">https://my.oschina.net/jiangmitiao/blog/483824</a></center><h2 id="栈帧"><a href="#栈帧" class="headerlink" title="栈帧"></a>栈帧</h2><p>栈帧是虚拟机栈的栈元素，栈帧存储了局部变量表，操作数栈，动态连接，返回地址等信息。</p><h2 id="局部变量表"><a href="#局部变量表" class="headerlink" title="局部变量表"></a>局部变量表</h2><p>局部变量表存储了<u>方法参数</u>以及<u>方法内定义的局部变量</u>。在 Java 程序被编译成 Class 文件时，就在方法的 Code 属性的<code>max_locals</code>数据项中确定了该方法所需分配的最大局部变量表的最大容器。 </p><p>虚拟机通过索引定位的方式使用局部变量表。在方法执行时，虚拟机是使用局部变量表完成参数值到参数变量列表的传递过程的，如果执行的是实例方法（非 static 方法），则局部变量表的第一个索引为该对象的引用，用this可以取到。为了节省栈空间，局部变量表中的变量槽（Variable Slot）是可以重用的。</p><h2 id="操作数栈"><a href="#操作数栈" class="headerlink" title="操作数栈"></a>操作数栈</h2><p>Java 虚拟机的解释执行引擎称为“基于栈的执行引擎”，其中所指的栈就是操作数栈。操作数栈（Operand Stack），也称操作栈，是一个后入先出（LIFO）栈。同局部变量表一样，操作栈的最大深度也在编译期间写入到 Code 属性的<code>max_stacks</code>中。操作栈最开始为空，由字节码指令往栈中存数据和取数据，也就是出栈入栈动作，方法的返回值也会存到上一个方法的操作数栈中。</p><h2 id="动态连接"><a href="#动态连接" class="headerlink" title="动态连接"></a>动态连接</h2><p> 动态连接含有一个指向常量池中该栈帧所属方法的引用，持有该引用是为了进行动态分派。</p><p>在Class文件中存在着大量的符号引用，字节码中的方法调用指令就以常量池中指向方法的符号引用为参数。这些符号引用一部分在类加载阶段第一次使用阶段的时候转换为直接引用，这种转换称为静态解析。另外一部分将在每次的运行期间转化为直接引用，这部分称为动态转换。</p><h2 id="方法返回地址"><a href="#方法返回地址" class="headerlink" title="方法返回地址"></a>方法返回地址</h2><p>当一个方法开始执行后，只有两种方式可以退出这个方法，分别是正常返回和异常返回，不管是何种方式退出，退出后都需要返回到方法被调用的位置，程序才能正常执行。</p><ul><li><strong>正常完成出口（Normal Method Invocation Completion）</strong>：当执行引擎遇到任意一个方法返回的字节码指令，是否有返回值和返回值类型依据遇到何种方法返回指令而定。栈帧中会保留调用者的 PC  计数器的值作为返回地址。</li></ul><ul><li><strong>异常完成出口（Abrupt Method Invocation Completion）</strong>：在执行过程中遇到了异常且没有在方法体内处理，不产生返回值，返回地址由异常处理表来确定，栈帧中一般不会有这部分信息</li></ul><p>方法退出时可能执行的操作有：回复上层方法的局部变量表和操作数栈，吧返回值（如果有的话）压如调用者栈帧的操作数栈中，调整 PC 计数器的值以指向方法调用指令后的一条指令。</p><h2 id="关于方法重载"><a href="#关于方法重载" class="headerlink" title="关于方法重载"></a>关于方法重载</h2><p>《深入理解 JVM 虚拟机》这本书中有提到一个关于重载的面试题（题目见<a href="http://allenwu.itscoder.com/poly-in-java" target="_blank" rel="noopener">此处</a>）来解释”确定静态分派的动作实际上不是由虚拟机来执行的“。</p><p>对于代码<code>Human man = new man()</code>而言，Human叫作<strong>静态类型</strong>(外观类型)，Man为<strong>实际类型</strong>，静态类型编译期可知，而实际类型却只有在运行时才能知道。使用哪个重载版本完全取决于传入<strong>参数的数量</strong>和<strong>数据类型</strong>。实例代码中刻意的定义了两个静态类型相同但是实际类型不同的变量，但是JVM在重载时是通过参数的<strong>静态类型（Static Type）</strong>而不是<strong>实际类型（Actual Type）</strong>作为判定依据的。同时静态类型是编译期可知的，因此在编译阶段，Javac 编译器会根据参数的类型来决定选择哪个重载版本，所以在通常情况下重载方法的选择是在编译器由静态分派来决定的。</p><h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>类的加载和执行构成了 JVM 运行程序的核心，掌握理论知识的同时还需要联系实际看看我们书写的程序是如何在被编译解释和运行的。</p><blockquote><ul><li>References:</li><li><a href="https://gavinzhang1.gitbooks.io/java-jvm-us/content/xu_ni_ji_lei_jia_zai_ji_zhi.html" target="_blank" rel="noopener">https://gavinzhang1.gitbooks.io/java-jvm-us/content/xu_ni_ji_lei_jia_zai_ji_zhi.html</a></li><li><a href="https://segmentfault.com/a/1190000010048751" target="_blank" rel="noopener">https://segmentfault.com/a/1190000010048751</a></li><li><a href="http://www.cnblogs.com/hnlshzx/p/3533264.html" target="_blank" rel="noopener">http://www.cnblogs.com/hnlshzx/p/3533264.html</a></li><li><a href="http://blog.csdn.net/justloveyou_/article/details/72466105" target="_blank" rel="noopener">http://blog.csdn.net/justloveyou_/article/details/72466105</a></li><li><a href="https://my.oschina.net/jiangmitiao/blog/483824" target="_blank" rel="noopener">https://my.oschina.net/jiangmitiao/blog/483824</a></li><li><a href="https://www.jianshu.com/p/1ed1795c9b4a" target="_blank" rel="noopener">https://www.jianshu.com/p/1ed1795c9b4a</a></li><li><a href="https://zhuanlan.zhihu.com/p/31235268" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/31235268</a></li></ul></blockquote>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;清楚了 JVM 内存结构、GC、类结构，&lt;a href=&quot;/2018/02/11/java-class-file-structure/&quot;&gt;上篇文章&lt;/a&gt;我们知道了字节码是 JVM 实现无关性的重要设计，这篇文章我们来看一下这些字节码文件是如何被虚拟机加载和执行的。&lt;/p&gt;
-      
-    
-    </summary>
-    
-      <category term="Java" scheme="https://www.duyidong.com/categories/Java/"/>
-    
-    
-      <category term="学习" scheme="https://www.duyidong.com/tags/%E5%AD%A6%E4%B9%A0/"/>
-    
-      <category term="小结" scheme="https://www.duyidong.com/tags/%E5%B0%8F%E7%BB%93/"/>
-    
-      <category term="Java" scheme="https://www.duyidong.com/tags/Java/"/>
-    
-      <category term="JVM" scheme="https://www.duyidong.com/tags/JVM/"/>
-    
-      <category term="Class" scheme="https://www.duyidong.com/tags/Class/"/>
     
   </entry>
   

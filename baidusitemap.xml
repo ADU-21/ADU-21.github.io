@@ -265,18 +265,18 @@
 
     
   <url>
-    <loc>https://www.duyidong.com/2016/11/04/%E7%BF%BB%E8%AF%91-%E9%9B%AA%E8%8A%B1%E6%9C%8D%E5%8A%A1%E5%99%A8/</loc>
+    <loc>https://www.duyidong.com/2016/11/02/%E7%BF%BB%E8%AF%91-%E5%87%A4%E5%87%B0%E5%BC%8F%E6%9C%8D%E5%8A%A1/</loc>
     <lastmod>2019-02-24T14:58:08.418Z</lastmod>
     <data>
         <display>
-        <title>雪花服务器</title>
-        <pubTime>2016-11-04T07:29:52.000Z</pubTime>
+        <title>凤凰式服务</title>
+        <pubTime>2016-11-02T09:06:13.000Z</pubTime>
         
-        <tag>翻译</tag>
-         
         <tag>DevOps</tag>
          
-        <tag>雪花服务器</tag>
+        <tag>翻译</tag>
+         
+        <tag>凤凰式服务</tag>
          
          
            
@@ -289,18 +289,18 @@
 
     
   <url>
-    <loc>https://www.duyidong.com/2016/11/02/%E7%BF%BB%E8%AF%91-%E5%87%A4%E5%87%B0%E5%BC%8F%E6%9C%8D%E5%8A%A1/</loc>
+    <loc>https://www.duyidong.com/2016/11/04/%E7%BF%BB%E8%AF%91-%E9%9B%AA%E8%8A%B1%E6%9C%8D%E5%8A%A1%E5%99%A8/</loc>
     <lastmod>2019-02-24T14:58:08.418Z</lastmod>
     <data>
         <display>
-        <title>凤凰式服务</title>
-        <pubTime>2016-11-02T09:06:13.000Z</pubTime>
+        <title>雪花服务器</title>
+        <pubTime>2016-11-04T07:29:52.000Z</pubTime>
         
-        <tag>翻译</tag>
-         
         <tag>DevOps</tag>
          
-        <tag>凤凰式服务</tag>
+        <tag>翻译</tag>
+         
+        <tag>雪花服务器</tag>
          
          
            
@@ -454,9 +454,9 @@
         <title>领域驱动设计（DDD）实践</title>
         <pubTime>2018-04-23T11:49:36.000Z</pubTime>
         
-        <tag>Java</tag>
-         
         <tag>DDD</tag>
+         
+        <tag>Java</tag>
          
         <tag>架构</tag>
          
@@ -523,32 +523,6 @@
 
     
   <url>
-    <loc>https://www.duyidong.com/2017/03/23/AWS-well-architected-framework/</loc>
-    <lastmod>2019-02-24T14:58:08.411Z</lastmod>
-    <data>
-        <display>
-        <title>AWS认为，什么样的架构是一个良好的架构</title>
-        <pubTime>2017-03-23T14:01:23.000Z</pubTime>
-        
-        <tag>AWS</tag>
-         
-        <tag>Cloud Native</tag>
-         
-        <tag>架构</tag>
-         
-        <tag>Cloud</tag>
-         
-         
-           
-             
-              <breadCrumb title="Amazon Web Services" url="https://www.duyidong.com/categories/Amazon-Web-Services/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://www.duyidong.com/2017/03/20/Enable-HTTPS-and-CDN-with-Cloudfront/</loc>
     <lastmod>2019-02-24T14:58:08.411Z</lastmod>
     <data>
@@ -569,6 +543,32 @@
         <tag>Route53</tag>
          
         <tag>博客上云</tag>
+         
+         
+           
+             
+              <breadCrumb title="Amazon Web Services" url="https://www.duyidong.com/categories/Amazon-Web-Services/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2017/03/23/AWS-well-architected-framework/</loc>
+    <lastmod>2019-02-24T14:58:08.411Z</lastmod>
+    <data>
+        <display>
+        <title>AWS认为，什么样的架构是一个良好的架构</title>
+        <pubTime>2017-03-23T14:01:23.000Z</pubTime>
+        
+        <tag>AWS</tag>
+         
+        <tag>Cloud Native</tag>
+         
+        <tag>架构</tag>
+         
+        <tag>Cloud</tag>
          
          
            
@@ -770,11 +770,11 @@
         <title>再谈 DevOps</title>
         <pubTime>2018-07-27T16:19:31.000Z</pubTime>
         
-        <tag>翻译</tag>
-         
         <tag>DevOps</tag>
          
         <tag>Platform</tag>
+         
+        <tag>翻译</tag>
          
          
            
@@ -1381,9 +1381,9 @@
         <title>DevOps的三种方式</title>
         <pubTime>2017-07-12T14:50:38.000Z</pubTime>
         
-        <tag>翻译</tag>
-         
         <tag>DevOps</tag>
+         
+        <tag>翻译</tag>
          
         <tag>理论框架</tag>
          
@@ -1405,9 +1405,9 @@
         <title>AWS认证与权限管理IAM</title>
         <pubTime>2017-03-06T12:41:50.000Z</pubTime>
         
-        <tag>亚马逊认证与权限</tag>
-         
         <tag>AWS</tag>
+         
+        <tag>亚马逊认证与权限</tag>
          
         <tag>Security</tag>
          

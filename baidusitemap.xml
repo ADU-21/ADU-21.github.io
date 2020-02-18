@@ -4,6 +4,28 @@
 
     
   <url>
+    <loc>https://www.duyidong.com/2020/02/15/project-start-in-alicloud/</loc>
+    <lastmod>2020-02-18T08:26:26.786Z</lastmod>
+    <data>
+        <display>
+        <title>一个项目的诞生</title>
+        <pubTime>2020-02-15T06:31:43.000Z</pubTime>
+        
+        <tag>小结</tag>
+         
+        <tag>工作</tag>
+         
+         
+           
+             
+              <breadCrumb title="阿里巴巴" url="https://www.duyidong.com/categories/%E9%98%BF%E9%87%8C%E5%B7%B4%E5%B7%B4/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://www.duyidong.com/2019/11/26/arthas-analytics-rt/</loc>
     <lastmod>2020-01-08T13:18:47.252Z</lastmod>
     <data>
@@ -272,9 +294,9 @@
         <title>凤凰式服务</title>
         <pubTime>2016-11-02T09:06:13.000Z</pubTime>
         
-        <tag>DevOps</tag>
-         
         <tag>翻译</tag>
+         
+        <tag>DevOps</tag>
          
         <tag>凤凰式服务</tag>
          
@@ -296,9 +318,9 @@
         <title>雪花服务器</title>
         <pubTime>2016-11-04T07:29:52.000Z</pubTime>
         
-        <tag>DevOps</tag>
-         
         <tag>翻译</tag>
+         
+        <tag>DevOps</tag>
          
         <tag>雪花服务器</tag>
          
@@ -770,11 +792,11 @@
         <title>再谈 DevOps</title>
         <pubTime>2018-07-27T16:19:31.000Z</pubTime>
         
+        <tag>翻译</tag>
+         
         <tag>DevOps</tag>
          
         <tag>Platform</tag>
-         
-        <tag>翻译</tag>
          
          
            
@@ -1381,9 +1403,9 @@
         <title>DevOps的三种方式</title>
         <pubTime>2017-07-12T14:50:38.000Z</pubTime>
         
-        <tag>DevOps</tag>
-         
         <tag>翻译</tag>
+         
+        <tag>DevOps</tag>
          
         <tag>理论框架</tag>
          

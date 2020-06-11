@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.duyidong.com/"/>
-  <updated>2020-02-18T08:26:26.786Z</updated>
+  <updated>2020-06-08T15:06:50.095Z</updated>
   <id>https://www.duyidong.com/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>杜若生</title>
+    <link href="https://www.duyidong.com/2020/06/07/duruosheng/"/>
+    <id>https://www.duyidong.com/2020/06/07/duruosheng/</id>
+    <published>2020-06-07T03:56:01.000Z</published>
+    <updated>2020-06-08T15:06:50.095Z</updated>
+    
+    <content type="html"><![CDATA[<p>细雨枇杷熟，空江杜若生。</p><a id="more"></a><p>杜若是一种香草，七月开花九月结果，五六月正是生长的时候。</p><p>小名小满，意为满意、圆满。小满也是五月底一个节气，暖湿气流活跃，雨水开始增多，往往会出现持续大范围的强降水，江河渐满，也是杜若生的时候。</p><p><img src="/images/RuoshengDU.jpg" alt=""></p><blockquote><p>Thanks for give me one more reason to be a better man.</p></blockquote>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;细雨枇杷熟，空江杜若生。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="我的博客" scheme="https://www.duyidong.com/categories/%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>一个项目的诞生</title>
@@ -512,40 +532,13 @@
     
       <category term="小计" scheme="https://www.duyidong.com/tags/%E5%B0%8F%E8%AE%A1/"/>
     
-      <category term="工具" scheme="https://www.duyidong.com/tags/%E5%B7%A5%E5%85%B7/"/>
-    
       <category term="AWS" scheme="https://www.duyidong.com/tags/AWS/"/>
+    
+      <category term="工具" scheme="https://www.duyidong.com/tags/%E5%B7%A5%E5%85%B7/"/>
     
       <category term="Cloud" scheme="https://www.duyidong.com/tags/Cloud/"/>
     
       <category term="Pipeline" scheme="https://www.duyidong.com/tags/Pipeline/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>使用 Kcptun 加速 Shadowsocks</title>
-    <link href="https://www.duyidong.com/2018/02/25/kcptun-shadowsocks/"/>
-    <id>https://www.duyidong.com/2018/02/25/kcptun-shadowsocks/</id>
-    <published>2018-02-25T13:40:32.000Z</published>
-    <updated>2019-02-24T14:55:53.996Z</updated>
-    
-    <content type="html"><![CDATA[<p>在<a href="/2017/11/03/how-to-setup-ss-on-linode/">搭建完加强版 Shadowsocks</a>后如果希望进一步减少延迟，或者在网络比较差的地方也想流畅使用代理，这篇文章会对你有帮助。笔者亲测可观看 Youtube 2K 视频。</p><h1 id="基本思路"><a href="#基本思路" class="headerlink" title="基本思路"></a>基本思路</h1><p>使用代理上网，我们发出的网络请求实际上经过了“本地-&gt;代理服务器-&gt;目标服务器”两段网络请求，后半段发生在外网的网络请求在<a href="/2017/11/03/how-to-setup-ss-on-linode/">上一篇文章</a>中已经介绍过可以通过开启增强版 BBR 增加代理稳定性，这篇文章里讲到的 Kcptun 用法目标则是为了以牺牲一定带宽的方式，降低本地到代理服务器这段网络请求的延迟，以提高上网速度。</p><h1 id="实现原理——Kcptun-介绍"><a href="#实现原理——Kcptun-介绍" class="headerlink" title="实现原理——Kcptun 介绍"></a>实现原理——Kcptun 介绍</h1><p><a href="https://github.com/xtaci/kcptun" target="_blank" rel="noopener">Kcptun</a> 是一个非常简单和快速的，基于 <a href="https://github.com/skywind3000/kcp" target="_blank" rel="noopener">KCP 协议</a>的 UDP 隧道，它可以将 TCP 流转换为 KCP+UDP 流。计算机网络课上我们学过，七层网络结构中运输层的 UDP 是一个无连接、尽最大努力的数据传输服务，优点是交付效率高、速度快；缺点是不提供可靠交付，而 KCP 是一个快速可靠协议，以选择性重复发包的方式，能以比 TCP 浪费10%-20%的带宽的代价，换取平均延迟降低 30%-40%，且最大延迟降低三倍的传输效果。</p><p><img src="https://blog.kuoruan.com/wp-content/uploads/2016/06/kcptun.png" alt=""></p><center>Kcptun 工作示意图 图片来自：<a href="https://blog.kuoruan.com/" target="_blank" rel="noopener"><strong>扩软博客</strong></a></center><h1 id="搭建-Kcptun"><a href="#搭建-Kcptun" class="headerlink" title="搭建 Kcptun"></a>搭建 Kcptun</h1><p>那么，这么好的工具，该怎么用呢？<br>Kcptun 的安装比较繁琐，万幸的是有人写成了自动安装脚本，包含了常用设置和开机自启的配置，我以<a href="/2017/11/03/how-to-setup-ss-on-linode/">上一篇文章</a>中搭建的 Shadowsocks 为基础，简要介绍一下搭建过程，完整版可见<a href="https://blog.kuoruan.com/110.html" target="_blank" rel="noopener">脚本作者博客</a>。<br>登录你的 Shadowsocks 服务器，运行：</p><pre><code>wget --no-check-certificate https://github.com/kuoruan/shell-scripts/raw/master/kcptun/kcptun.sh # 下载脚本chmod +x ./kcptun.sh     # 添加执行权限./kcptun.sh              # 运行安装</code></pre><p>最后一个命令运行的是一个带交互功能的命令工具，除了“<u>需要加速的端口</u>”和“<u>Kcptun 密码</u>”需要自己定义，其他所有提示都可以直接回车使用默认值，脚本运行完后，把“<u>可使用的客户端配置文件</u>”复制下来，保存到本地，命名为 <code>config.json</code> 文件，并记录下服务器版本（如<code>20171201</code>），在启动客户端的时候会用到。<br>检查时候运行成功：</p><pre><code>service supervisord status    # 服务管理服务是否正常运行supervisorctl status kcptun   # kcptun 是否正常运行</code></pre><p>查看状态分别是 <code>Active</code>和 <code>running</code>则说明安装成功。</p><h1 id="客户端配置"><a href="#客户端配置" class="headerlink" title="客户端配置"></a>客户端配置</h1><p>以命令行的代理为例，加上 Tcptun 后，一次命令行请求的顺序就变成了：<strong>proxychains -&gt; ss-agent -&gt; kcptun-agent -&gt; kcptunu-server -&gt; ss-server</strong>，也就是说 GoAgent 配置的 ss-agent 不再转发到远程的 ss-server 服务器地址，而是指向本地的 kcptun 监听的地址（127.0.0.1:&lt;监听端口&gt;），而 kcptun-agent 服务则需要知道远程的kcptun-server 的地址和端口。kcptun-agent 的配置不需要亲自操心，已经在服务器 Setup 后记录的 <code>config.json</code> 文件中了，因此客户端的操作是：</p><h2 id="第一步：客户端-Kcptun-配置"><a href="#第一步：客户端-Kcptun-配置" class="headerlink" title="第一步：客户端 Kcptun 配置"></a>第一步：客户端 Kcptun 配置</h2><p>在 <a href="https://github.com/xtaci/kcptun/releases" target="_blank" rel="noopener">https://github.com/xtaci/kcptun/releases</a> 找到对应服务器版本（在安装完成后显示）的客户端版本（<code>darwin</code>是给 OSX 的），下载并解压，我们只需要<code>client_darwin_amd64.sh</code>这一个文件，在客户端执行：</p><pre><code>./client_darwin_amd64.sh -c config.json</code></pre><p>看到日志输出 <code>connection: ...</code>则说明连接成功，这个时候在服务器端运行之前用于安装 kcptun 的脚步也应该能看到客户端连上的信息：</p><pre><code>./kcptun.sh log</code></pre><h2 id="第二步：客户端-GoAgentX-配置"><a href="#第二步：客户端-GoAgentX-配置" class="headerlink" title="第二步：客户端 GoAgentX 配置"></a>第二步：客户端 GoAgentX 配置</h2><p>将 GoAgentX 中原有配置的 ServerAdress 改成 127.0.0.1，并把 ServerProt 设置为 <code>config.json</code>中<code>localaddr</code>所指的端口即可。<br>正如上文所说，现在 Shadowsocks 的服务器地址由  Kcptun 记录，ss-agent 只需要指向 Kcptun 的客户端进程即可；其他所有配置，包括 <a href="https://github.com/rofl0r/proxychains-ng" target="_blank" rel="noopener">proxychains</a> 和 <a href="chrome-extension://padekgcemlokbadohgkifijomclgjgif/options.html#!/about" target="_blank" rel="noopener">SwitchyOmega</a> 都不需要变更。这个时候再用代理上网的时候就可以看到 Kcptun 有数据流开闭的日志，说明 Kcptun 启用成功！</p><blockquote><ul><li>References:</li><li><a href="https://blog.kuoruan.com/102.html" target="_blank" rel="noopener">https://blog.kuoruan.com/102.html</a></li><li><a href="https://blog.kuoruan.com/110.html" target="_blank" rel="noopener">https://blog.kuoruan.com/110.html</a></li></ul></blockquote>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;在&lt;a href=&quot;/2017/11/03/how-to-setup-ss-on-linode/&quot;&gt;搭建完加强版 Shadowsocks&lt;/a&gt;后如果希望进一步减少延迟，或者在网络比较差的地方也想流畅使用代理，这篇文章会对你有帮助。笔者亲测可观看 Youtube 2K 视频
-      
-    
-    </summary>
-    
-      <category term="工具" scheme="https://www.duyidong.com/categories/%E5%B7%A5%E5%85%B7/"/>
-    
-    
-      <category term="代理" scheme="https://www.duyidong.com/tags/%E4%BB%A3%E7%90%86/"/>
-    
-      <category term="Shadowsocks" scheme="https://www.duyidong.com/tags/Shadowsocks/"/>
     
   </entry>
   

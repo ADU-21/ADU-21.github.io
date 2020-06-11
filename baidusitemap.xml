@@ -4,6 +4,24 @@
 
     
   <url>
+    <loc>https://www.duyidong.com/2020/06/07/duruosheng/</loc>
+    <lastmod>2020-06-08T15:06:50.095Z</lastmod>
+    <data>
+        <display>
+        <title>杜若生</title>
+        <pubTime>2020-06-07T03:56:01.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="我的博客" url="https://www.duyidong.com/categories/%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://www.duyidong.com/2020/02/15/project-start-in-alicloud/</loc>
     <lastmod>2020-02-18T08:26:26.786Z</lastmod>
     <data>
@@ -287,30 +305,6 @@
 
     
   <url>
-    <loc>https://www.duyidong.com/2016/11/02/%E7%BF%BB%E8%AF%91-%E5%87%A4%E5%87%B0%E5%BC%8F%E6%9C%8D%E5%8A%A1/</loc>
-    <lastmod>2019-02-24T14:58:08.418Z</lastmod>
-    <data>
-        <display>
-        <title>凤凰式服务</title>
-        <pubTime>2016-11-02T09:06:13.000Z</pubTime>
-        
-        <tag>翻译</tag>
-         
-        <tag>DevOps</tag>
-         
-        <tag>凤凰式服务</tag>
-         
-         
-           
-             
-              <breadCrumb title="DevOps" url="https://www.duyidong.com/categories/DevOps/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://www.duyidong.com/2016/11/04/%E7%BF%BB%E8%AF%91-%E9%9B%AA%E8%8A%B1%E6%9C%8D%E5%8A%A1%E5%99%A8/</loc>
     <lastmod>2019-02-24T14:58:08.418Z</lastmod>
     <data>
@@ -323,6 +317,30 @@
         <tag>DevOps</tag>
          
         <tag>雪花服务器</tag>
+         
+         
+           
+             
+              <breadCrumb title="DevOps" url="https://www.duyidong.com/categories/DevOps/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.duyidong.com/2016/11/02/%E7%BF%BB%E8%AF%91-%E5%87%A4%E5%87%B0%E5%BC%8F%E6%9C%8D%E5%8A%A1/</loc>
+    <lastmod>2019-02-24T14:58:08.418Z</lastmod>
+    <data>
+        <display>
+        <title>凤凰式服务</title>
+        <pubTime>2016-11-02T09:06:13.000Z</pubTime>
+        
+        <tag>翻译</tag>
+         
+        <tag>DevOps</tag>
+         
+        <tag>凤凰式服务</tag>
          
          
            
@@ -381,6 +399,28 @@
 
     
   <url>
+    <loc>https://www.duyidong.com/2016/05/19/CI-CD/</loc>
+    <lastmod>2019-02-24T14:58:08.415Z</lastmod>
+    <data>
+        <display>
+        <title>CI/CD</title>
+        <pubTime>2016-05-19T12:04:35.000Z</pubTime>
+        
+        <tag>DevOps</tag>
+         
+        <tag>Agile</tag>
+         
+         
+           
+             
+              <breadCrumb title="DevOps" url="https://www.duyidong.com/categories/DevOps/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://www.duyidong.com/2019/02/09/end-of-2018-start-of-2019/</loc>
     <lastmod>2019-02-24T14:58:08.415Z</lastmod>
     <data>
@@ -401,21 +441,21 @@
 
     
   <url>
-    <loc>https://www.duyidong.com/2016/05/19/CI-CD/</loc>
-    <lastmod>2019-02-24T14:58:08.415Z</lastmod>
+    <loc>https://www.duyidong.com/2019/01/08/aws-certification-share/</loc>
+    <lastmod>2019-02-24T14:58:08.414Z</lastmod>
     <data>
         <display>
-        <title>CI/CD</title>
-        <pubTime>2016-05-19T12:04:35.000Z</pubTime>
+        <title>AWS 认证分享</title>
+        <pubTime>2019-01-08T15:09:40.000Z</pubTime>
         
-        <tag>DevOps</tag>
+        <tag>AWS</tag>
          
-        <tag>Agile</tag>
+        <tag>云计算认证</tag>
          
          
            
              
-              <breadCrumb title="DevOps" url="https://www.duyidong.com/categories/DevOps/"/>
+              <breadCrumb title="Amazon Web Services" url="https://www.duyidong.com/categories/Amazon-Web-Services/"/>
           
         </display>
     </data>
@@ -440,28 +480,6 @@
            
              
               <breadCrumb title="ThoughtWorks" url="https://www.duyidong.com/categories/ThoughtWorks/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://www.duyidong.com/2019/01/08/aws-certification-share/</loc>
-    <lastmod>2019-02-24T14:58:08.414Z</lastmod>
-    <data>
-        <display>
-        <title>AWS 认证分享</title>
-        <pubTime>2019-01-08T15:09:40.000Z</pubTime>
-        
-        <tag>AWS</tag>
-         
-        <tag>云计算认证</tag>
-         
-         
-           
-             
-              <breadCrumb title="Amazon Web Services" url="https://www.duyidong.com/categories/Amazon-Web-Services/"/>
           
         </display>
     </data>
@@ -862,9 +880,9 @@
         
         <tag>小计</tag>
          
-        <tag>工具</tag>
-         
         <tag>AWS</tag>
+         
+        <tag>工具</tag>
          
         <tag>Cloud</tag>
          

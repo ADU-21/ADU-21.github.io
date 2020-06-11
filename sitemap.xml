@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.duyidong.com/2020/06/07/duruosheng/</loc>
+    
+    <lastmod>2020-06-08T15:06:50.095Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://www.duyidong.com/2020/02/15/project-start-in-alicloud/</loc>
     
     <lastmod>2020-02-18T08:26:26.786Z</lastmod>
@@ -93,14 +100,14 @@
   </url>
   
   <url>
-    <loc>https://www.duyidong.com/2016/11/02/%E7%BF%BB%E8%AF%91-%E5%87%A4%E5%87%B0%E5%BC%8F%E6%9C%8D%E5%8A%A1/</loc>
+    <loc>https://www.duyidong.com/2016/11/04/%E7%BF%BB%E8%AF%91-%E9%9B%AA%E8%8A%B1%E6%9C%8D%E5%8A%A1%E5%99%A8/</loc>
     
     <lastmod>2019-02-24T14:58:08.418Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://www.duyidong.com/2016/11/04/%E7%BF%BB%E8%AF%91-%E9%9B%AA%E8%8A%B1%E6%9C%8D%E5%8A%A1%E5%99%A8/</loc>
+    <loc>https://www.duyidong.com/2016/11/02/%E7%BF%BB%E8%AF%91-%E5%87%A4%E5%87%B0%E5%BC%8F%E6%9C%8D%E5%8A%A1/</loc>
     
     <lastmod>2019-02-24T14:58:08.418Z</lastmod>
     
@@ -121,13 +128,6 @@
   </url>
   
   <url>
-    <loc>https://www.duyidong.com/2019/02/09/end-of-2018-start-of-2019/</loc>
-    
-    <lastmod>2019-02-24T14:58:08.415Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://www.duyidong.com/2016/05/19/CI-CD/</loc>
     
     <lastmod>2019-02-24T14:58:08.415Z</lastmod>
@@ -135,14 +135,21 @@
   </url>
   
   <url>
-    <loc>https://www.duyidong.com/2018/10/24/from-thoughtworks-to-alibaba/</loc>
+    <loc>https://www.duyidong.com/2019/02/09/end-of-2018-start-of-2019/</loc>
+    
+    <lastmod>2019-02-24T14:58:08.415Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.duyidong.com/2019/01/08/aws-certification-share/</loc>
     
     <lastmod>2019-02-24T14:58:08.414Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://www.duyidong.com/2019/01/08/aws-certification-share/</loc>
+    <loc>https://www.duyidong.com/2018/10/24/from-thoughtworks-to-alibaba/</loc>
     
     <lastmod>2019-02-24T14:58:08.414Z</lastmod>
     
